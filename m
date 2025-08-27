@@ -1,77 +1,199 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBF8305E3E
-	for <quic@lists.linux.dev>; Mon, 25 Aug 2025 17:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8728199230
+	for <quic@lists.linux.dev>; Wed, 27 Aug 2025 04:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756143758; cv=none; b=jdEuHEzn8GcJfOpqES9OgE5Ssj7ddlUdFNUayf5MoTvqgBgLvNuLEZKagdPvFNTQ0HivHpRoeYUe0rf/gyoc+btXM1WJChQ3HfLMAswmDUX5ERpwnTYfDcFDXjRZmuTap0pijgsl3m5n8T97LqmTTE94mZaazjrS/3er4Q2lAbY=
+	t=1756269988; cv=none; b=l8Nj9sTNpiqUJWen4AFAQ9xIHgKXU3yyaNycAYOEIm4TVOzoVkfj7g6+J367UCONr3tae4gVcYqOWlm7xjxRpyHlE/bxgCLAaqN6pnGqB81Jhvbsk+zsmg+iCZNACQiAByZ/Yxxz6gm2i4GMMri36VyUPQO/DUuk7xe5G14rSbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756143758; c=relaxed/simple;
-	bh=+RBQYV6eM3JRVfE96AICraJ2bI9W/wj8PUgbVulMp0I=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=Vc1NvD9FjiAXz16TbiQkY+cMU0lQHGwdztX/qHbYucuiqKjakJNtnH+fHpEME5atJK/bps0Z0v3KeqagWzJdAWAlZUlvWuGZspdzhUrui89Jel6aTDgcS+/sS3GBDjkNmN4Rqoyr28eFkSynE1twMY3xtOlLTCDwOeL5mK8Uc+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=contractor.linuxfoundation.org; spf=pass smtp.mailfrom=contractor.linuxfoundation.org; dkim=pass (2048-bit key) header.d=contractor.linuxfoundation.org header.i=@contractor.linuxfoundation.org header.b=W19gFqKE; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=contractor.linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=contractor.linuxfoundation.org
+	s=arc-20240116; t=1756269988; c=relaxed/simple;
+	bh=YZ8XN4JlKmbALa20PMFw7N7pTiOcyy9pOFvtYP5fk3Q=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=t/EHEQ2JDSE14TqPYA6FICta0CPZmyaZUZkFFlmbNxW3oopuDgmwP5WLObvbj5ZGimXMQba11shj/eXEJQerjOT9UhEyjUiLRqodX0DZv5zr8guAJN8N5kygyPy9r7SlcSqUKl/9RECUwx4Kb0zmXr+1lPdBS/stEM/VHScDmA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=johnericson.me; spf=pass smtp.mailfrom=johnericson.me; dkim=pass (2048-bit key) header.d=johnericson.me header.i=@johnericson.me header.b=hbxS3Dw6; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XJ4LPzj7; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=johnericson.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=johnericson.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=contractor.linuxfoundation.org header.i=@contractor.linuxfoundation.org header.b="W19gFqKE"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-55f48d62057so911271e87.1
-        for <quic@lists.linux.dev>; Mon, 25 Aug 2025 10:42:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=contractor.linuxfoundation.org; s=google; t=1756143753; x=1756748553; darn=lists.linux.dev;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=P+enN6EdoVTb8pAtjBuDrmQSJ4Ta27+MaPSsesOZU5Y=;
-        b=W19gFqKEOq9mL8jS1JzE1Ir/kvsyqianNcmmGcWjGOxVoKDFYTrH4v+4EZxYZnesxC
-         KepMf0lHvoOxhPAeYise4VzIjSQBGV+MxkyUOGKA3dQLSbg0NdStjeff++DwMxfvSzP3
-         sxqRn10hc1GHk87+CmVaReUbpZzl8GmToEPzmY0ZI2iCx76fYz0cnsrWhtzWaY3/Nvsq
-         V6nciLXrXmXmd1hkl/YP9qDAllY16ypD3K12D2KrWcR+CQo3UPTykFALeEIw12rzZZ+2
-         BnnPYngmzKeY0/jD0dBdw8tEJf1Ze5ndHcxPH+24MUjaqrYkOvAmGL5L4wZOfeABv6EK
-         Lf5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756143753; x=1756748553;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=P+enN6EdoVTb8pAtjBuDrmQSJ4Ta27+MaPSsesOZU5Y=;
-        b=rnLxGReVPWJ96XIptpYwsSzHl1dBOjCpjMCDNh72CniGqtRZkiY0qXyBkEr6SIJldO
-         ARgYpolmHFgt0wgcIH5joUxmT9lPE9af7T+lBnBRpT/EsRwZI4KN6O+v6jop3MsVnUc8
-         e29dFAT6jo+5mh09SD6woQXBvj21fKdd5RpJ9qORuH1aImZe1mDgQZNBl17cDfURkmtQ
-         MFd0Cx7RFwUbZq1PMvAgCc9JAntENqaU+48XjwYHhFEOrIdyWieQpRk51XjXEImgUUCN
-         azq8uIx3dNvbKj1LHKRNEgeLDVjm+Iyf5nDK5nOtiwuKPpOcSx3dQzoLweFjSD1uqEW0
-         UMXg==
-X-Gm-Message-State: AOJu0YyfWw1CCY+dx8YMJYzt40NW3VBg8elIUAzJVXiAEUOBWk1ajV12
-	vHG4xCQgBRIItE5qCtathZ5Nn3XJGKQwy8+4Ki4+sQDoFND4pG1bcK146FZLCEj0+WpituqAzNV
-	TjbF/O45SVYvd/bmEF/MEMLuKao/zm7thU2EYYATRL76lMz5oNf+PUR8=
-X-Gm-Gg: ASbGncv/OX2IfBRy1NTSHvXl6dP2aOCRWjdabMg27rZVhlmOg+VleTNzhvAoIz0WXK4
-	f8G18viuO24VRP2bG0gxNmKzUMTb8lY4uN+NLb2pJyerKj0zjVORdkSe26Tt+DnMglf41C2sNlp
-	Nl78wGDn8T6RJG/964Ab8Kq+5fg9kTCS2XBxTvqWbC6dQ+Rj4wZGyxToQddBp6q0mWqNj8ISnSX
-	03FtR/yr1C+c3GFToAonrmrmhUyJ9LvqIdOL3zBAjcAH/wfLw04
-X-Google-Smtp-Source: AGHT+IE6Fgcvcsvz9e81CtTHPUO04r0Ee7qZ94LihK28XZ2EPX/7O+c/Xwy55JNji42QpyOo7iA1ryte5+0IJ53pcNA=
-X-Received: by 2002:a05:6512:b0d:b0:55f:4633:7b2 with SMTP id
- 2adb3069b0e04-55f46330e22mr971297e87.46.1756143752824; Mon, 25 Aug 2025
- 10:42:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=johnericson.me header.i=@johnericson.me header.b="hbxS3Dw6";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XJ4LPzj7"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.stl.internal (Postfix) with ESMTP id BD78B1D000F5;
+	Wed, 27 Aug 2025 00:46:23 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+  by phl-compute-11.internal (MEProxy); Wed, 27 Aug 2025 00:46:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=johnericson.me;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
+	 t=1756269983; x=1756356383; bh=rnU3HSLKyuqh0N3v7WRKaI1Mk8bTweeh
+	MjpkiZxpCz8=; b=hbxS3Dw6ijmJP7oxFJBGMoHKK99YKFUoEwa2yEbb7Lp5Bc8E
+	o8g9c9NSMhHTUL/xKz72UNTOh7dQQ20YhAMhF6upY/P77JEkozb63Ssv/2PVX/Z0
+	Sv3R7EvgVoUZgNLf7iFnElP15w8j1oGKzwkCcY1mcE1hcNy/COEOXJrGsKNq5H+b
+	g04SNb1URKIvVx32m4SXrF/fVeqEA5QSPbMQTRSzH3QCJ4SiDjI4q2BItTFWm0PS
+	++qc24qapCz4fF0OGye69LMQnnTEoavH6J2Ki8uHLi5kxNLSvs8c/UFrQDvwXhyX
+	hjLclP/6dbJoWR9y4/7PRZ/w3ynptkx4vMvF6w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1756269983; x=
+	1756356383; bh=rnU3HSLKyuqh0N3v7WRKaI1Mk8bTweehMjpkiZxpCz8=; b=X
+	J4LPzj7reMZEhHs2hG0mF3OfVLVWYMiulrUPtblO50SY6gv4gBd2ygor9VSjHypC
+	EWhKbuuhWIryhqZhyqFIQJ6cj9vq/2f31S5SkIVFTsGcn372qQ2fyxbasJUSODpH
+	JBD3VwCBJcw7lAOPUT7kqzSWZlouBGwp26ZpIb7+kPsD2jUXL1BaPEkxOXt/XunD
+	qaDSYHhSGgs64yqoLx1GjuH4lwuvxPycyjsSYazaxD3S0P3T0B0gsZEfKhGvc75b
+	RNZxz3C9XjsuWNTI8fCXuegC/S7FqnxA/erI6cgdhcHcZZ1pxkPUHgwl7E9EamvO
+	j8Fsx1xtTf8asHsCanAMA==
+X-ME-Sender: <xms:no2uaM647b97iQQ60YIwy1Wx3j-tyI-VejzX4MB8MCR1kZ3m9z-AHg>
+    <xme:no2uaN7fHpa7Q8eJ62aIl3toYo0lpZasGnM1hy2rUP4nUkXVbvfmOOZnpvgb25u4S
+    l2LIWzeWLjt-rj7KK8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddujeejvddvucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucenucfjughrpefoggffhffvvefkjghfufgtgfesthhqre
+    dtredtjeenucfhrhhomhepfdflohhhnhcugfhrihgtshhonhdfuceomhgrihhlsehjohhh
+    nhgvrhhitghsohhnrdhmvgeqnecuggftrfgrthhtvghrnhepjeeltdegueetteeuvdevve
+    ffffeuleevueejjefhgfdvgeefueefgedtkeelhfffnecuffhomhgrihhnpehkvghrnhgv
+    lhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+    hmpehmrghilhesjhhohhhnvghrihgtshhonhdrmhgvpdhnsggprhgtphhtthhopeegpdhm
+    ohguvgepshhmthhpohhuthdprhgtphhtthhopehluhgtihgvnhdrgihinhesghhmrghilh
+    drtghomhdprhgtphhtthhopegurhgrfhhtqdhlgihinhdqqhhuihgtqdhsohgtkhgvthdq
+    rghpihhssehivghtfhdrohhrghdprhgtphhtthhopehquhhitgeslhhishhtshdrlhhinh
+    hugidruggvvhdprhgtphhtthhopehmsghuhhhlsehruhhsshgvlhdruhgsvghrshhprggt
+    vgdruggv
+X-ME-Proxy: <xmx:no2uaAJmkJbIHdBBZ5qhoqG6lJFkNCy8AwWf-eUoXZwBYkg6yrOlAw>
+    <xmx:no2uaFhO5CQPJH1zmMk6qDHnD1CBYDLVvMFHabRTPZQD0XN1UhHjaQ>
+    <xmx:no2uaA5S5XegfCAjSwG_KkYCa7PEf1QeOJV7qxTHHuKhzjPqo92dqQ>
+    <xmx:no2uaNYWV4A0Xqi8lc6-RlqmyzZtjedQJqvUPQKd9fINS_MSQ-lG_w>
+    <xmx:n42uaOXdvND6fRHD1eVs-HP6-5bvlRwIxcDrnCs--K5l5bwOTIlxlNuH>
+Feedback-ID: ieb4144f1:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 9B9CB700069; Wed, 27 Aug 2025 00:46:22 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-From: Shyam Kumar <skachukattu@contractor.linuxfoundation.org>
-Date: Mon, 25 Aug 2025 12:42:22 -0500
-X-Gm-Features: Ac12FXx8wVIzLVC1u-UFypRPutveNW68wHQfJhQqtzfk9KnIQlsneEyNWOSnDwA
-Message-ID: <CAH=dH9-i10xE1iXofR5vNo9pEO-1NfOeUkNds6A_Fsd4whK6Sg@mail.gmail.com>
-Subject: Test Mail
+X-ThreadId: AsYvG0Y22C5R
+Date: Wed, 27 Aug 2025 00:45:30 -0400
+From: "John Ericson" <mail@johnericson.me>
 To: quic@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Cc: "Xin Long" <lucien.xin@gmail.com>, mbuhl@russel.uberspace.de,
+ draft-lxin-quic-socket-apis@ietf.org
+Message-Id: <c5d598ac-1bb0-47db-a90d-39d475f02bfe@app.fastmail.com>
+In-Reply-To: 
+ <CADvbK_e9sNbvHSCNuvetOCFY5OQPG99tmZLW=odcRzcN9xK8rQ@mail.gmail.com>
+References: <cover.1755525878.git.lucien.xin@gmail.com>
+ <cb74facd-aa28-4c9d-b05f-84be3a135b20@app.fastmail.com>
+ <CADvbK_f4v916nbx4t0fnkCj44S-buTytj_Paurd3j3Ro2tLDsQ@mail.gmail.com>
+ <CADvbK_e9sNbvHSCNuvetOCFY5OQPG99tmZLW=odcRzcN9xK8rQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 00/15] net: introduce QUIC infrastructure and core
+ subcomponents
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Tue, Aug 26, 2025, at 5:48 PM, Xin Long wrote:
+> Hi, John,
+>=20
+> Feel free to create a thread on quic@lists.linux.dev for this.
+>=20
+> Thanks.
 
+Kicking of the new linux QUIC dev mailing list with this, as requested.
 
- This is a test message to test successful delivery and start the
- archive for the list. Please ignore.
+(The last email in netdev is
+https://lore.kernel.org/netdev/CADvbK_e9sNbvHSCNuvetOCFY5OQPG99tmZLW=3Do=
+dcRzcN9xK8rQ@mail.gmail.com/,
+for reference.)
 
+> On Sun, Aug 24, 2025 at 1:57=E2=80=AFPM Xin Long <lucien.xin@gmail.com=
+> wrote:
+> >
+> > On Sat, Aug 23, 2025 at 11:21=E2=80=AFAM John Ericson <mail@johneric=
+son.me> wrote:
+> > >
+> > > (Note: This is an interface more than implementation question ---
+> > > apologies in advanced if this is not the right place to ask. I
+> > > originally sent this message to [0] about the IETF internet draft
+> > > [1], but then I realized that is just an alias for the draft
+> > > authors, and not a public mailing list, so I figured this would be
+> > > better in order to have something in the public record.)
+> > >
+> > > ---
+> > >
+> > > I was surprised to see that (if I understand correctly) in the
+> > > current design, all communication over one connection must happen
+> > > with the same socket, and instead stream ids are the sole
+> > > mechanism to distinguish between different streams (e.g. for
+> > > sending and receiving).
+> > >
+> > > This does work, but it is bad for application programming which
+> > > wants to take advantage of separate streams while being
+> > > transport-agnostic. For example, it would be very nice to run an
+> > > arbitrary program with stdout and stderr hooked up to separate
+> > > QUIC streams. This can be elegantly accomplished if there is an
+> > > option to create a fresh socket / file descriptor which is just
+> > > associated with a single stream. Then "regular" send/rescv, or
+> > > even read/write, can be used with multiple streams.
+> > >
+> > > I see that the SCTP socket interface has sctp_peeloff [2] for this
+> > > purpose. Could something similar be included in this
+> > > specification?
 
--- 
-Regards
-Shyam Kumar
-The Linux Foundation Core Projects
+> > Hi, John,
+> >
+> > That is a bit different. In SCTP, sctp_peeloff() detaches an
+> > association/connection from a one-to-many socket and returns it as a
+> > new socket. It does not peel off a stream. Stream send/receive
+> > operations in SCTP are actually quite similar to how QUIC handles
+> > streams in the proposed QUIC socket API.
+
+OK fair enough. sctp_peeloff() was the closest prior art I could find,
+but I don't know much about SCTP. Rest assured, I did have the QUIC
+semantics in mind. E.g. closing one of these QUIC per-stream peeled off
+sockets should close just the stream in question, not the entire
+connection.
+
+> > For QUIC, supporting 'stream peeloff' might mean creating a new
+> > socket type that carries a stream ID and maps its sendmsg/recvmsg to
+> > the 'parent' QUIC socket.
+
+Yes, exactly.
+
+> > But there are details to sort out, like whether the 'parent-child
+> > relationship' should be maintained.
+
+What do you mean by this? I assume the answer is that it should be
+maintained? e.g. if the connection is closed, then any child per-stream
+sockets are also invalidated and must be closed.
+
+> > We also need to consider whether this is worth implementing in the
+> > kernel, or if a  similar API could be provided in libquic.
+
+So this is sort of the crux of my argument. If it is in userland, then
+any application that wants to act per-stream needs to know about QUIC.
+But if it is in kernel, just a a tiny bit of QUIC-aware glue code is to
+plug together QUIC-agnostic software, by passing stream sockets to that
+software. (You could do it by passing pipes and a little userland
+man-in-the-middle using *quic_sendmsg and quic_recvmsg*, of course, but
+those extra context switches and copies are rather lousy.)
+
+For what it's worth, I would go further in fact and say that this
+"stream peeloff" system call should not just be supported by QUIC, too.
+It is very nice today how many code can be agnostic to TCP vs unix
+domain sockets, for example. I would ideally want the same thing to be
+true with QUIC too, via an "extended unix domain socket" that would
+replicate the QUIC state machine(s) just as regular unix domain sockets
+replicate the TCP state machine.
+
+I bring up such an "extended unix domain socket" not to indulge in scope
+creep, but just to point out that a good litmus test for a new socket
+interface is that multiple domains could meaningfully support it, and
+that litmus test is met in this case.
+
+Cheers,
+
+John
