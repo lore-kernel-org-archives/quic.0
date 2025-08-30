@@ -1,133 +1,119 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468B919CCEC
-	for <quic@lists.linux.dev>; Wed, 27 Aug 2025 04:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E035C7FBAC
+	for <quic@lists.linux.dev>; Sat, 30 Aug 2025 00:42:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756270394; cv=none; b=E8bi5G10lYWJ5Aym4k4RxVGzs+42b9ndIDxI8dlgkr4j0VBnhgT7PjMRI7QMXKKo1TS6WDhXKbWeiYZ87kxgASgGHmz7r0VPG6YooBCLcqMTRwbTqo60mJfb5aLwTfld6hFMQOYIo301V9XoVJAN+2GILs9FrAoH7UwneW5laOo=
+	t=1756514556; cv=none; b=I9m7B+QbJb8GHnAVaNZ7cydDtMgwDA58lARpqTeBrTPJx6f16l3VH886Bhu8medrtP7RY9uGw1yXGTD+bhxIb0YZkd4uahBnEv7DM4tx0OcWW4KpOuq9mwszdcnM8NE1lAWV6couAJua6ARffPao5628dOvMtp/kdjkNAwWqILY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756270394; c=relaxed/simple;
-	bh=9P6Cmo51gRxgcEPgHJelolEJTHj4vPDSTTQTRTflENg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=DP41FC927MoDRStKlKYhYK/x97DxZ2N6wMaKFuFa/hwbFwEFZl/H7npnyHLlCmWWqp6ATNEqCSPMR4Xi9dmFHSLDVeso5sqewN/x2IbwC48vplHvMvrRxO5Kkejmx5QqfM4OOYgGKJVqQuj3a8H+R97KDSKZ/V42B124zZD3BNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=johnericson.me; spf=pass smtp.mailfrom=johnericson.me; dkim=pass (2048-bit key) header.d=johnericson.me header.i=@johnericson.me header.b=I0IotvFq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IZwiSd5F; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=johnericson.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=johnericson.me
+	s=arc-20240116; t=1756514556; c=relaxed/simple;
+	bh=CcUmhJCfvbstdws6vf9ioEEvjkYhzgsclNAn6AGWcOc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Oxk17XsAybiIvzWus2/WTtteEjdMXk6ruGMg57R2YSVgM/9OUOR+bGkqH0XYvvpfE3O+eE6YagaBkUPN9+TZRQkP+v0lcMchg78ESR2nHd+tbPGN9cZN4q+9nVuOSVKLP7oH5c63pn34aHPnvEj1sgVi3NfDgU74Bd3C0yXmNRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AltoDd7k; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=johnericson.me header.i=@johnericson.me header.b="I0IotvFq";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IZwiSd5F"
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1AE571D000A2;
-	Wed, 27 Aug 2025 00:53:11 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-11.internal (MEProxy); Wed, 27 Aug 2025 00:53:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=johnericson.me;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
-	 t=1756270390; x=1756356790; bh=RQtblwlQPskOtkL+H06JjLiviT5CsK1t
-	sjlgq6JqyZ4=; b=I0IotvFqUOQDGWnZmtp0ka8j5cNaVqbUFWnNsSnOWLfoCart
-	KSq1PWkepq9SxGZMARug5JPiCd9Wi7c9TsSl1wdoodLhTENEe+86BFn3Aa7gJheI
-	wCAZvfM2V5sRlFfCmL41MLQLFoZHjYGJQzhDjPc6amrdSxXHYtkeYGEhCvwosSsv
-	bqJX/ZFXrOsZ7QcGKuP50v8zugLThgbOSAlJ+9+JbB6JQkeI3e2mQnjpX9tgamEc
-	/6mVpj5nYNH7W0Dzd1gjTXMwHNPGU5oPPxrhhVW21qkFbWH0J0C0zK0rgzjHfBip
-	0gNrR+RfHdqG04V9PDuSyEaUoo3Fa5+IaGmO3Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1756270390; x=
-	1756356790; bh=RQtblwlQPskOtkL+H06JjLiviT5CsK1tsjlgq6JqyZ4=; b=I
-	ZwiSd5F0XflW8zOpnqqycWeazEFHwzn4zfC8BcY/kEWn2Iae3K/MxaNPoCpv4yKM
-	va7r3yqJM5YZykz9miWAqJnNbLXc5bng6KQ129Y1iDcEULQb86b2Q9zY0UUE8FsR
-	zTJmSZfOQjP7IxHSV/d181X0KmIoXxXexSjdMjPbMQOaLkB1Y8p75uUdFAyrjENI
-	k5aidzbwAGDoFuzU0VgtTwiVH8Xmp3GGfKtdtl8mqNAagZy8X+5R9fIYnjY08Y1I
-	taZ42O2zVXbDcd5Xv/cpJvs2GjZp+b3lgpnalnoOeDz9KGp32/6VHWOjEXFNPbMv
-	/254XAACsV3vKxjfNR01w==
-X-ME-Sender: <xms:No-uaIAZhDNPc_9ZXnSSWAYMVXH2Zy6qLhGValaiMZIYWTJkO1UvdQ>
-    <xme:No-uaKj3HWgDycpU1GI8bDZpUL6vl67I03Xj7m2h4IzDr1AADgCbnQkdKFeCqdAkn
-    vEci97Unkco5aUvvjo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddujeejvdefucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucenucfjughrpefoggffhffvvefkjghfufgtgfesthhqre
-    dtredtjeenucfhrhhomhepfdflohhhnhcugfhrihgtshhonhdfuceomhgrihhlsehjohhh
-    nhgvrhhitghsohhnrdhmvgeqnecuggftrfgrthhtvghrnhepjeeltdegueetteeuvdevve
-    ffffeuleevueejjefhgfdvgeefueefgedtkeelhfffnecuffhomhgrihhnpehkvghrnhgv
-    lhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
-    hmpehmrghilhesjhhohhhnvghrihgtshhonhdrmhgvpdhnsggprhgtphhtthhopeegpdhm
-    ohguvgepshhmthhpohhuthdprhgtphhtthhopehluhgtihgvnhdrgihinhesghhmrghilh
-    drtghomhdprhgtphhtthhopegurhgrfhhtqdhlgihinhdqqhhuihgtqdhsohgtkhgvthdq
-    rghpihhssehivghtfhdrohhrghdprhgtphhtthhopehquhhitgeslhhishhtshdrlhhinh
-    hugidruggvvhdprhgtphhtthhopehmsghuhhhlsehruhhsshgvlhdruhgsvghrshhprggt
-    vgdruggv
-X-ME-Proxy: <xmx:No-uaOQvUigFzaucXk3JjslZqTJIXXGeI1i-mKjYi7X2sIfiexW6Xw>
-    <xmx:No-uaJJPIGjUXOp3a-jLrnTNB9CZZ_1kByMz5XYNYVjQB3yJgPzt-g>
-    <xmx:No-uaMDzA2-YknSAPDzBBlkVeA-I5moHYz0lVNzAATJSLeCfzhPWrg>
-    <xmx:No-uaKDbv6kFllS6oEwVQh3hAyNVPLcEqrCQLfKsKfYd8NjOHh7-Wg>
-    <xmx:No-uaI9iqq34rxJE1D17F7dC5jt9EalE2eth2qVmjnGeA7WQQgENP_gc>
-Feedback-ID: ieb4144f1:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 9464E700065; Wed, 27 Aug 2025 00:53:10 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AltoDd7k"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-b4717543ed9so1804416a12.3
+        for <quic@lists.linux.dev>; Fri, 29 Aug 2025 17:42:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756514553; x=1757119353; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oT2jD/jOLx3+pqshj/jnt0yFOvPC3LTkf+hPkagM+wA=;
+        b=AltoDd7k73Z7ARqPhJyqIabpqcShfOpp860AruBquArk1+NREKCJpzlq6jfv93Ljf1
+         PthiOn5Gcp/FgWaykB1gaidYNkqT8GXzuEj1EiuER80UB6Coq1boQKO9O1+BMgpGVOSF
+         IBS2mlS3lQvHhEJh5G1wXE89ighqqlEH3/07gRVbB7AN7G+p9pdIEXBrPmTEFoVpasJK
+         dVPrmW4wV5HpOpqYgmrY/Hv7Wks19QmifB1j0YLXS6vBtkoEbmHK2pHIMsOgDYOagUg8
+         5PzUCfyYPk4sOxOMhQ0DI6wDP6eyrMgeww4yfKofZPg2RcBA67uMXS2Sx9ikwJ4lNwPk
+         c8Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756514553; x=1757119353;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oT2jD/jOLx3+pqshj/jnt0yFOvPC3LTkf+hPkagM+wA=;
+        b=iNVPe6cPl8M/q0hNnVAUSjM7fGvykJ1hW0oEqlenL9VU5ZkC/TpGGqvkRUdcWKOdiD
+         p2Zf7NJWlMuNq9v5f9w4HIybmVmfrVvTQP2bKVBJ2WDdR+Byjae0ZlmZzZTOgl52Y+Q3
+         rWQVRKJqN45VPLdpo5NVnPSlr7n5uypyPrrsCMWoDmI0izVDz1XrbiC6SwyBXxlFuOKt
+         q8uKvd6+HIh94PAVBHkDsSZkx6xQO+EbqIG0n00bq8imhRZ3jfkJWkDOPvjJN0ejpeYT
+         euWrwaFuD/FzU46VbxGgzzkfJbvKVGrKMmTW3TRIkrS91ACfDQB1YYpgpwSdGlWDKz05
+         1SPQ==
+X-Gm-Message-State: AOJu0YxqZWFnYzk1REc4JPbAy3PSr0xNqfkLYqpoOhvveBgPLj6FgObk
+	TbWx+vmVDhsluvvFYo7dg0/F6aoHNuwMoxb1Wa/JjV942GGBv03Ryq6Ku4gNwWIHhxIUSDa1xcj
+	9GNe4VBIK8mPPCHMrFoYPqEfRWIvsIIY=
+X-Gm-Gg: ASbGnctNhmlFPfvEc3mNdqrI7QDjAVuwxisUgnlPdUUtbMcjJDg1IkQtOLb0q6QmQLY
+	P6bXfazNWA4sI6GR6wQyI7EUH6UngaPXhGAo2cNMO+Z2yZQ0SiRzlAG4Fti7JbqsFeztJx2EyWl
+	nFZrEzbkAU+n6eQxE6q8u5280ilz3Y2eYrUOZ5zSV8gaQwjcyg+ySacwFSpzxclop1c+s5BsXuR
+	ZzoVPD/Dmk5rd+sU9NMe9Fg4Rv5T7PC8+jUSN4=
+X-Google-Smtp-Source: AGHT+IGS/r4DQ7InDpSOjhsvxFhCcRIO95OY0Q7bSjdBJZQzLP4e1A99PrzfGYy8u1n0OBioCJY3Ly3bcn0pprp0cUE=
+X-Received: by 2002:a05:6a20:4322:b0:243:c36b:bec9 with SMTP id
+ adf61e73a8af0-243d6e5bb1dmr748994637.26.1756514553090; Fri, 29 Aug 2025
+ 17:42:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Date: Wed, 27 Aug 2025 00:52:50 -0400
-From: "John Ericson" <mail@johnericson.me>
-To: quic@lists.linux.dev
-Cc: "Xin Long" <lucien.xin@gmail.com>, mbuhl@russel.uberspace.de,
- draft-lxin-quic-socket-apis@ietf.org
-Message-Id: <d800e384-92ed-4db3-9b2e-42c675197d5e@app.fastmail.com>
-In-Reply-To: <c5d598ac-1bb0-47db-a90d-39d475f02bfe@app.fastmail.com>
-References: <cover.1755525878.git.lucien.xin@gmail.com>
- <cb74facd-aa28-4c9d-b05f-84be3a135b20@app.fastmail.com>
+References: <cover.1755525878.git.lucien.xin@gmail.com> <cb74facd-aa28-4c9d-b05f-84be3a135b20@app.fastmail.com>
  <CADvbK_f4v916nbx4t0fnkCj44S-buTytj_Paurd3j3Ro2tLDsQ@mail.gmail.com>
  <CADvbK_e9sNbvHSCNuvetOCFY5OQPG99tmZLW=odcRzcN9xK8rQ@mail.gmail.com>
- <c5d598ac-1bb0-47db-a90d-39d475f02bfe@app.fastmail.com>
-Subject: Separate sockets for separate connections
-Content-Type: text/plain; charset=utf-8
+ <c5d598ac-1bb0-47db-a90d-39d475f02bfe@app.fastmail.com> <9d4a3c5f-8b4b-4057-b550-e9158cbbc8bf@app.fastmail.com>
+In-Reply-To: <9d4a3c5f-8b4b-4057-b550-e9158cbbc8bf@app.fastmail.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Fri, 29 Aug 2025 20:42:21 -0400
+X-Gm-Features: Ac12FXw38GebHiJG4pEhOoSgkdC905HUjecOCRd1zHAZgvK4QLCTSPoWdyI5e5g
+Message-ID: <CADvbK_fGu11GwR1eoxBsCF8HSnOGf9L_0fZwWX6XQNaZzFOk-Q@mail.gmail.com>
+Subject: Re: Separate sockets for separate connections
+To: John Ericson <mail@johnericson.me>
+Cc: quic@lists.linux.dev, mbuhl@russel.uberspace.de, 
+	Stefan Metzmacher <metze@samba.org>, draft-lxin-quic-socket-apis@ietf.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Aye, I did everything I meant to do email-wise but change the subject li=
-ne to
-something more appropriate. Let me just reply to myself right away doing=
- that
-before there are more messages.
+On Wed, Aug 27, 2025 at 12:49=E2=80=AFAM John Ericson <mail@johnericson.me>=
+ wrote:
+>
+> Aye, I did everything I meant to do email-wise but change the subject lin=
+e to
+> something more appropriate. Let me just reply to myself right away doing =
+that
+> before there are more messages.
+>
+Thanks for opening this thread with a new subject!
 
-John
-
-On Wed, Aug 27, 2025, at 12:45 AM, John Ericson wrote:
+>
+> On Wed, Aug 27, 2025, at 12:45 AM, John Ericson wrote:
+>
 > On Tue, Aug 26, 2025, at 5:48 PM, Xin Long wrote:
 > > Hi, John,
-> >=20
+> >
 > > Feel free to create a thread on quic@lists.linux.dev for this.
-> >=20
+> >
 > > Thanks.
->=20
+>
 > Kicking of the new linux QUIC dev mailing list with this, as requested.
->=20
+>
 > (The last email in netdev is
-> https://lore.kernel.org/netdev/CADvbK_e9sNbvHSCNuvetOCFY5OQPG99tmZLW=3D=
-odcRzcN9xK8rQ@mail.gmail.com/,
+> https://lore.kernel.org/netdev/CADvbK_e9sNbvHSCNuvetOCFY5OQPG99tmZLW=3Dod=
+cRzcN9xK8rQ@mail.gmail.com/,
 > for reference.)
->=20
-> > On Sun, Aug 24, 2025 at 1:57=E2=80=AFPM Xin Long <lucien.xin@gmail.c=
-om> wrote:
+>
+> > On Sun, Aug 24, 2025 at 1:57=E2=80=AFPM Xin Long <lucien.xin@gmail.com>=
+ wrote:
 > > >
-> > > On Sat, Aug 23, 2025 at 11:21=E2=80=AFAM John Ericson <mail@johner=
-icson.me> wrote:
+> > > On Sat, Aug 23, 2025 at 11:21=E2=80=AFAM John Ericson <mail@johnerics=
+on.me> wrote:
 > > > >
 > > > > (Note: This is an interface more than implementation question ---
 > > > > apologies in advanced if this is not the right place to ask. I
 > > > > originally sent this message to [0] about the IETF internet draft
 > > > > [1], but then I realized that is just an alias for the draft
-> > > > authors, and not a public mailing list, so I figured this would =
-be
+> > > > authors, and not a public mailing list, so I figured this would be
 > > > > better in order to have something in the public record.)
 > > > >
 > > > > ---
@@ -147,43 +133,69 @@ be
 > > > > associated with a single stream. Then "regular" send/rescv, or
 > > > > even read/write, can be used with multiple streams.
 > > > >
-> > > > I see that the SCTP socket interface has sctp_peeloff [2] for th=
-is
+> > > > I see that the SCTP socket interface has sctp_peeloff [2] for this
 > > > > purpose. Could something similar be included in this
 > > > > specification?
->=20
+>
 > > > Hi, John,
 > > >
 > > > That is a bit different. In SCTP, sctp_peeloff() detaches an
-> > > association/connection from a one-to-many socket and returns it as=
- a
+> > > association/connection from a one-to-many socket and returns it as a
 > > > new socket. It does not peel off a stream. Stream send/receive
 > > > operations in SCTP are actually quite similar to how QUIC handles
 > > > streams in the proposed QUIC socket API.
->=20
+>
 > OK fair enough. sctp_peeloff() was the closest prior art I could find,
 > but I don't know much about SCTP. Rest assured, I did have the QUIC
 > semantics in mind. E.g. closing one of these QUIC per-stream peeled off
 > sockets should close just the stream in question, not the entire
 > connection.
->=20
+>
+I wrote some code to explore this:
+https://github.com/lxin/quic/pull/53
+
+- A stream can be peeled off from a parent/connection socket using
+  getsockopt(QUIC_SOCKOPT_STREAM_PEELOFF) with a stream_id, similar to
+  SCTP's connection peeloff.
+
+- For stream sockets, in addition to send(), recv(), and close(), support
+  for poll() and shutdown() is also implemented. Note that close() and
+  shutdown() send a FIN on the sending side, issue a STOP_SENDING on the
+  receiving side, or both for bidirectional streams, as applicable.
+
+There's also a sample test:
+https://github.com/lxin/quic/blob/stream-peeloff/tests/peeloff_test.c
+
+- Sender: Opens a stream with getsockopt(QUIC_SOCKOPT_STREAM_OPEN), peels
+  it off with getsockopt(QUIC_SOCKOPT_STREAM_PEELOFF), and sends data via
+  the new file descriptor.
+
+- Receiver: Detects stream creation through a QUIC_EVENT_STREAM_UPDATE
+  event, peels off the stream with getsockopt(QUIC_SOCKOPT_STREAM_PEELOFF),
+  and receives data via the new file descriptor.
+
 > > > For QUIC, supporting 'stream peeloff' might mean creating a new
-> > > socket type that carries a stream ID and maps its sendmsg/recvmsg =
-to
+> > > socket type that carries a stream ID and maps its sendmsg/recvmsg to
 > > > the 'parent' QUIC socket.
->=20
+>
 > Yes, exactly.
->=20
+>
 > > > But there are details to sort out, like whether the 'parent-child
 > > > relationship' should be maintained.
->=20
+>
 > What do you mean by this? I assume the answer is that it should be
 > maintained? e.g. if the connection is closed, then any child per-stream
 > sockets are also invalidated and must be closed.
->=20
+>
+I aimed to make a peeled-off stream socket fully independent to keep the
+design simple. However, since the connection socket may close at any time,
+the stream socket must hold a reference to it. To keep the relationship
+strictly one-way, the connection socket remains unaware of any peeled-off
+stream sockets.
+
 > > > We also need to consider whether this is worth implementing in the
 > > > kernel, or if a  similar API could be provided in libquic.
->=20
+>
 > So this is sort of the crux of my argument. If it is in userland, then
 > any application that wants to act per-stream needs to know about QUIC.
 > But if it is in kernel, just a a tiny bit of QUIC-aware glue code is to
@@ -191,7 +203,9 @@ to
 > software. (You could do it by passing pipes and a little userland
 > man-in-the-middle using *quic_sendmsg and quic_recvmsg*, of course, but
 > those extra context switches and copies are rather lousy.)
->=20
+>
+Right, providing it in libquic won't work for kernel consumers.
+
 > For what it's worth, I would go further in fact and say that this
 > "stream peeloff" system call should not just be supported by QUIC, too.
 > It is very nice today how many code can be agnostic to TCP vs unix
@@ -199,13 +213,20 @@ to
 > true with QUIC too, via an "extended unix domain socket" that would
 > replicate the QUIC state machine(s) just as regular unix domain sockets
 > replicate the TCP state machine.
->=20
-> I bring up such an "extended unix domain socket" not to indulge in sco=
-pe
+>
+> I bring up such an "extended unix domain socket" not to indulge in scope
 > creep, but just to point out that a good litmus test for a new socket
 > interface is that multiple domains could meaningfully support it, and
 > that litmus test is met in this case.
->=20
-> Cheers,
->=20
-> John
+>
+That=E2=80=99s a good point. Stream peel-off is an idea I find quite intere=
+sting. I
+originally based the QUIC stream API on SCTP=E2=80=99s model, but it now se=
+ems that
+most real-world use cases are closer to applications that traditionally
+relied on TCP rather than SCTP.
+
+Please check out the stream socket interfaces in the PR above and comment
+on anything that you think could be improved.
+
+Thanks.
