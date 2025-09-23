@@ -1,73 +1,73 @@
 Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085542264CB
-	for <quic@lists.linux.dev>; Tue, 23 Sep 2025 17:57:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A977C2FE07D
+	for <quic@lists.linux.dev>; Tue, 23 Sep 2025 19:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758650257; cv=none; b=LpaFpq1iuTVzuPxsNrzrMuxx1YX3d3DcA8bIhpC7yfSpB7LTw82ZkQxz2CqaaQb2yRSfolfyhYZrts3MkrAs+ONpF+5KKv2PHhL6zl+8mKoXe8jKpaVZ4QnW4SzIU2AR4vFmG+TSaqQa0i4ziVE+olDZimx9W6qnT5XoSPemkgU=
+	t=1758656271; cv=none; b=BU22k4h7f8KPjEZHEgallfqi0LxPWeRadaIrMmLH9IOf2PbK9XnySYatuCDbrXwsE4Bysw3Adbll5n2Simkp2uTGJ8VP7p5+xu4lzQrG2dAbuZa/OMzLzvR54XdN1DaZlCn987DaIBS6X9Ba8WEp6DpdAV1Ya2JdfrkCYv0n7TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758650257; c=relaxed/simple;
-	bh=y/G88UjMYSxmXMgKEB7dyY548Jt/ioDjjbupV/B82oo=;
+	s=arc-20240116; t=1758656271; c=relaxed/simple;
+	bh=+XXoF2ZxwT72G+CmMpYi9V7S13kBzWWDC8EXupg/QuA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QnKRq5gsNgX54yVQ+k1SuaX3lOPeGigGBPFdXb0XJbehUehHtQT8zboayroTI0vJ+Hl6nhK/DJSlqtnbEDlNtRpvmJLYuRStLNiZ2/4QxanYX4OHhmUNUPc5IJ3ZQ3UgSEmAwQK0qzKQihBhX6ZuCYVphDqCP3tslyO4e4zOVc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brBjW65a; arc=none smtp.client-ip=209.85.210.182
+	 To:Cc:Content-Type; b=PylsxkNseIb32GG/s/ioc6GnDWoW4cJ4gPvYa/RhsCSf6EpwyMAaeFM53fuEO7DK64fZNXOeRaY9aAClQkaF0tzP60/HdrzhdA1kfT5lkQHBkM80iiJPd/+4vHP4V9D8MbJAX6G1Ewif4kyp9kgFr8ONlNHPWWy+pxtVtxDrGKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gR483zGi; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brBjW65a"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-77f5d497692so866441b3a.1
-        for <quic@lists.linux.dev>; Tue, 23 Sep 2025 10:57:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gR483zGi"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-7704f3c46ceso5618894b3a.2
+        for <quic@lists.linux.dev>; Tue, 23 Sep 2025 12:37:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758650254; x=1759255054; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1758656268; x=1759261068; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1AmDBgIqa0GQv/6KlVcndAFVjR2baAAmtK92NT5CTo0=;
-        b=brBjW65alhWDjJ5IczUm6rpU6u997XPQx8/jvyW/yYO7PQ2XM2e7hMjhkfo0nC1LnW
-         gDrg5dPXr2tUjHQz96pJyHef/9mS2+P3jQqPhCCgEI/xrw7J/dAap9mh99Vcr3tsJ84A
-         C+kVuNlQ4w25KEp3YTgEyj3qNiPF44w08ktY7zKxhW/6W28unDLQnI/CFT5R6sr8Y0yH
-         E32HjqUfYQxn81bsa729eCKZ0ikj1bpolBfmdYFB+S2qAy8IyGDWkW0YJP04ORouJG0O
-         yEsRe8rJIFK3szOlg0Xh5tG60NO5/FVytjYsUwGZ2g2POQbzYf+VbFAwyCC75xwn563r
-         w6ow==
+        bh=KLUrp+cYYYU8MC53CfS/yqja0bSDjgPTxLoATUISEfA=;
+        b=gR483zGiDJvBrplEGYZY6UtthRzGajpHRW45JK72HULPVYmpPRwfKRrGnl9VRuOiry
+         aj+uSDvZar4OHM9OnMzXRM/bGj2RX/p//FXC9II1Xv2w/3jilnT4dE0s2nT1KNWRH+s+
+         zD8SPCzM/iTKecL+zuvxSTbCYpM7lEDKU+UeMOWVWN1uTbqe3Uf8c67c8tj/cK4JRNJ9
+         6mAyRUGiScwom7XWzE6EM1Xxa2h6oGfVci9VAphscJ9RXVjo8rp1l5rHZnX9cina5NVq
+         nDo3h56+NrG8/YLyoQdBMXTFsN2O/tvfIs+lb5L3PLUkqKpbqxpEI/DziSdMFUhNgaiV
+         yo8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758650254; x=1759255054;
+        d=1e100.net; s=20230601; t=1758656268; x=1759261068;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1AmDBgIqa0GQv/6KlVcndAFVjR2baAAmtK92NT5CTo0=;
-        b=LVAu1n46MJr/0yDhnZMU6hgyGIFGtA12qrrBXBlRidGWh8coTyKya25L6L4oQjy9fN
-         tOwleH2y4eBJGaWfQVtlGcAcF7aejEVVgen1StRavIO50oMGIv3PpvxJ7I3uxYsd9HP4
-         RTgnJBB+vAwmQWYzbE5TYx4gGTS3xx1uIBQA0KteyKoyWPrj4yF77sO8xJcXLbQMK/g8
-         P7mmf9UuhPZEFahH3IJ/SaU9nlSkxd5+mDLM5qEJVmxSRLWH6ybLKslreaodB4vWElkg
-         RQOpGKDbCldcWmggQSlsXF+f3IGT9epr1f47OtjEPGQFjJuikRYD67ykY90wx5NvkcpH
-         Nhwg==
-X-Forwarded-Encrypted: i=1; AJvYcCWhFwjqal0u4iIFE1v/d4io3qqxnIBj4xXWuh0IVgH1qgJG7ycwxCcjXVkxrKQGdMLlmuL3@lists.linux.dev
-X-Gm-Message-State: AOJu0Yyulq1fYSG5ce874GIfsQa37N9bpCRlSeztgJBHrctdaEPVl3L1
-	41L8HfHOXtDE8Di8aHWBFH4AwFRGcxGCFfWz199tHxUelzh5rbfoj1thJ5p62jl/skCUOFetwqE
-	4B+CyjimtV6B7VLjqno8UW0Wsf4KQwLWHgPkBgrY=
-X-Gm-Gg: ASbGncsKJDOfAw9jQuxAs6tYW4HmQPWkRzHjjVKayvRYc/nE+qVPVy5mx0WsmKtYT2j
-	mUhsC2zXBQ39YC6fiApI7I1j6N46yRoDIUCobnQSO1jZxN6/MZXvXSazkAHGwN4LKf0L3DeefPA
-	Ds73s2Y/K3gTXj2x99+QFxzT8/7j+LMLcBK30uthXVHioMVM1H2du0t369zRVuD3wtMCT2Z1sab
-	1zX7eD1yF5ZPqoFblrg
-X-Google-Smtp-Source: AGHT+IE2yrnjqr6a/d2F9JpSJ3fKE/tBDXIcVfjLA5i2kIJdnBi4ppu1dEMj7GfZ5CUkqovx62NduVZt8+JKZlibwJI=
-X-Received: by 2002:a05:6a00:2e1f:b0:77f:2de7:eef3 with SMTP id
- d2e1a72fcca58-77f53897e35mr3765409b3a.5.1758650254151; Tue, 23 Sep 2025
- 10:57:34 -0700 (PDT)
+        bh=KLUrp+cYYYU8MC53CfS/yqja0bSDjgPTxLoATUISEfA=;
+        b=ujVdq5X2s2h1q7fVLxt3YZWVPHvA3z4lMInXm4cPSTX9bE5bCjPfh80MuN9HgVAHQw
+         HTCLIPloXBM+4rjK2pKwcV0ZMMWbHJAiMrJaW7oxG9vowxpA6yrMYpSKYOrpkGGy3NVc
+         o9N024jkPUKp31c0Pf1J6kA+u47X8DdDWMKFKGlVNd0Nzh/C7XVk3Oit+/woApBgqZCd
+         s9az1Ta841LZaUS/g6LElhjkxn5gvXjUEb+em6QnOHpMO5yW+AMAmLizMewQuEB25kdV
+         2LWA0lLrS+issjAnbLAd/kVCfCpSqiw0wAwi9VF1jmqd/OSNr4JPvSJmZFqlYx4ANhzw
+         FFag==
+X-Forwarded-Encrypted: i=1; AJvYcCUq7qWT3PMkc1Dc80ZTtZBzOligTwKNsjhS+d8jjFM2vziDEnnmVuG7YyHeUbwv2Wfs2217@lists.linux.dev
+X-Gm-Message-State: AOJu0Yx95FMC3fuQM7x7pQYQcDgAU/lmPqkgk0a2/Xw7UyJgXDFT1RqJ
+	mNXgxpcU4vJjb9obZQcLGTl57FKJkwnb3vJPeMW+CvvFA/mzLk2h3ZOxmfo0497gP6NU7AEnP4Q
+	TOmVR/EGjx9Z0/LN57YVT5snnZNJLnsU=
+X-Gm-Gg: ASbGncuZQ8K6lFxQXe5srAdbFS4uTmV50cZ+K48uV0wskpJbsd4eUFm9IDeM60pLGus
+	6STTfllYjHSXUd+h+iIlE7+w6b0490Dmnqt9i2Hp70ahmXXvO19/rfKTiR5dYEf/ApeD92TlYis
+	8zchm4WZdlVrL0BjIb2Mp8bpzF/tgsczzwb3eOPPIpPWaJ0yWW5FxAK/gpSFkT+LNI23MSS+7B0
+	KL8JxiMTA==
+X-Google-Smtp-Source: AGHT+IErV6AYpLUins4xB7r0Q9A08f2HDRHBMzxtSLII0Tooor4nIEURR9QvyBSmUNpN2jo0FdszTswnlWssSR99fDo=
+X-Received: by 2002:a05:6a20:7344:b0:24c:dd96:54f2 with SMTP id
+ adf61e73a8af0-2cfd4836ad3mr5789184637.1.1758656267868; Tue, 23 Sep 2025
+ 12:37:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1758234904.git.lucien.xin@gmail.com> <5d71a793a5f6e85160748ed30539b98d2629c5ac.1758234904.git.lucien.xin@gmail.com>
- <2ef635de-7282-4ffe-bdfc-eceafa73857e@redhat.com>
-In-Reply-To: <2ef635de-7282-4ffe-bdfc-eceafa73857e@redhat.com>
+References: <cover.1758234904.git.lucien.xin@gmail.com> <3475257318dcfce0ee996131142969b1fce7ae8b.1758234904.git.lucien.xin@gmail.com>
+ <a9427359-a798-4f3a-88ef-c10a0bf614ec@redhat.com>
+In-Reply-To: <a9427359-a798-4f3a-88ef-c10a0bf614ec@redhat.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 23 Sep 2025 13:57:21 -0400
-X-Gm-Features: AS18NWBglKznECkCvBSvE49wohtKt7Wb-bJD9HSQrOopK0dNd_e3hdXuel4AAoU
-Message-ID: <CADvbK_fE1KHbgtZV4zY1xXo94avimgxBcoakyoAYPOsb-U3rSw@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 06/15] quic: add stream management
+Date: Tue, 23 Sep 2025 15:37:35 -0400
+X-Gm-Features: AS18NWA9emAx36cB5XrlF-1nvhVl7KRbIJ2r3YH_HsuND-2tSxb3DLgCGkI_Y8U
+Message-ID: <CADvbK_dxa0G-drauyggde2_46PdRfd9qzzmfuhj5NcMsOkGHRw@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 09/15] quic: add congestion control
 To: Paolo Abeni <pabeni@redhat.com>
 Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
@@ -86,742 +86,450 @@ Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 23, 2025 at 9:39=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
+On Tue, Sep 23, 2025 at 9:55=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
 te:
 >
 > On 9/19/25 12:34 AM, Xin Long wrote:
-> > +/* Create and register new streams for sending. */
-> > +static struct quic_stream *quic_stream_send_create(struct quic_stream_=
-table *streams,
-> > +                                                s64 max_stream_id, u8 =
-is_serv)
-> > +{
-> > +     struct quic_stream *stream;
-> > +     s64 stream_id;
-> > +
-> > +     stream_id =3D streams->send.next_bidi_stream_id;
-> > +     if (quic_stream_id_uni(max_stream_id))
-> > +             stream_id =3D streams->send.next_uni_stream_id;
-> > +
-> > +     /* rfc9000#section-2.1: A stream ID that is used out of order res=
-ults in all streams
-> > +      * of that type with lower-numbered stream IDs also being opened.
-> > +      */
-> > +     while (stream_id <=3D max_stream_id) {
-> > +             stream =3D kzalloc(sizeof(*stream), GFP_KERNEL);
-> > +             if (!stream)
-> > +                     return NULL;
+> > This patch introduces 'quic_cong' for RTT measurement and congestion
+> > control. The 'quic_cong_ops' is added to define the congestion
+> > control algorithm.
+> >
+> > It implements a congestion control state machine with slow start,
+> > congestion avoidance, and recovery phases, and introduces the New
+> > Reno and CUBIC algorithms.
 >
-> How many streams and connections ID do you foresee per socket? Could
-> such number grow significantly (possibly under misuse/attack)? If so you
-> you likely use GFP_KERNEL_ACCOUNT here (and in conn_id allocation).
-connections ID: 8 (QUIC_CONN_ID_LIMIT) at most per socket.
-streams: 4096 (QUIC_MAX_STREAMS) at most per socket.
+> To moderate the initial submission size, you could initially introduce
+> just one of the above.
+That sounds like a good idea, and I will keep the one specified
+in rfc9002: the New Reno, and remove the CUBIC.
 
-I can switch to GFP_KERNEL_ACCOUNT in quic_stream_send_create().
-
-For quic_stream_recv_create(), it=E2=80=99s typically invoked in atomic con=
-text.
-Since there=E2=80=99s no predefined GFP_ATOMIC_ACCOUNT, I assume using
-(GFP_ATOMIC | __GFP_ACCOUNT) should be acceptable.
-
-Thanks.
 >
-> /P
->
-> > +
-> > +             stream->id =3D stream_id;
-> > +             if (quic_stream_id_uni(stream_id)) {
-> > +                     stream->send.max_bytes =3D streams->send.max_stre=
-am_data_uni;
-> > +
-> > +                     if (streams->send.next_uni_stream_id < stream_id =
-+ QUIC_STREAM_ID_STEP)
-> > +                             streams->send.next_uni_stream_id =3D stre=
-am_id + QUIC_STREAM_ID_STEP;
-> > +                     streams->send.streams_uni++;
-> > +
-> > +                     quic_stream_add(streams, stream);
-> > +                     stream_id +=3D QUIC_STREAM_ID_STEP;
-> > +                     continue;
-> > +             }
-> > +
-> > +             if (streams->send.next_bidi_stream_id < stream_id + QUIC_=
-STREAM_ID_STEP)
-> > +                     streams->send.next_bidi_stream_id =3D stream_id +=
- QUIC_STREAM_ID_STEP;
-> > +             streams->send.streams_bidi++;
-> > +
-> > +             if (quic_stream_id_local(stream_id, is_serv)) {
-> > +                     stream->send.max_bytes =3D streams->send.max_stre=
-am_data_bidi_remote;
-> > +                     stream->recv.max_bytes =3D streams->recv.max_stre=
-am_data_bidi_local;
-> > +             } else {
-> > +                     stream->send.max_bytes =3D streams->send.max_stre=
-am_data_bidi_local;
-> > +                     stream->recv.max_bytes =3D streams->recv.max_stre=
-am_data_bidi_remote;
-> > +             }
-> > +             stream->recv.window =3D stream->recv.max_bytes;
-> > +
-> > +             quic_stream_add(streams, stream);
-> > +             stream_id +=3D QUIC_STREAM_ID_STEP;
-> > +     }
-> > +     return stream;
-> > +}
-> > +
-> > +/* Create and register new streams for receiving. */
-> > +static struct quic_stream *quic_stream_recv_create(struct quic_stream_=
-table *streams,
-> > +                                                s64 max_stream_id, u8 =
-is_serv)
-> > +{
-> > +     struct quic_stream *stream;
-> > +     s64 stream_id;
-> > +
-> > +     stream_id =3D streams->recv.next_bidi_stream_id;
-> > +     if (quic_stream_id_uni(max_stream_id))
-> > +             stream_id =3D streams->recv.next_uni_stream_id;
-> > +
-> > +     /* rfc9000#section-2.1: A stream ID that is used out of order res=
-ults in all streams
-> > +      * of that type with lower-numbered stream IDs also being opened.
-> > +      */
-> > +     while (stream_id <=3D max_stream_id) {
-> > +             stream =3D kzalloc(sizeof(*stream), GFP_ATOMIC);
-> > +             if (!stream)
-> > +                     return NULL;
-> > +
-> > +             stream->id =3D stream_id;
-> > +             if (quic_stream_id_uni(stream_id)) {
-> > +                     stream->recv.window =3D streams->recv.max_stream_=
-data_uni;
-> > +                     stream->recv.max_bytes =3D stream->recv.window;
-> > +
-> > +                     if (streams->recv.next_uni_stream_id < stream_id =
-+ QUIC_STREAM_ID_STEP)
-> > +                             streams->recv.next_uni_stream_id =3D stre=
-am_id + QUIC_STREAM_ID_STEP;
-> > +                     streams->recv.streams_uni++;
-> > +
-> > +                     quic_stream_add(streams, stream);
-> > +                     stream_id +=3D QUIC_STREAM_ID_STEP;
-> > +                     continue;
-> > +             }
-> > +
-> > +             if (streams->recv.next_bidi_stream_id < stream_id + QUIC_=
-STREAM_ID_STEP)
-> > +                     streams->recv.next_bidi_stream_id =3D stream_id +=
- QUIC_STREAM_ID_STEP;
-> > +             streams->recv.streams_bidi++;
-> > +
-> > +             if (quic_stream_id_local(stream_id, is_serv)) {
-> > +                     stream->send.max_bytes =3D streams->send.max_stre=
-am_data_bidi_remote;
-> > +                     stream->recv.max_bytes =3D streams->recv.max_stre=
-am_data_bidi_local;
-> > +             } else {
-> > +                     stream->send.max_bytes =3D streams->send.max_stre=
-am_data_bidi_local;
-> > +                     stream->recv.max_bytes =3D streams->recv.max_stre=
-am_data_bidi_remote;
-> > +             }
-> > +             stream->recv.window =3D stream->recv.max_bytes;
-> > +
-> > +             quic_stream_add(streams, stream);
-> > +             stream_id +=3D QUIC_STREAM_ID_STEP;
-> > +     }
-> > +     return stream;
-> > +}
-> > +
-> > +/* Check if a send or receive stream ID is already closed. */
-> > +static bool quic_stream_id_closed(struct quic_stream_table *streams, s=
-64 stream_id, bool send)
-> > +{
-> > +     if (quic_stream_id_uni(stream_id)) {
-> > +             if (send)
-> > +                     return stream_id < streams->send.next_uni_stream_=
-id;
-> > +             return stream_id < streams->recv.next_uni_stream_id;
-> > +     }
-> > +     if (send)
-> > +             return stream_id < streams->send.next_bidi_stream_id;
-> > +     return stream_id < streams->recv.next_bidi_stream_id;
-> > +}
-> > +
-> > +/* Check if a stream ID would exceed local (recv) or peer (send) limit=
-s. */
-> > +bool quic_stream_id_exceeds(struct quic_stream_table *streams, s64 str=
-eam_id, bool send)
-> > +{
-> > +     u64 nstreams;
-> > +
-> > +     if (!send) {
-> > +             if (quic_stream_id_uni(stream_id))
-> > +                     return stream_id > streams->recv.max_uni_stream_i=
-d;
-> > +             return stream_id > streams->recv.max_bidi_stream_id;
-> > +     }
-> > +
-> > +     if (quic_stream_id_uni(stream_id)) {
-> > +             if (stream_id > streams->send.max_uni_stream_id)
-> > +                     return true;
-> > +             stream_id -=3D streams->send.next_uni_stream_id;
-> > +             nstreams =3D quic_stream_id_to_streams(stream_id);
-> > +             return nstreams + streams->send.streams_uni > streams->se=
-nd.max_streams_uni;
-> > +     }
-> > +
-> > +     if (stream_id > streams->send.max_bidi_stream_id)
-> > +             return true;
-> > +     stream_id -=3D streams->send.next_bidi_stream_id;
-> > +     nstreams =3D quic_stream_id_to_streams(stream_id);
-> > +     return nstreams + streams->send.streams_bidi > streams->send.max_=
-streams_bidi;
-> > +}
-> > +
-> > +/* Get or create a send stream by ID. */
-> > +struct quic_stream *quic_stream_send_get(struct quic_stream_table *str=
-eams, s64 stream_id,
-> > +                                      u32 flags, bool is_serv)
-> > +{
-> > +     struct quic_stream *stream;
-> > +
-> > +     if (!quic_stream_id_valid(stream_id, is_serv, true))
-> > +             return ERR_PTR(-EINVAL);
-> > +
-> > +     stream =3D quic_stream_find(streams, stream_id);
-> > +     if (stream) {
-> > +             if ((flags & MSG_STREAM_NEW) &&
-> > +                 stream->send.state !=3D QUIC_STREAM_SEND_STATE_READY)
-> > +                     return ERR_PTR(-EINVAL);
-> > +             return stream;
-> > +     }
-> > +
-> > +     if (quic_stream_id_closed(streams, stream_id, true))
-> > +             return ERR_PTR(-ENOSTR);
-> > +
-> > +     if (!(flags & MSG_STREAM_NEW))
-> > +             return ERR_PTR(-EINVAL);
-> > +
-> > +     if (quic_stream_id_exceeds(streams, stream_id, true))
-> > +             return ERR_PTR(-EAGAIN);
-> > +
-> > +     stream =3D quic_stream_send_create(streams, stream_id, is_serv);
-> > +     if (!stream)
-> > +             return ERR_PTR(-ENOSTR);
-> > +     streams->send.active_stream_id =3D stream_id;
-> > +     return stream;
-> > +}
-> > +
-> > +/* Get or create a receive stream by ID. */
-> > +struct quic_stream *quic_stream_recv_get(struct quic_stream_table *str=
-eams, s64 stream_id,
-> > +                                      bool is_serv)
-> > +{
-> > +     struct quic_stream *stream;
-> > +
-> > +     if (!quic_stream_id_valid(stream_id, is_serv, false))
-> > +             return ERR_PTR(-EINVAL);
-> > +
-> > +     stream =3D quic_stream_find(streams, stream_id);
-> > +     if (stream)
-> > +             return stream;
-> > +
-> > +     if (quic_stream_id_local(stream_id, is_serv)) {
-> > +             if (quic_stream_id_closed(streams, stream_id, true))
-> > +                     return ERR_PTR(-ENOSTR);
-> > +             return ERR_PTR(-EINVAL);
-> > +     }
-> > +
-> > +     if (quic_stream_id_closed(streams, stream_id, false))
-> > +             return ERR_PTR(-ENOSTR);
-> > +
-> > +     if (quic_stream_id_exceeds(streams, stream_id, false))
-> > +             return ERR_PTR(-EAGAIN);
-> > +
-> > +     stream =3D quic_stream_recv_create(streams, stream_id, is_serv);
-> > +     if (!stream)
-> > +             return ERR_PTR(-ENOSTR);
-> > +     if (quic_stream_id_valid(stream_id, is_serv, true))
-> > +             streams->send.active_stream_id =3D stream_id;
-> > +     return stream;
-> > +}
-> > +
-> > +/* Release or clean up a send stream. This function updates stream cou=
-nters and state when
-> > + * a send stream has either successfully sent all data or has been res=
-et.
-> > + */
-> > +void quic_stream_send_put(struct quic_stream_table *streams, struct qu=
-ic_stream *stream,
-> > +                       bool is_serv)
-> > +{
-> > +     if (quic_stream_id_uni(stream->id)) {
-> > +             /* For unidirectional streams, decrement uni count and de=
-lete immediately. */
-> > +             streams->send.streams_uni--;
-> > +             quic_stream_delete(stream);
-> > +             return;
-> > +     }
-> > +
-> > +     /* For bidi streams, only proceed if receive side is in a final s=
-tate. */
-> > +     if (stream->recv.state !=3D QUIC_STREAM_RECV_STATE_RECVD &&
-> > +         stream->recv.state !=3D QUIC_STREAM_RECV_STATE_READ &&
-> > +         stream->recv.state !=3D QUIC_STREAM_RECV_STATE_RESET_RECVD)
-> > +             return;
-> > +
-> > +     if (quic_stream_id_local(stream->id, is_serv)) {
-> > +             /* Local-initiated stream: mark send done and decrement s=
-end.bidi count. */
-> > +             if (!stream->send.done) {
-> > +                     stream->send.done =3D 1;
-> > +                     streams->send.streams_bidi--;
-> > +             }
-> > +             goto out;
-> > +     }
-> > +     /* Remote-initiated stream: mark recv done and decrement recv bid=
-i count. */
-> > +     if (!stream->recv.done) {
-> > +             stream->recv.done =3D 1;
-> > +             streams->recv.streams_bidi--;
-> > +             streams->recv.bidi_pending =3D 1;
-> > +     }
-> > +out:
-> > +     /* Delete stream if fully read or reset. */
-> > +     if (stream->recv.state !=3D QUIC_STREAM_RECV_STATE_RECVD)
-> > +             quic_stream_delete(stream);
-> > +}
-> > +
-> > +/* Release or clean up a receive stream. This function updates stream =
-counters and state when
-> > + * the receive side has either consumed all data or has been reset.
-> > + */
-> > +void quic_stream_recv_put(struct quic_stream_table *streams, struct qu=
-ic_stream *stream,
-> > +                       bool is_serv)
-> > +{
-> > +     if (quic_stream_id_uni(stream->id)) {
-> > +             /* For uni streams, decrement uni count and mark done. */
-> > +             if (!stream->recv.done) {
-> > +                     stream->recv.done =3D 1;
-> > +                     streams->recv.streams_uni--;
-> > +                     streams->recv.uni_pending =3D 1;
-> > +             }
-> > +             goto out;
-> > +     }
-> > +
-> > +     /* For bidi streams, only proceed if send side is in a final stat=
-e. */
-> > +     if (stream->send.state !=3D QUIC_STREAM_SEND_STATE_RECVD &&
-> > +         stream->send.state !=3D QUIC_STREAM_SEND_STATE_RESET_RECVD)
-> > +             return;
-> > +
-> > +     if (quic_stream_id_local(stream->id, is_serv)) {
-> > +             /* Local-initiated stream: mark send done and decrement s=
-end.bidi count. */
-> > +             if (!stream->send.done) {
-> > +                     stream->send.done =3D 1;
-> > +                     streams->send.streams_bidi--;
-> > +             }
-> > +             goto out;
-> > +     }
-> > +     /* Remote-initiated stream: mark recv done and decrement recv bid=
-i count. */
-> > +     if (!stream->recv.done) {
-> > +             stream->recv.done =3D 1;
-> > +             streams->recv.streams_bidi--;
-> > +             streams->recv.bidi_pending =3D 1;
-> > +     }
-> > +out:
-> > +     /* Delete stream if fully read or reset. */
-> > +     if (stream->recv.state !=3D QUIC_STREAM_RECV_STATE_RECVD)
-> > +             quic_stream_delete(stream);
-> > +}
-> > +
-> > +/* Updates the maximum allowed incoming stream IDs if any streams were=
- recently closed.
-> > + * Recalculates the max_uni and max_bidi stream ID limits based on the=
- number of open
-> > + * streams and whether any were marked for deletion.
-> > + *
-> > + * Returns true if either max_uni or max_bidi was updated, indicating =
-that a
-> > + * MAX_STREAMS_UNI or MAX_STREAMS_BIDI frame should be sent to the pee=
-r.
-> > + */
-> > +bool quic_stream_max_streams_update(struct quic_stream_table *streams,=
- s64 *max_uni, s64 *max_bidi)
-> > +{
-> > +     if (streams->recv.uni_pending) {
-> > +             streams->recv.max_uni_stream_id =3D
-> > +                     streams->recv.next_uni_stream_id - QUIC_STREAM_ID=
-_STEP +
-> > +                     ((streams->recv.max_streams_uni - streams->recv.s=
-treams_uni) <<
-> > +                      QUIC_STREAM_TYPE_BITS);
-> > +             *max_uni =3D quic_stream_id_to_streams(streams->recv.max_=
-uni_stream_id);
-> > +             streams->recv.uni_pending =3D 0;
-> > +     }
-> > +     if (streams->recv.bidi_pending) {
-> > +             streams->recv.max_bidi_stream_id =3D
-> > +                     streams->recv.next_bidi_stream_id - QUIC_STREAM_I=
-D_STEP +
-> > +                     ((streams->recv.max_streams_bidi - streams->recv.=
-streams_bidi) <<
-> > +                      QUIC_STREAM_TYPE_BITS);
-> > +             *max_bidi =3D quic_stream_id_to_streams(streams->recv.max=
-_bidi_stream_id);
-> > +             streams->recv.bidi_pending =3D 0;
-> > +     }
-> > +
-> > +     return *max_uni || *max_bidi;
-> > +}
-> > +
-> > +#define QUIC_STREAM_HT_SIZE  64
-> > +
-> > +int quic_stream_init(struct quic_stream_table *streams)
-> > +{
-> > +     struct quic_shash_table *ht =3D &streams->ht;
-> > +     int i, size =3D QUIC_STREAM_HT_SIZE;
-> > +     struct quic_shash_head *head;
-> > +
-> > +     head =3D kmalloc_array(size, sizeof(*head), GFP_KERNEL);
-> > +     if (!head)
-> > +             return -ENOMEM;
-> > +     for (i =3D 0; i < size; i++)
-> > +             INIT_HLIST_HEAD(&head[i].head);
-> > +     ht->size =3D size;
-> > +     ht->hash =3D head;
-> > +     return 0;
-> > +}
-> > +
-> > +void quic_stream_free(struct quic_stream_table *streams)
-> > +{
-> > +     struct quic_shash_table *ht =3D &streams->ht;
-> > +     struct quic_shash_head *head;
-> > +     struct quic_stream *stream;
-> > +     struct hlist_node *tmp;
-> > +     int i;
-> > +
-> > +     for (i =3D 0; i < ht->size; i++) {
-> > +             head =3D &ht->hash[i];
-> > +             hlist_for_each_entry_safe(stream, tmp, &head->head, node)
-> > +                     quic_stream_delete(stream);
-> > +     }
-> > +     kfree(ht->hash);
-> > +}
-> > +
-> > +/* Populate transport parameters from stream hash table. */
-> > +void quic_stream_get_param(struct quic_stream_table *streams, struct q=
-uic_transport_param *p,
-> > +                        bool is_serv)
-> > +{
-> > +     if (p->remote) {
-> > +             p->max_stream_data_bidi_remote =3D streams->send.max_stre=
-am_data_bidi_remote;
-> > +             p->max_stream_data_bidi_local =3D streams->send.max_strea=
-m_data_bidi_local;
-> > +             p->max_stream_data_uni =3D streams->send.max_stream_data_=
-uni;
-> > +             p->max_streams_bidi =3D streams->send.max_streams_bidi;
-> > +             p->max_streams_uni =3D streams->send.max_streams_uni;
-> > +             return;
-> > +     }
-> > +
-> > +     p->max_stream_data_bidi_remote =3D streams->recv.max_stream_data_=
-bidi_remote;
-> > +     p->max_stream_data_bidi_local =3D streams->recv.max_stream_data_b=
-idi_local;
-> > +     p->max_stream_data_uni =3D streams->recv.max_stream_data_uni;
-> > +     p->max_streams_bidi =3D streams->recv.max_streams_bidi;
-> > +     p->max_streams_uni =3D streams->recv.max_streams_uni;
-> > +}
-> > +
-> > +/* Configure stream hashtable from transport parameters. */
-> > +void quic_stream_set_param(struct quic_stream_table *streams, struct q=
-uic_transport_param *p,
-> > +                        bool is_serv)
-> > +{
-> > +     u8 type;
-> > +
-> > +     if (p->remote) {
-> > +             streams->send.max_stream_data_bidi_local =3D p->max_strea=
-m_data_bidi_local;
-> > +             streams->send.max_stream_data_bidi_remote =3D p->max_stre=
-am_data_bidi_remote;
-> > +             streams->send.max_stream_data_uni =3D p->max_stream_data_=
-uni;
-> > +             streams->send.max_streams_bidi =3D p->max_streams_bidi;
-> > +             streams->send.max_streams_uni =3D p->max_streams_uni;
-> > +             streams->send.active_stream_id =3D -1;
-> > +
-> > +             if (is_serv) {
-> > +                     type =3D QUIC_STREAM_TYPE_SERVER_BIDI;
-> > +                     streams->send.max_bidi_stream_id =3D
-> > +                             quic_stream_streams_to_id(p->max_streams_=
-bidi, type);
-> > +                     streams->send.next_bidi_stream_id =3D type;
-> > +
-> > +                     type =3D QUIC_STREAM_TYPE_SERVER_UNI;
-> > +                     streams->send.max_uni_stream_id =3D
-> > +                             quic_stream_streams_to_id(p->max_streams_=
-uni, type);
-> > +                     streams->send.next_uni_stream_id =3D type;
-> > +                     return;
-> > +             }
-> > +
-> > +             type =3D QUIC_STREAM_TYPE_CLIENT_BIDI;
-> > +             streams->send.max_bidi_stream_id =3D
-> > +                     quic_stream_streams_to_id(p->max_streams_bidi, ty=
-pe);
-> > +             streams->send.next_bidi_stream_id =3D type;
-> > +
-> > +             type =3D QUIC_STREAM_TYPE_CLIENT_UNI;
-> > +             streams->send.max_uni_stream_id =3D
-> > +                     quic_stream_streams_to_id(p->max_streams_uni, typ=
-e);
-> > +             streams->send.next_uni_stream_id =3D type;
-> > +             return;
-> > +     }
-> > +
-> > +     streams->recv.max_stream_data_bidi_local =3D p->max_stream_data_b=
-idi_local;
-> > +     streams->recv.max_stream_data_bidi_remote =3D p->max_stream_data_=
-bidi_remote;
-> > +     streams->recv.max_stream_data_uni =3D p->max_stream_data_uni;
-> > +     streams->recv.max_streams_bidi =3D p->max_streams_bidi;
-> > +     streams->recv.max_streams_uni =3D p->max_streams_uni;
-> > +
-> > +     if (is_serv) {
-> > +             type =3D QUIC_STREAM_TYPE_CLIENT_BIDI;
-> > +             streams->recv.max_bidi_stream_id =3D
-> > +                     quic_stream_streams_to_id(p->max_streams_bidi, ty=
-pe);
-> > +             streams->recv.next_bidi_stream_id =3D type;
-> > +
-> > +             type =3D QUIC_STREAM_TYPE_CLIENT_UNI;
-> > +             streams->recv.max_uni_stream_id =3D
-> > +                     quic_stream_streams_to_id(p->max_streams_uni, typ=
-e);
-> > +             streams->recv.next_uni_stream_id =3D type;
-> > +             return;
-> > +     }
-> > +
-> > +     type =3D QUIC_STREAM_TYPE_SERVER_BIDI;
-> > +     streams->recv.max_bidi_stream_id =3D
-> > +             quic_stream_streams_to_id(p->max_streams_bidi, type);
-> > +     streams->recv.next_bidi_stream_id =3D type;
-> > +
-> > +     type =3D QUIC_STREAM_TYPE_SERVER_UNI;
-> > +     streams->recv.max_uni_stream_id =3D
-> > +             quic_stream_streams_to_id(p->max_streams_uni, type);
-> > +     streams->recv.next_uni_stream_id =3D type;
-> > +}
-> > diff --git a/net/quic/stream.h b/net/quic/stream.h
+> > The implementation updates RTT estimates when packets are acknowledged,
+> > reacts to loss and ECN signals, and adjusts the congestion window
+> > accordingly during packet transmission and acknowledgment processing.
+> >
+> > - quic_cong_rtt_update(): Performs RTT measurement, invoked when a
+> >   packet is acknowledged by the largest number in the ACK frame.
+> >
+> > - quic_cong_on_packet_acked(): Invoked when a packet is acknowledged.
+> >
+> > - quic_cong_on_packet_lost(): Invoked when a packet is marked as lost.
+> >
+> > - quic_cong_on_process_ecn(): Invoked when an ACK_ECN frame is received=
+.
+> >
+> > - quic_cong_on_packet_sent(): Invoked when a packet is transmitted.
+> >
+> > - quic_cong_on_ack_recv(): Invoked when an ACK frame is received.
+> >
+> > Signed-off-by: Xin Long <lucien.xin@gmail.com>
+> > ---
+> >  net/quic/Makefile |   3 +-
+> >  net/quic/cong.c   | 700 ++++++++++++++++++++++++++++++++++++++++++++++
+> >  net/quic/cong.h   | 120 ++++++++
+> >  net/quic/socket.c |   1 +
+> >  net/quic/socket.h |   7 +
+> >  5 files changed, 830 insertions(+), 1 deletion(-)
+> >  create mode 100644 net/quic/cong.c
+> >  create mode 100644 net/quic/cong.h
+> >
+> > diff --git a/net/quic/Makefile b/net/quic/Makefile
+> > index 1565fb5cef9d..4d4a42c6d565 100644
+> > --- a/net/quic/Makefile
+> > +++ b/net/quic/Makefile
+> > @@ -5,4 +5,5 @@
+> >
+> >  obj-$(CONFIG_IP_QUIC) +=3D quic.o
+> >
+> > -quic-y :=3D common.o family.o protocol.o socket.o stream.o connid.o pa=
+th.o
+> > +quic-y :=3D common.o family.o protocol.o socket.o stream.o connid.o pa=
+th.o \
+> > +       cong.o
+> > diff --git a/net/quic/cong.c b/net/quic/cong.c
 > > new file mode 100644
-> > index 000000000000..c53d9358605c
+> > index 000000000000..d598cc14b15e
 > > --- /dev/null
-> > +++ b/net/quic/stream.h
-> > @@ -0,0 +1,136 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> > +++ b/net/quic/cong.c
+> > @@ -0,0 +1,700 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
 > > +/* QUIC kernel implementation
 > > + * (C) Copyright Red Hat Corp. 2023
 > > + *
 > > + * This file is part of the QUIC kernel implementation
 > > + *
+> > + * Initialization/cleanup for QUIC protocol support.
+> > + *
 > > + * Written or modified by:
 > > + *    Xin Long <lucien.xin@gmail.com>
 > > + */
 > > +
-> > +#define QUIC_DEF_STREAMS     100
-> > +#define QUIC_MAX_STREAMS     4096ULL
+> > +#include <linux/jiffies.h>
+> > +#include <linux/quic.h>
+> > +#include <net/sock.h>
 > > +
-> > +/*
-> > + * rfc9000#section-2.1:
-> > + *
-> > + *   The least significant bit (0x01) of the stream ID identifies the =
-initiator of the stream.
-> > + *   Client-initiated streams have even-numbered stream IDs (with the =
-bit set to 0), and
-> > + *   server-initiated streams have odd-numbered stream IDs (with the b=
-it set to 1).
-> > + *
-> > + *   The second least significant bit (0x02) of the stream ID distingu=
-ishes between bidirectional
-> > + *   streams (with the bit set to 0) and unidirectional streams (with =
-the bit set to 1).
-> > + */
-> > +#define QUIC_STREAM_TYPE_BITS        2
-> > +#define QUIC_STREAM_ID_STEP  BIT(QUIC_STREAM_TYPE_BITS)
+> > +#include "common.h"
+> > +#include "cong.h"
 > > +
-> > +#define QUIC_STREAM_TYPE_CLIENT_BIDI 0x00
-> > +#define QUIC_STREAM_TYPE_SERVER_BIDI 0x01
-> > +#define QUIC_STREAM_TYPE_CLIENT_UNI  0x02
-> > +#define QUIC_STREAM_TYPE_SERVER_UNI  0x03
+> > +/* CUBIC APIs */
+> > +struct quic_cubic {
+> > +     /* Variables of Interest in rfc9438#section-4.1.2 */
+> > +     u32 pending_w_add;              /* Accumulate fractional incremen=
+ts to W_est */
+> > +     u32 origin_point;               /* W_max */
+> > +     u32 epoch_start;                /* t_epoch */
+> > +     u32 pending_add;                /* Accumulates fractional additio=
+ns to W_cubic */
+> > +     u32 w_last_max;                 /* last W_max */
+> > +     u32 w_tcp;                      /* W_est */
+> > +     u64 k;                          /* K */
 > > +
-> > +struct quic_stream {
-> > +     struct hlist_node node;
-> > +     s64 id;                         /* Stream ID as defined in RFC 90=
-00 Section 2.1 */
-> > +     struct {
-> > +             /* Sending-side stream level flow control */
-> > +             u64 last_max_bytes;     /* Maximum send offset advertised=
- by peer at last update */
-> > +             u64 max_bytes;          /* Current maximum offset we are =
-allowed to send to */
-> > +             u64 bytes;              /* Bytes already sent to peer */
-> > +
-> > +             u32 errcode;            /* Application error code to send=
- in RESET_STREAM */
-> > +             u32 frags;              /* Number of sent STREAM frames n=
-ot yet acknowledged */
-> > +             u8 state;               /* Send stream state, per rfc9000=
-#section-3.1 */
-> > +
-> > +             u8 data_blocked:1;      /* True if flow control blocks se=
-nding more data */
-> > +             u8 done:1;              /* True if application indicated =
-end of stream (FIN sent) */
-> > +     } send;
-> > +     struct {
-> > +             /* Receiving-side stream level flow control */
-> > +             u64 max_bytes;          /* Maximum offset peer is allowed=
- to send to */
-> > +             u64 window;             /* Remaining receive window befor=
-e advertise a new limit */
-> > +             u64 bytes;              /* Bytes consumed by application =
-from the stream */
-> > +
-> > +             u64 highest;            /* Highest received offset */
-> > +             u64 offset;             /* Offset up to which data is in =
-buffer or consumed */
-> > +             u64 finalsz;            /* Final size of the stream if FI=
-N received */
-> > +
-> > +             u32 frags;              /* Number of received STREAM fram=
-es pending reassembly */
-> > +             u8 state;               /* Receive stream state, per rfc9=
-000#section-3.2 */
-> > +
-> > +             u8 stop_sent:1;         /* True if STOP_SENDING has been =
-sent */
-> > +             u8 done:1;              /* True if FIN received and final=
- size validated */
-> > +     } recv;
+> > +     /* HyStart++ variables in rfc9406#section-4.2 */
+> > +     u32 current_round_min_rtt;      /* currentRoundMinRTT */
+> > +     u32 css_baseline_min_rtt;       /* cssBaselineMinRtt */
+> > +     u32 last_round_min_rtt;         /* lastRoundMinRTT */
+> > +     u16 rtt_sample_count;           /* rttSampleCount */
+> > +     u16 css_rounds;                 /* Counter for consecutive rounds=
+ showing RTT increase */
+> > +     s64 window_end;                 /* End of current CSS round (pack=
+et number) */
 > > +};
 > > +
-> > +struct quic_stream_table {
-> > +     struct quic_shash_table ht;     /* Hash table storing all active =
-streams */
+> > +/* HyStart++ constants in rfc9406#section-4.3 */
+> > +#define QUIC_HS_MIN_SSTHRESH         16
+> > +#define QUIC_HS_N_RTT_SAMPLE         8
+> > +#define QUIC_HS_MIN_ETA                      4000
+> > +#define QUIC_HS_MAX_ETA                      16000
+> > +#define QUIC_HS_MIN_RTT_DIVISOR              8
+> > +#define QUIC_HS_CSS_GROWTH_DIVISOR   4
+> > +#define QUIC_HS_CSS_ROUNDS           5
 > > +
-> > +     struct {
-> > +             /* Parameters received from peer, defined in rfc9000#sect=
-ion-18.2 */
-> > +             u64 max_stream_data_bidi_remote;        /* initial_max_st=
-ream_data_bidi_remote */
-> > +             u64 max_stream_data_bidi_local;         /* initial_max_st=
-ream_data_bidi_local */
-> > +             u64 max_stream_data_uni;                /* initial_max_st=
-ream_data_uni */
-> > +             u64 max_streams_bidi;                   /* initial_max_st=
-reams_bidi */
-> > +             u64 max_streams_uni;                    /* initial_max_st=
-reams_uni */
-> > +
-> > +             s64 next_bidi_stream_id;        /* Next bidi stream ID to=
- be opened */
-> > +             s64 next_uni_stream_id;         /* Next uni stream ID to =
-be opened */
-> > +             s64 max_bidi_stream_id;         /* Highest allowed bidi s=
-tream ID */
-> > +             s64 max_uni_stream_id;          /* Highest allowed uni st=
-ream ID */
-> > +             s64 active_stream_id;           /* Most recently opened s=
-tream ID */
-> > +
-> > +             u8 bidi_blocked:1;      /* True if STREAMS_BLOCKED_BIDI w=
-as sent and not ACKed */
-> > +             u8 uni_blocked:1;       /* True if STREAMS_BLOCKED_UNI wa=
-s sent and not ACKed */
-> > +             u16 streams_bidi;       /* Number of currently active bid=
-i streams */
-> > +             u16 streams_uni;        /* Number of currently active uni=
- streams */
-> > +     } send;
-> > +     struct {
-> > +              /* Our advertised limits to the peer, per rfc9000#sectio=
-n-18.2 */
-> > +             u64 max_stream_data_bidi_remote;        /* initial_max_st=
-ream_data_bidi_remote */
-> > +             u64 max_stream_data_bidi_local;         /* initial_max_st=
-ream_data_bidi_local */
-> > +             u64 max_stream_data_uni;                /* initial_max_st=
-ream_data_uni */
-> > +             u64 max_streams_bidi;                   /* initial_max_st=
-reams_bidi */
-> > +             u64 max_streams_uni;                    /* initial_max_st=
-reams_uni */
-> > +
-> > +             s64 next_bidi_stream_id;        /* Next expected bidi str=
-eam ID from peer */
-> > +             s64 next_uni_stream_id;         /* Next expected uni stre=
-am ID from peer */
-> > +             s64 max_bidi_stream_id;         /* Current allowed bidi s=
-tream ID range */
-> > +             s64 max_uni_stream_id;          /* Current allowed uni st=
-ream ID range */
-> > +
-> > +             u8 bidi_pending:1;      /* True if MAX_STREAMS_BIDI needs=
- to be sent */
-> > +             u8 uni_pending:1;       /* True if MAX_STREAMS_UNI needs =
-to be sent */
-> > +             u16 streams_bidi;       /* Number of currently open bidi =
-streams */
-> > +             u16 streams_uni;        /* Number of currently open uni s=
-treams */
-> > +     } recv;
-> > +};
-> > +
-> > +static inline u64 quic_stream_id_to_streams(s64 stream_id)
+> > +static u64 cubic_root(u64 n)
 > > +{
-> > +     return (u64)(stream_id >> QUIC_STREAM_TYPE_BITS) + 1;
+> > +     u64 a, d;
+> > +
+> > +     if (!n)
+> > +             return 0;
+> > +
+> > +     d =3D (64 - __builtin_clzll(n)) / 3;
+> > +     a =3D BIT_ULL(d + 1);
+> > +
+> > +     for (; a * a * a > n;) {
+> > +             d =3D div64_ul(n, a * a);
+> > +             a =3D div64_ul(2 * a + d, 3);
+> > +     }
+> > +     return a;
 > > +}
-> > +
-> > +static inline s64 quic_stream_streams_to_id(u64 streams, u8 type)
-> > +{
-> > +     return (s64)((streams - 1) << QUIC_STREAM_TYPE_BITS) | type;
-> > +}
-> > +
-> > +struct quic_stream *quic_stream_send_get(struct quic_stream_table *str=
-eams, s64 stream_id,
-> > +                                      u32 flags, bool is_serv);
-> > +struct quic_stream *quic_stream_recv_get(struct quic_stream_table *str=
-eams, s64 stream_id,
-> > +                                      bool is_serv);
-> > +void quic_stream_send_put(struct quic_stream_table *streams, struct qu=
-ic_stream *stream,
-> > +                       bool is_serv);
-> > +void quic_stream_recv_put(struct quic_stream_table *streams, struct qu=
-ic_stream *stream,
-> > +                       bool is_serv);
-> > +
-> > +bool quic_stream_max_streams_update(struct quic_stream_table *streams,=
- s64 *max_uni, s64 *max_bidi);
-> > +bool quic_stream_id_exceeds(struct quic_stream_table *streams, s64 str=
-eam_id, bool send);
-> > +struct quic_stream *quic_stream_find(struct quic_stream_table *streams=
-, s64 stream_id);
-> > +
-> > +void quic_stream_get_param(struct quic_stream_table *streams, struct q=
-uic_transport_param *p,
-> > +                        bool is_serv);
-> > +void quic_stream_set_param(struct quic_stream_table *streams, struct q=
-uic_transport_param *p,
-> > +                        bool is_serv);
-> > +void quic_stream_free(struct quic_stream_table *streams);
-> > +int quic_stream_init(struct quic_stream_table *streams);
 >
+> tcp_cubic() has already an helper to compute the square root. You could
+> re-use that one.
+>
+> > +
+> > +/* rfc9406#section-4: HyStart++ Algorithm */
+> > +static void cubic_slow_start(struct quic_cong *cong, u32 bytes, s64 nu=
+mber)
+> > +{
+> > +     struct quic_cubic *cubic =3D quic_cong_priv(cong);
+> > +     u32 eta;
+> > +
+> > +     if (cubic->window_end <=3D number)
+> > +             cubic->window_end =3D -1;
+> > +
+> > +     /* cwnd =3D cwnd + (min(N, L * SMSS) / CSS_GROWTH_DIVISOR) */
+> > +     if (cubic->css_baseline_min_rtt !=3D U32_MAX)
+> > +             bytes =3D bytes / QUIC_HS_CSS_GROWTH_DIVISOR;
+> > +     cong->window =3D min_t(u32, cong->window + bytes, cong->max_windo=
+w);
+> > +
+> > +     if (cubic->css_baseline_min_rtt !=3D U32_MAX) {
+> > +             /* If CSS_ROUNDS rounds are complete, enter congestion av=
+oidance. */
+> > +             if (++cubic->css_rounds > QUIC_HS_CSS_ROUNDS) {
+> > +                     cubic->css_baseline_min_rtt =3D U32_MAX;
+> > +                     cubic->w_last_max =3D cong->window;
+> > +                     cong->ssthresh =3D cong->window;
+> > +                     cubic->css_rounds =3D 0;
+> > +             }
+> > +             return;
+> > +     }
+> > +
+> > +     /* if ((rttSampleCount >=3D N_RTT_SAMPLE) AND
+> > +      *     (currentRoundMinRTT !=3D infinity) AND
+> > +      *     (lastRoundMinRTT !=3D infinity))
+> > +      *   RttThresh =3D max(MIN_RTT_THRESH,
+> > +      *     min(lastRoundMinRTT / MIN_RTT_DIVISOR, MAX_RTT_THRESH))
+> > +      *   if (currentRoundMinRTT >=3D (lastRoundMinRTT + RttThresh))
+> > +      *     cssBaselineMinRtt =3D currentRoundMinRTT
+> > +      *     exit slow start and enter CSS
+> > +      */
+> > +     if (cubic->last_round_min_rtt !=3D U32_MAX &&
+> > +         cubic->current_round_min_rtt !=3D U32_MAX &&
+> > +         cong->window >=3D QUIC_HS_MIN_SSTHRESH * cong->mss &&
+> > +         cubic->rtt_sample_count >=3D QUIC_HS_N_RTT_SAMPLE) {
+> > +             eta =3D cubic->last_round_min_rtt / QUIC_HS_MIN_RTT_DIVIS=
+OR;
+> > +             if (eta < QUIC_HS_MIN_ETA)
+> > +                     eta =3D QUIC_HS_MIN_ETA;
+> > +             else if (eta > QUIC_HS_MAX_ETA)
+> > +                     eta =3D QUIC_HS_MAX_ETA;
+> > +
+> > +             pr_debug("%s: current_round_min_rtt: %u, last_round_min_r=
+tt: %u, eta: %u\n",
+> > +                      __func__, cubic->current_round_min_rtt, cubic->l=
+ast_round_min_rtt, eta);
+> > +
+> > +             /* Delay increase triggers slow start exit and enter CSS.=
+ */
+> > +             if (cubic->current_round_min_rtt >=3D cubic->last_round_m=
+in_rtt + eta)
+> > +                     cubic->css_baseline_min_rtt =3D cubic->current_ro=
+und_min_rtt;
+> > +     }
+> > +}
+> > +
+> > +/* rfc9438#section-4: CUBIC Congestion Control */
+> > +static void cubic_cong_avoid(struct quic_cong *cong, u32 bytes)
+> > +{
+> > +     struct quic_cubic *cubic =3D quic_cong_priv(cong);
+> > +     u64 tx, kx, time_delta, delta, t;
+> > +     u64 target_add, tcp_add =3D 0;
+> > +     u64 target, cwnd_thres, m;
+> > +
+> > +     if (cubic->epoch_start =3D=3D U32_MAX) {
+> > +             cubic->epoch_start =3D cong->time;
+> > +             if (cong->window < cubic->w_last_max) {
+> > +                     /*
+> > +                      *        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
+> > +                      *     3  =E2=94=82W    - cwnd
+> > +                      *     =E2=95=B2  =E2=94=82 max       epoch
+> > +                      * K =3D  =E2=95=B2 =E2=94=82=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> > +                      *       =E2=95=B2=E2=94=82       C
+> > +                      */
+> > +                     cubic->k =3D cubic->w_last_max - cong->window;
+> > +                     cubic->k =3D cubic_root(div64_ul(cubic->k * 10, (=
+u64)cong->mss * 4));
+>
+> Can `mss` be 0 at this point? Why?
+There is QUIC_PATH_MIN_PMTU (1200) defined.
+quic_flow_route() must be done and mss is calculated to set cong->mss
+via quic_cong_set_mss() based on pmtu before coming to this place.
+
+It should be ensured on the 2nd patchset, I will double check it.
+
+>
+> > +                     cubic->origin_point =3D cubic->w_last_max;
+> > +             } else {
+> > +                     cubic->k =3D 0;
+> > +                     cubic->origin_point =3D cong->window;
+> > +             }
+> > +             cubic->w_tcp =3D cong->window;
+> > +             cubic->pending_add =3D 0;
+> > +             cubic->pending_w_add =3D 0;
+> > +     }
+> > +
+> > +     /*
+> > +      * t =3D t        - t
+> > +      *      current    epoch
+> > +      */
+> > +     t =3D cong->time - cubic->epoch_start;
+> > +     tx =3D div64_ul(t << 10, USEC_PER_SEC);
+> > +     kx =3D (cubic->k << 10);
+> > +     if (tx > kx)
+> > +             time_delta =3D tx - kx;
+> > +     else
+> > +             time_delta =3D kx - tx;
+> > +     /*
+> > +      *                        3
+> > +      * W     (t) =3D C * (t - K)  + W
+> > +      *  cubic                      max
+> > +      */
+> > +     delta =3D cong->mss * ((((time_delta * time_delta) >> 10) * time_=
+delta) >> 10);
+> > +     delta =3D div64_ul(delta * 4, 10) >> 10;
+> > +     if (tx > kx)
+> > +             target =3D cubic->origin_point + delta;
+> > +     else
+> > +             target =3D cubic->origin_point - delta;
+> > +
+> > +     /*
+> > +      * W     (t + RTT)
+> > +      *  cubic
+> > +      */
+> > +     cwnd_thres =3D (div64_ul((t + cong->smoothed_rtt) << 10, USEC_PER=
+_SEC) * target) >> 10;
+> > +     pr_debug("%s: tgt: %llu, thres: %llu, delta: %llu, t: %llu, srtt:=
+ %u, tx: %llu, kx: %llu\n",
+> > +              __func__, target, cwnd_thres, delta, t, cong->smoothed_r=
+tt, tx, kx);
+> > +     /*
+> > +      *          =E2=8E=A7
+> > +      *          =E2=8E=AAcwnd            if  W     (t + RTT) < cwnd
+> > +      *          =E2=8E=AA                     cubic
+> > +      *          =E2=8E=A81.5 * cwnd      if  W     (t + RTT) > 1.5 * =
+cwnd
+> > +      * target =3D =E2=8E=AA                     cubic
+> > +      *          =E2=8E=AAW     (t + RTT) otherwise
+> > +      *          =E2=8E=A9 cubic
+> > +      */
+> > +     if (cwnd_thres < cong->window)
+> > +             target =3D cong->window;
+> > +     else if (cwnd_thres * 2 > (u64)cong->window * 3)
+> > +             target =3D cong->window * 3 / 2;
+> > +     else
+> > +             target =3D cwnd_thres;
+> > +
+> > +     /*
+> > +      * target - cwnd
+> > +      * =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> > +      *      cwnd
+> > +      */
+> > +     if (target > cong->window) {
+> > +             target_add =3D cubic->pending_add + cong->mss * (target -=
+ cong->window);
+> > +             cubic->pending_add =3D do_div(target_add, cong->window);
+> > +     } else {
+> > +             target_add =3D cubic->pending_add + cong->mss;
+> > +             cubic->pending_add =3D do_div(target_add, 100 * cong->win=
+dow);
+> > +     }
+>
+> Can `window` be 0 here? why?
+It should not. When changing cong->window, there's always a check to
+cong->min_window, which is set via quic_cong_set_mss().
+
+>
+> > +
+> > +     pr_debug("%s: target: %llu, window: %u, target_add: %llu\n",
+> > +              __func__, target, cong->window, target_add);
+> > +
+> > +     /*
+> > +      *                        segments_acked
+> > +      * W    =3D W    + =CE=B1      * =E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80
+> > +      *  est    est    cubic        cwnd
+> > +      */
+> > +     m =3D cubic->pending_w_add + cong->mss * bytes;
+> > +     cubic->pending_w_add =3D do_div(m, cong->window);
+> > +     cubic->w_tcp +=3D m;
+> > +
+> > +     if (cubic->w_tcp > cong->window)
+> > +             tcp_add =3D div64_ul((u64)cong->mss * (cubic->w_tcp - con=
+g->window), cong->window);
+> > +
+> > +     pr_debug("%s: w_tcp: %u, window: %u, tcp_add: %llu\n",
+> > +              __func__, cubic->w_tcp, cong->window, tcp_add);
+> > +
+> > +     /* W_cubic(_t_) or _W_est_, whichever is bigger. */
+> > +     cong->window +=3D max(tcp_add, target_add);
+> > +}
+> > +
+> > +static void cubic_recovery(struct quic_cong *cong)
+> > +{
+> > +     struct quic_cubic *cubic =3D quic_cong_priv(cong);
+> > +
+> > +     cong->recovery_time =3D cong->time;
+> > +     cubic->epoch_start =3D U32_MAX;
+> > +
+> > +     /* rfc9438#section-3.4:
+> > +      *   CUBIC sets the multiplicative window decrease factor (=CE=B2=
+__cubic_) to 0.7,
+> > +      *   whereas Reno uses 0.5.
+> > +      *
+> > +      * rfc9438#section-4.6:
+> > +      *   ssthresh =3D  flight_size * =CE=B2      new  ssthresh
+> > +      *
+> > +      *   Some implementations of CUBIC currently use _cwnd_ instead o=
+f _flight_size_ when
+> > +      *   calculating a new _ssthresh_.
+> > +      *
+> > +      * rfc9438#section-4.7:
+> > +      *
+> > +      *          =E2=8E=A7       1 + =CE=B2
+> > +      *          =E2=8E=AA            cubic
+> > +      *          =E2=8E=AAcwnd * =E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80 if  cwnd < W_max and=
+ fast convergence
+> > +      *   W    =3D =E2=8E=A8           2
+> > +      *    max   =E2=8E=AA                  enabled, further reduce  W=
+_max
+> > +      *          =E2=8E=AA
+> > +      *          =E2=8E=A9cwnd             otherwise, remember cwnd be=
+fore reduction
+> > +      */
+> > +     if (cong->window < cubic->w_last_max)
+> > +             cubic->w_last_max =3D cong->window * 17 / 10 / 2;
+> > +     else
+> > +             cubic->w_last_max =3D cong->window;
+> > +
+> > +     cong->ssthresh =3D cong->window * 7 / 10;
+>
+> There are quite a bit of magic numbers that should be replaced by macros
+> and/or associated with explainatory comments.
+Yes, better to use macros.
+I was expecting people to understand if from the comment I put in above.
+
+>
+> > +
+> > +/* rfc9002#section-5: Estimating the Round-Trip Time */
+> > +void quic_cong_rtt_update(struct quic_cong *cong, u32 time, u32 ack_de=
+lay)
+> > +{
+> > +     u32 adjusted_rtt, rttvar_sample;
+> > +
+> > +     /* Ignore RTT sample if ACK delay is suspiciously large. */
+> > +     if (ack_delay > cong->max_ack_delay * 2)
+> > +             return;
+> > +
+> > +     /* rfc9002#section-5.1: latest_rtt =3D ack_time - send_time_of_la=
+rgest_acked */
+> > +     cong->latest_rtt =3D cong->time - time;
+> > +
+> > +     /* rfc9002#section-5.2: Estimating min_rtt */
+> > +     if (!cong->min_rtt_valid) {
+> > +             cong->min_rtt =3D cong->latest_rtt;
+> > +             cong->min_rtt_valid =3D 1;
+> > +     }
+> > +     if (cong->min_rtt > cong->latest_rtt)
+> > +             cong->min_rtt =3D cong->latest_rtt;
+> > +
+> > +     if (!cong->is_rtt_set) {
+> > +             /* rfc9002#section-5.3:
+> > +              *   smoothed_rtt =3D latest_rtt
+> > +              *   rttvar =3D latest_rtt / 2
+> > +              */
+> > +             cong->smoothed_rtt =3D cong->latest_rtt;
+> > +             cong->rttvar =3D cong->smoothed_rtt / 2;
+> > +             quic_cong_pto_update(cong);
+> > +             cong->is_rtt_set =3D 1;
+> > +             return;
+> > +     }
+> > +
+> > +     /* rfc9002#section-5.3:
+> > +      *   adjusted_rtt =3D latest_rtt
+> > +      *   if (latest_rtt >=3D min_rtt + ack_delay):
+> > +      *     adjusted_rtt =3D latest_rtt - ack_delay
+> > +      *   smoothed_rtt =3D 7/8 * smoothed_rtt + 1/8 * adjusted_rtt
+> > +      *   rttvar_sample =3D abs(smoothed_rtt - adjusted_rtt)
+> > +      *   rttvar =3D 3/4 * rttvar + 1/4 * rttvar_sample
+> > +      */
+> > +     adjusted_rtt =3D cong->latest_rtt;
+> > +     if (cong->latest_rtt >=3D cong->min_rtt + ack_delay)
+> > +             adjusted_rtt =3D cong->latest_rtt - ack_delay;
+> > +
+> > +     cong->smoothed_rtt =3D (cong->smoothed_rtt * 7 + adjusted_rtt) / =
+8;
+> > +     if (cong->smoothed_rtt >=3D adjusted_rtt)
+> > +             rttvar_sample =3D cong->smoothed_rtt - adjusted_rtt;
+> > +     else
+> > +             rttvar_sample =3D adjusted_rtt - cong->smoothed_rtt;
+>
+> Here in a few other place before you could use abs_diff()
+Sure.
+
+Thanks.
