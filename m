@@ -1,59 +1,59 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FA022DF86
-	for <quic@lists.linux.dev>; Tue, 23 Sep 2025 15:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0D726F291
+	for <quic@lists.linux.dev>; Tue, 23 Sep 2025 16:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758642555; cv=none; b=gqaU5QeHG7axQtTUYKzJPBZCcG9wUkDvuYUHVIROCsMTdQSWphue3KNVPS5fnMtB+reSO/92Kcv85RDpijfdqYjANkhnjDH+ofn4msuA4dbO+WVIcEgc7MlTcIm4vZQtlVzUZJm528uGBNnC8E+eZ7u4F1X2HOJtgJYUog7vlSg=
+	t=1758643616; cv=none; b=uNnqpqlkpCQMJPB1reA/23Lmd6W7pV7Mbx0IUubSF9iIWmjw/yPGqkTfi0ksanfRS/jkFA1uim6xpRAB+I5NpjNHWx64SQd1lEkydoMS4tqqRjg9fe9tnrxBDwfnKf9aXjcGU4JDZHtvIIuYZ58VPBjr0BVtwMt/iA8q5coHgKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758642555; c=relaxed/simple;
-	bh=a6gz1VpqLfP2Qo81xJtC/LGGtIJs3zssm8VUofjyi+4=;
+	s=arc-20240116; t=1758643616; c=relaxed/simple;
+	bh=LSZaSxvgiNpblG6l7iGMnvMkhnGQyUdC6rYhgCCt/B4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KmvwhxFW3MGIgtdc9gLbApK0cLbcDxvH4KTEgo8+RIkFQOUbfRYBpt0QKg8tHpcLEtAcs3jYl5mrc3anvnMScQRtFx6LxevyW8kwRUWMS3641mzo4qgsLsIv1G95l2IE+6F0aSgRvlGmUxwaL6Jw8oKP40myfrTjAAC6r19M6qY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OnpZsrDg; arc=none smtp.client-ip=209.85.216.42
+	 To:Cc:Content-Type; b=bqgxFCwqLI8I7+CJCTWoyEHNs3kqnuD+yOJQntlqMI0e7lktRV7/zs22UsiqLCWYfE2P+zHwPrNdq+Um/ejGyZu72pPX8HqQ94Ln8+/XUpUc6Nq5gWLS2wckG5F7z/k3oR/m451AWA2tNhNFiD+1DBCH3oiXjnD5CPlVbzxxRGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EzWEk7e6; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OnpZsrDg"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-330469eb750so6438181a91.2
-        for <quic@lists.linux.dev>; Tue, 23 Sep 2025 08:49:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EzWEk7e6"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-273a0aeed57so265125ad.1
+        for <quic@lists.linux.dev>; Tue, 23 Sep 2025 09:06:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758642553; x=1759247353; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1758643614; x=1759248414; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Pgkmz7Yia2mUyCjlHvvFUXxL30TIgrGepaFfyyHrQY4=;
-        b=OnpZsrDgR5QwN4QX8UhoE5jnnoNMmRGCLyeO99aMLli4c7FCykkt0Xf4ONHIB6rjqB
-         4RHxg++59POKejzHcCIX34NtRxsa0DnGKK4EPqlKb/k7VWHNLnxxHBi5xjvQx+LMxYva
-         cdK1IlLOB8oQG9NQjmUk61Ips0aydWoFJQeOFYeVh+DlbmJmzTMkMiOEI1b2EwdvpWAq
-         9RPRNZYPYaVueAtJ2fukog3/P2oCuZAxNR8etE9dSZUxZ6BjtFzuEUX0wRWr37ZP51mT
-         N80hyel1OgkI6tt47avTkeY97Ih1XyzBeVu7/TQVwhbLqK0y0yv/WCuhu251C2lLO6Ds
-         gKAg==
+        bh=lfZwWS5AXjSjh47+jujhHs0PNbVVMWVBOW1GeBhi9ZA=;
+        b=EzWEk7e6OpbmiW63Mblj31jlOYZQ8lyGo4I5efrvwQpiciYh/Abl+TKkPcZEv3QKJT
+         izlxzoh4AFinAC3/sR8xHaGVCOX6EPc6JX8WZlOoVJY4PTCoxHOQ9md1AOQPFxGL5s5W
+         9XPrbdI/HegWJLOyWSx5KiffW5s/iXfLYX1eYQTT+3GJcFH7ErXTdP2GDFOmn5oZqGlb
+         E+OKxwYJcViQEHPSZUyigLJ9+rIFxTDYnj9Ey6uE/3AwOBKbycKAGwMubkHjmEy/tQ8I
+         e4CpCV3410dgWgkp8veSzYid946ACJ3qH+UB1jqITfZnhZelSQGvKbJG3zdX9SVFqv1M
+         srfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758642553; x=1759247353;
+        d=1e100.net; s=20230601; t=1758643614; x=1759248414;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Pgkmz7Yia2mUyCjlHvvFUXxL30TIgrGepaFfyyHrQY4=;
-        b=MPwJ6pSbqoxdmVPTUllhRfJf8LkkwemwctbzXpKvuJlq5Kc1/C3rz04+LivXZocYJ8
-         a2eutlhre1ClsRYk7LIaqNH9kmD9f/aVN+zc1tFddSf7LAPfXdS6gUZDzq9WoGyJAVBm
-         hO7UCDM7hDPe/FIWrmASZK+kQKH3jhYmQv67e2U8zm/pJp48RWMizACn78a4ayCVSZis
-         xbtfE7odRgIFGZMgPKDbLcw9wSHX0nSuZNUsBuop9p4QNdLx7a+Lj731abXYdIFRq1wV
-         BMIKsaCmnxdNq9fbu735BZHsB1nZn7QA1Ioigjm9THzPKSbb2a0i1sbv5IccIZwYLMTP
-         aunA==
-X-Forwarded-Encrypted: i=1; AJvYcCWTyb5hehJC+0dadEm9Lp0xJx7mSQ70gBlYLyxy14GGBrSvdpPNdPl3gsaCTjxv26pFE5uB@lists.linux.dev
-X-Gm-Message-State: AOJu0YwZMLR7h4adJR80q5zpx8uV8a7tKO8O4ER3ZEVvzkFUHkysVox/
-	UqnQetOohvoEc24Yy/Ate7uZVOf3lyF+4YyrpYkQRHkbbwOJVxy4RcJ7Sd0voofBSb9L4mIjTFV
-	pU9H9k7r9notsvbV3eSqM8Z93YOt610M=
-X-Gm-Gg: ASbGncvV6k+Nag/MNxS4BhJy447FSa7aBRnxWEX65zbSbXOFic5LY0eXqyfM1xYbicZ
-	bEsRn1hk8CxwiBCUrzir+TfzoKmEnX2on9Z3lRBh9P9diukH5K6GQ2vmd5kNcicc6Wokq2lTL9G
-	9DYqtRQYtg5RrK+O40HQIMjmp/1b2hv3l2wh8B1mq5KyuldLNfPe3DPWLxARu4XBKDzuE/rI1lX
-	42ITOxK/X15Z5caeRWSxgR76lXh5VWVc7Wol3xrQQ==
-X-Google-Smtp-Source: AGHT+IG7o9i2dC43ioTn7wIZWQ8fZEx36/pwtA6UL0v+ENVD318XjL1HnK/qVloz+EM5tn9E+0yFRx7wuB1Epbm1wH4=
-X-Received: by 2002:a17:90b:3d0b:b0:31e:cc6b:320f with SMTP id
- 98e67ed59e1d1-332a94e17d4mr3928720a91.5.1758642553164; Tue, 23 Sep 2025
- 08:49:13 -0700 (PDT)
+        bh=lfZwWS5AXjSjh47+jujhHs0PNbVVMWVBOW1GeBhi9ZA=;
+        b=fIPvFj2YA9miZ0cdsYhljCf85TXnO9IEZ2BBTn1OzFOV3a7M9gSVzoWdYo8796rtRh
+         dUGgGjv9XbFywOiutOMI8CO+D+4jLyuY/dTqG3kz4XF9vhOIci/3/zLfjsDTG3FS3L1p
+         NQY0aRe1VL2tKMDpdkBI2e0bkUF02sE/LBN1VT4JT9Mw7JDZnO76t53JNNG30eXUx6m5
+         8XIX/0ct3k2dbkGq+UK1RMs0wQgp5y3ycf+EP2VyfkPDUYS5y3U4F+eLt4Sleig5Q2B1
+         BCsQsokM7ij3mfH+rzHtT0zaSuKQq01f8WCvB+9vdi4AZmG0w3nZytxq0qqD2EufjhIq
+         6D+w==
+X-Forwarded-Encrypted: i=1; AJvYcCXEsF6kx3Eg/HWT0JAIk7p+Lgp3D4AHOTACCS9RiTZE92xDYO4tTCWlFuV9sPRmMeFa64zJ@lists.linux.dev
+X-Gm-Message-State: AOJu0YxjM0tLqpmffPSbZ4dXpc14aJH52iZVOssOV2ZG1XjL03uJk9nM
+	I65fYXrjy1Kk17Fm24Y98xhnTXqwqrRzRTY8wRqsaLsUUJ6UF++0AQiQICpx5wnmPi+wc7zmvI4
+	4oat+8O8q1grkA8243pRVT1QGpbg2sB0=
+X-Gm-Gg: ASbGncvrN8JyS7ZduF0YVMi58exEilkoXG3WXDBFm4HBEm0FZ9vhZAGXFucwLCpT8/0
+	moWYRoQ+75gH1hdCNs35IkiHIxklpBkusePkqxsz1fbd9N6lpCnUE6PR1tD/7NWaqO3xvS0X5SQ
+	2P4KUjpaL5iMuplDNuPLe6pHh+bP0CEGoZrVtgwK++Ko+Ajvl80FCip4ALh9eV6M5oja7IESUJQ
+	h7ju2Dt5PqRu1BBKUyaNpdpQGmEgzCjfNupPtkMVw==
+X-Google-Smtp-Source: AGHT+IElrnbiPc11xcIlgx/7eLp17j7KN5c1/0biJ0i/uJUb0MwRHW0VDJc6A4N7uhdDkUSkX1wG1aPAZnUI5GY+570=
+X-Received: by 2002:a17:903:2447:b0:266:3f63:3500 with SMTP id
+ d9443c01a7336-27cd7a31339mr34522615ad.12.1758643613364; Tue, 23 Sep 2025
+ 09:06:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
@@ -61,16 +61,16 @@ List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 References: <cover.1758234904.git.lucien.xin@gmail.com> <a7fb75136c7c2e51b7081d3bff421e01b435288f.1758234904.git.lucien.xin@gmail.com>
- <20250923090641.GE836419@horms.kernel.org>
-In-Reply-To: <20250923090641.GE836419@horms.kernel.org>
+ <871ed254-c3d8-49aa-9aac-eeb72e82f55d@redhat.com>
+In-Reply-To: <871ed254-c3d8-49aa-9aac-eeb72e82f55d@redhat.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 23 Sep 2025 11:49:01 -0400
-X-Gm-Features: AS18NWAbFH9Ui-fpEfRTHKNs6RYmJyoXlKo6RimozANIMCZAAraSfSWOKbynGIY
-Message-ID: <CADvbK_e9w0vW225G++wmHPrBj9d=7MBYXT4i8aeMvZ=Oc-g-ug@mail.gmail.com>
+Date: Tue, 23 Sep 2025 12:06:41 -0400
+X-Gm-Features: AS18NWD1Po0NumxImO775C_7VSP655cJIPbmA0dWx2wuT8JxABkrL-E_ndi5lAw
+Message-ID: <CADvbK_e20TrcgprXmnZzvoEO6yzoo4Zx7B0qFS0kQPT8Sf63LQ@mail.gmail.com>
 Subject: Re: [PATCH net-next v3 03/15] quic: provide common utilities and data structures
-To: Simon Horman <horms@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
 Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
-	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
 	Stefan Metzmacher <metze@samba.org>, Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli <tfanelli@redhat.com>, 
 	Pengtao He <hepengtao@xiaomi.com>, linux-cifs@vger.kernel.org, 
 	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
@@ -86,23 +86,91 @@ Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 23, 2025 at 5:06=E2=80=AFAM Simon Horman <horms@kernel.org> wro=
+On Tue, Sep 23, 2025 at 7:21=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
 te:
 >
-> On Thu, Sep 18, 2025 at 06:34:52PM -0400, Xin Long wrote:
->
-> > index f79f43f0c17f..b54532916aa2 100644
-> > --- a/net/quic/protocol.c
-> > +++ b/net/quic/protocol.c
-> > @@ -336,6 +336,9 @@ static __init int quic_init(void)
-> >       if (err)
-> >               goto err_percpu_counter;
+> On 9/19/25 12:34 AM, Xin Long wrote:
+> > This patch provides foundational data structures and utilities used
+> > throughout the QUIC stack.
 > >
-> > +     if (quic_hash_tables_init())
+> > It introduces packet header types, connection ID support, and address
+> > handling. Hash tables are added to manage socket lookup and connection
+> > ID mapping.
+> >
+> > A flexible binary data type is provided, along with helpers for parsing=
+,
+> > matching, and memory management. Helpers for encoding and decoding
+> > transport parameters and frames are also included.
+> >
+> > Signed-off-by: Xin Long <lucien.xin@gmail.com>
+> > ---
+> > v3:
+> >   - Rework hashtables: split into two types and size them based on
+> >     totalram_pages(), similar to SCTP (reported by Paolo).
+> >   - struct quic_shash_table: use rwlock instead of spinlock.
 >
-> Hi Xin,
+> Why? rwlock usage should be avoided in networking (as it's unfair, see
+> the many refactors replacing rwlock with rcu/plain spinlock)
+Interesting, I thought rwlock works better than spinlock in this case.
+I will change back to spinlock.
+
 >
-> If we reach here then the function will return err, which is 0.
-> So it seems that err should be set to a negative error value instead.
-> Perhaps the return value of quic_hash_tables_init.
-Good catch!
+> [...]
+> > +
+> > +static int quic_uhash_table_init(struct quic_uhash_table *ht, u32 max_=
+size, int order)
+> > +{
+> > +     int i, max_order, size;
+> > +
+> > +     /* Same sizing logic as in quic_shash_table_init(). */
+> > +     max_order =3D get_order(max_size * sizeof(struct quic_uhash_head)=
+);
+> > +     order =3D min(order, max_order);
+> > +     do {
+> > +             ht->hash =3D (struct quic_uhash_head *)
+> > +                     __get_free_pages(GFP_KERNEL | __GFP_NOWARN, order=
+);
+> > +     } while (!ht->hash && --order > 0);
+>
+> You can avoid a little complexity, and see more consistent behaviour,
+> using plain vmalloc() or alloc_large_system_hash() with no fallback.
+>
+I wanted to use alloc_large_system_hash(), but the memory allocated
+by it is usually NOT meant to be freed at runtime. I don't see a free_
+function to do it either.
+
+If QUIC works as a kernel module, what should I do with this memory
+in module_exit()?
+
+>
+> > +/* rfc9000#section-a.3: DecodePacketNumber()
+> > + *
+> > + * Reconstructs the full packet number from a truncated one.
+> > + */
+> > +s64 quic_get_num(s64 max_pkt_num, s64 pkt_num, u32 n)
+> > +{
+> > +     s64 expected =3D max_pkt_num + 1;
+> > +     s64 win =3D BIT_ULL(n * 8);
+> > +     s64 hwin =3D win / 2;
+> > +     s64 mask =3D win - 1;
+> > +     s64 cand;
+> > +
+> > +     cand =3D (expected & ~mask) | pkt_num;
+> > +     if (cand <=3D expected - hwin && cand < (1ULL << 62) - win)
+> > +             return cand + win;
+> > +     if (cand > expected + hwin && cand >=3D win)
+> > +             return cand - win;
+> > +     return cand;
+>
+> The above is a bit obscure to me; replacing magic nubers (62) with macro
+> could help. Some more comments also would do.
+>
+The code is exactly from the commented doc:
+/* rfc9000#section-a.3: DecodePacketNumber()
+
+See:
+https://datatracker.ietf.org/doc/html/rfc9000#section-a.3
+
+I will bring some comments from there.
+
+Thanks.
