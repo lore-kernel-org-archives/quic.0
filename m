@@ -1,163 +1,108 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9571930DD33
-	for <quic@lists.linux.dev>; Fri, 19 Sep 2025 14:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA8622ACEB;
+	Tue, 23 Sep 2025 09:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758292934; cv=none; b=FPTife1/yq39GdEsuF4TcP3JVlSly/ShJffbcuncciQHTwIwT7D3aneRyGqAhLC62gduf/lX7ueldGT5Zd6WsVyvQsHaGVAyp40lVJnkpF5EcIk5P8aHeQok6eE86uSYZQrBDjdNtKlyfLctAG1xoEc87Z35ghtCkF5ZjO551zw=
+	t=1758618409; cv=none; b=Sw3W81bdg+H/vGyk8bf0aBav5flpQ7ThHCwP9bOyGFAhr7fGUhFuRYaMHKJFoLKFxUrr0/8lcKz5R7JQcLDYYODMnCqHRev4cSDKWSMATArFoEx/4c/NX/4woA23SBJdcfAqbBwaZYgAXeOu66HuvboZBisPCq/sbHFhQJMqBxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758292934; c=relaxed/simple;
-	bh=HZlHpTpdK3mBVkCcSAL9bV9vZzv/zqfoBlqlG5Frizc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gU43flXWpivA/7jzDrGREgYTOWJUfUTmTq/eJnr89AqvRxA9u5DYy9r22rby/JNR5gF1DsrCxpH1gBThEuukAP25mayXrraQKwgj53JEsoI5TRxtclPjm175Hvgfb/VVhv5Pev4nrcCWd0m7f0rmejisHAvUGUCckzf3Ld6H1Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gRHX0D42; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1758618409; c=relaxed/simple;
+	bh=ZDzclZSQdzF1oEaN1C3ZiYcW4WfselUNILKqPuhL7q8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BRIv9H0nGBPayFO7DfoQ3224XO713OCPJXQJPHHZsDaUZ/bRPOqz4rYTDAfinynz10js6pBeTu36/UZyBuMvuK66OFNYdbyyZms9gLNYlwI1j1hxK1I2IN/7qkLdx7I4qyO3WSZfrPj1iYnzYVS+u6guKNRVvNfZRABTjsdUqrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaNNYWLH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRHX0D42"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-b55115148b4so1164547a12.3
-        for <quic@lists.linux.dev>; Fri, 19 Sep 2025 07:42:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758292932; x=1758897732; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HZlHpTpdK3mBVkCcSAL9bV9vZzv/zqfoBlqlG5Frizc=;
-        b=gRHX0D42tsENttPQN63ZUz4W0f+tsnd8AZcPA3hvgga29v5MDB0Tl+LRfaeytdbjP7
-         g/FiP5o0vUI5l/DW4H0NsfC3epvfddyCqG3pko7n1q4SqyskHoA3J6G6k05a2cy7ebnH
-         24k2ehriwdEq5mIRuKo/B9wrwiK63bFnSZg9LvMgUZ5JdoOAOvupsFUZKfE7mXy1YVxA
-         Mmad9hoDEXbmVq20sjduSSA9KOBErHWSDxYHVWZLkE2155fqbVXL81jJnEh/1rpacXea
-         NN+MVJiDKJHKHppKFZfuZR+CB9em0rRTX1HzFywZ4fYToyrtPafaNyWaDftPNjBjjcIL
-         fplw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758292932; x=1758897732;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HZlHpTpdK3mBVkCcSAL9bV9vZzv/zqfoBlqlG5Frizc=;
-        b=Rou5n57Uy90lmo0iblm5lBMEue+iPxWDCkJ+3joCUvjv1/x3JuzczlWy8v0fys5CAT
-         kZIDprt1dAnZLOqMRH82Kwoguc7/JmFw25qKiJzTlT90au8O+FNWX4iNpqYpBoZDYRwI
-         RZ4oF82YH2Or4D02Po63QDQjeJqjr+zSBCILA/F4sMP8h8cIKX+zzveTFpAB8J4AqYj8
-         xPWtBw4AiPKlJ3iZve7dKTfgHtVbFPpfwM80FYrA8JbpdPYp4OfIAEeeQ5Nodm5Xo63m
-         m1PDNZLvOVu/+jCZRvB2ILqFGhXwCPGA9O9ifQ6CnhlUIo9iQK4vjY6VYgBizti4u39u
-         qwAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVCWhtJAnoZLdUU5Hpi3PdX+1WXDxSdmgdf9MTLIqq06ljAxOTOgQ5go/Q/SCWWB2MEvxva@lists.linux.dev
-X-Gm-Message-State: AOJu0YzteNy5kzeB6qpjoBe7TVr2szczOUYmaxVgqxFqOtiUAB2QAvb0
-	nk/89aXVBaP9HlncKNzMigB9yFbfFZNKO0vL63VUv1dv5zG9lnuYEBhEv1Dyc1BetDXeEflT/yH
-	AuyZEBPDHQa2m6192AzKiCZ+W8QBHXxM=
-X-Gm-Gg: ASbGncuCA58+475qNmELhfszQywQQiAh4kPiOVGh08jCw5/cs0e79AfUluo7h5buIUV
-	1T+yV6v64EQY4O1+89RfCNK8qRIvOaS4cEPnRqzQv/FxEyjPHkjwz23tIIaAMefqKch8cQ8wKVM
-	AnMllnp0nwLlZJBlyuP9YhrcV0TD+Hpk8DX9Hf4BnjAMwg1SO30dzl1/dg+IBhjdZ46vrWqCUbV
-	Yz3Tyo=
-X-Google-Smtp-Source: AGHT+IGo9OakPjgwrSXJF/qJMVUBdi/e7cF1r+aV53PwjCNFN9R0QdCmHkVhEX7Lqj+jz4p4vZqIYSn6l+tyCyIEnog=
-X-Received: by 2002:a17:90b:1a8c:b0:32b:d8bf:c785 with SMTP id
- 98e67ed59e1d1-3309834a0c4mr5086454a91.20.1758292931548; Fri, 19 Sep 2025
- 07:42:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaNNYWLH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D502C4CEF5;
+	Tue, 23 Sep 2025 09:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758618409;
+	bh=ZDzclZSQdzF1oEaN1C3ZiYcW4WfselUNILKqPuhL7q8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PaNNYWLHy4fDFnFg0POymQxjyKJRllvvW2PUUnr0Jp8qv3XJcg61GIMhs0/KUaYCi
+	 lX/Wm0QAu11qh8ACDIi6gny9gGL3pMdWMmwslyzGrPd9Yv+CqqAPBioASdIaJFAHz5
+	 nWochXiHzX7gDhPOTrw3KFTulztGvv4VFW3L4V+yHV6oSRn7wFV54X6ukuc3WU74Gw
+	 l+qoCxx9MlWVSKvZQspuPwwpo6a2fQ4HKGPxOBeq/VS/xyIltNYrFtJ3cKWD+aA4yw
+	 5vqH75FRH5jDyhzcPK5yrdIwqpyRlKbWvslpXBVzVoR6vrHFwJO0dwI1zJYKozBxpq
+	 VJ+7xEh6SPO4g==
+Date: Tue, 23 Sep 2025 10:06:41 +0100
+From: Simon Horman <horms@kernel.org>
+To: Xin Long <lucien.xin@gmail.com>
+Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev,
+	davem@davemloft.net, kuba@kernel.org,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Moritz Buhl <mbuhl@openbsd.org>,
+	Tyler Fanelli <tfanelli@redhat.com>,
+	Pengtao He <hepengtao@xiaomi.com>, linux-cifs@vger.kernel.org,
+	Steve French <smfrench@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>,
+	kernel-tls-handshake@lists.linux.dev,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Benjamin Coddington <bcodding@redhat.com>,
+	Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>,
+	Alexander Aring <aahringo@redhat.com>,
+	David Howells <dhowells@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	John Ericson <mail@johnericson.me>,
+	Cong Wang <xiyou.wangcong@gmail.com>,
+	"D . Wythe" <alibuda@linux.alibaba.com>,
+	Jason Baron <jbaron@akamai.com>, illiliti <illiliti@protonmail.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Daniel Stenberg <daniel@haxx.se>,
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>
+Subject: Re: [PATCH net-next v3 03/15] quic: provide common utilities and
+ data structures
+Message-ID: <20250923090641.GE836419@horms.kernel.org>
+References: <cover.1758234904.git.lucien.xin@gmail.com>
+ <a7fb75136c7c2e51b7081d3bff421e01b435288f.1758234904.git.lucien.xin@gmail.com>
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1758234904.git.lucien.xin@gmail.com> <c64e0dde-ce6a-4528-ad11-bfe3a90c2623@suse.de>
-In-Reply-To: <c64e0dde-ce6a-4528-ad11-bfe3a90c2623@suse.de>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 19 Sep 2025 10:41:58 -0400
-X-Gm-Features: AS18NWCO3T47VA_L1EGQq0v2eLMYVU-h3utg8wzRNRsnOhBYSQghROeeV9IDBfk
-Message-ID: <CADvbK_d1fuyoG_F8jXNSyuicFqDxmbwSp06mkE1GvgTFkYRm5A@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 00/15] net: introduce QUIC infrastructure and
- core subcomponents
-To: Hannes Reinecke <hare@suse.de>
-Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
-	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Stefan Metzmacher <metze@samba.org>, Moritz Buhl <mbuhl@openbsd.org>, 
-	Tyler Fanelli <tfanelli@redhat.com>, Pengtao He <hepengtao@xiaomi.com>, linux-cifs@vger.kernel.org, 
-	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>, kernel-tls-handshake@lists.linux.dev, 
-	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
-	Benjamin Coddington <bcodding@redhat.com>, Steve Dickson <steved@redhat.com>, 
-	Alexander Aring <aahringo@redhat.com>, David Howells <dhowells@redhat.com>, 
-	Matthieu Baerts <matttbe@kernel.org>, John Ericson <mail@johnericson.me>, 
-	Cong Wang <xiyou.wangcong@gmail.com>, "D . Wythe" <alibuda@linux.alibaba.com>, 
-	Jason Baron <jbaron@akamai.com>, illiliti <illiliti@protonmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
-	Daniel Stenberg <daniel@haxx.se>, Andy Gospodarek <andrew.gospodarek@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a7fb75136c7c2e51b7081d3bff421e01b435288f.1758234904.git.lucien.xin@gmail.com>
 
-T24gRnJpLCBTZXAgMTksIDIwMjUgYXQgMjo0NOKAr0FNIEhhbm5lcyBSZWluZWNrZSA8aGFyZUBz
-dXNlLmRlPiB3cm90ZToNCj4NCj4gT24gOS8xOS8yNSAwMDozNCwgWGluIExvbmcgd3JvdGU6DQo+
-ID4gSW50cm9kdWN0aW9uDQo+ID4gPT09PT09PT09PT09DQo+ID4NCj4gPiBUaGUgUVVJQyBwcm90
-b2NvbCwgZGVmaW5lZCBpbiBSRkMgOTAwMCwgaXMgYSBzZWN1cmUsIG11bHRpcGxleGVkIHRyYW5z
-cG9ydA0KPiA+IGJ1aWx0IG9uIHRvcCBvZiBVRFAuIEl0IGVuYWJsZXMgbG93LWxhdGVuY3kgY29u
-bmVjdGlvbiBlc3RhYmxpc2htZW50LA0KPiA+IHN0cmVhbS1iYXNlZCBjb21tdW5pY2F0aW9uIHdp
-dGggZmxvdyBjb250cm9sLCBhbmQgc3VwcG9ydHMgY29ubmVjdGlvbg0KPiA+IG1pZ3JhdGlvbiBh
-Y3Jvc3MgbmV0d29yayBwYXRocywgd2hpbGUgZW5zdXJpbmcgY29uZmlkZW50aWFsaXR5LCBpbnRl
-Z3JpdHksDQo+ID4gYW5kIGF2YWlsYWJpbGl0eS4NCj4gPg0KPiBbIC4uIF0+DQo+ID4gLSBQZXJm
-b3JtYW5jZSBUZXN0aW5nDQo+ID4NCj4gPiAgICBQZXJmb3JtYW5jZSB3YXMgYmVuY2htYXJrZWQg
-dXNpbmcgaXBlcmYgWzhdIG92ZXIgYSAxMDBHIE5JQyB3aXRoDQo+ID4gICAgdXNpbmcgdmFyaW91
-cyBNVFVzIGFuZCBwYWNrZXQgc2l6ZXM6DQo+ID4NCj4gPiAgICAtIFFVSUMgdnMuIGtUTFM6DQo+
-ID4NCj4gPiAgICAgIFVOSVQgICAgICAgIHNpemU6MTAyNCAgICAgIHNpemU6NDA5NiAgICAgIHNp
-emU6MTYzODQgICAgIHNpemU6NjU1MzYNCj4gPiAgICAgIEdiaXRzL3NlYyAgIFFVSUMgfCBrVExT
-ICAgIFFVSUMgfCBrVExTICAgIFFVSUMgfCBrVExTICAgIFFVSUMgfCBrVExTDQo+ID4gICAgICDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIANCj4gPiAgICAgIG10dToxNTAwICAgIDIu
-MjcgfCAzLjI2ICAgIDMuMDIgfCA2Ljk3ICAgIDMuMzYgfCA5Ljc0ICAgIDMuNDggfCAxMC44DQo+
-ID4gICAgICDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIANCj4gPiAgICAgIG10dTo5
-MDAwICAgIDMuNjYgfCAzLjcyICAgIDUuODcgfCA4LjkyICAgIDcuMDMgfCAxMS4yICAgIDguMDQg
-fCAxMS40DQo+ID4NCj4gPiAgICAtIFFVSUMoZGlzYWJsZV8xcnR0X2VuY3J5cHRpb24pIHZzLiBU
-Q1A6DQo+ID4NCj4gPiAgICAgIFVOSVQgICAgICAgIHNpemU6MTAyNCAgICAgIHNpemU6NDA5NiAg
-ICAgIHNpemU6MTYzODQgICAgIHNpemU6NjU1MzYNCj4gPiAgICAgIEdiaXRzL3NlYyAgIFFVSUMg
-fCBUQ1AgICAgIFFVSUMgfCBUQ1AgICAgIFFVSUMgfCBUQ1AgICAgIFFVSUMgfCBUQ1ANCj4gPiAg
-ICAgIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgA0KPiA+ICAgICAgbXR1OjE1MDAg
-ICAgMy4wOSB8IDQuNTkgICAgNC40NiB8IDE0LjIgICAgNS4wNyB8IDIxLjMgICAgNS4xOCB8IDIz
-LjkNCj4gPiAgICAgIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgA0KPiA+ICAgICAg
-bXR1OjkwMDAgICAgNC42MCB8IDQuNjUgICAgOC40MSB8IDE0LjAgICAgMTEuMyB8IDI4LjkgICAg
-MTMuNSB8IDM5LjINCj4gPg0KPiA+DQo+IEkgaGF2ZSBiZWVuIGZvbGxvd2luZyB0aGUgUVVJQyBp
-bXBsZW1lbnRhdGlvbiBwcm9ncmVzcyBmb3IgcXVpdGUgc29tZQ0KPiB3aGlsZSwgYW5kIGFsd2F5
-cyBmb3VuZCB0aGUgcGVyZm9ybWFuY2UgaW1wYWN0IHJhdGhlciBmcnVzdHJhdGluZy4NCj4gQXQg
-dGhlIG9uc2V0IGl0IGxvb2tzIGFzIGlmIHlvdSB3b3VsZCBzdWZmZXIgaGVhdmlseSBmcm9tIHRo
-ZSBhZGRpdGlvbmFsDQo+IGNvbXBsZXhpdHkgdGhlIFFVSUMgcHJvdG9jb2wgaW1wb3NlcyB1cCB5
-b3UuDQo+IEJ1dCB0aGF0IHdvdWxkIG1ha2UgdGhlIHVzZSBvZiBRVUlDIHJhdGhlciBwb2ludGxl
-c3MgZm9yIG1vc3QgdXNlLWNhc2VzLg0KPiBTbyBvbmUgd29uZGVycyBpZiB0aGlzIGlzIG5vdCBy
-YXRoZXIgYSBwcm9ibGVtIG9mIGFuIHVuc3VpdGFibGUgdGVzdA0KRm9yIGZhc3QgbmV0d29ya3Ms
-IGxpa2UgdGhlIG9uZXMgSSB1c2VkIGluIG15IGlwZXJmIHRlc3RzLCBpdOKAmXMgZXhwZWN0ZWQN
-CnRoYXQgUVVJQyBkb2VzIG5vdCBvdXRwZXJmb3JtIFRDUCtUTFMgYXQgdGhlIHRpbWUsIFRoZSBt
-YWluIHJlYXNvbiBpcyB0aGF0DQpUQ1AgaGFzIGRlY2FkZXMgb2Yga2VybmVsLWxldmVsIG9wdGlt
-aXphdGlvbnMsIGluY2x1ZGluZyBmZWF0dXJlcyBsaWtlDQpHU08vR1JPIGFuZCBldmVuIGhhcmR3
-YXJlIG9mZmxvYWQgc3VwcG9ydCwgd2hpY2ggSSBkb24ndCB0aGluayBRVUlDIGNhbg0KY2F0Y2gg
-dXAgZHVlIHRvIGl0cyBjb21wbGV4aXR5Lg0KDQpUaGF0IHNhaWQsIFFVSUMgc2hvd3MgYWR2YW50
-YWdlcyBpbiBvdGhlciBzY2VuYXJpb3Mgd2ViIGJyb3dzaW5nIG9yDQpzaW1pbGFyIHdvcmtsb2Fk
-cy4gUVVJQyBjYW4gb3V0cGVyZm9ybSBUQ1ArVExTIGJlY2F1c2Ugb2Y6DQoNCi0gRmFzdGVyIGNv
-bm5lY3Rpb24gc2V0dXA6IFFVSUMgY29tYmluZXMgdGhlIHRyYW5zcG9ydCBhbmQgVExTIGhhbmRz
-aGFrZXMsDQogIGF2b2lkaW5nIHRoZSBleHRyYSByb3VuZCB0cmlwcyBvZiBUQ1DigJlzIHRocmVl
-LXdheSBoYW5kc2hha2UgcGx1cyBUTFMNCiAgbmVnb3RpYXRpb24uDQoNCi0gTm8gaGVhZC1vZi1s
-aW5lIGJsb2NraW5nIGFjcm9zcyBzdHJlYW1zOiBRVUlDIG11bHRpcGxleGVzIG11bHRpcGxlDQog
-IHN0cmVhbXMgb3ZlciBhIHNpbmdsZSBjb25uZWN0aW9uLCBzbyBhIHNpbmdsZSBsb3N0IHBhY2tl
-dCBkb2VzbuKAmXQgc3RhbGwNCiAgdW5yZWxhdGVkIHN0cmVhbXMsIHVubGlrZSBUQ1AuDQoNCj4g
-Y2FzZS4gRnJvbSBteSB1bmRlcnN0YW5kaW5nIFFVSUMgaXMgZ2VhcmVkIHVwIGZvciBoYW5kbGlu
-ZyBhDQo+IG11bHRpLXN0cmVhbSBjb25uZWN0aW9uIHdvcmtsb2FkLCBzbyBvbmUgc2hvdWxkIHVz
-ZSBhbiBhZGVxdWF0ZSB0ZXN0IHRvDQo+IHNpbXVsYXRlIGEgbXVsdGktc3RyZWFtIGNvbm5lY3Rp
-b24uIERpZCB5b3UgdXNlIHRoZSAnLVAnIG9wdGlvbiBmb3INCj4gaXBlcmYgd2hlbiBydW5uaW5n
-IHRoZSB0ZXN0cz8NCj4NCj4gQW5kIGl0IG1pZ2h0IGFsc28gYmUgYW4gaWRlYSB0byBhZGQgUVVJ
-QyBzdXBwb3J0IHRvIGlwZXJmIGl0c2VsZiwNCj4gZXNwZWNpYWxseSB0cmFuc2Zvcm1pbmcgdGhl
-ICctUCcgb3B0aW9uIG9udG8gUVVJQyBzdHJlYW1zIGxvb2tzDQo+IHByb21pc2luZy4NCj4NClll
-cywgd2UgY291bGQgYWRkIFFVSUMgdG8gaXBlcmYsIGJ1dCB0aGVuIHRlc3Rpbmcgd291bGQgbmVl
-ZCB0byBpbmNsdWRlDQpwYWNrZXQgbG9zcyBhbmQgZW5zdXJlIHRoZSBDUFUgaXNu4oCZdCB0aGUg
-Ym90dGxlbmVjaywgd2hpY2ggbW92ZXMgYXdheQ0KZnJvbSBhIGZhc3QtbmV0d29yayBlbnZpcm9u
-bWVudC4NCg0KVGhhbmtzIEhhbm5lcyBmb3IgeW91ciBjb21tZW50LiBJ4oCZZCBiZSBnbGFkIHRv
-IGhlYXIgYW55IGZ1cnRoZXIgaWRlYXMgb24NClFVSUMgcGVyZm9ybWFuY2UgdGVzdGluZy4gU28g
-ZmFyLCBJIGhhdmVu4oCZdCBzZWVuIGEgY29tbW9uIG1ldGhvZCBvciB0b29sDQphZG9wdGVkIGZv
-ciBpdCBmcm9tIHRoZSBjb21tdW5pdHkuDQo=
+On Thu, Sep 18, 2025 at 06:34:52PM -0400, Xin Long wrote:
+
+> index f79f43f0c17f..b54532916aa2 100644
+> --- a/net/quic/protocol.c
+> +++ b/net/quic/protocol.c
+> @@ -336,6 +336,9 @@ static __init int quic_init(void)
+>  	if (err)
+>  		goto err_percpu_counter;
+>  
+> +	if (quic_hash_tables_init())
+
+Hi Xin,
+
+If we reach here then the function will return err, which is 0.
+So it seems that err should be set to a negative error value instead.
+Perhaps the return value of quic_hash_tables_init.
+
+Flagged by Smatch.
+
+
+> +		goto err_hash;
+> +
+>  	err = register_pernet_subsys(&quic_net_ops);
+>  	if (err)
+>  		goto err_def_ops;
+> @@ -353,6 +356,8 @@ static __init int quic_init(void)
+>  err_protosw:
+>  	unregister_pernet_subsys(&quic_net_ops);
+>  err_def_ops:
+> +	quic_hash_tables_destroy();
+> +err_hash:
+>  	percpu_counter_destroy(&quic_sockets_allocated);
+>  err_percpu_counter:
+>  	return err;
+
+...
