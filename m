@@ -1,72 +1,72 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FBE322771
-	for <quic@lists.linux.dev>; Tue, 23 Sep 2025 11:07:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D77F3164B5
+	for <quic@lists.linux.dev>; Tue, 23 Sep 2025 11:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758625658; cv=none; b=TKV2B29/sSBIOZBBvTmIYsVj2aDeSMYZr3B2kxtQnO5QlezsvoU+PD3W+2UBpo2xqh7Db6+E2wfb6/PjrY+PWLstpd1W505YbnzpxJJtlxkfXamJSgpZ5QJyrZ+BG9CpgEBGh6YOYGuq+N/vWbV8QYGE9efej41nygZBl3Xq8Z8=
+	t=1758626502; cv=none; b=riNE6Z+DBNNpb+Fl61dUBta5Y0vAk4I4exHFx7+8WYrd7LvcSGqRvkXdSPzPJNq4Qcyt72So+DL7a/jfJzMFMBgza30K6Bq7uBMpZ3//PmaXxIsN/CxDOxYfz5q4kcGLdaEDcGUMvDcbJ4KloZtiS1QC8tZQI+SGQ+/V55RoUvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758625658; c=relaxed/simple;
-	bh=UmbTsquAUMinpPwTpCPJxW3SPvEozfbyjpEYZQMalA8=;
+	s=arc-20240116; t=1758626502; c=relaxed/simple;
+	bh=t+QZDhTto1uLLFwLELmutlOR0nLBR5O3CYGMg93yR9I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iE5BbaoLZXDiIMF/flHXNu5cL4K6ZcTdDdGaAs6fw8PA8lvjhx7IDLQt3F2kaUKzOGYgK2bU0+emoS+fK6XL9QDk8pvwjoDOke+2kkgppUpxa3JSivTpBXqSAI/YzmchHTF4H2OGaTzaZz2ohMpMGbje96k9VOkI7vPRKCFikDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PfGgsiyW; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type; b=O2s1J68AryXmE3DVHbhPvsja9LTwtuQ1Q2PZ59QriR75CMaJOIzOGVCs8tTwE/n7p/tT0bOFY63rKU0sF9dR6IRNV60Ko6/lg9L5v68Y2l+EEPu8ne7GCcd3cEuX4jjMqUermKZRixF/cEOcuNN3ZMg2tNfu5CZw3ASe+/bL2UU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XHahVRyX; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PfGgsiyW"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XHahVRyX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758625655;
+	s=mimecast20190719; t=1758626499;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8wzOBhyw0VdH6DHC7wg7R415fxU0fgQEUqv8xb9rt14=;
-	b=PfGgsiyWJHk/cV8K67eNTOIVlP7r3j5pZmHYIM0kd/X2qnuPREU8IHKFl7nHSkMDum5Mw7
-	f6CrRTvzaNErY1/g5BearjBw0CTA2+2i0udndcOsEvDj2HR5h/rW5k2c2JHbODL70XS1RW
-	ejRpZ1AHAUTGto1q/3siWyDq5TtZe6I=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=HRiwAmUD+4/mMUYIIKXqkLb49gsCM2cGlAg51GqgPDQ=;
+	b=XHahVRyXxa1ur/96lz9oUCwMiWbLZiP77AJ3Ic1BsOiULYjIRvQfwJDNqYyJAmTM2WmuFa
+	ZtF0vJBe+T0u5Tr+A7jNjBgJ7qLoHdk6D7JGhMUxnx9qLAm/9RF7SYd+FCM85qZSv4NUV/
+	np/xVQCdVsWhW/pjFYQfojKz1PB3WJE=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-256-K-f5k8wbMxGyteqsUb5IUw-1; Tue, 23 Sep 2025 07:07:34 -0400
-X-MC-Unique: K-f5k8wbMxGyteqsUb5IUw-1
-X-Mimecast-MFC-AGG-ID: K-f5k8wbMxGyteqsUb5IUw_1758625653
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-3f3c118cbb3so3374858f8f.3
-        for <quic@lists.linux.dev>; Tue, 23 Sep 2025 04:07:34 -0700 (PDT)
+ us-mta-280-a1KSDMhIN0qK6NqS2HUAvg-1; Tue, 23 Sep 2025 07:21:38 -0400
+X-MC-Unique: a1KSDMhIN0qK6NqS2HUAvg-1
+X-Mimecast-MFC-AGG-ID: a1KSDMhIN0qK6NqS2HUAvg_1758626497
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-46e1b05b42fso10272235e9.2
+        for <quic@lists.linux.dev>; Tue, 23 Sep 2025 04:21:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758625652; x=1759230452;
+        d=1e100.net; s=20230601; t=1758626497; x=1759231297;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8wzOBhyw0VdH6DHC7wg7R415fxU0fgQEUqv8xb9rt14=;
-        b=gmoNGOKmK96D5H9ZwCf5Jl14h1worrJNfxGrOoz5J6P6409y2hq0pvcKYk/OxWk+Pz
-         I8PIVMib9cQeqq12q4q2AWR1+BLvvjKHOXWCyHqFKNzmIOOB6gCxc0ICVJSpycyMk+AN
-         tMwcR4HuStcmbqP7aq7AVlkRTQDd6nIfsHivAdOPtiUEp5Yl5SS+hXTEXunaPxb2U/FH
-         raMS+pn5DuDntqver8oR2Tyj0ZjRySbK6oJi+kgbXTAJDdHksPVilcdoK3CRIXx8GMtm
-         l8mmpEaMVZjC2cStsgNP7uN1gisZ4y1QvjvW9FyH+ukvDjBZCNN9wHsgMjewjh8ktOUG
-         73HA==
-X-Forwarded-Encrypted: i=1; AJvYcCVslmLZ6T5p7gz05w97EyNnb4PQSnr5S7kzjF1wYN1uqOHa+ubjEtF1pdjdCXV3errA5yaL@lists.linux.dev
-X-Gm-Message-State: AOJu0Yx5KsLq3JJsufqJPCjniybPI83Vv1D7Lg2xNS6xnus9rjMrGpa0
-	/rZBwBRPa5iBbP+8iIRORxVdAWH23oT7uvmc2YY2ALfFKA1CpBqcpKkCDhTf864tvnGFtnUBcIV
-	pt0x0TGCU/YF9OroSTzCIzcUimbPeP67P8l4mttrOhFOv7kQLljvf5Gk=
-X-Gm-Gg: ASbGncuJ/l5PmNlyFKzpKva3EuLVRxzWnTBh47YhTcNPEdM8XjqB4J/5gFl4zemiDqy
-	Ejgpz6PbnY6J/WjT1ZOq1B+KQ+z6hCMtRQHnj9TTmIYsKgCfjefYPLBpgGcpCUmve9LM3Qn/vy+
-	KbkL54geT5IeWQCvEpatES6YBP5LWT4HQFEiCfXB5yFKkXjOzAolbws3DiZTlEAMEDeQCzaDijS
-	gunFpEIHtB8OkGj7K86cqVE5N7kTHupt/shaObTwXzB4F2L/pO6hpXxPUyv6CO9tqYEWuLnAY/8
-	ga0Bz9Xhk70GTbVW/BxGqXp8ZJPfsPBsMAfKnmg5zZYhOmZJkSzw+QV6eVrzvkoYG3o1BiYrq2x
-	XE3DhYbT0BKhp
-X-Received: by 2002:a05:6000:2512:b0:3ec:ce37:3a6a with SMTP id ffacd0b85a97d-405c59e17a9mr1491786f8f.22.1758625652532;
-        Tue, 23 Sep 2025 04:07:32 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGiNVrh1Vb4Z2SR9W3OxoavNX4r+DNnG1BTKk7kY4JP8xc64yZnQmJJOmaVmCkqxRBWoAYFjQ==
-X-Received: by 2002:a05:6000:2512:b0:3ec:ce37:3a6a with SMTP id ffacd0b85a97d-405c59e17a9mr1491754f8f.22.1758625652064;
-        Tue, 23 Sep 2025 04:07:32 -0700 (PDT)
+        bh=HRiwAmUD+4/mMUYIIKXqkLb49gsCM2cGlAg51GqgPDQ=;
+        b=Q/JxLHVdCHzUUQQc+hD2MTTlwxTcCm61fC+/5RW/R+RrFfbOnCM+vAOkEpfSTV0z1n
+         P94W4fbTTGHahijTygeGZEtb+Zf2t3ST/Ci3ixG9JnuapwEpQXnBG/NqpJlMalVQJaPR
+         aDPyzPzj0L6DfuR6gi/tiqdBHt1QnLK7A7StBdlyzEYzS9dMmhD2c+qmoDs557zRpG4v
+         N71x3zXPzU+ZHrGe9qJoMPaHqK08H2aYhF1hL/xrjgjRvnu/ca7cJwUqvc9SR2AhrStY
+         iDmG67prOBrDv6WdCl2iYEp+awwp02NR3mzABaMkYbK0wdyHD1bFVj5jf9gAbzSIyAOw
+         4Uog==
+X-Forwarded-Encrypted: i=1; AJvYcCXRprVH/oeTyXbCLEO0oEVJt0F2BRbffL2OzN3PdsK4dlkHUm8VZxejGuUuGttlSCReD/cK@lists.linux.dev
+X-Gm-Message-State: AOJu0YykexBE/+QJNFo+/hrXx5RVCU8qSif41qwcdCKMjJ2WlLkC0+di
+	WC6+Y6dHq9mmom2d84V+Y6pL3jWusuUvGhtS8qNPnyVTttdddsTDlqrPIQ5Gd60OybnQCM9upfO
+	Xq2fNo9Tpf5y5As1oR7dFsuvS+UIXBAjNCaPf8LH97AbR/BZA1kUMHQg99PVfQaA=
+X-Gm-Gg: ASbGncvw4yhewL0J1GYzg5UCBWqITZduL7BuFUnocN1nHDrBMbgo6p0l+yTMybRLIUr
+	8lhtXuoap4uhO+JKpLAV0gPOUPFrRLSmCKSV0hkLf8e2EI9wIo/3dyKsNXoxhtfGrOj3FPjuveu
+	UF4GQuA3jK6PRgavbW3UEUKnIu7jM2sxKi5kM2l67grtvc5vXPMCwuDQduDNa+enLKMYZdUtSc+
+	qHpODQwQEGq/787s3lsTnTBN6kQwSkUn9abqvylawwAW1svGm1Fbxu9XdCTyZA6m1r979rCO08W
+	wDBJCCbM02vFFHhqpufenxwCdlbE8uEAPsWopZuolmsFMJxQaAi5zkU6RyNbulgGUl5udhcD47g
+	7rNKhqiAfKGU7
+X-Received: by 2002:a05:600c:468a:b0:45b:5f3d:aa3d with SMTP id 5b1f17b1804b1-46e1dad1bc0mr17677835e9.21.1758626496735;
+        Tue, 23 Sep 2025 04:21:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFVl5LwJCSoJe18fqUI2zrrluC6snkXwQxOKaMoTUidlB/HP/Iah2lrSfVasHGUh0FtzoWWMQ==
+X-Received: by 2002:a05:600c:468a:b0:45b:5f3d:aa3d with SMTP id 5b1f17b1804b1-46e1dad1bc0mr17677575e9.21.1758626496239;
+        Tue, 23 Sep 2025 04:21:36 -0700 (PDT)
 Received: from ?IPV6:2a0d:3344:2712:7e10:4d59:d956:544f:d65c? ([2a0d:3344:2712:7e10:4d59:d956:544f:d65c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3ee07407fa3sm23492432f8f.21.2025.09.23.04.07.29
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-46e1dab52d7sm13706445e9.2.2025.09.23.04.21.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Sep 2025 04:07:31 -0700 (PDT)
-Message-ID: <7fa38c12-eece-45ae-87b2-da1445c62134@redhat.com>
-Date: Tue, 23 Sep 2025 13:07:29 +0200
+        Tue, 23 Sep 2025 04:21:35 -0700 (PDT)
+Message-ID: <871ed254-c3d8-49aa-9aac-eeb72e82f55d@redhat.com>
+Date: Tue, 23 Sep 2025 13:21:33 +0200
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
@@ -74,8 +74,8 @@ List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 02/15] net: build socket infrastructure for
- QUIC protocol
+Subject: Re: [PATCH net-next v3 03/15] quic: provide common utilities and data
+ structures
 To: Xin Long <lucien.xin@gmail.com>, network dev <netdev@vger.kernel.org>,
  quic@lists.linux.dev
 Cc: davem@davemloft.net, kuba@kernel.org, Eric Dumazet <edumazet@google.com>,
@@ -96,215 +96,77 @@ Cc: davem@davemloft.net, kuba@kernel.org, Eric Dumazet <edumazet@google.com>,
  Daniel Stenberg <daniel@haxx.se>,
  Andy Gospodarek <andrew.gospodarek@broadcom.com>
 References: <cover.1758234904.git.lucien.xin@gmail.com>
- <b55a2141a1d5aa31cd57be3d22bb8a5f8d40b7e2.1758234904.git.lucien.xin@gmail.com>
+ <a7fb75136c7c2e51b7081d3bff421e01b435288f.1758234904.git.lucien.xin@gmail.com>
 From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <b55a2141a1d5aa31cd57be3d22bb8a5f8d40b7e2.1758234904.git.lucien.xin@gmail.com>
+In-Reply-To: <a7fb75136c7c2e51b7081d3bff421e01b435288f.1758234904.git.lucien.xin@gmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ZFRv0h-pdKEG2dM4TGnl5ntEB1cMC05XPHnM5l_8_xE_1758625653
+X-Mimecast-MFC-PROC-ID: IjKLooJx0UpukBDn0jyhKBych0b-kj-TIGQWr83r8tA_1758626497
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/19/25 12:34 AM, Xin Long wrote:
-> This patch lays the groundwork for QUIC socket support in the kernel.
-> It defines the core structures and protocol hooks needed to create
-> QUIC sockets, without implementing any protocol behavior at this stage.
+> This patch provides foundational data structures and utilities used
+> throughout the QUIC stack.
 > 
-> Basic integration is included to allow building the module via
-> CONFIG_IP_QUIC=m.
+> It introduces packet header types, connection ID support, and address
+> handling. Hash tables are added to manage socket lookup and connection
+> ID mapping.
 > 
-> This provides the scaffolding necessary for adding actual QUIC socket
-> behavior in follow-up patches.
+> A flexible binary data type is provided, along with helpers for parsing,
+> matching, and memory management. Helpers for encoding and decoding
+> transport parameters and frames are also included.
 > 
-> Signed-off-by: Pengtao He <hepengtao@xiaomi.com>
 > Signed-off-by: Xin Long <lucien.xin@gmail.com>
 > ---
 > v3:
->   - Kconfig: add 'default n' for IP_QUIC (reported by Paolo).
->   - quic_disconnect(): return -EOPNOTSUPP (suggested by Paolo).
->   - quic_init/destroy_sock(): drop local_bh_disable/enable() calls (noted
->     by Paolo).
->   - sysctl: add alpn_demux option to en/disable ALPN-based demux.
->   - SNMP: remove SNMP_MIB_SENTINEL, switch to
->     snmp_get_cpu_field_batch_cnt() to align with latest net-next changes.
-> ---
->  net/Kconfig         |   1 +
->  net/Makefile        |   1 +
->  net/quic/Kconfig    |  36 +++++
->  net/quic/Makefile   |   8 +
->  net/quic/protocol.c | 379 ++++++++++++++++++++++++++++++++++++++++++++
->  net/quic/protocol.h |  56 +++++++
->  net/quic/socket.c   | 207 ++++++++++++++++++++++++
->  net/quic/socket.h   |  79 +++++++++
->  8 files changed, 767 insertions(+)
->  create mode 100644 net/quic/Kconfig
->  create mode 100644 net/quic/Makefile
->  create mode 100644 net/quic/protocol.c
->  create mode 100644 net/quic/protocol.h
->  create mode 100644 net/quic/socket.c
->  create mode 100644 net/quic/socket.h
-> 
-> diff --git a/net/Kconfig b/net/Kconfig
-> index d5865cf19799..1205f5b7cf59 100644
-> --- a/net/Kconfig
-> +++ b/net/Kconfig
-> @@ -249,6 +249,7 @@ source "net/bridge/netfilter/Kconfig"
->  
->  endif # if NETFILTER
->  
-> +source "net/quic/Kconfig"
->  source "net/sctp/Kconfig"
->  source "net/rds/Kconfig"
->  source "net/tipc/Kconfig"
-> diff --git a/net/Makefile b/net/Makefile
-> index aac960c41db6..7c6de28e9aa5 100644
-> --- a/net/Makefile
-> +++ b/net/Makefile
-> @@ -42,6 +42,7 @@ obj-$(CONFIG_PHONET)		+= phonet/
->  ifneq ($(CONFIG_VLAN_8021Q),)
->  obj-y				+= 8021q/
->  endif
-> +obj-$(CONFIG_IP_QUIC)		+= quic/
->  obj-$(CONFIG_IP_SCTP)		+= sctp/
->  obj-$(CONFIG_RDS)		+= rds/
->  obj-$(CONFIG_WIRELESS)		+= wireless/
-> diff --git a/net/quic/Kconfig b/net/quic/Kconfig
-> new file mode 100644
-> index 000000000000..1f10a452b3a1
-> --- /dev/null
-> +++ b/net/quic/Kconfig
-> @@ -0,0 +1,36 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +#
-> +# QUIC configuration
-> +#
+>   - Rework hashtables: split into two types and size them based on
+>     totalram_pages(), similar to SCTP (reported by Paolo).
+>   - struct quic_shash_table: use rwlock instead of spinlock.
+
+Why? rwlock usage should be avoided in networking (as it's unfair, see
+the many refactors replacing rwlock with rcu/plain spinlock)
+
+[...]
 > +
-> +menuconfig IP_QUIC
-> +	tristate "QUIC: A UDP-Based Multiplexed and Secure Transport (Experimental)"
-> +	depends on INET
-> +	depends on IPV6
-> +	select CRYPTO
-> +	select CRYPTO_HMAC
-> +	select CRYPTO_HKDF
-> +	select CRYPTO_AES
-> +	select CRYPTO_GCM
-> +	select CRYPTO_CCM
-> +	select CRYPTO_CHACHA20POLY1305
-> +	select NET_UDP_TUNNEL
-> +	default n
-> +	help
-> +	  QUIC: A UDP-Based Multiplexed and Secure Transport
-> +
-> +	  From rfc9000 <https://www.rfc-editor.org/rfc/rfc9000.html>.
-> +
-> +	  QUIC provides applications with flow-controlled streams for structured
-> +	  communication, low-latency connection establishment, and network path
-> +	  migration.  QUIC includes security measures that ensure
-> +	  confidentiality, integrity, and availability in a range of deployment
-> +	  circumstances.  Accompanying documents describe the integration of
-> +	  TLS for key negotiation, loss detection, and an exemplary congestion
-> +	  control algorithm.
-> +
-> +	  To compile this protocol support as a module, choose M here: the
-> +	  module will be called quic. Debug messages are handled by the
-> +	  kernel's dynamic debugging framework.
-> +
-> +	  If in doubt, say N.
-> diff --git a/net/quic/Makefile b/net/quic/Makefile
-> new file mode 100644
-> index 000000000000..020e4dd133d8
-> --- /dev/null
-> +++ b/net/quic/Makefile
-> @@ -0,0 +1,8 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +#
-> +# Makefile for QUIC support code.
-> +#
-> +
-> +obj-$(CONFIG_IP_QUIC) += quic.o
-> +
-> +quic-y := protocol.o socket.o
-> diff --git a/net/quic/protocol.c b/net/quic/protocol.c
-> new file mode 100644
-> index 000000000000..f79f43f0c17f
-> --- /dev/null
-> +++ b/net/quic/protocol.c
-> @@ -0,0 +1,379 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/* QUIC kernel implementation
-> + * (C) Copyright Red Hat Corp. 2023
-> + *
-> + * This file is part of the QUIC kernel implementation
-> + *
-> + * Initialization/cleanup for QUIC protocol support.
-> + *
-> + * Written or modified by:
-> + *    Xin Long <lucien.xin@gmail.com>
-> + */
-> +
-> +#include <net/inet_common.h>
-> +#include <linux/proc_fs.h>
-> +#include <net/protocol.h>
-> +#include <net/rps.h>
-> +#include <net/tls.h>
-> +
-> +#include "socket.h"
-> +
-> +static unsigned int quic_net_id __read_mostly;
-> +
-> +struct percpu_counter quic_sockets_allocated;
-> +
-> +long sysctl_quic_mem[3];
-> +int sysctl_quic_rmem[3];
-> +int sysctl_quic_wmem[3];
-> +int sysctl_quic_alpn_demux;
-> +
-> +static int quic_inet_connect(struct socket *sock, struct sockaddr *addr, int addr_len, int flags)
+> +static int quic_uhash_table_init(struct quic_uhash_table *ht, u32 max_size, int order)
 > +{
-> +	struct sock *sk = sock->sk;
-> +	const struct proto *prot;
+> +	int i, max_order, size;
 > +
-> +	if (addr_len < (int)sizeof(addr->sa_family))
-> +		return -EINVAL;
-> +
-> +	prot = READ_ONCE(sk->sk_prot);
+> +	/* Same sizing logic as in quic_shash_table_init(). */
+> +	max_order = get_order(max_size * sizeof(struct quic_uhash_head));
+> +	order = min(order, max_order);
+> +	do {
+> +		ht->hash = (struct quic_uhash_head *)
+> +			__get_free_pages(GFP_KERNEL | __GFP_NOWARN, order);
+> +	} while (!ht->hash && --order > 0);
 
-Is the above _ONCE() annotation for ADDRFORM's sake? If so it should not
-be needed (only UDP and TCP sockets are affected).
+You can avoid a little complexity, and see more consistent behaviour,
+using plain vmalloc() or alloc_large_system_hash() with no fallback.
 
-> diff --git a/net/quic/socket.h b/net/quic/socket.h
-> new file mode 100644
-> index 000000000000..ded8eb2e6a9c
-> --- /dev/null
-> +++ b/net/quic/socket.h
-> @@ -0,0 +1,79 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/* QUIC kernel implementation
-> + * (C) Copyright Red Hat Corp. 2023
+
+> +/* rfc9000#section-a.3: DecodePacketNumber()
 > + *
-> + * This file is part of the QUIC kernel implementation
-> + *
-> + * Written or modified by:
-> + *    Xin Long <lucien.xin@gmail.com>
+> + * Reconstructs the full packet number from a truncated one.
 > + */
+> +s64 quic_get_num(s64 max_pkt_num, s64 pkt_num, u32 n)
+> +{
+> +	s64 expected = max_pkt_num + 1;
+> +	s64 win = BIT_ULL(n * 8);
+> +	s64 hwin = win / 2;
+> +	s64 mask = win - 1;
+> +	s64 cand;
 > +
-> +#include <net/udp_tunnel.h>
-> +
-> +#include "protocol.h"
-> +
-> +extern struct proto quic_prot;
-> +extern struct proto quicv6_prot;
-> +
-> +enum quic_state {
-> +	QUIC_SS_CLOSED		= TCP_CLOSE,
-> +	QUIC_SS_LISTENING	= TCP_LISTEN,
-> +	QUIC_SS_ESTABLISHING	= TCP_SYN_RECV,
-> +	QUIC_SS_ESTABLISHED	= TCP_ESTABLISHED,
-> +};
+> +	cand = (expected & ~mask) | pkt_num;
+> +	if (cand <= expected - hwin && cand < (1ULL << 62) - win)
+> +		return cand + win;
+> +	if (cand > expected + hwin && cand >= win)
+> +		return cand - win;
+> +	return cand;
 
-Any special reason to define protocol-specific states? I guess you could
-re-use the TCP ones, as other protocols already do.
+The above is a bit obscure to me; replacing magic nubers (62) with macro
+could help. Some more comments also would do.
 
 /P
 
