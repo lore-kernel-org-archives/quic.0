@@ -1,535 +1,175 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A977C2FE07D
-	for <quic@lists.linux.dev>; Tue, 23 Sep 2025 19:37:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CA71E0E1F
+	for <quic@lists.linux.dev>; Thu, 25 Sep 2025 15:50:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758656271; cv=none; b=BU22k4h7f8KPjEZHEgallfqi0LxPWeRadaIrMmLH9IOf2PbK9XnySYatuCDbrXwsE4Bysw3Adbll5n2Simkp2uTGJ8VP7p5+xu4lzQrG2dAbuZa/OMzLzvR54XdN1DaZlCn987DaIBS6X9Ba8WEp6DpdAV1Ya2JdfrkCYv0n7TA=
+	t=1758815417; cv=none; b=G1RZhOraEsL1mzraRC0JppaIFlaJSwwKlXm6Qdo+9av3QqsMUjCmvdeEmv2S4qyQ9Bb9BCXPuEl0Y1hrXRkFAIuGiDz/F4SJU4KLl4rHAcjs33wuc309DE2UgX5ZbDhQHqhN84WdatfdMefh427rzUFUIknFhtjv1orafFcv2/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758656271; c=relaxed/simple;
-	bh=+XXoF2ZxwT72G+CmMpYi9V7S13kBzWWDC8EXupg/QuA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PylsxkNseIb32GG/s/ioc6GnDWoW4cJ4gPvYa/RhsCSf6EpwyMAaeFM53fuEO7DK64fZNXOeRaY9aAClQkaF0tzP60/HdrzhdA1kfT5lkQHBkM80iiJPd/+4vHP4V9D8MbJAX6G1Ewif4kyp9kgFr8ONlNHPWWy+pxtVtxDrGKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gR483zGi; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1758815417; c=relaxed/simple;
+	bh=6U561RsZS+7ehXxxbAaXaCZdLb/rf1WSXkRONpEB64k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AxOHghL3NiOcY95L93tG6uQ08dUwrD4R5+ua7kBRLJL4KvUEIs8TiAsLQjZp/bH28et4D+Cqw3Xm9Rb/BjL2mp/R58AXU+PAOp4U9w/F7jn6hY+F4bIUuJErfJAnLCc6XPUshxz5EWYJTkftni3cTBHBoCKtSXa8LLwO3HisFgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f/lxhIT5; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gR483zGi"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-7704f3c46ceso5618894b3a.2
-        for <quic@lists.linux.dev>; Tue, 23 Sep 2025 12:37:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758656268; x=1759261068; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KLUrp+cYYYU8MC53CfS/yqja0bSDjgPTxLoATUISEfA=;
-        b=gR483zGiDJvBrplEGYZY6UtthRzGajpHRW45JK72HULPVYmpPRwfKRrGnl9VRuOiry
-         aj+uSDvZar4OHM9OnMzXRM/bGj2RX/p//FXC9II1Xv2w/3jilnT4dE0s2nT1KNWRH+s+
-         zD8SPCzM/iTKecL+zuvxSTbCYpM7lEDKU+UeMOWVWN1uTbqe3Uf8c67c8tj/cK4JRNJ9
-         6mAyRUGiScwom7XWzE6EM1Xxa2h6oGfVci9VAphscJ9RXVjo8rp1l5rHZnX9cina5NVq
-         nDo3h56+NrG8/YLyoQdBMXTFsN2O/tvfIs+lb5L3PLUkqKpbqxpEI/DziSdMFUhNgaiV
-         yo8g==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f/lxhIT5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1758815414;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lPOIdtGuD9l53wCDZgvs8CoLuOUrw0SyvwaoNtPWj00=;
+	b=f/lxhIT5Pu9HHugrqnOg/sGfGsJlZF6xuEwo/F7FNWkZ3VQDTUOVRn+iFvtqBWAhasXQJp
+	3NDeJn2Zf1YKRyhw9lT1dAm2j6PhXul1ODKN9JAWlele3e+ZkATclWKykZeArh77c2D94R
+	dRd+xIEyjR4qpaw55mCuZmbsld9OkoY=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-688-whcDJIjENsaKLraD-lgEQg-1; Thu, 25 Sep 2025 11:50:11 -0400
+X-MC-Unique: whcDJIjENsaKLraD-lgEQg-1
+X-Mimecast-MFC-AGG-ID: whcDJIjENsaKLraD-lgEQg_1758815410
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-45f2a1660fcso9612165e9.1
+        for <quic@lists.linux.dev>; Thu, 25 Sep 2025 08:50:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758656268; x=1759261068;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=KLUrp+cYYYU8MC53CfS/yqja0bSDjgPTxLoATUISEfA=;
-        b=ujVdq5X2s2h1q7fVLxt3YZWVPHvA3z4lMInXm4cPSTX9bE5bCjPfh80MuN9HgVAHQw
-         HTCLIPloXBM+4rjK2pKwcV0ZMMWbHJAiMrJaW7oxG9vowxpA6yrMYpSKYOrpkGGy3NVc
-         o9N024jkPUKp31c0Pf1J6kA+u47X8DdDWMKFKGlVNd0Nzh/C7XVk3Oit+/woApBgqZCd
-         s9az1Ta841LZaUS/g6LElhjkxn5gvXjUEb+em6QnOHpMO5yW+AMAmLizMewQuEB25kdV
-         2LWA0lLrS+issjAnbLAd/kVCfCpSqiw0wAwi9VF1jmqd/OSNr4JPvSJmZFqlYx4ANhzw
-         FFag==
-X-Forwarded-Encrypted: i=1; AJvYcCUq7qWT3PMkc1Dc80ZTtZBzOligTwKNsjhS+d8jjFM2vziDEnnmVuG7YyHeUbwv2Wfs2217@lists.linux.dev
-X-Gm-Message-State: AOJu0Yx95FMC3fuQM7x7pQYQcDgAU/lmPqkgk0a2/Xw7UyJgXDFT1RqJ
-	mNXgxpcU4vJjb9obZQcLGTl57FKJkwnb3vJPeMW+CvvFA/mzLk2h3ZOxmfo0497gP6NU7AEnP4Q
-	TOmVR/EGjx9Z0/LN57YVT5snnZNJLnsU=
-X-Gm-Gg: ASbGncuZQ8K6lFxQXe5srAdbFS4uTmV50cZ+K48uV0wskpJbsd4eUFm9IDeM60pLGus
-	6STTfllYjHSXUd+h+iIlE7+w6b0490Dmnqt9i2Hp70ahmXXvO19/rfKTiR5dYEf/ApeD92TlYis
-	8zchm4WZdlVrL0BjIb2Mp8bpzF/tgsczzwb3eOPPIpPWaJ0yWW5FxAK/gpSFkT+LNI23MSS+7B0
-	KL8JxiMTA==
-X-Google-Smtp-Source: AGHT+IErV6AYpLUins4xB7r0Q9A08f2HDRHBMzxtSLII0Tooor4nIEURR9QvyBSmUNpN2jo0FdszTswnlWssSR99fDo=
-X-Received: by 2002:a05:6a20:7344:b0:24c:dd96:54f2 with SMTP id
- adf61e73a8af0-2cfd4836ad3mr5789184637.1.1758656267868; Tue, 23 Sep 2025
- 12:37:47 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1758815410; x=1759420210;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lPOIdtGuD9l53wCDZgvs8CoLuOUrw0SyvwaoNtPWj00=;
+        b=PhtjrXOWldhjbs7GXAaV7EZelVYJ4BMQqwVbD0/QVoWASY2foxZpdWxgB+n5pU4HZV
+         TLSkCuqeB8jxFq8nbOUtXIybLdjIiGPoY5c2tXiDDexV9eFO6Fym0CUa/ghViH36ImQW
+         iPlV+oZYRL+mYM7yisnq3TeOu8dLyFFAPsZ5OXljp5bLUZQ/SobTKLYMvi30YopqoUkg
+         mdrkghuW6IobSToSqB4LjCQL5ado8D8woJaKXgSlD/Wr2duD7ksvp+oORix6wUc/fLpw
+         PEAUCQ5hIwHOmn7ZR4BRYNeS4xXJyhvrRLOy7oo/WDjx5yLXdh593a7EnJoXVcQddzdr
+         KAIg==
+X-Forwarded-Encrypted: i=1; AJvYcCX1EB+maPv2o4vMR1h/hLAGFW9nyYekERNJ1M896yfn1o1Xiw+BREnCffFfKFauPNwpin4a@lists.linux.dev
+X-Gm-Message-State: AOJu0YxOeBiN/2Qz21yZV4SeGS5jn7cs3WOxmH5umhS8jk9Vno5a1bUk
+	ca0SK1tAHiQpAI6MLFqBI/rpgcexOMkMiDCEkJJeVqcPMWrYppDYnZAJFlWI6TllS5Su1ghmIy6
+	nSF0ZGEdZNi7MOlnx0Ie3Rm/DwSJctUV/2nH+VW3qZDI2BdwVPQs9uvk=
+X-Gm-Gg: ASbGncv40xcMhzgcVmPawtUsXb3XGQNRYBEuJOKmxGLSZ2xFRX0oSizjwJOjb5e1caj
+	rCiY4553CKEVO6ZGkJtwEcyBuCi5C9w7oM5T+ILlkL5FRq4eVgfHNVxUK5z744q408pKaIiUi1B
+	SdB53C6NQieYOdgd2e4PMY+cEzY8ketry0/FUjjHImSK8qdIkwPeHiIA70paw8vjkv21r2KQej5
+	N+Z2fCDAdERHm0rP0CgMXQuGk1x/Xuj6B8zUu7D0PLxvyfHg8rIB4L468baELIXRm4YRQfym10Z
+	qJEMceZSAES4I1qDX/d5FmzakkGJ2z8AaNo5ziIb4wOpHI793ie7Zj5GltbLC8jvaMM+LmgFuyW
+	C7JL1Mg0InzEe
+X-Received: by 2002:a05:600c:1ca5:b0:46e:2637:d182 with SMTP id 5b1f17b1804b1-46e32a08feamr49009365e9.28.1758815410232;
+        Thu, 25 Sep 2025 08:50:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFifX77hGxL2O4FYAU+ptB+L8YPLKwsnLSuT5OPi4ABcaTgR4jE6/4IbKEl3gD+G+IQTmbShw==
+X-Received: by 2002:a05:600c:1ca5:b0:46e:2637:d182 with SMTP id 5b1f17b1804b1-46e32a08feamr49008725e9.28.1758815409731;
+        Thu, 25 Sep 2025 08:50:09 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:2712:7e10:4d59:d956:544f:d65c? ([2a0d:3344:2712:7e10:4d59:d956:544f:d65c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-46e33bf6ecbsm42448815e9.22.2025.09.25.08.50.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Sep 2025 08:50:09 -0700 (PDT)
+Message-ID: <2152c576-68ce-4bc4-9658-bb1e8ccce423@redhat.com>
+Date: Thu, 25 Sep 2025 17:50:07 +0200
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1758234904.git.lucien.xin@gmail.com> <3475257318dcfce0ee996131142969b1fce7ae8b.1758234904.git.lucien.xin@gmail.com>
- <a9427359-a798-4f3a-88ef-c10a0bf614ec@redhat.com>
-In-Reply-To: <a9427359-a798-4f3a-88ef-c10a0bf614ec@redhat.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 23 Sep 2025 15:37:35 -0400
-X-Gm-Features: AS18NWA9emAx36cB5XrlF-1nvhVl7KRbIJ2r3YH_HsuND-2tSxb3DLgCGkI_Y8U
-Message-ID: <CADvbK_dxa0G-drauyggde2_46PdRfd9qzzmfuhj5NcMsOkGHRw@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 09/15] quic: add congestion control
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
-	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
-	Stefan Metzmacher <metze@samba.org>, Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli <tfanelli@redhat.com>, 
-	Pengtao He <hepengtao@xiaomi.com>, linux-cifs@vger.kernel.org, 
-	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>, kernel-tls-handshake@lists.linux.dev, 
-	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
-	Benjamin Coddington <bcodding@redhat.com>, Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>, 
-	Alexander Aring <aahringo@redhat.com>, David Howells <dhowells@redhat.com>, 
-	Matthieu Baerts <matttbe@kernel.org>, John Ericson <mail@johnericson.me>, 
-	Cong Wang <xiyou.wangcong@gmail.com>, "D . Wythe" <alibuda@linux.alibaba.com>, 
-	Jason Baron <jbaron@akamai.com>, illiliti <illiliti@protonmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
-	Daniel Stenberg <daniel@haxx.se>, Andy Gospodarek <andrew.gospodarek@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 03/15] quic: provide common utilities and data
+ structures
+To: Xin Long <lucien.xin@gmail.com>
+Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev,
+ davem@davemloft.net, kuba@kernel.org, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, Stefan Metzmacher <metze@samba.org>,
+ Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli <tfanelli@redhat.com>,
+ Pengtao He <hepengtao@xiaomi.com>, linux-cifs@vger.kernel.org,
+ Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>,
+ Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>,
+ kernel-tls-handshake@lists.linux.dev, Chuck Lever <chuck.lever@oracle.com>,
+ Jeff Layton <jlayton@kernel.org>, Benjamin Coddington <bcodding@redhat.com>,
+ Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>,
+ Alexander Aring <aahringo@redhat.com>, David Howells <dhowells@redhat.com>,
+ Matthieu Baerts <matttbe@kernel.org>, John Ericson <mail@johnericson.me>,
+ Cong Wang <xiyou.wangcong@gmail.com>, "D . Wythe"
+ <alibuda@linux.alibaba.com>, Jason Baron <jbaron@akamai.com>,
+ illiliti <illiliti@protonmail.com>, Sabrina Dubroca <sd@queasysnail.net>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Daniel Stenberg <daniel@haxx.se>,
+ Andy Gospodarek <andrew.gospodarek@broadcom.com>
+References: <cover.1758234904.git.lucien.xin@gmail.com>
+ <a7fb75136c7c2e51b7081d3bff421e01b435288f.1758234904.git.lucien.xin@gmail.com>
+ <871ed254-c3d8-49aa-9aac-eeb72e82f55d@redhat.com>
+ <CADvbK_e20TrcgprXmnZzvoEO6yzoo4Zx7B0qFS0kQPT8Sf63LQ@mail.gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <CADvbK_e20TrcgprXmnZzvoEO6yzoo4Zx7B0qFS0kQPT8Sf63LQ@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DTi3iVvmRgsKjkQ6T6IGDfkz1WG2dMMa16aefQetFUs_1758815410
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 23, 2025 at 9:55=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
-te:
->
-> On 9/19/25 12:34 AM, Xin Long wrote:
-> > This patch introduces 'quic_cong' for RTT measurement and congestion
-> > control. The 'quic_cong_ops' is added to define the congestion
-> > control algorithm.
-> >
-> > It implements a congestion control state machine with slow start,
-> > congestion avoidance, and recovery phases, and introduces the New
-> > Reno and CUBIC algorithms.
->
-> To moderate the initial submission size, you could initially introduce
-> just one of the above.
-That sounds like a good idea, and I will keep the one specified
-in rfc9002: the New Reno, and remove the CUBIC.
+On 9/23/25 6:06 PM, Xin Long wrote:
+> On Tue, Sep 23, 2025 at 7:21 AM Paolo Abeni <pabeni@redhat.com> wrote:
+>> On 9/19/25 12:34 AM, Xin Long wrote:
+>>> +static int quic_uhash_table_init(struct quic_uhash_table *ht, u32 max_size, int order)
+>>> +{
+>>> +     int i, max_order, size;
+>>> +
+>>> +     /* Same sizing logic as in quic_shash_table_init(). */
+>>> +     max_order = get_order(max_size * sizeof(struct quic_uhash_head));
+>>> +     order = min(order, max_order);
+>>> +     do {
+>>> +             ht->hash = (struct quic_uhash_head *)
+>>> +                     __get_free_pages(GFP_KERNEL | __GFP_NOWARN, order);
+>>> +     } while (!ht->hash && --order > 0);
+>>
+>> You can avoid a little complexity, and see more consistent behaviour,
+>> using plain vmalloc() or alloc_large_system_hash() with no fallback.
+>>
+> I wanted to use alloc_large_system_hash(), but the memory allocated
+> by it is usually NOT meant to be freed at runtime. I don't see a free_
+> function to do it either.
+> 
+> If QUIC works as a kernel module, what should I do with this memory
+> in module_exit()?
 
->
-> > The implementation updates RTT estimates when packets are acknowledged,
-> > reacts to loss and ECN signals, and adjusts the congestion window
-> > accordingly during packet transmission and acknowledgment processing.
-> >
-> > - quic_cong_rtt_update(): Performs RTT measurement, invoked when a
-> >   packet is acknowledged by the largest number in the ACK frame.
-> >
-> > - quic_cong_on_packet_acked(): Invoked when a packet is acknowledged.
-> >
-> > - quic_cong_on_packet_lost(): Invoked when a packet is marked as lost.
-> >
-> > - quic_cong_on_process_ecn(): Invoked when an ACK_ECN frame is received=
-.
-> >
-> > - quic_cong_on_packet_sent(): Invoked when a packet is transmitted.
-> >
-> > - quic_cong_on_ack_recv(): Invoked when an ACK frame is received.
-> >
-> > Signed-off-by: Xin Long <lucien.xin@gmail.com>
-> > ---
-> >  net/quic/Makefile |   3 +-
-> >  net/quic/cong.c   | 700 ++++++++++++++++++++++++++++++++++++++++++++++
-> >  net/quic/cong.h   | 120 ++++++++
-> >  net/quic/socket.c |   1 +
-> >  net/quic/socket.h |   7 +
-> >  5 files changed, 830 insertions(+), 1 deletion(-)
-> >  create mode 100644 net/quic/cong.c
-> >  create mode 100644 net/quic/cong.h
-> >
-> > diff --git a/net/quic/Makefile b/net/quic/Makefile
-> > index 1565fb5cef9d..4d4a42c6d565 100644
-> > --- a/net/quic/Makefile
-> > +++ b/net/quic/Makefile
-> > @@ -5,4 +5,5 @@
-> >
-> >  obj-$(CONFIG_IP_QUIC) +=3D quic.o
-> >
-> > -quic-y :=3D common.o family.o protocol.o socket.o stream.o connid.o pa=
-th.o
-> > +quic-y :=3D common.o family.o protocol.o socket.o stream.o connid.o pa=
-th.o \
-> > +       cong.o
-> > diff --git a/net/quic/cong.c b/net/quic/cong.c
-> > new file mode 100644
-> > index 000000000000..d598cc14b15e
-> > --- /dev/null
-> > +++ b/net/quic/cong.c
-> > @@ -0,0 +1,700 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/* QUIC kernel implementation
-> > + * (C) Copyright Red Hat Corp. 2023
-> > + *
-> > + * This file is part of the QUIC kernel implementation
-> > + *
-> > + * Initialization/cleanup for QUIC protocol support.
-> > + *
-> > + * Written or modified by:
-> > + *    Xin Long <lucien.xin@gmail.com>
-> > + */
-> > +
-> > +#include <linux/jiffies.h>
-> > +#include <linux/quic.h>
-> > +#include <net/sock.h>
-> > +
-> > +#include "common.h"
-> > +#include "cong.h"
-> > +
-> > +/* CUBIC APIs */
-> > +struct quic_cubic {
-> > +     /* Variables of Interest in rfc9438#section-4.1.2 */
-> > +     u32 pending_w_add;              /* Accumulate fractional incremen=
-ts to W_est */
-> > +     u32 origin_point;               /* W_max */
-> > +     u32 epoch_start;                /* t_epoch */
-> > +     u32 pending_add;                /* Accumulates fractional additio=
-ns to W_cubic */
-> > +     u32 w_last_max;                 /* last W_max */
-> > +     u32 w_tcp;                      /* W_est */
-> > +     u64 k;                          /* K */
-> > +
-> > +     /* HyStart++ variables in rfc9406#section-4.2 */
-> > +     u32 current_round_min_rtt;      /* currentRoundMinRTT */
-> > +     u32 css_baseline_min_rtt;       /* cssBaselineMinRtt */
-> > +     u32 last_round_min_rtt;         /* lastRoundMinRTT */
-> > +     u16 rtt_sample_count;           /* rttSampleCount */
-> > +     u16 css_rounds;                 /* Counter for consecutive rounds=
- showing RTT increase */
-> > +     s64 window_end;                 /* End of current CSS round (pack=
-et number) */
-> > +};
-> > +
-> > +/* HyStart++ constants in rfc9406#section-4.3 */
-> > +#define QUIC_HS_MIN_SSTHRESH         16
-> > +#define QUIC_HS_N_RTT_SAMPLE         8
-> > +#define QUIC_HS_MIN_ETA                      4000
-> > +#define QUIC_HS_MAX_ETA                      16000
-> > +#define QUIC_HS_MIN_RTT_DIVISOR              8
-> > +#define QUIC_HS_CSS_GROWTH_DIVISOR   4
-> > +#define QUIC_HS_CSS_ROUNDS           5
-> > +
-> > +static u64 cubic_root(u64 n)
-> > +{
-> > +     u64 a, d;
-> > +
-> > +     if (!n)
-> > +             return 0;
-> > +
-> > +     d =3D (64 - __builtin_clzll(n)) / 3;
-> > +     a =3D BIT_ULL(d + 1);
-> > +
-> > +     for (; a * a * a > n;) {
-> > +             d =3D div64_ul(n, a * a);
-> > +             a =3D div64_ul(2 * a + d, 3);
-> > +     }
-> > +     return a;
-> > +}
->
-> tcp_cubic() has already an helper to compute the square root. You could
-> re-use that one.
->
-> > +
-> > +/* rfc9406#section-4: HyStart++ Algorithm */
-> > +static void cubic_slow_start(struct quic_cong *cong, u32 bytes, s64 nu=
-mber)
-> > +{
-> > +     struct quic_cubic *cubic =3D quic_cong_priv(cong);
-> > +     u32 eta;
-> > +
-> > +     if (cubic->window_end <=3D number)
-> > +             cubic->window_end =3D -1;
-> > +
-> > +     /* cwnd =3D cwnd + (min(N, L * SMSS) / CSS_GROWTH_DIVISOR) */
-> > +     if (cubic->css_baseline_min_rtt !=3D U32_MAX)
-> > +             bytes =3D bytes / QUIC_HS_CSS_GROWTH_DIVISOR;
-> > +     cong->window =3D min_t(u32, cong->window + bytes, cong->max_windo=
-w);
-> > +
-> > +     if (cubic->css_baseline_min_rtt !=3D U32_MAX) {
-> > +             /* If CSS_ROUNDS rounds are complete, enter congestion av=
-oidance. */
-> > +             if (++cubic->css_rounds > QUIC_HS_CSS_ROUNDS) {
-> > +                     cubic->css_baseline_min_rtt =3D U32_MAX;
-> > +                     cubic->w_last_max =3D cong->window;
-> > +                     cong->ssthresh =3D cong->window;
-> > +                     cubic->css_rounds =3D 0;
-> > +             }
-> > +             return;
-> > +     }
-> > +
-> > +     /* if ((rttSampleCount >=3D N_RTT_SAMPLE) AND
-> > +      *     (currentRoundMinRTT !=3D infinity) AND
-> > +      *     (lastRoundMinRTT !=3D infinity))
-> > +      *   RttThresh =3D max(MIN_RTT_THRESH,
-> > +      *     min(lastRoundMinRTT / MIN_RTT_DIVISOR, MAX_RTT_THRESH))
-> > +      *   if (currentRoundMinRTT >=3D (lastRoundMinRTT + RttThresh))
-> > +      *     cssBaselineMinRtt =3D currentRoundMinRTT
-> > +      *     exit slow start and enter CSS
-> > +      */
-> > +     if (cubic->last_round_min_rtt !=3D U32_MAX &&
-> > +         cubic->current_round_min_rtt !=3D U32_MAX &&
-> > +         cong->window >=3D QUIC_HS_MIN_SSTHRESH * cong->mss &&
-> > +         cubic->rtt_sample_count >=3D QUIC_HS_N_RTT_SAMPLE) {
-> > +             eta =3D cubic->last_round_min_rtt / QUIC_HS_MIN_RTT_DIVIS=
-OR;
-> > +             if (eta < QUIC_HS_MIN_ETA)
-> > +                     eta =3D QUIC_HS_MIN_ETA;
-> > +             else if (eta > QUIC_HS_MAX_ETA)
-> > +                     eta =3D QUIC_HS_MAX_ETA;
-> > +
-> > +             pr_debug("%s: current_round_min_rtt: %u, last_round_min_r=
-tt: %u, eta: %u\n",
-> > +                      __func__, cubic->current_round_min_rtt, cubic->l=
-ast_round_min_rtt, eta);
-> > +
-> > +             /* Delay increase triggers slow start exit and enter CSS.=
- */
-> > +             if (cubic->current_round_min_rtt >=3D cubic->last_round_m=
-in_rtt + eta)
-> > +                     cubic->css_baseline_min_rtt =3D cubic->current_ro=
-und_min_rtt;
-> > +     }
-> > +}
-> > +
-> > +/* rfc9438#section-4: CUBIC Congestion Control */
-> > +static void cubic_cong_avoid(struct quic_cong *cong, u32 bytes)
-> > +{
-> > +     struct quic_cubic *cubic =3D quic_cong_priv(cong);
-> > +     u64 tx, kx, time_delta, delta, t;
-> > +     u64 target_add, tcp_add =3D 0;
-> > +     u64 target, cwnd_thres, m;
-> > +
-> > +     if (cubic->epoch_start =3D=3D U32_MAX) {
-> > +             cubic->epoch_start =3D cong->time;
-> > +             if (cong->window < cubic->w_last_max) {
-> > +                     /*
-> > +                      *        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
-> > +                      *     3  =E2=94=82W    - cwnd
-> > +                      *     =E2=95=B2  =E2=94=82 max       epoch
-> > +                      * K =3D  =E2=95=B2 =E2=94=82=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-> > +                      *       =E2=95=B2=E2=94=82       C
-> > +                      */
-> > +                     cubic->k =3D cubic->w_last_max - cong->window;
-> > +                     cubic->k =3D cubic_root(div64_ul(cubic->k * 10, (=
-u64)cong->mss * 4));
->
-> Can `mss` be 0 at this point? Why?
-There is QUIC_PATH_MIN_PMTU (1200) defined.
-quic_flow_route() must be done and mss is calculated to set cong->mss
-via quic_cong_set_mss() based on pmtu before coming to this place.
+Right, I did not think about such case. I suggest using a plain
+vmalloc() without the loop than.
 
-It should be ensured on the 2nd patchset, I will double check it.
+>>> +/* rfc9000#section-a.3: DecodePacketNumber()
+>>> + *
+>>> + * Reconstructs the full packet number from a truncated one.
+>>> + */
+>>> +s64 quic_get_num(s64 max_pkt_num, s64 pkt_num, u32 n)
+>>> +{
+>>> +     s64 expected = max_pkt_num + 1;
+>>> +     s64 win = BIT_ULL(n * 8);
+>>> +     s64 hwin = win / 2;
+>>> +     s64 mask = win - 1;
+>>> +     s64 cand;
+>>> +
+>>> +     cand = (expected & ~mask) | pkt_num;
+>>> +     if (cand <= expected - hwin && cand < (1ULL << 62) - win)
+>>> +             return cand + win;
+>>> +     if (cand > expected + hwin && cand >= win)
+>>> +             return cand - win;
+>>> +     return cand;
+>>
+>> The above is a bit obscure to me; replacing magic nubers (62) with macro
+>> could help. Some more comments also would do.
+>>
+> The code is exactly from the commented doc:
+> /* rfc9000#section-a.3: DecodePacketNumber()
+> 
+> See:
+> https://datatracker.ietf.org/doc/html/rfc9000#section-a.3
+> 
+> I will bring some comments from there.
 
->
-> > +                     cubic->origin_point =3D cubic->w_last_max;
-> > +             } else {
-> > +                     cubic->k =3D 0;
-> > +                     cubic->origin_point =3D cong->window;
-> > +             }
-> > +             cubic->w_tcp =3D cong->window;
-> > +             cubic->pending_add =3D 0;
-> > +             cubic->pending_w_add =3D 0;
-> > +     }
-> > +
-> > +     /*
-> > +      * t =3D t        - t
-> > +      *      current    epoch
-> > +      */
-> > +     t =3D cong->time - cubic->epoch_start;
-> > +     tx =3D div64_ul(t << 10, USEC_PER_SEC);
-> > +     kx =3D (cubic->k << 10);
-> > +     if (tx > kx)
-> > +             time_delta =3D tx - kx;
-> > +     else
-> > +             time_delta =3D kx - tx;
-> > +     /*
-> > +      *                        3
-> > +      * W     (t) =3D C * (t - K)  + W
-> > +      *  cubic                      max
-> > +      */
-> > +     delta =3D cong->mss * ((((time_delta * time_delta) >> 10) * time_=
-delta) >> 10);
-> > +     delta =3D div64_ul(delta * 4, 10) >> 10;
-> > +     if (tx > kx)
-> > +             target =3D cubic->origin_point + delta;
-> > +     else
-> > +             target =3D cubic->origin_point - delta;
-> > +
-> > +     /*
-> > +      * W     (t + RTT)
-> > +      *  cubic
-> > +      */
-> > +     cwnd_thres =3D (div64_ul((t + cong->smoothed_rtt) << 10, USEC_PER=
-_SEC) * target) >> 10;
-> > +     pr_debug("%s: tgt: %llu, thres: %llu, delta: %llu, t: %llu, srtt:=
- %u, tx: %llu, kx: %llu\n",
-> > +              __func__, target, cwnd_thres, delta, t, cong->smoothed_r=
-tt, tx, kx);
-> > +     /*
-> > +      *          =E2=8E=A7
-> > +      *          =E2=8E=AAcwnd            if  W     (t + RTT) < cwnd
-> > +      *          =E2=8E=AA                     cubic
-> > +      *          =E2=8E=A81.5 * cwnd      if  W     (t + RTT) > 1.5 * =
-cwnd
-> > +      * target =3D =E2=8E=AA                     cubic
-> > +      *          =E2=8E=AAW     (t + RTT) otherwise
-> > +      *          =E2=8E=A9 cubic
-> > +      */
-> > +     if (cwnd_thres < cong->window)
-> > +             target =3D cong->window;
-> > +     else if (cwnd_thres * 2 > (u64)cong->window * 3)
-> > +             target =3D cong->window * 3 / 2;
-> > +     else
-> > +             target =3D cwnd_thres;
-> > +
-> > +     /*
-> > +      * target - cwnd
-> > +      * =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-> > +      *      cwnd
-> > +      */
-> > +     if (target > cong->window) {
-> > +             target_add =3D cubic->pending_add + cong->mss * (target -=
- cong->window);
-> > +             cubic->pending_add =3D do_div(target_add, cong->window);
-> > +     } else {
-> > +             target_add =3D cubic->pending_add + cong->mss;
-> > +             cubic->pending_add =3D do_div(target_add, 100 * cong->win=
-dow);
-> > +     }
->
-> Can `window` be 0 here? why?
-It should not. When changing cong->window, there's always a check to
-cong->min_window, which is set via quic_cong_set_mss().
+You can quote or make a synopsis of the RFC where it makes sense. In any
+case, please try to reduce magic numbers usage.
 
->
-> > +
-> > +     pr_debug("%s: target: %llu, window: %u, target_add: %llu\n",
-> > +              __func__, target, cong->window, target_add);
-> > +
-> > +     /*
-> > +      *                        segments_acked
-> > +      * W    =3D W    + =CE=B1      * =E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80
-> > +      *  est    est    cubic        cwnd
-> > +      */
-> > +     m =3D cubic->pending_w_add + cong->mss * bytes;
-> > +     cubic->pending_w_add =3D do_div(m, cong->window);
-> > +     cubic->w_tcp +=3D m;
-> > +
-> > +     if (cubic->w_tcp > cong->window)
-> > +             tcp_add =3D div64_ul((u64)cong->mss * (cubic->w_tcp - con=
-g->window), cong->window);
-> > +
-> > +     pr_debug("%s: w_tcp: %u, window: %u, tcp_add: %llu\n",
-> > +              __func__, cubic->w_tcp, cong->window, tcp_add);
-> > +
-> > +     /* W_cubic(_t_) or _W_est_, whichever is bigger. */
-> > +     cong->window +=3D max(tcp_add, target_add);
-> > +}
-> > +
-> > +static void cubic_recovery(struct quic_cong *cong)
-> > +{
-> > +     struct quic_cubic *cubic =3D quic_cong_priv(cong);
-> > +
-> > +     cong->recovery_time =3D cong->time;
-> > +     cubic->epoch_start =3D U32_MAX;
-> > +
-> > +     /* rfc9438#section-3.4:
-> > +      *   CUBIC sets the multiplicative window decrease factor (=CE=B2=
-__cubic_) to 0.7,
-> > +      *   whereas Reno uses 0.5.
-> > +      *
-> > +      * rfc9438#section-4.6:
-> > +      *   ssthresh =3D  flight_size * =CE=B2      new  ssthresh
-> > +      *
-> > +      *   Some implementations of CUBIC currently use _cwnd_ instead o=
-f _flight_size_ when
-> > +      *   calculating a new _ssthresh_.
-> > +      *
-> > +      * rfc9438#section-4.7:
-> > +      *
-> > +      *          =E2=8E=A7       1 + =CE=B2
-> > +      *          =E2=8E=AA            cubic
-> > +      *          =E2=8E=AAcwnd * =E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80 if  cwnd < W_max and=
- fast convergence
-> > +      *   W    =3D =E2=8E=A8           2
-> > +      *    max   =E2=8E=AA                  enabled, further reduce  W=
-_max
-> > +      *          =E2=8E=AA
-> > +      *          =E2=8E=A9cwnd             otherwise, remember cwnd be=
-fore reduction
-> > +      */
-> > +     if (cong->window < cubic->w_last_max)
-> > +             cubic->w_last_max =3D cong->window * 17 / 10 / 2;
-> > +     else
-> > +             cubic->w_last_max =3D cong->window;
-> > +
-> > +     cong->ssthresh =3D cong->window * 7 / 10;
->
-> There are quite a bit of magic numbers that should be replaced by macros
-> and/or associated with explainatory comments.
-Yes, better to use macros.
-I was expecting people to understand if from the comment I put in above.
+Thanks,
 
->
-> > +
-> > +/* rfc9002#section-5: Estimating the Round-Trip Time */
-> > +void quic_cong_rtt_update(struct quic_cong *cong, u32 time, u32 ack_de=
-lay)
-> > +{
-> > +     u32 adjusted_rtt, rttvar_sample;
-> > +
-> > +     /* Ignore RTT sample if ACK delay is suspiciously large. */
-> > +     if (ack_delay > cong->max_ack_delay * 2)
-> > +             return;
-> > +
-> > +     /* rfc9002#section-5.1: latest_rtt =3D ack_time - send_time_of_la=
-rgest_acked */
-> > +     cong->latest_rtt =3D cong->time - time;
-> > +
-> > +     /* rfc9002#section-5.2: Estimating min_rtt */
-> > +     if (!cong->min_rtt_valid) {
-> > +             cong->min_rtt =3D cong->latest_rtt;
-> > +             cong->min_rtt_valid =3D 1;
-> > +     }
-> > +     if (cong->min_rtt > cong->latest_rtt)
-> > +             cong->min_rtt =3D cong->latest_rtt;
-> > +
-> > +     if (!cong->is_rtt_set) {
-> > +             /* rfc9002#section-5.3:
-> > +              *   smoothed_rtt =3D latest_rtt
-> > +              *   rttvar =3D latest_rtt / 2
-> > +              */
-> > +             cong->smoothed_rtt =3D cong->latest_rtt;
-> > +             cong->rttvar =3D cong->smoothed_rtt / 2;
-> > +             quic_cong_pto_update(cong);
-> > +             cong->is_rtt_set =3D 1;
-> > +             return;
-> > +     }
-> > +
-> > +     /* rfc9002#section-5.3:
-> > +      *   adjusted_rtt =3D latest_rtt
-> > +      *   if (latest_rtt >=3D min_rtt + ack_delay):
-> > +      *     adjusted_rtt =3D latest_rtt - ack_delay
-> > +      *   smoothed_rtt =3D 7/8 * smoothed_rtt + 1/8 * adjusted_rtt
-> > +      *   rttvar_sample =3D abs(smoothed_rtt - adjusted_rtt)
-> > +      *   rttvar =3D 3/4 * rttvar + 1/4 * rttvar_sample
-> > +      */
-> > +     adjusted_rtt =3D cong->latest_rtt;
-> > +     if (cong->latest_rtt >=3D cong->min_rtt + ack_delay)
-> > +             adjusted_rtt =3D cong->latest_rtt - ack_delay;
-> > +
-> > +     cong->smoothed_rtt =3D (cong->smoothed_rtt * 7 + adjusted_rtt) / =
-8;
-> > +     if (cong->smoothed_rtt >=3D adjusted_rtt)
-> > +             rttvar_sample =3D cong->smoothed_rtt - adjusted_rtt;
-> > +     else
-> > +             rttvar_sample =3D adjusted_rtt - cong->smoothed_rtt;
->
-> Here in a few other place before you could use abs_diff()
-Sure.
+Paolo
 
-Thanks.
