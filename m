@@ -1,72 +1,72 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D445C2D24AC
-	for <quic@lists.linux.dev>; Tue,  4 Nov 2025 09:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB26314A90
+	for <quic@lists.linux.dev>; Tue,  4 Nov 2025 09:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762249094; cv=none; b=u4dHunGNkgK9jD4YTFXUV9R1VM5R2Bscd1E+UFRLUziU0636KpDRqLx3knLFUkbaAyHr0UlggUePyLMjiwF4sDByZWjimt6I8yY/VCn9FsGj4UkBHfVHXHW7UIXUVUucwTLTlreq7M6S6fpEQkIY3ewPUx4JpgvTk4NzGXi4wVc=
+	t=1762250109; cv=none; b=O9r1fyI+Z/mqL5lS1nJBjWhxF9AuMUUbo6WDqJLZMlLYAKR9HNjHdsZYbsm7+QgXVR58P9hnSwsqzQlbcjCAZZ5MRORN9cGWeXT3kfDK5kLZN3akAQWzhhUl5jgXYg3FW8+RlFBiCS4TmTanIV/VxbionrHM7zWI7NZNnVbrHYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762249094; c=relaxed/simple;
-	bh=ArUnwMfmIEzmSnA8EtwjQrV26Mp15GPDfG/Jc+Af2u8=;
+	s=arc-20240116; t=1762250109; c=relaxed/simple;
+	bh=QfSQ5cpqVePGEDeF20Ht8A/SzrjwwOLDakiJXtv47U0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jIAxExVSsTVdD0P1jlmcjlb72SgFiA7sKl9PRoe69c6gGt9iXxD/SROJgbMEd0YB+O938QVip51ZN5t9Zj7whMPT269ujQiBR8IWfN6gEo5jSmPONV9Se6CsKUnLh6B0mCbzy66whjZS1q4iD3H3NCx1X18EH7W1olhVqXihTOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jT2dbuxr; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type; b=dij49+He0QowV5qti8Of03rdKR0oMcJjQ/IvmiMS3HWfRJ2e1STT/NQDZ/iORT44RNUaHjCTwP61Ba0lECkomkLB82IvJ8sExDQVOMFwZwxjMppK8EsEOTiH+65bZKBC/GCV7qmGsrd8j0G90FlWISYzJC6PGHf5jnCKm+TL2Yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CgP2fW5a; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jT2dbuxr"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CgP2fW5a"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1762249091;
+	s=mimecast20190719; t=1762250106;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/pyvHBDgoa9Lgk2kT7iDSPcIKDbs+wNswe6QWBYpGLg=;
-	b=jT2dbuxr3xGR14Ovgv3UiaA+pACK23TDy/0tFEHjJqOJuv6+J0MoPzwXamEPSRmJy/AoBx
-	hpOHD8ZwUC3hGefScZG3a+QW5ciqBh34ieR8PDHmsNAFiBuEH0k9yPtnPoycC8i0aSRot+
-	NXqwrebk39Ar+Fvs52hUhCuxitM6JcE=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=VP7vTJNouoan64MmsnztfHu0gZfK42bIBxJmyPWNcv8=;
+	b=CgP2fW5aQanHOmOJorMRlgjDVOk41F/EBzlUXC5bMiJMW/HfJ48acEFk/vI9GleH30n6+n
+	Hc8Q27R++0eWycK5NWNfpBHlC5uYW2ftZK04/dKQLGz4LPClChniojU6hH4j9dMMldO5fB
+	ErS4NehyvSjAItznBvueERwZyjeOnYk=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-658-6EsdJJkUO0KTzPYvovlWyg-1; Tue, 04 Nov 2025 04:38:10 -0500
-X-MC-Unique: 6EsdJJkUO0KTzPYvovlWyg-1
-X-Mimecast-MFC-AGG-ID: 6EsdJJkUO0KTzPYvovlWyg_1762249089
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4770eded72cso19536925e9.0
-        for <quic@lists.linux.dev>; Tue, 04 Nov 2025 01:38:10 -0800 (PST)
+ us-mta-353-yYNGpC14MO6RGpl1wbgI0w-1; Tue, 04 Nov 2025 04:55:05 -0500
+X-MC-Unique: yYNGpC14MO6RGpl1wbgI0w-1
+X-Mimecast-MFC-AGG-ID: yYNGpC14MO6RGpl1wbgI0w_1762250104
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4770c37331fso38207115e9.3
+        for <quic@lists.linux.dev>; Tue, 04 Nov 2025 01:55:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762249089; x=1762853889;
+        d=1e100.net; s=20230601; t=1762250104; x=1762854904;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/pyvHBDgoa9Lgk2kT7iDSPcIKDbs+wNswe6QWBYpGLg=;
-        b=UmchK5yYFyR46TximX3JUdeP9wUSL4m3I5Np2rPwYe+K/Ve4f6FDssTTsjS5dumdpW
-         kPU1Q6sCuWjmLJA4u6c8ixj1GA81nrkGenNtho3x+IH6HA+Bm0d9N7SNIuUD2mzpZSBa
-         OyT2Gvu1729XP9g2uWxmHTIzQxoEhSqJHA53bHJyqb6g7FTipBW918eC7yBeFRmQm7PH
-         IDZpUA5Jq6tsBH7Y+wpXlxPkoAzHpAinhayMq+7kYVHqm7rdNN3Gk7ftwnw8ni31iXEF
-         +CSdw+CHWy2lhPt3CRlMpW3bjmlsAvtpjPhyILV3d+3DT/5bu8kp6H59jip97qSlC+xD
-         0Pjg==
-X-Forwarded-Encrypted: i=1; AJvYcCXOERwNKqXJTPcUSw+XYqgBKXTx68E/ZdEWGcniYT2GmI/aXMIVqvv8Z2NRdq3HFKiGNun8@lists.linux.dev
-X-Gm-Message-State: AOJu0Yz0I/Wgpwqs4TyoSGGs0PyIu0aAyO5oMUrQIMn4dBz9V9Xuehkp
-	LZUO8epQkZdxUtDjYDQF+jia918PySPbDAeE0JlJ/aCBTtsHuLNlSayqa9+rkeee5BGsV9cq+Yr
-	wqpzc3uPEcY68h7ESBE5dOqO32j/HD/Wu/a0bUFSwCmjU4hRKGGLLMxnXL7zXRnQ=
-X-Gm-Gg: ASbGnctejxlOrg8qNXAJiQTIkwgMBpE4j2Pm4BHJfaUlX04uEYgIzbgfS/2m76VuWTe
-	FABcJ8GHUlMO+LK5b4Yf20cOLIZyZl6UOzN2cB14I7zd6H7Tc3dlc5nXb4HT+YQjAKjpJkmOi8Y
-	13jXvhT0prufCrWaie0IXAcX9+1jEJdz3oVbbC2i8zMijCMeaR8Z+0h7XDsXcz5Br+gLh3sRfQm
-	X83nxR60JT3W2kZ1As645RBi+kBVDgq1gCUy2rN1cQcW58efBE4DeLsJNIWmXw1nC/KgzTxu5O7
-	Tnaz+4ss1fKRHimK5ym+35TfVOEp1fB3c5Q3AWWudQqzPSPXMfyIhR5/OGyAyeA5Hwnw9u/VFJL
-	rc5/sD3BZLVJtVyojfLpiJdePoelhyubmEllP0ZiwxXPB
-X-Received: by 2002:a05:600c:a4f:b0:46f:b42e:e38f with SMTP id 5b1f17b1804b1-47754c451bcmr27965375e9.19.1762249088952;
-        Tue, 04 Nov 2025 01:38:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG80tPo4mrfA3siN/+q+3zHsJR+5U2uhmtdOUUiclztFGU6pmZw6TuGG8AfTCenVCWwmNLdzA==
-X-Received: by 2002:a05:600c:a4f:b0:46f:b42e:e38f with SMTP id 5b1f17b1804b1-47754c451bcmr27964725e9.19.1762249088492;
-        Tue, 04 Nov 2025 01:38:08 -0800 (PST)
+        bh=VP7vTJNouoan64MmsnztfHu0gZfK42bIBxJmyPWNcv8=;
+        b=gRogwP+/EHvl9bAjPNy0J++AaSJloI7g+g9S4rZez56mY2ViQCZg9qqybIY54wJnIv
+         JM/LGk+eGGknptVSulsYeVRXymhx+xJnjlEl6//7rerndYBfx3jY0u/Y+uej9iUAb8Lk
+         CBzMiWti6wXUtRO5OByBIfRybYO2WL23OmxI8tM0p0JvdJ3UMvPt68xx1y9CODALuUHC
+         OIlUcO65GwhZ81h6bvuA/PfPUQlhWaFHboGloaLDniiRHasgZMEHYLQea/wwT4J5HbeF
+         6DlFC2w5e6eHwNT3JfUIx7i8dCv595YuElvaQ3UZnuee/pke8jG9g8Xps1nohuLMBDN0
+         BPMA==
+X-Forwarded-Encrypted: i=1; AJvYcCXs2YyVJdJZDDvkntI7YGcUhbAG7RYxVc0aH2+988Q7TsqM20o+kjHpDj9POg3hDTNr5m9h@lists.linux.dev
+X-Gm-Message-State: AOJu0YwJMOtCXbHKq3PgePGZBJZJB/Fj+vUkxrHhXweMAItpJmkQV5mq
+	95m1ADPvAPgpMI0LNyfKnEIhHm2O51TYHzJrqkIosBhGSW4U1Ah9iySUcOWEURh+4cr13JkEju7
+	r9l8nyL53Jy4kkIvituBRkUYiF5pVbr7d/J0V6Kn8fFcfi51JAAeSWXc=
+X-Gm-Gg: ASbGncvXlmwPK+dDwtRGTl0Gd+oanBtbyRd7/lqxESCzZ5VA7TQgULXP9uHgLnvKI2y
+	vh3L5pbRpUpRO8U+VkhRK+SnwIXUOuNNz624ypGKAnFqFNLpzmUlvspdmbgUjdGyG+z0NkLZN/g
+	yOz2VPY33jKsi4q9qqg/M6eY0YJ7bYkw58G4GvZyStJMspYFpOTvTeCXTvmyZ71lc859G6B4yPi
+	1bm9V+Vm2alOUk+fqWOVRdIYEaLXi6OKBIYSQtMStSTpbolVuAoNAAROuaY74whZ7SRPsXC5BT7
+	p6YyEnQ6h1616590P9+sR5/3he4lZ3hqEL6Mk+iCFO0MIh/GMqdlCOVJ1O1RJWdpuG9bq1dMlo8
+	e2rKTgI3/zJqxaUvVsBnrfvHeRuPie9xzDsiS8j82RTFi
+X-Received: by 2002:a05:600d:8394:b0:475:d944:2053 with SMTP id 5b1f17b1804b1-47730ef502bmr102634545e9.2.1762250104372;
+        Tue, 04 Nov 2025 01:55:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH6j3suXJsdE1W3rADP1TPpeXGC+84lF7jrCGSmoPCopSvWPQsrXeTI2soLtfPTzeuZHI21IQ==
+X-Received: by 2002:a05:600d:8394:b0:475:d944:2053 with SMTP id 5b1f17b1804b1-47730ef502bmr102634195e9.2.1762250103915;
+        Tue, 04 Nov 2025 01:55:03 -0800 (PST)
 Received: from ?IPV6:2a0d:3341:b8a2:8d10:2aab:5fa:9fa0:d7e6? ([2a0d:3341:b8a2:8d10:2aab:5fa:9fa0:d7e6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4773c383b75sm248333615e9.11.2025.11.04.01.38.06
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4775598c2c9sm28545315e9.8.2025.11.04.01.55.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Nov 2025 01:38:07 -0800 (PST)
-Message-ID: <ffe0715b-7a60-49a4-802a-a2bd75c7dac4@redhat.com>
-Date: Tue, 4 Nov 2025 10:38:05 +0100
+        Tue, 04 Nov 2025 01:55:03 -0800 (PST)
+Message-ID: <1fcf4639-4c3e-4c07-9d01-0537cadcff42@redhat.com>
+Date: Tue, 4 Nov 2025 10:55:01 +0100
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
@@ -74,8 +74,8 @@ List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 02/15] net: build socket infrastructure for
- QUIC protocol
+Subject: Re: [PATCH net-next v4 03/15] quic: provide common utilities and data
+ structures
 To: Xin Long <lucien.xin@gmail.com>, network dev <netdev@vger.kernel.org>,
  quic@lists.linux.dev
 Cc: davem@davemloft.net, kuba@kernel.org, Eric Dumazet <edumazet@google.com>,
@@ -97,52 +97,29 @@ Cc: davem@davemloft.net, kuba@kernel.org, Eric Dumazet <edumazet@google.com>,
  Daniel Stenberg <daniel@haxx.se>,
  Andy Gospodarek <andrew.gospodarek@broadcom.com>
 References: <cover.1761748557.git.lucien.xin@gmail.com>
- <91ff36185099cd97626a7a8782d756cf3e963c82.1761748557.git.lucien.xin@gmail.com>
+ <66e48fe865ea67beb2a7f5cf084ea86d93592dff.1761748557.git.lucien.xin@gmail.com>
 From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <91ff36185099cd97626a7a8782d756cf3e963c82.1761748557.git.lucien.xin@gmail.com>
+In-Reply-To: <66e48fe865ea67beb2a7f5cf084ea86d93592dff.1761748557.git.lucien.xin@gmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ETI8IKPhbMGnt7hxfQwfnpVyKNw4RaYfpyFY4h4H8oc_1762249089
+X-Mimecast-MFC-PROC-ID: BBxWqniR_E8SGh9A-I5kQfNJgD9Ccjh0P7PHmBuOroY_1762250104
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10/29/25 3:35 PM, Xin Long wrote:
-[...]
-> +static struct ctl_table quic_table[] = {
-> +	{
-> +		.procname	= "quic_mem",
-> +		.data		= &sysctl_quic_mem,
-> +		.maxlen		= sizeof(sysctl_quic_mem),
-> +		.mode		= 0644,
-> +		.proc_handler	= proc_doulongvec_minmax
-> +	},
-> +	{
-> +		.procname	= "quic_rmem",
-> +		.data		= &sysctl_quic_rmem,
-> +		.maxlen		= sizeof(sysctl_quic_rmem),
-> +		.mode		= 0644,
-> +		.proc_handler	= proc_dointvec,
-> +	},
-> +	{
-> +		.procname	= "quic_wmem",
-> +		.data		= &sysctl_quic_wmem,
-> +		.maxlen		= sizeof(sysctl_quic_wmem),
-> +		.mode		= 0644,
-> +		.proc_handler	= proc_dointvec,
-> +	},
-> +	{
-> +		.procname	= "alpn_demux",
-> +		.data		= &sysctl_quic_alpn_demux,
-> +		.maxlen		= sizeof(sysctl_quic_alpn_demux),
-> +		.mode		= 0644,
-> +		.proc_handler	= proc_dointvec_minmax,
-> +		.extra1		= SYSCTL_ZERO,
-> +		.extra2		= SYSCTL_ONE,
-> +	},
+> This patch provides foundational data structures and utilities used
+> throughout the QUIC stack.
+> 
+> It introduces packet header types, connection ID support, and address
+> handling. Hash tables are added to manage socket lookup and connection
+> ID mapping.
+> 
+> A flexible binary data type is provided, along with helpers for parsing,
+> matching, and memory management. Helpers for encoding and decoding
+> transport parameters and frames are also included.
+> 
+> Signed-off-by: Xin Long <lucien.xin@gmail.com>
 
-I'm sorry for not nothing this before, but please add a Documentation
-entry for the above sysctl.
-
-/P
+Acked-by: Paolo Abeni <pabeni@redhat.com>
 
