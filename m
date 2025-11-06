@@ -1,74 +1,74 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53892566D9
-	for <quic@lists.linux.dev>; Thu,  6 Nov 2025 16:41:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813F72D3A6D
+	for <quic@lists.linux.dev>; Thu,  6 Nov 2025 16:49:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1762447264; cv=none; b=Sw1u5o6w2YBHeuYmnYHI7Che8UYiigEHGU6EavmyMrqqPNSH6vqK2thRr90Hg6wmG2i0OECguzELjjKdAgNgXjPRaMFErBNdTRAQ0qAarN/QWUvsGO0JtKt2qRHbzc/xcKwUVUpnjG0APzWWtJyBMSjImUKxLJ2P8rpOh3G2UYk=
+	t=1762447761; cv=none; b=DlpYxfs5YxpmNW3N83uoNbegj5Gt+VmpjqC0NoggLhpgpuoMFkNGxzy6LriXibhAp+B38LZb5F0/M1M82t72iu/0tkQ7X9qcmwVqe3LaYO+uqe/CkhFrMJfX5dDxtpbtjN/m/gx6rrpiXGBAOQMWVvs6vQc7cUG+HNn64sBzC7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1762447264; c=relaxed/simple;
-	bh=TBcIWrbd4TaZLgB/ZJb6p325CdBt3uGaZyZ9kmR9+1c=;
+	s=arc-20240116; t=1762447761; c=relaxed/simple;
+	bh=gPC9VPLFYbjfVxBSFkmUOkcw3DGZnlisHf1J732GkLk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KUxqoVId9CVJGCkK56KFRYdD1Tvovyf9dmieGcic6cGLsJ7qfZryXqHXEEbo/O/b0WJxvfi/qcpaHOV6bc2K+CBYx7hnY9gxaBOiHXFLxvCd34Bf6EfL/lVO0/SyskEvRl37dEnl0rfG6EDv6n8RPqpZ7spZbMDiaTJtCHVkOog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OHvrxYH7; arc=none smtp.client-ip=209.85.216.48
+	 To:Cc:Content-Type; b=kGaB9gSqFPzzxftSL65mCk8R6PYhX7PTBQi8OP0ZQMGVEo3u01RcQwsm21wCenx7I1ksEmMaebLcGNqwV+EUeeGn+s4qQ6rWlfyKxqvHUlF2ZJJmY4uj1Ina0lJ9fJdgS3Rw9sCA5J5xLta4eqbX5dVetj3d32rMyyEffoOCxmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwO5YYfI; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OHvrxYH7"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-341c68c953bso1586242a91.1
-        for <quic@lists.linux.dev>; Thu, 06 Nov 2025 08:41:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwO5YYfI"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2953ad5517dso12237545ad.0
+        for <quic@lists.linux.dev>; Thu, 06 Nov 2025 08:49:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762447261; x=1763052061; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1762447760; x=1763052560; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mvC8dwzzaWG4yq5+kQqkL0SJpAh/HOeEJ2LSeIlJuUc=;
-        b=OHvrxYH71Q+UsYMqPTIJigBz3X0u4bh0ZbFiC9y4RPIgfddJGmpgWgjLkvLOgd3/PS
-         3ZFX8YXOkAwY9iiX7JQj/kSsG0VhrR3GChsbjTt2TkOUdgR/BgJiuOyToFd4o3HpqD/T
-         mFAcEsYg/EDmBubynRvDcEKGo5USRjaYtzm4Np9pJP67ub78iGoLOOLTdSZlCZr5aeOA
-         7SEJ58p/CDYqDKbNRsLz8/SaNDMzu6IuHBAxVbpXnfRYMOzFwdya8W6h1S56IL0arsyX
-         M6k7Kkl7ol6K3HUggt9v+DvWdOxm3zKOehK8O3qsHr4DRi/fvkE1wl1hgghZhfNyQRin
-         99uA==
+        bh=1qzn6+Sh35pzxbK3z/xOK777J6LI54V1OZ2Oy1H+1YU=;
+        b=VwO5YYfIfUhj+i9TpNodBFRyiICY5b7mtzGOWitaWCSEbPjHwziLKRytT4TNC17Vf9
+         eJFFTno3/Eid86wLUMIuC3e44MTxzPw361pFB+pVcAjzTM9KWFvkMltMwsWWS/OrLbHm
+         S30CuEDmRc+DTU4GpqNHKKZaDd6FlFPUpu5Uzp7AVfYHgse73XgeY4Tuv8aBkN28gD0+
+         wZPcD92cWYKQPW80fQ52b67hkWenQ0c0TyhsvWurog15Ne7ZP38D7jxf+bKd4bFMH2LY
+         wdwz05FkrYYED4zwOQCc9KGJBFKaK+F2Gxq1VmGbFBfSEJq2baxFDfXdP151P/lcA089
+         qbmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762447261; x=1763052061;
+        d=1e100.net; s=20230601; t=1762447760; x=1763052560;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mvC8dwzzaWG4yq5+kQqkL0SJpAh/HOeEJ2LSeIlJuUc=;
-        b=MugxpE3n3oUxrvjMlH+b10CoeWcsU0hMjPX/DzGv8bJgmLUagjc2WGZqB4vUfVhF9+
-         Zdx8Q4IWdKjYdPWG1grW+dCxwCIHX6uPT6s4UZfY/5E9IlM15O5JWZFrWNAu22iAWKpz
-         Hd3T65qzmzXe5M+M+YZhEDTEk/ZyURsHf54rujfGSWwhsB9Fmn6p3lxJJDqfQKYQl/+J
-         tOId/v8SiBgwOnXXu7/hB5nFYLR/+w5rIXUfzKQcItj8Tqe/BjA1WkYAYkEjP0WdXY7Y
-         ByCFFBLKnpTSixdxMCGPT0wkmbV7ScGyjAzqX7fyJclqWMre5ivJs7v7/HarQl3U5M3o
-         DGsw==
-X-Forwarded-Encrypted: i=1; AJvYcCUVpjuL+grx9CxgZau2SfBvH7NxcjkWST2ivxD3nB7/g1ZCLqtaXdzu6UJ/4UmBxBS1YtcK@lists.linux.dev
-X-Gm-Message-State: AOJu0Yz10QZhORdw7RkeHhYnjOBiZg8lZ6ERFniMN6gjh/zAlHd4T57t
-	W4i2PPNVizTqV/JoCgVh9JUum0aIa37GPIA5n9D2s/qZRngDHFvijO7X6+szL1EFw5ad4+JeZAP
-	6SVtxZ2QzazwOe+iH1eWqEvebZ9NvbHI=
-X-Gm-Gg: ASbGncu6JHrOyqH3TWT5YmLguqu7+Kx+k7DpDFmYvf+/ieStBp+6D8r31Lujyp1Gzw7
-	gKBcGCMLOEw3oHWxV9cr8g8dsmqYXO8H/mctCGz6t8P2Zl1zxTk3dypP9dO6hxrIVMxg+7vLEli
-	4zRqCmr35go+1cHHmhtmdY8y9qnZSGxNysC3fykh3eQp6ysy4BxumDxVSvjYMPOahG97cijPPMZ
-	uMaIma6DkXAXc5OcNGmFsfC9QQeRFeslFk5F3m+r43/yslvgLWnOaV3r1dclBQK2O/CFQQ6Sy70
-	1s8yOSPTydMvkxH4cB8=
-X-Google-Smtp-Source: AGHT+IFhNfCSdGalSOf406WxoKMEjh2ITqWtl6zazWFVAs7ueoni8JgesPYbjGRu4NLpQW9g3l96QGzY8CifeXnMhgQ=
-X-Received: by 2002:a17:90b:2888:b0:341:8bda:d0ae with SMTP id
- 98e67ed59e1d1-341a6dd83b4mr10067477a91.20.1762447260941; Thu, 06 Nov 2025
- 08:41:00 -0800 (PST)
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=1qzn6+Sh35pzxbK3z/xOK777J6LI54V1OZ2Oy1H+1YU=;
+        b=xKbv3awGTgqcMsoOxtI1etTgrJdyaOV9G5i0us8qAP/h8FE8KaGnL3CbdPkHuCXLRF
+         sGg5b/mwRIjMWqojgVjiGyCtfbWOoFnViklb2CJIgbAOJezjOb/PFr+xAC8Ab9y5Un8K
+         +SQyRecMk1WkZSmgfnVB/ntbPYhfooOTw0z1UpRMvL0ig/Yj+6V9fJd+otArNYD02ukf
+         tEaWBSWx+FFer7NSUsmx7XGZMMqleHQIhEu1uFvjKwUdJnyTogOK2iDWk+BRFny148IV
+         Wn/V7moEHJe4OCgBR9iqHlShHiOKk08adqvlQB6F+GGc56so/6VOU/mExrhtH+Y9ayQt
+         R36A==
+X-Forwarded-Encrypted: i=1; AJvYcCWBQEuSw4MU0meNWbvgnJP2hQ4plDI+QZoNoI/MrTc6B4dkH41mEvDD0qvenofT2CnUUkq5@lists.linux.dev
+X-Gm-Message-State: AOJu0Yynx0uiqHZiyvw/+VRWdz1EaxRpxnC4TVcJkr4nq0qaVC1jfNaN
+	dkLt0BZABYUXD9uPO90nd2NmD/C66lyhGIN0M2k9Q5NtEAMFC4DJ9NQgHsx/FJz1JuGAvAV+4lD
+	YfDqd8O+IkIwIsjIBp2q3SdPRLWL1m54=
+X-Gm-Gg: ASbGncsNW68vYlmr42Blbh8yOvQx0RlOiT4vWl+AifI3TwA9LPSGB7p4ynl3xYZ/i1z
+	jOpeneWocjJ2kWJdc7O5neaF51Ej4WZDWpcURRmG5qMI+2At+i2lb1FWpEoTBaXeaZ1l6mFIirK
+	ees0ielzajtLwNLiJVC5j9j42dzbFgfNAhPiOh3iDZ93K6MpeTmKXqHHgYa+vnbpndlo7a08E2y
+	ml+dCMVgK06671eGR3+3o3QIS4LZdIm1R0prTjfB5Q+7BbVPDwfA1rnZYLcM1CDJjrs5SX+Swt6
+	xPlMq4wnGQIhry1ZeOmJDy1ak9tKxA==
+X-Google-Smtp-Source: AGHT+IF5xt57zcNq+U+HwDSwBlT/1oLe/u7UB3heYQ1Kbhs29xTrM/I6aw5xgiWPTyWZevpEl+UkTdOu25fxJ6wmzM0=
+X-Received: by 2002:a17:902:ef4f:b0:290:dd1f:3d60 with SMTP id
+ d9443c01a7336-297c04931c8mr1358545ad.51.1762447759701; Thu, 06 Nov 2025
+ 08:49:19 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1761748557.git.lucien.xin@gmail.com> <a1df61880c9f424b49b2d4933e0d6ea0bf6da268.1761748557.git.lucien.xin@gmail.com>
- <635b0dad-98bf-41e9-b7b6-1f28da48fc00@redhat.com>
-In-Reply-To: <635b0dad-98bf-41e9-b7b6-1f28da48fc00@redhat.com>
+References: <cover.1761748557.git.lucien.xin@gmail.com> <cc874b85134ba00f8d1d334e93633fbfa04b5a9a.1761748557.git.lucien.xin@gmail.com>
+ <3618948d-8372-4f8d-9a0e-97a059bbf6eb@redhat.com>
+In-Reply-To: <3618948d-8372-4f8d-9a0e-97a059bbf6eb@redhat.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 6 Nov 2025 11:40:49 -0500
-X-Gm-Features: AWmQ_bly4E8gAJHH1RdZ4TnHldWIBRhfNNyves1f0Q8O3wlRAgOEjU9eQ8XrsCA
-Message-ID: <CADvbK_ft3jLQcQekNtUjs_Bot5LdfcyWHbrfAUp5XEAYncrs7w@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 10/15] quic: add packet number space
+Date: Thu, 6 Nov 2025 11:49:08 -0500
+X-Gm-Features: AWmQ_bkulaWnvSaWsxVAziWY-nd-sBA09kWceVf7bj-CFTKpUJNHZl6a4fE2Pjg
+Message-ID: <CADvbK_f9o=_L=K+Vo_MbJk3mXFgriUUtGCSVm6GNo6hFHk5Kzw@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 13/15] quic: add timer management
 To: Paolo Abeni <pabeni@redhat.com>
 Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
@@ -77,61 +77,34 @@ Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.
 	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
 	Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>, kernel-tls-handshake@lists.linux.dev, 
 	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
-	Benjamin Coddington <bcodding@redhat.com>, Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>, 
-	Alexander Aring <aahringo@redhat.com>, David Howells <dhowells@redhat.com>, 
-	Matthieu Baerts <matttbe@kernel.org>, John Ericson <mail@johnericson.me>, 
-	Cong Wang <xiyou.wangcong@gmail.com>, "D . Wythe" <alibuda@linux.alibaba.com>, 
-	Jason Baron <jbaron@akamai.com>, illiliti <illiliti@protonmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
-	Daniel Stenberg <daniel@haxx.se>, Andy Gospodarek <andrew.gospodarek@broadcom.com>
+	Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>, Alexander Aring <aahringo@redhat.com>, 
+	David Howells <dhowells@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, 
+	John Ericson <mail@johnericson.me>, Cong Wang <xiyou.wangcong@gmail.com>, 
+	"D . Wythe" <alibuda@linux.alibaba.com>, Jason Baron <jbaron@akamai.com>, 
+	illiliti <illiliti@protonmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Daniel Stenberg <daniel@haxx.se>, 
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 4, 2025 at 7:17=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wrot=
+On Tue, Nov 4, 2025 at 7:33=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wrot=
 e:
 >
 > On 10/29/25 3:35 PM, Xin Long wrote:
-> > +struct quic_pnspace {
-> > +     /* ECN counters indexed by direction (TX/RX) and ECN codepoint (E=
-CT1, ECT0, CE) */
-> > +     u64 ecn_count[QUIC_ECN_DIR_MAX][QUIC_ECN_MAX];
-> > +     unsigned long *pn_map;  /* Bit map tracking received packet numbe=
-rs for ACK generation */
-> > +     u16 pn_map_len;         /* Length of the packet number bit map (i=
-n bits) */
-> > +     u8  need_sack:1;        /* Flag indicating a SACK frame should be=
- sent for this space */
-> > +     u8  sack_path:1;        /* Path used for sending the SACK frame *=
-/
-> > +
-> > +     s64 last_max_pn_seen;   /* Highest packet number seen before pn_m=
-ap advanced */
-> > +     u32 last_max_pn_time;   /* Timestamp when last_max_pn_seen was re=
-ceived */
-> > +     u32 max_time_limit;     /* Time threshold to trigger pn_map advan=
-cement on packet receipt */
-> > +     s64 min_pn_seen;        /* Smallest packet number received in thi=
-s space */
-> > +     s64 max_pn_seen;        /* Largest packet number received in this=
- space */
-> > +     u32 max_pn_time;        /* Time at which max_pn_seen was received=
- */
-> > +     s64 base_pn;            /* Packet number corresponding to the sta=
-rt of the pn_map */
-> > +     u32 time;               /* Cached current time, or time accept a =
-socket (listen socket) */
+> > +void quic_timer_stop(struct sock *sk, u8 type)
+> > +{
+> > +     if (type =3D=3D QUIC_TIMER_PACE) {
+> > +             if (hrtimer_try_to_cancel(quic_timer(sk, type)) =3D=3D 1)
+> > +                     sock_put(sk);
+> > +             return;
+> > +     }
+> > +     if (timer_delete(quic_timer(sk, type)))
 >
-> There are a few 32 bits holes above you could avoid reordering the fields=
-.
-I will switch base_pn and time.
-
-For the hole after sack_path, It can't be avoided in this struct, I
-will leave it there.
-
-Thanks.
+> timer_shutdown()
+Will update. Thanks.
 
 >
-> Otherwise LGTM,
+> Other than that:
 >
 > Acked-by: Paolo Abeni <pabeni@redhat.com>
 >
