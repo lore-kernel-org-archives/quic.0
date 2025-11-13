@@ -1,73 +1,73 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B7B2580F3
-	for <quic@lists.linux.dev>; Thu, 13 Nov 2025 21:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B633246FA
+	for <quic@lists.linux.dev>; Thu, 13 Nov 2025 21:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1763069041; cv=none; b=JbGIpose99P4zA43jSCRZNnWSYLrYzQbPbyZEm2oQtaF5VHMxwtyIh+BkBpR36o8us7j+wZXuSWglCaF+NizVNOZqWTm9cO0XTWIBk1nkTx/Yiy0/8MMgvuPQRKF5vmk6e3WARFui7bcyr88LriZ33U5iVpFvaXpJVc+Qa2W4L4=
+	t=1763069220; cv=none; b=fEySVNHgpY2ePF9X2PIPjCT90xyi15p1SVfsFM9dGoIsRPW9fRIgnSCL0yM972/CHoeLk5/qX41cL5+/vKRoT03ZFULmTVewDllCIeBOjb0IivaAXLIYT/MAUV1lnaE9+wNhE3JnD/tOwbWvCoy/RHv2jJjZLM/IQo0+qW7ayRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1763069041; c=relaxed/simple;
-	bh=pO5srCnJ/G8Wtg56D/7o5a0CmnBEcn72CLEb/fHokxE=;
+	s=arc-20240116; t=1763069220; c=relaxed/simple;
+	bh=C563LsVa6/8e3VjqblDi8r6nB8mnn0chwKQh+7Cmjsg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cPYM+Jz9DWiMaZhlbMltxv0lz+3Hhb2LJvYVCJoaXXmm18TPJpNDs9JPu3JACQg5VZgq+Z5Rs15ooR73tXNPsY+EccgekJJjlIQlndcar58wqbDOcqh61cTuV0ZOmwrFefIXG/eRi/opRDrILrejK9j6EGYQaaQJkyWHeUGpHyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+I8IjHD; arc=none smtp.client-ip=209.85.214.171
+	 To:Cc:Content-Type; b=c/mwUKy3azcAiLxP4RRB8tL26FmpB9zWvrn69shJAKvkjtCDo+8T0gtS5dzb46VutfJgeDtkPT0HU1IrX6SzXY/XWikHjJsLujGOStB+QSaVWcv+UuueHjSmCYEecVvCAIXWCc+PXFCRYPjlBiy6X1xjuFaK4kpquxPqFp1lmXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Td481Bj3; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+I8IjHD"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-298287a26c3so14950085ad.0
-        for <quic@lists.linux.dev>; Thu, 13 Nov 2025 13:23:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Td481Bj3"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2981f9ce15cso15673595ad.1
+        for <quic@lists.linux.dev>; Thu, 13 Nov 2025 13:26:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763069039; x=1763673839; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1763069218; x=1763674018; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Eh73fAdHPRVMVUq30CorTp1R5F8aS3XmyyV4X7uyU7E=;
-        b=S+I8IjHD7BMtGswqHXrSMJ1LLhvcNC+s6hjr8PpSEWloaMdDdw3be6o2M+6+gPFBZp
-         XdwPSUq0bun/JlkYRKykPlntMMo5UQhqXO0FEPY0AUAsGcCKmKYOYsQOPSPtMHYMwQkQ
-         EfAsvOg9O5LtS030U44Oy2wG3t1Fj8434XK/mL6vqaONJoeTUoGpT5r41kPVUd3CDT+U
-         t5Q0VrXI1ymkxwVEn9Z7CfvpCneDUSEXOPzEFe9KDAKLulBy9tfZ/UxC3O4BdFMcGvVB
-         D4BHhthYSoFeqGT8UpvEEUO7ATRkN2UDjYYahWR+mZsOxUIomoR/KHfXYB4IwiIBIJSX
-         Okrg==
+        bh=MvLS0Li6ncU43W6RO/80uOScztDNeTiGNxSyThA+RiM=;
+        b=Td481Bj3x5tadftgK33RhtrfjbR6Ie3YweZRUtGbsgykSmL5COdkSLvAuVua17miFy
+         QiFwxZym5PILoQ8NQJPhYWoDpLkcTyo1LE033iBbzBNBEugI67lDtYKb1lGL31ugY15N
+         2YoEElVl6eLZuJWSk6wfaJQu9LtONVlhQQUFSXEdzwThkP+bWYuW22R79TdOQ9qBC0vm
+         /kolWGRirGoSEjVuW1pnJRh83X2PKPp8gqEItFVgrKvM4YEVaAmXriK+u4YZQz9Kh5wT
+         6EYjcYvlfumRiuUWEztdi7iZvy4OjJHMxvLlKaFHoQhQLZ6KuCFGggCB6kKGmnxj+UnO
+         R6fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763069039; x=1763673839;
+        d=1e100.net; s=20230601; t=1763069218; x=1763674018;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Eh73fAdHPRVMVUq30CorTp1R5F8aS3XmyyV4X7uyU7E=;
-        b=Qpo12W+bZy1EqmDmJn1BSI3PE+L2/V8I65E9AP1HTijd+ie3VSDa0PkHguW6KdhP9l
-         gCD6/bPdC/RBkLcuPpx9p0fVh0HWamdD8jYiIqbw3CcApsAzkpZ1AF5BV2e1xg1V8NIS
-         rl57bbuN3gfd77LNIOsRXi4/Q7ncXFenxy2bwlkBIUJXzSIdiOrJCy3xLbNHXgec78t4
-         xqTjgbUv6mx5NJkxa7fNxwbmkmv+WiEZrEGfT7VJlm1NGTqh7Zg2lDcMc0mebdC3AUKH
-         petJI1WU/CPbyfXWeSNOi6FHzT+MpDZZ7w6MwB4Su/zBnBuiiTdfFw6wnnNT+ifCAk5l
-         onlQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWm21TtnHdj1MQZGiMPxbPd2Un6knfXDYcNFM8ECGcoHshNTrTXXxpa8V/NNlnmK2sA3Tnf@lists.linux.dev
-X-Gm-Message-State: AOJu0YxZNgHjUZ85kgVfuJNF5Om1RG5eNxTfAmOowJAdHpK+NTgLMUR1
-	/vEpGqv9EAkYXd9QYrGqUA41pfku/9rNHoJPhKF64ER4kYnVERHmpVf0d5z4iITlpJSf48SKgZi
-	2UkPJD4w3bFU0+aI0ypGmQf0rvQCF/g0=
-X-Gm-Gg: ASbGncuNDooZbDozPtZiSVaz4ByRgbuE/fWslibWw51wz/kb33KI99yIE/6EsdL3V42
-	KhZTJ1E4h5hRm+sPFBA6hE0d2tlWe1JWJlB5h8E45GUEBKKJ2mNALjcpnO9PHk0E8VdpfGTG2kw
-	H9Nj75gYrC67YUKJuAHBdyXpoZg/rcgtxk1HssiZ3eEWnu64gh7S8Et4nZDrL7ZfhDmX9FCYmVI
-	exgHAuK5txiltbbVoJgWbEnjcln7ZzvxRAfGb5zYYmO5cmED2iIyq32iIaL
-X-Google-Smtp-Source: AGHT+IHIy62FYNI2+fsss76ZAxstDpGuH13CcKtwJwf7q37KPjXXhYyeWXtZJfedfcdinC12R6BE741QmBSKtVPCgHU=
-X-Received: by 2002:a17:903:1a10:b0:295:21ac:352b with SMTP id
- d9443c01a7336-2986a6d6834mr4511285ad.15.1763069038948; Thu, 13 Nov 2025
- 13:23:58 -0800 (PST)
+        bh=MvLS0Li6ncU43W6RO/80uOScztDNeTiGNxSyThA+RiM=;
+        b=ck5rx6BdLF1CLVedeaHuWfGtikxXZR0aLjNpJ1/P0WIxa8u9H/NIBjI1O+AmqnFxdO
+         ElmmxuIuqf75mrB3IE0Dr2IJPriiVMGBbtutBiwkOKRIp/P+OuTw99ZqglDsgqFgVj3Q
+         MrYsSWSmORtI8JPaMTgicEf3jOPu2IeziVBn6EZduM/EdlDNuATIZ8U3NlQjaZdBF9Mg
+         bBWVlYqAOP0uecwIZVt8qFCURXfKkBtr1kgN8flPa40zBrU+l21lxibDpNobriAEmaUc
+         5Xo77XLIOXUff4sttDIWeTXTjMdk20MY7dTYfTnpsSYnYQAbGmj/xpUFQ8R8mEZ+N1h5
+         1SpA==
+X-Forwarded-Encrypted: i=1; AJvYcCUjnj8Rh2PbNBiHpy0upJOhtMikh57FdKO6OjZ1bvysEYdur9oqvxb0U+U6q3rOireNDbjH@lists.linux.dev
+X-Gm-Message-State: AOJu0YwYwYX+StpK05YgEvYaoOj8ZMNJZ/me9YB71YgZ8QOnuqWPDFyP
+	4XYBbmlkA5rz2p2cE4ul2htEerbseEXiV9XFo/Mbr/zdTwsP06s8RDwICC9GZGj2SXfI03ImS8w
+	BJ/PhsFgwXIKLthd8RuOwm2BgLcBjmbE=
+X-Gm-Gg: ASbGnctnrhC+PDbjeVbuno+FclELPkTzi94SDUwoNwpLMv2CZNIBTaK6oSFDyu4wZTY
+	+REoptZaa4lmIdJ0pJWqxHH+ru8n2Jg6H7DcPn8OEc6PCPvBZTqgoTvbfwzttKYpAmTxvOGMNRz
+	SbDGGW3mtgk4v6Pi73JjsIdsOz8a5Gkm5yIUzZxOBsZU76lBcLw2jofaoX7LH2CC1gd4IqLGnr4
+	ePWAI1Oi1k6dkQeROjBkk6x1lu1dV2VsX9VlHV6qFDar9OzsXEugpEclcEX
+X-Google-Smtp-Source: AGHT+IEKm9CXDc+kQUPCeykRAkQ1s2Mjxo36u4sHWF3ypb14wEXU8u3tNG0XYM1pygnHZYipY1MFv/VWv8KCRbHyAwY=
+X-Received: by 2002:a17:902:f550:b0:297:cf96:45bd with SMTP id
+ d9443c01a7336-2986a6bf949mr4415475ad.19.1763069218001; Thu, 13 Nov 2025
+ 13:26:58 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1761748557.git.lucien.xin@gmail.com> <cc874b85134ba00f8d1d334e93633fbfa04b5a9a.1761748557.git.lucien.xin@gmail.com>
- <3618948d-8372-4f8d-9a0e-97a059bbf6eb@redhat.com> <CADvbK_f9o=_L=K+Vo_MbJk3mXFgriUUtGCSVm6GNo6hFHk5Kzw@mail.gmail.com>
-In-Reply-To: <CADvbK_f9o=_L=K+Vo_MbJk3mXFgriUUtGCSVm6GNo6hFHk5Kzw@mail.gmail.com>
+References: <cover.1761748557.git.lucien.xin@gmail.com> <56e8d1efe9c7d5db33b0c425bc4c1276a251923d.1761748557.git.lucien.xin@gmail.com>
+ <989d3df8-52cf-41db-bb4c-44950a34ce89@redhat.com> <CADvbK_eGPuueR7XL80eagkrAeJraKBMiTVrhiFb_wnTD+N7qVw@mail.gmail.com>
+In-Reply-To: <CADvbK_eGPuueR7XL80eagkrAeJraKBMiTVrhiFb_wnTD+N7qVw@mail.gmail.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 13 Nov 2025 16:23:47 -0500
-X-Gm-Features: AWmQ_bl_mzAmk37GvxSMi73Wl76L8rzqwm6CGLE5Z5FgVRtg24EVCmyQJDOWLoo
-Message-ID: <CADvbK_fi6GDOwpo_vRNWDXLn9v7Kys5zuz8RGNxFYEm6y0KcTQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 13/15] quic: add timer management
+Date: Thu, 13 Nov 2025 16:26:46 -0500
+X-Gm-Features: AWmQ_bkpD1XOS0u_fsUfGq1AJ3_cHnv3PQH7YYYwXkikJNe2ApTEEtQau8hdGQk
+Message-ID: <CADvbK_eEHLbMQ3+OTWdg6_4a_bKFOkO-ZL0y661Vovo9uEFB1g@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 14/15] quic: add frame encoder and decoder base
 To: Paolo Abeni <pabeni@redhat.com>
 Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
@@ -86,40 +86,46 @@ Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 6, 2025 at 11:49=E2=80=AFAM Xin Long <lucien.xin@gmail.com> wro=
+On Thu, Nov 6, 2025 at 12:22=E2=80=AFPM Xin Long <lucien.xin@gmail.com> wro=
 te:
 >
-> On Tue, Nov 4, 2025 at 7:33=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wr=
+> On Tue, Nov 4, 2025 at 7:47=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wr=
 ote:
 > >
 > > On 10/29/25 3:35 PM, Xin Long wrote:
-> > > +void quic_timer_stop(struct sock *sk, u8 type)
+> > > +static void quic_frame_free(struct quic_frame *frame)
 > > > +{
-> > > +     if (type =3D=3D QUIC_TIMER_PACE) {
-> > > +             if (hrtimer_try_to_cancel(quic_timer(sk, type)) =3D=3D =
-1)
-> > > +                     sock_put(sk);
-> > > +             return;
-> > > +     }
-> > > +     if (timer_delete(quic_timer(sk, type)))
+> > > +     struct quic_frame_frag *frag, *next;
+> > > +
+> > > +     if (!frame->type && frame->skb) { /* RX path frame with skb. */
 > >
-> > timer_shutdown()
-> Will update. Thanks.
-timer_shutdown() sets timer->function to NULL, and it causes mod_timer()
-to return 0 without enqueuing the timer. This breaks the code:
+> > Are RX path frame with !skb expected/possible? such frames will be
+> > 'misinterpreted' as TX ones, specifically will do `kfree(frame->data)`
+> > which in turn could be a bad thing.
+> >
+> Yes, when generating and delivering an event to userspace, it
+> keeps the frame content into frame->data, instead of frame->skb.
+>
+> There's no need check !frame->type for RX path,  and I will change it to:
+>
+>         if (frame->skb) { /* For stream/crypto/dgram frames on RX. */
+>                 kfree_skb(frame->skb);
+>                 goto out;
+>         }
+>
+> if skb is set, it will go kfree_skb(frame->skb), instead of kfree(frame->=
+data).
+> Because if frame->skb is set, it only needs to do kfree_skb(frame->skb).
+>
+Just realized that frame->skb shares a union with frame->flist, which is
+used only on TX. So instead of removing the check !frame->type, I will
+put a comment here:
 
-                if (!mod_timer(t, jiffies + usecs_to_jiffies(timeout)))
-                        sock_hold(sk);
-
-in quic_timer_start(), and cause sk leak.
-
-So I will keep timer_delete() here.
+        /* Handle RX stream/crypto/dgram frames. Use !frame->type to detect=
+ RX,
+         * since frame->skb shares a union with frame->flist, used only on =
+TX.
+         */
+        if (!frame->type && frame->skb) {
 
 Thanks.
-
->
-> >
-> > Other than that:
-> >
-> > Acked-by: Paolo Abeni <pabeni@redhat.com>
-> >
