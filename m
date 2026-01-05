@@ -1,125 +1,171 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4403339A8
-	for <quic@lists.linux.dev>; Fri, 28 Nov 2025 22:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E15F29B229
+	for <quic@lists.linux.dev>; Mon,  5 Jan 2026 14:08:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764368504; cv=none; b=g5kkYYF3u3sYNiUgsBg2xkZKPNfFdCMUKBZC0Dtoq3I3+po7L5kJ9aZnnMN8luoANks9RYDzm4pKiqZDcb//Xj3h0Parp1KMAZkmHRL9gDxuvXXjaGRF2BV93bS6Et7Pd1RYHkcWPZx31e+7EK7z6LIlw37YA/ZkIYKGmqLrLU0=
+	t=1767622094; cv=none; b=vBZa+5NeDVXUcyQcxnErllGnbDo/kq9lKvcp/tjlrLt839C7+qTPswn7nC4CbeHvKdpuTOSWTb0fJdC1nFvKFRox15WoVp8WbF8hUP+pOx4NmKHrX11GpSgdUHgPeuV9va/arTUFtbqRGQ2pnyy77gnIAOrrnvUKLaYJSdAmLk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764368504; c=relaxed/simple;
-	bh=SQTVp2Fzpk0NoZcAVL+rErGbsCS+UUMcmvwU/jMKSLc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p7ASQQOLbpy6KfITAmfdrj16icIMYqVv0GwnihiNJ8o5KX8Cya4ey4JhjIOSvpivRNnpfpu2T5Iqs6BOyCYNVwXOdkT99REcOZT0erthPhFmRn5C0mnq672XVxL6tyYWAiSOI/LUiZ91Ah1NAgvM7FzitLCKFa4vwFIgZnOWQeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K2p3tcnT; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1767622094; c=relaxed/simple;
+	bh=zEN3doId9UKmo1rLmAoDue2BHiaeEn8l3OYvCK/ydP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=T/S0XvLhF8rc3votNnihmgBWDZB+hkDRJr+0yu13r1rLKI4EHm+5uUyRFug12RLGHAj2pT/hP3sXhfe48wnRj9TWK1R5TFb5+LRUz2su9k+s27jz/m6/YGLJxPxWEzu1INjaoFNfg6HhqWQ4D8/WSH+MRYn/EgwD2J4cKlqo7ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m5xZ/UdY; arc=none smtp.client-ip=209.85.160.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K2p3tcnT"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-343f52d15efso2101142a91.3
-        for <quic@lists.linux.dev>; Fri, 28 Nov 2025 14:21:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m5xZ/UdY"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-4f8a6b37b2dso83565701cf.0
+        for <quic@lists.linux.dev>; Mon, 05 Jan 2026 06:08:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764368502; x=1764973302; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1767622092; x=1768226892; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6P18mAZ1MqIvbh3CmMm45KSEcmyyptIsJafX5Z8hVww=;
-        b=K2p3tcnTe0H1kRwIWcv5iw2jVezYF4C0y1/sfWt52AwoGjK5U9beW22nuV5CuFTTiy
-         VeliB/qDJYrICeIQLckx1oTnIP4aKvgGa1Pg1r7a9qx1RMhKTBuOjTMt7XzHQwTboNA9
-         8FaKICfbpUkYhsPtn9nsYNoKWnudUl0U/Dw/mfMypcJSPDJvc6EItFsTWhT/HTn7PPWa
-         3WUdLM65E3XFpFOSMDt0RMoKT46THTo+E+pI5V9zmeEI0lKOPtbEEgLKMy5OQLFEU5n3
-         ssKXJygus3iR88NZAZTacjlzYcnD7R+WdYj8wJWHItpvx9DfL4eh9RQ/vfYQZugAUllV
-         G6ZQ==
+        bh=d+6m+RaUAFXaTtrp8udufW/i4uBYkmLcVK6S66Yx8m8=;
+        b=m5xZ/UdY18plsIzXTL1Rh8l5GEkrMtzcIKwutnn4Gzwq6hFKOkEr4alzWsxWDK8dgl
+         g+Qr29rI1j3VDemYS8BmTU32ZA/1S4GlMY7l8tBjwVMcthfGWo3041ilEnOJ21/9GY51
+         9kNTnoRWfMkLM6lRJyohA6aLApicp+Ww2CWHS3h0SZu/U69imbN7xVkaYKAbPN2wumfQ
+         zOZsXCcwEVFg1INI2AVTz8OgPtW4+fJ1WS3pvvwA+syW3BX45WgZ7hl0FBUz+T7bJNq9
+         DMn3GZEYDCbRok5+GY0eZMGE5d12/Y5Cee4Kych4SgLxvp/bsRd0I9A9Gw4TRIziw7I4
+         WdpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764368502; x=1764973302;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20230601; t=1767622092; x=1768226892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6P18mAZ1MqIvbh3CmMm45KSEcmyyptIsJafX5Z8hVww=;
-        b=pHHzux6ZbPQEBTwOMf/BcFb+1Ff1E+nHJkjynKQ1EV1EWGW+tka4Ro9rFfJrMYbv7r
-         jS4993XLzGypRg/axCl2ro1Isrw/WASXW4N5Xzp5WrK0b5JM7DUbFjnAETEX9XJe7rUe
-         7l5R6v15THv8qgXEqTjqrb60W0IXFYjwkjlrJWzj+zMad/Nf0Mbi0cihvyzZRU2jAjk+
-         MGTB60U7DL6Hq9e/vF8QskvtD5hrfpgXJV7JKGwhZFIr+Vaebr/aQ8SU8TUkkJsAHrIR
-         YSYuw70eCK71TCf0YHHD1QxHAjWXtqsLIUH7JZKNmI6xhp2V6f/rZaDsYEErfKks7Pv5
-         +KMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXP4k7CJ1arhjK+trC6ZfxV2x4BgR7W4rpzyWTXMSaTsuasAReyr3IEEOL/c7XsWO5xosf0@lists.linux.dev
-X-Gm-Message-State: AOJu0Yxax+IQBwbG1sYQz1i+AFrAu/tr04gISiw4Qnz4jJEkG1jbkpvO
-	NCu1sLZwDLNgJ4FfT6BsaqNGRo9YY4yJtriuMn1gmVJeCxK4ls/9WuX/DkJd7pbh7Kv6SITmA5l
-	9BGFMC6EnmZ3dIHX0rfy5J4S6SA2ZiFc=
-X-Gm-Gg: ASbGncto/QPph2nuE2OMbNV7SVY8A6fYAlrt3H+8jBeYWmXIZVklG+t7bVmRtDzNARj
-	PkYIjmsmOG2vvWjJdH5GdbKDKue+qLaiIQWaTuns6y3Aug9fROil3RKx4oHe5nYtTZn4ChBS6gx
-	YKoGMl/Xc7TRooEOxY/V9DhVrhd78w6oe5ad3X+zZk/vS/+VpnP6fbZkA/I2B/ZD857RR7bihCz
-	Z4ZVYhavGpiB2iGEfRJCebtMkdylfJqFYr69YjEy4HdPldqCdYDx+WscCa37FPiYmo0CxPvBCRe
-	tedju1PB
-X-Google-Smtp-Source: AGHT+IGouVmSRU2+5FPtU7PZ4bxQ1L1TS/rzuH0An62oT/VAqyxTOEwsLF/KPWgDyeqL2eIE6oHNOz0m/r6ekRLZB7U=
-X-Received: by 2002:a17:90b:3b41:b0:340:be44:dd11 with SMTP id
- 98e67ed59e1d1-3475ed6944amr17150643a91.27.1764368502014; Fri, 28 Nov 2025
- 14:21:42 -0800 (PST)
+        bh=d+6m+RaUAFXaTtrp8udufW/i4uBYkmLcVK6S66Yx8m8=;
+        b=P2xIIo9Wm2opaUmQ1T47IGb0VNGj8Pyq+N5u3l3ndzl9vet8kEvMQUKVhEucyDZfZg
+         0wsURlGP5PGRZkVEa/ZZa7aQFS11jH/eRqYqYCE4q4ZHbO/PDchfurMk5Rt8Cwn/+EQJ
+         OJ17skbVuRB093uXGHOJCdnhpICl+R2zv7grPWWUJCksCrs7/BZ1+YQ13qW0XOgmWfGD
+         7eiERVTeSCNhCosNE5QqK9n4pBGyTPucK7aufmC9SrE47nyicKCqcV4lvoiWJnDUgnqO
+         IQtZK53qySqo69M/tkBmtOnNSV/cv0afJZ7228HyrO0wMQzQY5f5Na9tnDbWw9SQLOL6
+         xxGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXrJBFqAmDFOeEnNteCpX+AQr/+Oy2O8AnxUnnBHScoOXRrfSNliOo62ZivVvnlczi8wzRL@lists.linux.dev
+X-Gm-Message-State: AOJu0Yza1MZoBV7OUTkjnmOT9TF1BcU7mzv520QnydM+zsjChU1SrmzZ
+	hbRviz8HRpIW9xef4SDTL/KeskLsJZE86Uu0wYcrqi1C7Wna+dZNM0PE
+X-Gm-Gg: AY/fxX7psoh48AAl7wnWXXPcUcC3XtsTCdA6PEzM/maLanoYKeSFyB1ivR1Ew7D1oU4
+	t6puIZadlKpgnBTpB0CxMZ4OII9M685SkQw7M+5DyRzX0PdoUGRfxNRHPKMNQUfDxl+3f+yIFOx
+	Y2ZoR1AvJfC71OQm75EWr3kToTI8B+WrS5jF9vsxzrvuztBe8r9OiUMBpkpHqNvt/jO7sC2m/on
+	964T/rLHzufH+pTpOaoRwWNR5XlwkksnJwWlwOfHrMxuHLf1LTvT6V5gxC9x/Ro9PL2X11O8ZDK
+	n1dCXEEki8OgfWYJh21OchnZh/dCQLDkjCziDC568zuc85WCT8X9UjzVskEFYxqZgMq1KsxEdqO
+	ethr7X0v27Mth9y2yQEyyC1a7hzQmX68aOc2nG1Qy1qFTcyfJ1UuB7CmWiH6W+C+STxtpOoAEyg
+	oiw92NcW8u1hy+U+k8w0FqzpwTbtMMuf/SgC7izfgu4RaMWmjrMdc=
+X-Google-Smtp-Source: AGHT+IEHuRM2+t5qnRSVI0kl/We7szrHGppbL3OLinZ2JFHLaZJDDk0NxAF77vZNPlpHu38oz5oaFA==
+X-Received: by 2002:ac8:5914:0:b0:4f1:b9ec:f6a4 with SMTP id d75a77b69052e-4f4abceebf3mr885961071cf.33.1767622091533;
+        Mon, 05 Jan 2026 06:08:11 -0800 (PST)
+Received: from wsfd-netdev58.anl.eng.rdu2.dc.redhat.com ([66.187.232.140])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4f4ac64a47esm368957221cf.24.2026.01.05.06.08.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Jan 2026 06:08:10 -0800 (PST)
+From: Xin Long <lucien.xin@gmail.com>
+To: network dev <netdev@vger.kernel.org>,
+	quic@lists.linux.dev
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Stefan Metzmacher <metze@samba.org>,
+	Moritz Buhl <mbuhl@openbsd.org>,
+	Tyler Fanelli <tfanelli@redhat.com>,
+	Pengtao He <hepengtao@xiaomi.com>,
+	Thomas Dreibholz <dreibh@simula.no>,
+	linux-cifs@vger.kernel.org,
+	Steve French <smfrench@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.com>,
+	Tom Talpey <tom@talpey.com>,
+	kernel-tls-handshake@lists.linux.dev,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Steve Dickson <steved@redhat.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Alexander Aring <aahringo@redhat.com>,
+	David Howells <dhowells@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	John Ericson <mail@johnericson.me>,
+	Cong Wang <xiyou.wangcong@gmail.com>,
+	"D . Wythe" <alibuda@linux.alibaba.com>,
+	Jason Baron <jbaron@akamai.com>,
+	illiliti <illiliti@protonmail.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Daniel Stenberg <daniel@haxx.se>,
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>
+Subject: [PATCH net-next v6 01/16] net: define IPPROTO_QUIC and SOL_QUIC constants
+Date: Mon,  5 Jan 2026 09:04:27 -0500
+Message-ID: <d04504f267ed7dbc7075b96e0da08feb3c301d8a.1767621882.git.lucien.xin@gmail.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <cover.1767621882.git.lucien.xin@gmail.com>
+References: <cover.1767621882.git.lucien.xin@gmail.com>
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1763994509.git.lucien.xin@gmail.com> <20251127183008.5ee6757f@kernel.org>
-In-Reply-To: <20251127183008.5ee6757f@kernel.org>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 28 Nov 2025 17:21:30 -0500
-X-Gm-Features: AWmQ_blWIFPPlXbZwBvgkwqvDmPpeWwfQI3WVoQuGLEtMYmvXkBsPdiaHSosH1o
-Message-ID: <CADvbK_crxSB+TwDgEtjV6TUEeO9VYtsE6rqy7L_=rzoDrCfORQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 00/16] net: introduce QUIC infrastructure and
- core subcomponents
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Stefan Metzmacher <metze@samba.org>, Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli <tfanelli@redhat.com>, 
-	Pengtao He <hepengtao@xiaomi.com>, Thomas Dreibholz <dreibh@simula.no>, linux-cifs@vger.kernel.org, 
-	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>, kernel-tls-handshake@lists.linux.dev, 
-	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
-	Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>, Alexander Aring <aahringo@redhat.com>, 
-	David Howells <dhowells@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, 
-	John Ericson <mail@johnericson.me>, Cong Wang <xiyou.wangcong@gmail.com>, 
-	"D . Wythe" <alibuda@linux.alibaba.com>, Jason Baron <jbaron@akamai.com>, 
-	illiliti <illiliti@protonmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Daniel Stenberg <daniel@haxx.se>, 
-	Andy Gospodarek <andrew.gospodarek@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 27, 2025 at 9:30=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Mon, 24 Nov 2025 09:28:13 -0500 Xin Long wrote:
-> > The QUIC protocol, defined in RFC 9000, is a secure, multiplexed transp=
-ort
-> > built on top of UDP. It enables low-latency connection establishment,
-> > stream-based communication with flow control, and supports connection
-> > migration across network paths, while ensuring confidentiality, integri=
-ty,
-> > and availability.
->
-> Please look thru the Claude review and address the legit complaints:
->
-> https://netdev-ai.bots.linux.dev/ai-review.html?id=3D8ac157b3-6222-4e89-a=
-c52-28e4ca52d6c4
->
-> If the tool is confused but not in an dumb way - it may be worth adding
-> a relevant comment or info in the commit message. Otherwise a note under
-> --- would be appreciated to avoid maintainers having to re-check the
-> comments you already considered and disproved.
-Thanks for the link.
+This patch adds IPPROTO_QUIC and SOL_QUIC constants to the networking
+subsystem. These definitions are essential for applications to set
+socket options and protocol identifiers related to the QUIC protocol.
 
-I just went through the tool=E2=80=99s report. It found one real issue in
-quic_packet_backlog_work(), which I=E2=80=99ll fix. The other items aren=E2=
-=80=99t
-actual problems, and I=E2=80=99ll add some inline comments or --- notes to
-explain them.
+QUIC does not possess a protocol number allocated from IANA, and like
+IPPROTO_MPTCP, IPPROTO_QUIC is merely a value used when opening a QUIC
+socket with:
 
->
-> Thanks for adding the MAINTAINERS entry, two notes on that:
->  - the entries must be sorted, so you need to move it down under Q
->    instead of putting it next to SCTP
->  - you seem to have copy/pasted the uAPI path for SCTP to the entry
->    instead of QUIC ;)
-You're right, thanks!
+  socket(AF_INET, SOCK_STREAM, IPPROTO_QUIC);
+
+Note we did not opt for UDP ULP for QUIC implementation due to several
+considerations:
+
+- QUIC's connection Migration requires at least 2 UDP sockets for one
+  QUIC connection at the same time, not to mention the multipath
+  feature in one of its draft RFCs.
+
+- In-Kernel QUIC, as a Transport Protocol, wants to provide users with
+  the TCP or SCTP like Socket APIs, like connect()/listen()/accept()...
+  Note that a single UDP socket might even be used for multiple QUIC
+  connections.
+
+The use of IPPROTO_QUIC type sockets over UDP tunnel will effectively
+address these challenges and provides a more flexible and scalable
+solution.
+
+Signed-off-by: Xin Long <lucien.xin@gmail.com>
+Acked-by: Paolo Abeni <pabeni@redhat.com>
+---
+ include/linux/socket.h  | 1 +
+ include/uapi/linux/in.h | 2 ++
+ 2 files changed, 3 insertions(+)
+
+diff --git a/include/linux/socket.h b/include/linux/socket.h
+index 944027f9765e..b4563ffe552b 100644
+--- a/include/linux/socket.h
++++ b/include/linux/socket.h
+@@ -401,6 +401,7 @@ struct ucred {
+ #define SOL_MCTP	285
+ #define SOL_SMC		286
+ #define SOL_VSOCK	287
++#define SOL_QUIC	288
+ 
+ /* IPX options */
+ #define IPX_TYPE	1
+diff --git a/include/uapi/linux/in.h b/include/uapi/linux/in.h
+index ced0fc3c3aa5..34becd90d3a6 100644
+--- a/include/uapi/linux/in.h
++++ b/include/uapi/linux/in.h
+@@ -85,6 +85,8 @@ enum {
+ #define IPPROTO_RAW		IPPROTO_RAW
+   IPPROTO_SMC = 256,		/* Shared Memory Communications		*/
+ #define IPPROTO_SMC		IPPROTO_SMC
++  IPPROTO_QUIC = 261,		/* A UDP-Based Multiplexed and Secure Transport	*/
++#define IPPROTO_QUIC		IPPROTO_QUIC
+   IPPROTO_MPTCP = 262,		/* Multipath TCP connection		*/
+ #define IPPROTO_MPTCP		IPPROTO_MPTCP
+   IPPROTO_MAX
+-- 
+2.47.1
+
