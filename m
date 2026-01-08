@@ -1,74 +1,74 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27892EA15C
-	for <quic@lists.linux.dev>; Thu,  8 Jan 2026 18:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF90B32F764
+	for <quic@lists.linux.dev>; Thu,  8 Jan 2026 20:30:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767895676; cv=none; b=YR47Qw/f1ocKQxlZgIR5qKy1wyc8WIc/B31I86nAujjGz315h8HKrXmJYsMrEeXqg0og2TfpjAL1pqxk4ceGqrWKPxCulVWcZOkf2rBudrqBah1Vc0i6g+EbY898t2oXKBySujfrWwMODy+ihmbGbfW1DoRUaK4TK8nXJzcv9g8=
+	t=1767904213; cv=none; b=JK8Bell26chWndbW0rsb9lESnPwkfJb82nHk63Y1KJIz6H0iWoY6oRz+FzoSIpHkwEEiw2LzsEVOzidFBg38trXZn2grWU9BtLtBa6q/o2k2ETcHNlsIhwlCAIbuPPc+9i/hHV2/IWVCFMtKPEuLPoSBrGtOpagrmoFDoNWEt4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767895676; c=relaxed/simple;
-	bh=eFlE0EEPfk3rewZOji/LmMkHrW23JLC2qQUHwRdkLWA=;
+	s=arc-20240116; t=1767904213; c=relaxed/simple;
+	bh=+Qeg4iwRnJhGshuLoQ0hip2kddvArBWryH2l+yXMfDo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vEFsYPdO0uFBb0ECwpv0pj/828eZMgqicwTNTcwHFoEGySY6gzZ40Onb9jmBx7EPXIlgyojh3J6RUepRiIv+bWwXA4IcPsKuREudWRrlcFdW3C/2x4my2YgNkP0MCMrrkbY//pJBcylflAC7gqaW+sCy2s+ox73OFEnW9zGeS8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eyA0miNm; arc=none smtp.client-ip=209.85.214.172
+	 To:Cc:Content-Type; b=mZjjl262BAuUWSKnxB2LRjBWUqwZXmArXiXqnYV0r8UOMeRBc0LiKmVzdK6/F48auov+42W3qXuKP7+B8u/GG+d6ZYrEOWa7NkWO78j9yCzYCy/lUtl5rmzLDzjNneSpe5YznyqU7SmPqNMN9t9BbsxwG2uRcdQD2zxLe7VxDIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D5ze7N80; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eyA0miNm"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2a081c163b0so25496605ad.0
-        for <quic@lists.linux.dev>; Thu, 08 Jan 2026 10:07:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D5ze7N80"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-34c1d84781bso2169923a91.2
+        for <quic@lists.linux.dev>; Thu, 08 Jan 2026 12:30:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767895674; x=1768500474; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1767904211; x=1768509011; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kG0qxlR7DkmzCTUi0X2cIVFJ3HHiLT6S36Wu9RwdLVQ=;
-        b=eyA0miNmKxJR05LKo48yWYF0ksrMX9R0vgR7bMkQOTB6DMD78DN546BPQYNjsvXcYS
-         Jzp8A5cNEBQysvC0uDqEjiezRt+68OfFg4RfiLOujUU7fbJOO/SF7wCwFle26b3v+MAe
-         PM8udzy29eATEL0Pd4WWL061oEuzhng3M8uTP6oJ2yx+iv9nnHRal9kXdqr5J65TUVpD
-         yqWTMm8nhKqUAVTv7WsxYHIeFwU0MEbMC1adY0Q4F85DT9AwRdl/MaL+VsaXyeH4VeFg
-         og9ZaBIpkjMrUAY1ceBkJvIJfVJ8Th7BWtw2jg+HCiQKcYNyWd16s+tIXjxp3gO5AIii
-         tY3w==
+        bh=7f5sQo5jTkvuwoFmDFJSpZOLtNbc84M3KHSphocTY2A=;
+        b=D5ze7N80vdNvb/xTetFH2tg6OL4SqbnkU6lzWqHkC+t7zLNVBWyAVCE9NpkfPmpBoi
+         e+/FxcLISnTERAg/ojTG11GygAeuZ1LKMoH7kLlaNNh4KGTx/DVcl/nfQoMlFP5WyAsa
+         Qmaz8gu8QAWDCM24Qh1KkmuVtqFMWtKgk7Kh7tO3/DyBqda4EpYBndM4ZXHkB4SMtDUg
+         lzuh79VAa8YeKoFeik/oy0yd9Ch5lZxAPwctWRjI7lJsuQ1b4wFDT8v0aNnq14soXYmG
+         G4jFAO7QI5A+inWh/M6wSrsDIr6JbcUWC3Q2zIaVdRLO/M9mkilnmjqhQuiZ/maXhS34
+         uCJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767895674; x=1768500474;
+        d=1e100.net; s=20230601; t=1767904211; x=1768509011;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=kG0qxlR7DkmzCTUi0X2cIVFJ3HHiLT6S36Wu9RwdLVQ=;
-        b=IUWqs8fnKFVJh/ksPVZ0n8U+l83k8O9UX3H4VxSdMW90CsHJ9ckVOrLALDB97K86q1
-         tRJE+eN1kj6D/c69cGiPlrI03cGi/p6Z+f3vaLsaBXGNTJE4WSwhE/VldIE8ZOYbMDyj
-         Y2qr+Ks5XPe0o+IzTmvKEkPZ83JOH2q289E7EjaYum7IU/meb0DgGPk2t5ZTZMtpWfGY
-         Xd1Ibe2Y0GPNolJuCPAbb/SbHL0ICvSFcNncMp8joiEhRdPQNyRWrP5xkojfOGk3uW1I
-         WCDhgYLcs8MTuw1ja2Rg6aUR0j0zbnxqx8Xn/rr/qGemqDdYX/LmF4P8FOJSnW9G01mp
-         R62g==
-X-Forwarded-Encrypted: i=1; AJvYcCX68yJqEphk51gekZ6Hfyysaj1Qp7x8s7ck6E34qt8H3NI1XDGGvzMlIuS0d0A1sFLS3TOj@lists.linux.dev
-X-Gm-Message-State: AOJu0YymPQCa+VTvmuswHv411Mwt3wwPJDcl1ZL10IWdO06zmNERj28V
-	2a+o8d0kbw0SK8xSKUuALlbbsdonht9zYqDKHZ5YTnNgae0C2K703ZuDS6syOw8VvL1bXhEg8pg
-	gjE01V83xw0XrVk67/T0HaUkbKrFSJfc=
-X-Gm-Gg: AY/fxX5zZjc/8YXt9uLwhRMEW6r5KWJqsYWC4x63UPwTNiKy2F6hV/pNUTaVgajgJ74
-	ISaODW1c6rX3Ug0CK7MOTTa5N79hIWQ59FPSwztuniDrhqLfKh7gW+dsI1BiaatR9XaR/Junmoc
-	GfNJYxt4OzfLAsirFNKw/2kxOrGEvfqtkkTRhnw/bdeHrhP7iTccTq2Y8CGo1mUditYQSYxRiy/
-	HUeJ6r51378Fg2r1+ZNd8Hyx/1UhI1W2W8JaS1vrtf2HACvVa+S2vGctRcABJo0Q1emlhjK9SZr
-	CnqB/nD2rjcJT9WhqJvWgaztsPBQ
-X-Google-Smtp-Source: AGHT+IE9Y4d720NUxx7X6c0Vop4TSZunxU0aBEXsPFaXcnftPaEKDqjIyJPqDzTbJ8MhAvkZSc7J6WYOjD4cMrQ1F1Y=
-X-Received: by 2002:a17:903:124e:b0:2a1:3cd8:d2dc with SMTP id
- d9443c01a7336-2a3ee4b74a9mr74559005ad.57.1767895674105; Thu, 08 Jan 2026
- 10:07:54 -0800 (PST)
+        bh=7f5sQo5jTkvuwoFmDFJSpZOLtNbc84M3KHSphocTY2A=;
+        b=DMY9fbvSRYfZN8bJNK3yHjM4/ukFlC1KsPktJ0dZXwCDEHIjtqnV4TgeqCO3BflnLO
+         Fxe5X1xTgEWnKP5dihRd1Kw6jqxhYDC3DuRy+XM3ZVkZ9W1KKeZ3ZxjToxVg4PMaWsBe
+         NdKKnj3HpZnND4V/19ET16JPh8NF+iy7iEfZDuMZ8tW8Gy6UP4EeyX+hARwIfP6usny/
+         /xQBZ0CPd37U6QjNNYRpSTDlH+5g0r12o3tpV4NBMj8Fnk9AyeKK5Afu2eEFVjPQZZIU
+         0uDKYCa+40DRKGsAfZ8CCbulJxdZSntv7vyYjblpIj54OWIDK1RHN+0r1+b5zHO925cr
+         sC+g==
+X-Forwarded-Encrypted: i=1; AJvYcCWFxiAFvVkONsjwihLs6R55AO68r9C+m5PNfkPsfw2Hns0Ur/JEvcj/pEZbS2laqt6+OVK2@lists.linux.dev
+X-Gm-Message-State: AOJu0YwBUos3IMncIZzAO/7pajp9+dzFJDYrqF+3StNJA32zR4a1eEK+
+	DDRwLJy26elJ9ubJ04/Hbs+aVU+Er9LRpn702sBl386pg0fUf1L2yk4dBCpZjmO9yQgHXBhp7j4
+	kmWzG5Y7KtrqI4a+o9+4qdiW05NzXDwU=
+X-Gm-Gg: AY/fxX6uWhQ2bx3J5+6rhVsHQqKYCbhQ7bzNhfwAP26+ido/lflDD1nflyq25w+VGXM
+	6vQ6mO+eSs9a8rpJwdi7FG08J0yi4y66nzfBazj1Scr4UdE9w9gY/d+cwrgz0k1bNR1AckAypz0
+	fm7tkcC2qUebarGT9KPyocsuA+QgxBVRZ+Q/3R0AvwUsTJF3aIpWoF1GcSbw4+cSWt/aIVO0dVm
+	p7vnxDYJ/+ZdvjdyTSiEuEkEAPFdb1EiilSvf36tfFJjGYenc6UGtMe/QQOzt7R9h8TxXx94/Rq
+	Iob0acawNhUxQhDo70BF6qZzjJtf
+X-Google-Smtp-Source: AGHT+IGbLC6cx1ApwiDReFzbSLNdOW7A6lCncS1m6eFQ/DG8qnCS8rcADr1cTXrjHejrOMh422vV1hu2v3pKca8FjV0=
+X-Received: by 2002:a17:90b:2783:b0:340:c179:3666 with SMTP id
+ 98e67ed59e1d1-34f68c023dfmr6806900a91.8.1767904211135; Thu, 08 Jan 2026
+ 12:30:11 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1767621882.git.lucien.xin@gmail.com> <79bf90a6e105c6e6ac692de21a90ec621af47cc5.1767621882.git.lucien.xin@gmail.com>
- <ec28c852-e80a-41c9-94ce-a0fce8ee07e7@redhat.com>
-In-Reply-To: <ec28c852-e80a-41c9-94ce-a0fce8ee07e7@redhat.com>
+References: <cover.1767621882.git.lucien.xin@gmail.com> <1e642f7c65ec53934bb05f95c5cf206648c7de9f.1767621882.git.lucien.xin@gmail.com>
+ <5cb27e9f-ec01-4b50-b22c-dc8b027827bc@redhat.com>
+In-Reply-To: <5cb27e9f-ec01-4b50-b22c-dc8b027827bc@redhat.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 8 Jan 2026 13:07:42 -0500
-X-Gm-Features: AQt7F2q4UBD6cchiuW4fIBTslqGz6vf73cyh9XXwWjTaKPFND-PFSs14ShxZDj8
-Message-ID: <CADvbK_dKYZ6_NyxcsweKRPkFEq046+1RENA7vH9hBhG-6xNxxw@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 07/16] quic: add connection id management
+Date: Thu, 8 Jan 2026 15:29:58 -0500
+X-Gm-Features: AQt7F2piM-am5p0y4zg8EECj2AGre5rp6pGr0YwXe5OEXXnGdYkID72_rNecvvk
+Message-ID: <CADvbK_eXRpT8n1B7p2-1T6eAZZ=4p7gQgJtMGBBQrHa036nyxw@mail.gmail.com>
+Subject: Re: [PATCH net-next v6 06/16] quic: add stream management
 To: Paolo Abeni <pabeni@redhat.com>
 Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
@@ -87,62 +87,224 @@ Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 8, 2026 at 10:52=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
+On Thu, Jan 8, 2026 at 10:36=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
 te:
 >
 > On 1/5/26 3:04 PM, Xin Long wrote:
-> > +/* Remove connection IDs from the set with sequence numbers less than =
-or equal to a number. */
-> > +void quic_conn_id_remove(struct quic_conn_id_set *id_set, u32 number)
+> > +/* Create and register new streams for sending or receiving. */
+> > +static struct quic_stream *quic_stream_create(struct quic_stream_table=
+ *streams,
+> > +                                           s64 max_stream_id, bool sen=
+d, bool is_serv)
 > > +{
-> > +     struct quic_common_conn_id *common, *tmp;
-> > +     struct list_head *list;
+> > +     struct quic_stream_limits *limits =3D &streams->send;
+> > +     struct quic_stream *stream =3D NULL;
+> > +     gfp_t gfp =3D GFP_KERNEL_ACCOUNT;
+> > +     s64 stream_id;
 > > +
-> > +     list =3D &id_set->head;
-> > +     list_for_each_entry_safe(common, tmp, list, list) {
-> > +             if (common->number <=3D number) {
-> > +                     if (id_set->active =3D=3D common)
-> > +                             id_set->active =3D tmp;
-> > +                     quic_conn_id_del(common);
-> > +                     id_set->count--;
-> > +             }
->
-> Since the list is sorted by number you could break the loop as soon as
-> common->number > number.
->
+> > +     if (!send) {
+> > +             limits =3D &streams->recv;
+> > +             gfp =3D GFP_ATOMIC | __GFP_ACCOUNT;
 > > +     }
-> > +}
+> > +     stream_id =3D limits->next_bidi_stream_id;
+> > +     if (quic_stream_id_uni(max_stream_id))
+> > +             stream_id =3D limits->next_uni_stream_id;
 > > +
-> > +struct quic_conn_id *quic_conn_id_find(struct quic_conn_id_set *id_set=
-, u32 number)
-> > +{
-> > +     struct quic_common_conn_id *common;
-> > +
-> > +     list_for_each_entry(common, &id_set->head, list)
-> > +             if (common->number =3D=3D number)
-> > +                     return &common->id;
+> > +     /* rfc9000#section-2.1: A stream ID that is used out of order res=
+ults in all streams
+> > +      * of that type with lower-numbered stream IDs also being opened.
+> > +      */
+> > +     while (stream_id <=3D max_stream_id) {
+> > +             stream =3D kzalloc(sizeof(*stream), gfp);
+> > +             if (!stream)
+> > +                     return NULL;
 >
-> Same here, you can break the loop when common->number > number
->
-Yup, this will save some rounds.
+> Do you need to release the allocated ids in case of failure? It would be
+> sourprising to find some ids allocated when this call fails/returns NULL.
+I was aware of this, but didn't change it. As the streams are always opened
+sequentially, I think it's fine just to leave them without causing problems
+when users assume these streams are not yet open.
 
 >
-> > +static inline u32 quic_conn_id_first_number(struct quic_conn_id_set *i=
-d_set)
-> > +{
-> > +     struct quic_common_conn_id *common;
 > > +
-> > +     common =3D list_first_entry(&id_set->head, struct quic_common_con=
-n_id, list);
+> > +             stream->id =3D stream_id;
+> > +             if (quic_stream_id_uni(stream_id)) {
+> > +                     if (send) {
+> > +                             stream->send.max_bytes =3D limits->max_st=
+ream_data_uni;
+> > +                     } else {
+> > +                             stream->recv.max_bytes =3D limits->max_st=
+ream_data_uni;
+> > +                             stream->recv.window =3D stream->recv.max_=
+bytes;
+> > +                     }
+> > +                     /* Streams must be opened sequentially. Update th=
+e next stream ID so the
+> > +                      * correct starting point is known if an out-of-o=
+rder open is requested.
+> > +                      */
+> > +                     limits->next_uni_stream_id =3D stream_id + QUIC_S=
+TREAM_ID_STEP;
+> > +                     limits->streams_uni++;
+> > +
+> > +                     quic_stream_add(streams, stream);
+> > +                     stream_id +=3D QUIC_STREAM_ID_STEP;
+> > +                     continue;
+> > +             }
+> > +
+> > +             if (quic_stream_id_local(stream_id, is_serv)) {
+> > +                     stream->send.max_bytes =3D streams->send.max_stre=
+am_data_bidi_remote;
+> > +                     stream->recv.max_bytes =3D streams->recv.max_stre=
+am_data_bidi_local;
+> > +             } else {
+> > +                     stream->send.max_bytes =3D streams->send.max_stre=
+am_data_bidi_local;
+> > +                     stream->recv.max_bytes =3D streams->recv.max_stre=
+am_data_bidi_remote;
+> > +             }
+> > +             stream->recv.window =3D stream->recv.max_bytes;
+> > +
+> > +             limits->next_bidi_stream_id =3D stream_id + QUIC_STREAM_I=
+D_STEP;
+> > +             limits->streams_bidi++;
+> > +
+> > +             quic_stream_add(streams, stream);
+> > +             stream_id +=3D QUIC_STREAM_ID_STEP;
+> > +     }
+> > +     return stream;
+> > +}
+> > +
+> > +/* Check if a send or receive stream ID is already closed. */
+> > +static bool quic_stream_id_closed(struct quic_stream_table *streams, s=
+64 stream_id, bool send)
+> > +{
+> > +     struct quic_stream_limits *limits =3D send ? &streams->send : &st=
+reams->recv;
+> > +
+> > +     if (quic_stream_id_uni(stream_id))
+> > +             return stream_id < limits->next_uni_stream_id;
+> > +     return stream_id < limits->next_bidi_stream_id;
 >
-> id_set can be empty at creation time. The above assumes it contains at
-> least an element. Does the caller need to check for such condition?
-> Possibly moving the check here would simplify the code?
+> I can't recall if I mentioned the following in a past review... it looks
+> like the above assumes wrap around are not possible, which is realistic
+> given the u64 counters - it would require > 100y on a server allocating
+> 4G ids per second.
 >
-quic_conn_id_first_number() is always called in the socket that is not
-in CLOSE state,
-and there must be at least one ID in the id_set in such states. I will
-leave a comment
-in this function if you're okay with it.
+> But it would be nice to explcitly document such assumption somewhere.
+>
+How about I add a simple comment in quic_stream_create() right above
+the next_uni_stream_id/streams_uni increases, like
+
+"Note overflow of next_uni_stream_id/streams_uni is impossible with u64."
+
+> > +}
+> > +
+> > +/* Check if a stream ID would exceed local (recv) or peer (send) limit=
+s. */
+> > +bool quic_stream_id_exceeds(struct quic_stream_table *streams, s64 str=
+eam_id, bool send)
+> > +{
+> > +     u64 nstreams;
+> > +
+> > +     if (!send) {
+> > +             if (quic_stream_id_uni(stream_id))
+> > +                     return stream_id > streams->recv.max_uni_stream_i=
+d;
+> > +             return stream_id > streams->recv.max_bidi_stream_id;
+> > +     }
+> > +
+> > +     if (quic_stream_id_uni(stream_id)) {
+> > +             if (stream_id > streams->send.max_uni_stream_id)
+> > +                     return true;
+> > +             stream_id -=3D streams->send.next_uni_stream_id;
+> > +             nstreams =3D quic_stream_id_to_streams(stream_id);
+>
+> It's not clear to me why send streams only have this additional check.
+This is a good question.
+
+For recv.max_uni_stream_id, it changes based on next_uni/bidi_stream_id,
+max_streams_uni/bidi and streams_uni/bidi in quic_stream_max_streams_update=
+(),
+there's no need to check them again. (maybe I should leave a comment here)
+
+But for send.max_uni_stream_id, it was updated simply from the peer's updat=
+ed
+recv.max_uni_stream_id announcement, it must check its local counts and
+limits as well.
+
+>
+> > +             return nstreams + streams->send.streams_uni > streams->se=
+nd./;
+>
+> Possibly it would be more consistent
+>
+> max_uni_stream_id -> max_stream_ids_uni
+>
+> (no strong preferences)
+I actually got the variable name from
+https://datatracker.ietf.org/doc/html/rfc9000.
+
+>
+> > +     }
+> > +
+> > +     if (stream_id > streams->send.max_bidi_stream_id)
+> > +             return true;
+> > +     stream_id -=3D streams->send.next_bidi_stream_id;
+> > +     nstreams =3D quic_stream_id_to_streams(stream_id);
+> > +     return nstreams + streams->send.streams_bidi > streams->send.max_=
+streams_bidi;
+> > +}
+>
+> [...]
+> > +/* Get or create a receive stream by ID. Requires sock lock held. */
+> > +struct quic_stream *quic_stream_recv_get(struct quic_stream_table *str=
+eams, s64 stream_id,
+> > +                                      bool is_serv)
+> > +{
+> > +     struct quic_stream *stream;
+> > +
+> > +     if (!quic_stream_id_valid(stream_id, is_serv, false))
+> > +             return ERR_PTR(-EINVAL);
+> > +
+> > +     stream =3D quic_stream_find(streams, stream_id);
+> > +     if (stream)
+> > +             return stream;
+> > +
+> > +     if (quic_stream_id_local(stream_id, is_serv)) {
+> > +             if (quic_stream_id_closed(streams, stream_id, true))
+> > +                     return ERR_PTR(-ENOSTR);
+> > +             return ERR_PTR(-EINVAL);
+> > +     }
+> > +
+> > +     if (quic_stream_id_closed(streams, stream_id, false))
+> > +             return ERR_PTR(-ENOSTR);
+> > +
+> > +     if (quic_stream_id_exceeds(streams, stream_id, false))
+> > +             return ERR_PTR(-EAGAIN);
+> > +
+> > +     stream =3D quic_stream_create(streams, stream_id, false, is_serv)=
+;
+> > +     if (!stream)
+> > +             return ERR_PTR(-ENOSTR);
+> > +     if (quic_stream_id_valid(stream_id, is_serv, true))
+> > +             streams->send.active_stream_id =3D stream_id;
+>
+> This function is really similar to quic_stream_send_get(), I think it
+> should be easy factor out a common helper (and possibly use directly
+> such helper with no send/recv wrapper).
+>
+I will factor out a common helper quic_stream_get() but keep
+quic_stream_send_get/put() as:
+
+struct quic_stream *quic_stream_send_get(...)
+{
+        return quic_stream_get(streams, stream_id, is_serv, true);
+}
+
+struct quic_stream *quic_stream_recv_get(...)
+{
+        return quic_stream_get(streams, stream_id, is_serv, false);
+}
 
 Thanks.
