@@ -1,127 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7306B33F8DA
-	for <quic@lists.linux.dev>; Thu, 29 Jan 2026 16:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769705603; cv=none; b=q1pG0kbOjzpwvOsrXcBLer7LhqwRDWkSVZ6OZxgMoP374HKktt+WD3q/0/nnAnAFm/AoBY4c4l9KaqJHtDoXxK+KuanAEMxGWtJx2TSizFyn8RA337wSHk3w3GN5HD8cYa6X8lrHNdyDdxmU+sfSTNiZEWn2JLFb/u9iXMs0uIQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769705603; c=relaxed/simple;
-	bh=WOGhGhsnQIX0JLxRhL6uuprL7CVf0Nxffn2Etmsupas=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pjOQ3KBZlv1EASe2xkla6vmC8ztt7KdOZA6hwYdLo7o05R15S/omFrsHAgrRoVhvPug6oxQRBtLvGl9SP3MJG8hwHf+MTedvODAXL218JI7jhGFFa+PIUfMur5sliRNLeWxTO2HPMM9PES6U8RbxT+lc32Y36j7F9J+0Yn+keSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FzwuvNBN; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DE12F5A36
+	for <quic@lists.linux.dev>; Thu, 29 Jan 2026 19:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1769715485; cv=pass; b=YCT6rDbZrtdSYNFiDx4FtfzAwx3m/DOd5gtLCDrujhHz/wDQqtwvV2WlgtWIbbN5hxc8wD6MosyFXFxAqVVp0Q+7EW1KFkATh+s0Xa8wQ3PzOF+bRyrMxF9Ly2t5XRzUUgOb7aW37FTO28Q5X9sdF8noFbbCc0EXcSYHvFj0XoY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1769715485; c=relaxed/simple;
+	bh=an23PzgT+ETDMUmkvQg/3z0rXD8Ts/s/wrp73SCQ/LI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y1DIik1ZLtsGb6t9ET4BRL7YK61nKOdOXkgxhFh9969WF3e4X2CoBmxNejp95zo1MD7R/UCG2+2xdtH8bD8DAjKzUAjjUvqDC8ECpBsx+wAq7K4AGd9Mk0+4KB5wD7ofPj1tZey4kCj02i8Wyi2bBLuyLvwFrUJiEkPRAdrqjpU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ThEBb4Vk; arc=pass smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FzwuvNBN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1769705601;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bxsJZ4lY7/i7NTzxVza1t8bxhbR1O4VQ7g3k6JdX5O0=;
-	b=FzwuvNBNkqnk9SyHXPyHb2M+FqkJV8Xpbb78Gynildhk9o6i6BFqWkYi9OkoxBR96fDITe
-	k/E/j8flWnJu+fHSTFBpWyzjjqtnS06tgUiiZbPAXjIphX375H+oSFuciQg3XnWv8hXA3r
-	1cERL4tp3ipOrLtFH3+9MHXMeHFrEzA=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-173-RCeZQxo4PuG8Y8ElPW1nNA-1; Thu, 29 Jan 2026 11:53:20 -0500
-X-MC-Unique: RCeZQxo4PuG8Y8ElPW1nNA-1
-X-Mimecast-MFC-AGG-ID: RCeZQxo4PuG8Y8ElPW1nNA_1769705599
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4359d70faa2so688428f8f.1
-        for <quic@lists.linux.dev>; Thu, 29 Jan 2026 08:53:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ThEBb4Vk"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3530e7b3dc2so1035400a91.3
+        for <quic@lists.linux.dev>; Thu, 29 Jan 2026 11:38:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769715484; cv=none;
+        d=google.com; s=arc-20240605;
+        b=BCi+ceKjSm1pvfdNsDpfCZ/x/2PvOITdcihIelyrYG9St3ofUw4LV0JHU5GgVKsBXx
+         yzJD3nSgO09Q3p1FKZAPvkg9bY0GIDd0J+K6ANIpNqAWqwk4BIG8ePKvuwZZreou3T9K
+         NIrkzbdNX2dgcSXOpG1g6r38jDHCIQFHeSMxEIUQ+rP+V1RWmk5zK8rz8TCcDwvIesRs
+         uCXT6jOg986/KtFRayuMo1ONFM6faJ0SUYtwlxVrLu1P2h2h9CWfJJ/evVHOJs3JBYaI
+         LCR7rc3w5MABi6C6Fl/vuSoFSgdxjYqQFve6rvIxl68a/R6c1LhMC9I0mZFGCw+DgskP
+         d7aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8jgscGADAtGExE/c6eNO9k9qz7qLCMhugDMGIDtgfTs=;
+        fh=dd/DZVAGdrDA+tc5DaQQXkMIHGEn169b2aDBGMXgi3g=;
+        b=NfurgEDEQ/vop/sUiOYwXnpZZNcU9HIsUApDOlS4XeUX4kvf9e/1FV2YJ2P73/cc76
+         UdRvQ1dfFe8IuXw1NXZy5uV2zOF+qJh1EHuKCBizd7PxSrBFEYehmma7C63YRlLY+1no
+         I2yXlX+5YCIlp6luSOBuJorlpTKzQVVqFiTq+msSmSg1uwdWQppnq7V0rZXqn3W+HEK5
+         rRlI3HI5IYoWp56K1o+gLwi868Wn+RlHSZuSDMWqBWPFatdn1OiPfqO6P05aqtEOiEjj
+         dTTUiahTdVPCmVpRHhuJO8ElYNQvaeuSRcyLXHwMqxNEa/DxBHizDwXg6gH4aVm9ez0X
+         TxZw==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1769715484; x=1770320284; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8jgscGADAtGExE/c6eNO9k9qz7qLCMhugDMGIDtgfTs=;
+        b=ThEBb4Vkn17atQKEgsp35euGNDMUoEz0PIRDKkiOTN67PxMIUbstZf9kflWKMLFFg7
+         n0YKD6QTMfm5h3SkeAtmJjdLKyJukZ96nTRXsgZgq8UsyfUlrRz6Fp/K+pffyLaCc5BN
+         rldU99lTTjfUsMYL5HCxKEMEuGghCohrihnrPzDQmzKag9nE0xFf8YYixrU/BLFpPtJM
+         xDBXWr9DxQAiA3h3ues84LbvDzxhQREhoAnvP2d2iRZwcZabLtrDwRxXaPatmtLGGhxB
+         QDQGPpIIzW+THOapFGQmyFE7pW+4p7pRanOI0utMIasKJeteAdtIrMJKm07GJ1Lt2/Bb
+         hKaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769705599; x=1770310399;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bxsJZ4lY7/i7NTzxVza1t8bxhbR1O4VQ7g3k6JdX5O0=;
-        b=dJer1kUBFMTCBsxacGD92sX0+65hLz2b1D5FGKzGLEMyef4T2zNG7Ht+Y7H/koV9wR
-         55GVsLU6aok4SjraGdb7REgyYUf20q74sH/NiukQ1bSBTvStZKIywPjT7jh7z3K/kpC4
-         ILWala3K1Zr/73bETVq5U0dDHRV62UV3OTQD+gpvrLXkqx22U2FHe33g5bph52oUes88
-         36QMSa3vMdjYBgygyMsrCC1+CsqwQL0TIOXk9jp1j6BG2cd8SxaVZ4u/cjqeEgi+5uq1
-         IreZaENy4Iwybr6utZ1Y0LQgUbRZc87C9Pu4I5Wqf5L6as60sR9Gz96DkCUfJ4euxwag
-         ++BQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdRSNjKNeKbs3X9ZmldXiAR/dF0MMci2j/5lnvcL1o+gB2i7/3xKVt+Qi/36ikaG/KYz+5@lists.linux.dev
-X-Gm-Message-State: AOJu0YwIj2tWlJxcUfzMS+BIfqmvchp0hEZlGyoP6c84wt8Oj5skXnOL
-	m+wmLBT9eQn6UNpFmcJUuTnddkymYqLA9CEs4j7J54xQIBqru+VpxQbM2oCW/rMhkj/83zKbca6
-	Va95SXDqUEyldCgXuTEyqsNb6fAl1jrLcv2/IQUUP4cxDLT4ehyx2mmJz4WIjtnU=
-X-Gm-Gg: AZuq6aLyplRcEgZSpLo9UARm0TFYJwqqvJB8t6kQqWrjGTGEsKtGAxvsfRnezxxuhqA
-	YpaesTF3ZZu8FoVtQM8tPtDNm048EzDTM5NkRHiTLFiZQhCKq/k6s1VIYi0uWQkY1L+DP8k9MRA
-	MVD8ygSuxkNVUH/cjQ/3xIdAFHoK1N+NPgf9CKplNAkrpw1C5oTxNE9QsPMHzEcuQXu7hzyeksa
-	XmPBEtQUg2dtPrYjkrnA/JDhCIOGoyGt0UtlP+BJVtD/1vbqV5VIxNLllxZaAsI/EqYCkKRMUcL
-	TqlVnWWc+4DFdyqWOl2WBsZI0iSY62CSpUuM2HYVsFOJKQnEI4WtAnV1qO2HkJUpht19EN2myrK
-	yvEJPfqn7vRVt
-X-Received: by 2002:a05:600c:4e90:b0:477:582e:7a81 with SMTP id 5b1f17b1804b1-48069c2a907mr105133575e9.4.1769705598731;
-        Thu, 29 Jan 2026 08:53:18 -0800 (PST)
-X-Received: by 2002:a05:600c:4e90:b0:477:582e:7a81 with SMTP id 5b1f17b1804b1-48069c2a907mr105133265e9.4.1769705598230;
-        Thu, 29 Jan 2026 08:53:18 -0800 (PST)
-Received: from [192.168.88.32] ([212.105.153.56])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-481a5e195ecsm793975e9.4.2026.01.29.08.53.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jan 2026 08:53:17 -0800 (PST)
-Message-ID: <bbbaf4e5-1c31-4c84-adb4-dbb94b8d07f4@redhat.com>
-Date: Thu, 29 Jan 2026 17:53:14 +0100
+        d=1e100.net; s=20230601; t=1769715484; x=1770320284;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8jgscGADAtGExE/c6eNO9k9qz7qLCMhugDMGIDtgfTs=;
+        b=r7GQaCnq/uEU2bd/8WnOi8wvhy6f2mqWFzYpzm8fy82UfVnmIOJf+E1tTu9EIOhlw7
+         swoipIIhvLYURU0Oz8E4fQMHnmg64SvHcq5SRGA4iC765xyL35WhrHyyFRdxsTHpXTmK
+         YXU8SPwIptjCUZjbj10nr3Tx+VZXtTlqg8PFDprLLgSxnp3yTihTBfA8w8qAP2taPaDH
+         shCdJ6ejUGzmR3NsgtN26cpbdja8LY1aDFTPdoB0Yeq882HwG51oqjMYFG6WH5jvNFEO
+         8p2cqTlLkqHxmuQvasQjq0w7E79GvwOCk0r38w6SwVFezwYHUX1npWfOTJQdgYYGIlF+
+         ZSLg==
+X-Forwarded-Encrypted: i=1; AJvYcCW4wzjySv25Skb6bjn3NZBGKaSLP2PR632Vb+6AkSL1UHjso6bSfr+edwij5Zvt0PNeYVlu@lists.linux.dev
+X-Gm-Message-State: AOJu0Yyz37bJxmEVmr/5h0kej3wrfIBvXG67JDbrnNIDhslSBYq4Q2Xl
+	aEAat6bXFFuRkkJOA4w9scEiOPQXELKwlFWmaQohTZHN5SFuZvnrsAamWARh2P0c5ofW34m5fv+
+	sjQwgd+LZ30dUB0V0noW42B1XOoaOdiE=
+X-Gm-Gg: AZuq6aKzxeBecEXj+wJv9hyhm48fKeebVy0GPiHiR+k8MsBXQEZL9/NvKgUgXji201R
+	qKqlCsy7nC0+kfiqN5l+7jwypWDIXCQXKmdL2CsNFX9OZrjnZfoiPP9SO3XZaNhYUZE70SxeeUZ
+	nG3jg7L0VgNAkGD154Y3QD2cI0uFFTC731X01jBaxh2EN0wv+R0fJOhPBdIdB1LXDylCQDsGYoC
+	tsAxdxkbvmKtEk9WMaz5xC4QoJeM1dCx2uf/9sLtdpt7nizzjwHB9w5F5Y+WwaSZnrr79yzKM01
+	7oJaSKUaBAVGYUWQ/mNBL1Gb2qbSOxXdBLgQgHoy
+X-Received: by 2002:a17:90b:2e10:b0:32d:a0f7:fa19 with SMTP id
+ 98e67ed59e1d1-3543b39c961mr584686a91.17.1769715484009; Thu, 29 Jan 2026
+ 11:38:04 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+References: <cover.1769439073.git.lucien.xin@gmail.com> <46f93cbee41da1e1f7b7f408b17915fd93b39ec1.1769439073.git.lucien.xin@gmail.com>
+ <bbbaf4e5-1c31-4c84-adb4-dbb94b8d07f4@redhat.com>
+In-Reply-To: <bbbaf4e5-1c31-4c84-adb4-dbb94b8d07f4@redhat.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Thu, 29 Jan 2026 14:37:51 -0500
+X-Gm-Features: AZwV_Qjv2qurpUKIB7y-u0yeOaDoaz7ma2YS0Xi_VtbJ92jOQ4X9Nw-fNxtkIAs
+Message-ID: <CADvbK_eHu0=8G7--neMHz5CDT4_MV-MONRu8obOsYbUhCc1ocg@mail.gmail.com>
 Subject: Re: [PATCH net-next v8 15/15] quic: add packet parser base
-To: Xin Long <lucien.xin@gmail.com>, network dev <netdev@vger.kernel.org>,
- quic@lists.linux.dev
-Cc: davem@davemloft.net, kuba@kernel.org, Eric Dumazet <edumazet@google.com>,
- Simon Horman <horms@kernel.org>, Stefan Metzmacher <metze@samba.org>,
- Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli <tfanelli@redhat.com>,
- Pengtao He <hepengtao@xiaomi.com>, Thomas Dreibholz <dreibh@simula.no>,
- linux-cifs@vger.kernel.org, Steve French <smfrench@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>, Paulo Alcantara <pc@manguebit.com>,
- Tom Talpey <tom@talpey.com>, kernel-tls-handshake@lists.linux.dev,
- Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
- Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>,
- Alexander Aring <aahringo@redhat.com>, David Howells <dhowells@redhat.com>,
- Matthieu Baerts <matttbe@kernel.org>, John Ericson <mail@johnericson.me>,
- Cong Wang <xiyou.wangcong@gmail.com>, "D . Wythe"
- <alibuda@linux.alibaba.com>, Jason Baron <jbaron@akamai.com>,
- illiliti <illiliti@protonmail.com>, Sabrina Dubroca <sd@queasysnail.net>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Daniel Stenberg <daniel@haxx.se>,
- Andy Gospodarek <andrew.gospodarek@broadcom.com>
-References: <cover.1769439073.git.lucien.xin@gmail.com>
- <46f93cbee41da1e1f7b7f408b17915fd93b39ec1.1769439073.git.lucien.xin@gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <46f93cbee41da1e1f7b7f408b17915fd93b39ec1.1769439073.git.lucien.xin@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: hxMjKJt8FdVdtsRSPGGEhAMZ2C7ZrqaPWJ9V1T5Bo0Q_1769705599
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
+	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
+	Stefan Metzmacher <metze@samba.org>, Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli <tfanelli@redhat.com>, 
+	Pengtao He <hepengtao@xiaomi.com>, Thomas Dreibholz <dreibh@simula.no>, linux-cifs@vger.kernel.org, 
+	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
+	Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>, kernel-tls-handshake@lists.linux.dev, 
+	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
+	Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>, Alexander Aring <aahringo@redhat.com>, 
+	David Howells <dhowells@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, 
+	John Ericson <mail@johnericson.me>, Cong Wang <xiyou.wangcong@gmail.com>, 
+	"D . Wythe" <alibuda@linux.alibaba.com>, Jason Baron <jbaron@akamai.com>, 
+	illiliti <illiliti@protonmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Daniel Stenberg <daniel@haxx.se>, 
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 1/26/26 3:51 PM, Xin Long wrote:
-> +/* Lookup listening socket for Client Initial packet (in process context). */
-> +static struct sock *quic_packet_get_listen_sock(struct sk_buff *skb)
-> +{
-> +	union quic_addr daddr, saddr;
-> +	struct quic_data alpns = {};
-> +	struct sock *sk;
-> +
-> +	quic_get_msg_addrs(skb, &daddr, &saddr);
-> +
-> +	if (quic_packet_parse_alpn(skb, &alpns))
-> +		return NULL;
-> +
-> +	local_bh_disable();
+On Thu, Jan 29, 2026 at 11:53=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wr=
+ote:
+>
+> On 1/26/26 3:51 PM, Xin Long wrote:
+> > +/* Lookup listening socket for Client Initial packet (in process conte=
+xt). */
+> > +static struct sock *quic_packet_get_listen_sock(struct sk_buff *skb)
+> > +{
+> > +     union quic_addr daddr, saddr;
+> > +     struct quic_data alpns =3D {};
+> > +     struct sock *sk;
+> > +
+> > +     quic_get_msg_addrs(skb, &daddr, &saddr);
+> > +
+> > +     if (quic_packet_parse_alpn(skb, &alpns))
+> > +             return NULL;
+> > +
+> > +     local_bh_disable();
+>
+> Is this really needed? If so, it needs some comment explaining the
+> rationale, otherwise please drop it.
+>
+It was needed, as a spin_lock use in quic_listen_sock_lookup(), now
+it's changed to rcu_read_lock(), maybe I should drop it. will double check.
 
-Is this really needed? If so, it needs some comment explaining the
-rationale, otherwise please drop it.
-
-/P
-
+Thanks.
