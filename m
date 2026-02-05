@@ -1,94 +1,94 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885081DF254
-	for <quic@lists.linux.dev>; Thu,  5 Feb 2026 19:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BFA8632A
+	for <quic@lists.linux.dev>; Thu,  5 Feb 2026 19:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770318046; cv=pass; b=qyOepq561smkCYRljiTEMmuUi5FaIzFiJ64nWikPSKcU7j/YnvfZcknZzLe5j38eLTcE+CODbMZMXFeUcj93JaAL2RufGDmtOffBPqu/uL0ePPFuPfFGla+0L89tVV2if/sYm9UDoOL+ARkbwto0/G7x60nCEoEB9OmD1dqCWV0=
+	t=1770318191; cv=pass; b=Skn2N+kjMe7Juvku6C1aaJlHrRHFHAw1CrohuJlUjF0Myoxt1Xj8beBq+pGly68XiZrETwWHdwRq77TlyqdQ9fbEexfPWQuZVSqC9m1lEBUIo7ZC9c3hhHzL2f12R/dyyDRxr8NN8ruZh6rmVxXnxJ5+IRx5imGysePJoeKcfMQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770318046; c=relaxed/simple;
-	bh=AuskjtNOz6nZ0G+yrh6WViA45fpVm0rg4c0PZaDjONg=;
+	s=arc-20240116; t=1770318191; c=relaxed/simple;
+	bh=Sv7j14ymtGLHlmTqP+BoOPCTX/cQqHoGUXoIMpAvOkA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hK/1VhHLHvOvJ3xrNyZL+tc2GXX3jIWGJJ8DMwcGJmTolONSgzG/JYXb84hOJtfu76a58L2FIE2Tpy0rw4WzS+wRTTsAaUd5sj4PUGGGamx6G7AC62DAU0VhPe6JGWWTrM07vq8Xeh7xGfu/p2RSVpJK6TscaCy0gD3JALrNdyk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nf/rNEqI; arc=pass smtp.client-ip=209.85.210.173
+	 To:Cc:Content-Type; b=TFyORZ2d8+D/GLByDItoIcXE4hKdIw74OB8C81ENTYvl0goISZ32XBO1nAjLaOZ45uYvEASOMKkQxv9du+wwPJvJ6WX2np/ej2+yefKOFSEtW6gHzS2YvOaB/nLuLcWyhzUwEEipPg0Ho/yobct8fXnwY8jyapK+XWh7p6by/ac=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgOttGnv; arc=pass smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nf/rNEqI"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8230c839409so1260414b3a.3
-        for <quic@lists.linux.dev>; Thu, 05 Feb 2026 11:00:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770318046; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgOttGnv"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c2dd0c24e5cso394897a12.3
+        for <quic@lists.linux.dev>; Thu, 05 Feb 2026 11:03:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770318191; cv=none;
         d=google.com; s=arc-20240605;
-        b=ikjbsfk7NLT2HaGMdW6j7gTFq2s8cSchdQBFQ0ntslC1mHBFSis74T8H023geFM0yd
-         ZkfWaU6VAR8GY711CWtvihg/D2frAaazoPfVNtDEP8bQqknIPG1Ekx4PUUnpFXvPKJt0
-         Bqd8eINFMcjFzotuziXnq/gZqX66N/DmPhH1bA7PcJUtcNKw7tXZjCWDnia9K7u2tfbQ
-         GAAEiGzmWEwxx3GE7+7twDssdQkFBLLIEeN/J4bmfZh2z2FJdFWAzcacF89xAFlcpi1n
-         +4EmbegzPu5oOHFE1HYlTX22nODfS/CyDOU1yRbBnzC7Y8zRVYNl1EUw6sPn907MFBfU
-         DKDQ==
+        b=XQmEgxbADBshQkUIt4rKQK7oBlVRGmeRSEsCYm4l6Spkiwe+U93bobZAsHEKZM4JFQ
+         9s3lgnM8raII9HumrKKGt1pP3iGl4d9TcXwLNcHj214qrLC9Jg8bJ81gYFjfkXN3rdr6
+         NNRlpj27/viT6nALmZzlqC6CrQ1JY8nq1YNiZyB/f53ijVsw68hqLg5K2R9NQueWoFpM
+         t2AmyuInYUOGs22XalXYzZO3a58v+xAbfH35YWfDZMJ96X+mZbk3VwsetNc8c3OUd11y
+         kHI+mkGTlyD4FB4aZD0/2v4Uf3tEZYoT41t4k33AaggFG7agZSQIfx90txiaOJsxX8rn
+         uGAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=CzWk8gLvE9O246b4A2vdYNLzmmHIUhQKe38cf0ISaC8=;
-        fh=ACu9TFDuMKLo0xqu8fEEtr4msKntYEdX5p2907A2c4c=;
-        b=ic2COS4aAAFA0e8TqA7p9xCZ6TSjKw3VFciaIuT9GPp+jh7z5OgjsbgRGG+lDlxwEq
-         r/it+oxZysi1+49n+pz5YWs2CQ6oJEsh0RNzPHETGfiMTmEyXtstNv+9P2CPcZxsF7vs
-         JIMBcOhC9jR5yazjLPaGNKPh7vdVv1skZ8yAyjogGsH5MJQbIfVSAF6NG91era32O1p9
-         +6v29Piuz8CA3RV5NSreiuMjqd5UMStblX3PB7+nZdzIILW9SEs29x5/GM0L+PueWGLx
-         F5CBHsVzHCKApIPnluOI/pnM33dJy+NP86DNCCVOXUJv11Zo8BPO+xU+1J3qpdAg9WpC
-         Gtmg==;
+        bh=wMq2czingLs1wcNHuupFAGOHUrKeCMVUSnWEEmpxoVE=;
+        fh=gA/PNvisOyVVc+qZB9xqlDjZAldbX8SI5U9hb9YPfFw=;
+        b=GHyj3bl8QdroXV8WdAqMjYVMqp86w6rk7pWoT2RabfiuPTZ5MDH/g3oh5ouwNfPOEE
+         vOuV2mzDxHlMAHCPP0g0OovDjjOWTxkaT13jxsikY+mFZmdP4oVYJiFoyAbwJgEGZK/k
+         m/tHXKSe5EUvZOqa/gkmE4K9fhnz2uGOFAnoFKQSobeFvf43Jno2SaAhe2t+QnoXG+Az
+         NQGZSnvuv8smbpzwKKeOpe86lUMXQMgt+b1uH+QaVQVXeXJDGpMzgrRLhmco/ezh8bYK
+         dHjnCdI62d6dTdxtPd4WydfLFbZwkQ0nfvPvSXP1fnfzmUWZjOCDDV4VWEWK08Dtz+Cq
+         Ya7g==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770318046; x=1770922846; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1770318191; x=1770922991; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CzWk8gLvE9O246b4A2vdYNLzmmHIUhQKe38cf0ISaC8=;
-        b=nf/rNEqIVZ1/SY+hrbweh2NsuTHcqHNt2N23gRtFXBCpckCKnipyboDU7MRpDzfrdt
-         sArok/zK8N/lVf5S1gJdUTsAW8kzvPkmSE2lFSeJ1V8ASvQc4fjIgPOyAVPePR9cGDe5
-         FhWwBOr1qgGvm/zY9GuZBl2v3ZO7rLbWTE3fD+53EyWUG/d72bjD2Nzj8BIe/xAOVsqI
-         sgkEChZwsG66xd8f02e/IOIp0FHgZgDuRcP0g5Hrda4NtJn3DNGr1gXWTUt3qTg1n3z5
-         REgVE4W7bd8g40nO00RHYjaTb8xTI145r2vDTY9OKCP0Mn/eyX/jMRATAldQsjCTiO0z
-         qk2w==
+        bh=wMq2czingLs1wcNHuupFAGOHUrKeCMVUSnWEEmpxoVE=;
+        b=AgOttGnv/GF3e0kTs9t0jsOnwHLCeiV5MK47UjdtqnSfsTb/uKs04pbR2UE0hZWVG5
+         fSH+Cw7Yx8GRXDoI3PS/1CIocDwO380T7hTCd5ODTV/lk7kqJDxIwdIRFtE+EJJF/kMk
+         TfVN1NF56O8wUZ5Q5cTjwCMSrEUt7xiiicfrl17k3MxAwqix7TTosjqgn4boVn/dSicw
+         GxX2wPS6XHFz7hpc+BhnsJEbpSkctLtPitKv9Djf4aqD2ofhujc1WJdoNDEU2LYH0iKq
+         qEn1tLGhSaVe/qcQXH90HKmTnPY7BuXEonK5peXSx/rEjhnWgjYQyJi+yuUETegjUsy6
+         dotg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770318046; x=1770922846;
+        d=1e100.net; s=20230601; t=1770318191; x=1770922991;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=CzWk8gLvE9O246b4A2vdYNLzmmHIUhQKe38cf0ISaC8=;
-        b=T+s4Yh37pyTie0dKgLs/Rptm/F8okX5sjTRNnLFThD41RKKri4CsgFKwRqyX0JO5Os
-         YNCf4vTy5B8fc/JcTHzmRzNFOrrZ8mYm9KzvYLS/GB2+01bwzXwRTZEcJpyN0kgk38Bl
-         NZzb2CU8MgSniPk/mr6Q9viUk5BB3WC8NPLiuemt/+/5CpIBUe+HpSVs/l0fPFdVWEft
-         Yzpzouq/Ces6LIwOyESehkdZs5kmMzEcotySyhqH3G2COcdd2Swa8FvghCGhEyElzte/
-         VJIj5MKG5nPUztXd47D8wDciaR9ChVSxgQyQuMYf+ZTTVftPXn77gH0/H6hL0XFdIVxH
-         YbDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWAJqXDrVUOVPHAJ1DplSfFDJnkxAKGsvN5o+8KGCknmGrSpUa2csiqBmMzZlJhJygJsQ7j@lists.linux.dev
-X-Gm-Message-State: AOJu0YxpIyBBMaE4BVHNngZZ2Adw0iR8PWYZqVjrsAj69y5vAnvMTK7q
-	k+r8q0EvMfYp6BK3Fkg29sThMO0rFkXjpmA4Dj0GwGh2ZMS8CrfM5ZO1kUZbDmH/I1PU01RP1CQ
-	6gK9EDBWecBBPOuU7UM1FXoqNRFIoe9I=
-X-Gm-Gg: AZuq6aKPbqn2WHUD/3XPvW1BjTjqlF/21xPehwjCRQacL+PuFyre/BmTn8TtDXvAotr
-	wEEWMeWHgBUnvsA+Z8qPJ+CoTZDzaX/BB9z1E+87jh9Tw59COGTW3PxKGJPG8JRUX4Di0ZnO7wM
-	47yr7jrm2sgNmaHh66JbZtvHiPg0jOjmB/dHfqjA1aIo1N4FIRWGtnn3bHbv2dMmq+dRrkf2kCq
-	8rvMeTbCPbpaWzRlf4h3JuJ5B1F5NauvtywitTmZg9GN4Ult6jjXA7SVe0veAp/7mw0mXAX8n/s
-	+L6rM0tUVw7zZxtisMHPLgRhqk+a
-X-Received: by 2002:a05:6a00:2e07:b0:81e:711d:b26f with SMTP id
- d2e1a72fcca58-824416f7a4bmr51256b3a.43.1770318045758; Thu, 05 Feb 2026
- 11:00:45 -0800 (PST)
+        bh=wMq2czingLs1wcNHuupFAGOHUrKeCMVUSnWEEmpxoVE=;
+        b=Uz5qzf8zYR6CJVeqNakadksPLFuZkwoGkScus/8oTmno7V80Y2338xCGUH9cqXbCrB
+         ITZaVU0411jdTorauMx7QjkfRCQuLhRZiNRZSfW+3wYVXYOTDIUoW8BuSdBWKCC3rRJ3
+         wztlzNsWxzayCrA4QHFcNJotZbFW41pan8MrHlJrgekYAlGjYTh+gtw/v7HITzqPx/1h
+         hEtURXQkHaNFX7eAWn56UjDYvl9ea82HkQwFLshznf3gLliRk58eNDMycKHB7HUU9pud
+         hfIOw53iVIurKX4qfsCOklFlfsDHsxiC/DuXL6CXqpczFY6ZT0BmE2fCg4uTMS/95ozC
+         Ww3A==
+X-Forwarded-Encrypted: i=1; AJvYcCUo10sbkxODmH0wNtVKeSB8yWpqJYZaMlQPVDCwVEGJxDZ/f82RvfJ+bIeMTgqUjIANSN4K@lists.linux.dev
+X-Gm-Message-State: AOJu0YzjTEtu6rIKxHS81LqVRhNpnCrxV4La+DJl7v0WSdCwta34+jjj
+	eL+K1HJD8BTXZVHy7SO94F0NxIZl3vtjXpYA+AtZSv4pob+O4+VTXzTSqYGjmfIrMXtTFCtYiG/
+	gSL1irWCiS0lZ/lRiFnFn6dxm3xYrYjs=
+X-Gm-Gg: AZuq6aIR5Kxd8eDRgwLmVw5hWAMkdTL9iPjvvhqUaQ/7anEZO4KNE25fp366TJ3TctT
+	rG2MECPC0Fj8a+aJihH36r3iDmxCZabWrF1blA7cGiiMC70gIHVYWhBFi+N8RUL5swamHQwVIdo
+	V1yKfSY+ABxiVDeqmIeydD5/QWhykBx0NY8MOB1n72q465kPIqPK8YPn+lQCUhuu0zzDnJ1IfMt
+	yvQHqUhl3NXbCbea/Vmz4OagsCoZ/x85QJrlcM/mZDw5cZFsnM92QHRuSsqt6vW6EJekB43DAwu
+	oiim+/aCBhDkLx1cpsyaMmfdCWqt
+X-Received: by 2002:a17:90a:dfcd:b0:352:d59a:b28 with SMTP id
+ 98e67ed59e1d1-354b3cae091mr42496a91.19.1770318190665; Thu, 05 Feb 2026
+ 11:03:10 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <a872188a6e4d7b39d6d6d0f6fad7e5077bce4bae.1770042461.git.lucien.xin@gmail.com>
- <20260205115532.2195345-1-horms@kernel.org>
-In-Reply-To: <20260205115532.2195345-1-horms@kernel.org>
+References: <431335747d3604c46f2e57a32d839a73aa8a8536.1770042461.git.lucien.xin@gmail.com>
+ <20260205115542.2195362-1-horms@kernel.org>
+In-Reply-To: <20260205115542.2195362-1-horms@kernel.org>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 5 Feb 2026 14:00:34 -0500
-X-Gm-Features: AZwV_QhKP_xJtDWc386RLFvCIecEAqeBpy1wdehizIZr3NTnLt_Pak2USLctFus
-Message-ID: <CADvbK_cHtubdKv4PbYf0vG=3EPMrYw_Jo=_qqNvVb6+SoDvB3w@mail.gmail.com>
-Subject: Re: [net-next,v9,09/15] quic: add congestion control
+Date: Thu, 5 Feb 2026 14:02:58 -0500
+X-Gm-Features: AZwV_QhI8OwuLRWeiqC_GNUtx69lACcTHyYZmGGt6r8v7RB2RzBMyspqQrCybPk
+Message-ID: <CADvbK_e8Sbm8Q3KVR=uZZDYuQLTdprRskN=jgompaSeYDkmhFw@mail.gmail.com>
+Subject: Re: [net-next,v9,15/15] quic: add packet parser base
 To: Simon Horman <horms@kernel.org>
 Cc: steved@redhat.com, marcelo.leitner@gmail.com, aahringo@redhat.com, 
 	alibuda@linux.alibaba.com, jbaron@akamai.com, hare@suse.de, kuba@kernel.org, 
@@ -114,68 +114,84 @@ e:
 > For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-loca=
 l.html
 > ---
-> quic: add congestion control
+> quic: add packet parser base
 >
-> This patch introduces quic_cong for RTT measurement and congestion contro=
-l,
-> implementing a state machine with slow start, congestion avoidance, and
-> recovery phases using the New Reno algorithm.
+> This patch uses 'quic_packet' to handle packing of QUIC packets on the
+> receive (RX) path. It introduces mechanisms to parse the ALPN from client
+> Initial packets to determine the correct listener socket, routes received
+> packets accordingly, and adds support for ICMP-based MTU updates by
+> locating the relevant socket and updating the stored PMTU.
 >
-> > diff --git a/net/quic/cong.c b/net/quic/cong.c
-> > --- /dev/null
-> > +++ b/net/quic/cong.c
->
-> [ ... ]
->
-> > +static int quic_cong_check_persistent_congestion(struct quic_cong *con=
-g, u64 time)
-> > +{
-> > +     u32 ssthresh;
-> > +
-> > +     /* rfc9002#section-7.6.1:
-> > +      *   (smoothed_rtt + max(4*rttvar, kGranularity) + max_ack_delay)=
- *
-> > +      *      kPersistentCongestionThreshold
-> > +      */
-> > +     ssthresh =3D cong->smoothed_rtt + max(4 * cong->rttvar, QUIC_KGRA=
-NULARITY);
-> > +     ssthresh =3D (ssthresh + cong->max_ack_delay) * QUIC_KPERSISTENT_=
-CONGESTION_THRESHOLD;
-> > +     if (cong->time - time <=3D ssthresh)
-> > +             return 0;
+> > diff --git a/net/quic/packet.c b/net/quic/packet.c
+> > index cf64a6aaa795..16a7db6ccd87 100644
+> > --- a/net/quic/packet.c
+> > +++ b/net/quic/packet.c
 >
 > [ ... ]
 >
-> > +/* rfc9002#section-5: Estimating the Round-Trip Time */
-> > +void quic_cong_rtt_update(struct quic_cong *cong, u64 time, u32 ack_de=
-lay)
+> > @@ -14,6 +14,637 @@
+> >
+> >  #define QUIC_HLEN            1
+> >
+> > +/* Handle ICMP Toobig packet and update QUIC socket path MTU. */
+> > +static int quic_packet_rcv_err(struct sock *sk, struct sk_buff *skb)
 > > +{
-> > +     u32 adjusted_rtt, rttvar_sample;
+> > +     union quic_addr daddr, saddr;
+> > +     u32 info;
 > > +
-> > +     /* Ignore RTT sample if ACK delay is suspiciously large. */
-> > +     if (ack_delay > cong->max_ack_delay * 2)
-> > +             return;
-> > +
-> > +     /* rfc9002#section-5.1: latest_rtt =3D ack_time - send_time_of_la=
-rgest_acked */
-> > +     cong->latest_rtt =3D cong->time - time;
+> > +     /* All we can do is lookup the matching QUIC socket by addresses.=
+ */
+> > +     quic_get_msg_addrs(skb, &saddr, &daddr);
+> > +     sk =3D quic_sock_lookup(skb, &daddr, &saddr, sk, NULL);
 >
-> The field cong->time is described as "Cached current timestamp" in struct
-> quic_cong, but where is it written? The socket struct is zero-initialized=
-,
-> so cong->time will always be 0.
+> Are the address arguments swapped in quic_packet_rcv_err()? Looking at
+> other call sites in this file, quic_get_msg_addrs is consistently called
+> with &daddr first, then &saddr:
 >
-> When computing RTT with a positive packet send timestamp in the time
-> parameter, does this cause unsigned integer underflow? For example, if th=
-e
-> packet was sent at time 12345, computing 0 - 12345 wraps to a very large
-> value.
+>   Line 476 in quic_packet_get_listen_sock():
+>     quic_get_msg_addrs(skb, &daddr, &saddr);
 >
-> The same issue appears in quic_cong_check_persistent_congestion() where
-> cong->time - time is compared against ssthresh, and in quic_reno_on_packe=
-t_lost()
-> and quic_reno_on_process_ecn() where recovery_time is set to cong->time.
-This is not a problem, cong->time will always be set before processing
-the packet on the TX path in the next patch series.
+>   Line 513 in quic_packet_get_sock():
+>     quic_get_msg_addrs(skb, &daddr, &saddr);
+>
+>   Line 536 in quic_packet_get_sock():
+>     quic_get_msg_addrs(skb, &daddr, &saddr);
+>
+> But here quic_packet_rcv_err() passes &saddr first, then &daddr.
+>
+> Looking at the implementation of quic_v4_get_msg_addrs() in
+> net/quic/family.c, the function extracts addresses from the packet as:
+>
+>   sa->v4.sin_port =3D uh->source;
+>   sa->v4.sin_addr.s_addr =3D ip_hdr(skb)->saddr;
+>   da->v4.sin_port =3D uh->dest;
+>   da->v4.sin_addr.s_addr =3D ip_hdr(skb)->daddr;
+>
+> So sa gets the packet's source address (remote), and da gets the packet's
+> destination address (local).
+>
+> Then quic_sock_lookup() in net/quic/socket.c expects:
+>
+>   if (quic_cmp_sk_addr(tmp, quic_path_saddr(paths, 0), sa) &&
+>       quic_cmp_sk_addr(tmp, quic_path_daddr(paths, 0), da) &&
+>
+> This compares the socket's local address with sa and the socket's remote
+> address with da, meaning sa should be the local (packet dest) address and
+> da should be the remote (packet source) address.
+>
+> With the swapped arguments, quic_packet_rcv_err() would pass the remote
+> address where the local is expected and vice versa, causing the socket
+> lookup to fail. This would prevent ICMP Packet Too Big messages from bein=
+g
+> processed correctly, breaking Path MTU Discovery.
+>
+The code is correct, I may add a comment for the explanation:
+
+
+        /* ICMP embeds the original outgoing QUIC packet, so
+saddr/daddr are reversed when
+         * parsed. Only address-based socket lookup is possible in this cas=
+e.
+         */
 
 Thanks.
