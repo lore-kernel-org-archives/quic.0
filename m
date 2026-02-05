@@ -1,197 +1,205 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BFA8632A
-	for <quic@lists.linux.dev>; Thu,  5 Feb 2026 19:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FBA30DD2A
+	for <quic@lists.linux.dev>; Thu,  5 Feb 2026 19:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770318191; cv=pass; b=Skn2N+kjMe7Juvku6C1aaJlHrRHFHAw1CrohuJlUjF0Myoxt1Xj8beBq+pGly68XiZrETwWHdwRq77TlyqdQ9fbEexfPWQuZVSqC9m1lEBUIo7ZC9c3hhHzL2f12R/dyyDRxr8NN8ruZh6rmVxXnxJ5+IRx5imGysePJoeKcfMQ=
+	t=1770318245; cv=pass; b=HZRsIrnXi/9UHZmNp708fJs3whTFGz6g5QbX6/RcOZa5G03MflpQNoxwhrjSp5/SJBIE1cfdFl3NFbwpfAEsZrvryFhLf7ut50AKXBYCIK8s3f2gZpoJDR1jKySBouLbcx4jkzaW51ADkqQuGP9aAYrYq/HNoZ1kN2kN7HCRJl4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770318191; c=relaxed/simple;
-	bh=Sv7j14ymtGLHlmTqP+BoOPCTX/cQqHoGUXoIMpAvOkA=;
+	s=arc-20240116; t=1770318245; c=relaxed/simple;
+	bh=mMoJ2tLJEBg9sKf8yUPINOdmAZsdGLwl34VanWm6tos=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TFyORZ2d8+D/GLByDItoIcXE4hKdIw74OB8C81ENTYvl0goISZ32XBO1nAjLaOZ45uYvEASOMKkQxv9du+wwPJvJ6WX2np/ej2+yefKOFSEtW6gHzS2YvOaB/nLuLcWyhzUwEEipPg0Ho/yobct8fXnwY8jyapK+XWh7p6by/ac=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgOttGnv; arc=pass smtp.client-ip=209.85.215.174
+	 To:Cc:Content-Type; b=Ql4G2PVXK5rBV4Hp9z4nW8bvP+OxJ+n3Go1AQ8rnORLIw9PWozLXfo7zDzkqbiuA5Uh+UHuboZ36gj6JGotmobHgOqw73AV+qCcl2Wpm6QMEpniVFdwh2o3/qd4ny4qnkCVi40xfO5B9BoFffx9xb2boMW6YOmZXiYUX4RhS6/8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ncaJz614; arc=pass smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgOttGnv"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c2dd0c24e5cso394897a12.3
-        for <quic@lists.linux.dev>; Thu, 05 Feb 2026 11:03:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770318191; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ncaJz614"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2a79ded11a2so9359685ad.3
+        for <quic@lists.linux.dev>; Thu, 05 Feb 2026 11:04:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770318244; cv=none;
         d=google.com; s=arc-20240605;
-        b=XQmEgxbADBshQkUIt4rKQK7oBlVRGmeRSEsCYm4l6Spkiwe+U93bobZAsHEKZM4JFQ
-         9s3lgnM8raII9HumrKKGt1pP3iGl4d9TcXwLNcHj214qrLC9Jg8bJ81gYFjfkXN3rdr6
-         NNRlpj27/viT6nALmZzlqC6CrQ1JY8nq1YNiZyB/f53ijVsw68hqLg5K2R9NQueWoFpM
-         t2AmyuInYUOGs22XalXYzZO3a58v+xAbfH35YWfDZMJ96X+mZbk3VwsetNc8c3OUd11y
-         kHI+mkGTlyD4FB4aZD0/2v4Uf3tEZYoT41t4k33AaggFG7agZSQIfx90txiaOJsxX8rn
-         uGAA==
+        b=Mpx270kMhrDmucZpFh5nk/ov3vTnzmb0hljR7k9ZhUxTgIRjMeGe9srN/f9Vzaf/m4
+         vNMTRm7RL+Whq7pHjHQkB8nb6yc3iFm1vcEqhEmL0YcWzJotdGRmHSyqw6j0svGzerGf
+         N8yLBgeDF1G53bBwej9crsyfLLNNIk/YSQH3eAI5Jdm9C7lmLkW/O8eMHcOavVl0kqNq
+         kvHb7EpmsbVZtNtI6o/HQS5r2rhKW4OYzY4Lbg63OOeFv9NtPk/Y2CcJiSp1H4AvByIs
+         QdmWJmTJDvF2UhlJBYsxOBiX7E2Jwf/LFGmLTNMvlYoyRuaUeiF7q7PQZIUol7ksJB+6
+         XAsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=wMq2czingLs1wcNHuupFAGOHUrKeCMVUSnWEEmpxoVE=;
-        fh=gA/PNvisOyVVc+qZB9xqlDjZAldbX8SI5U9hb9YPfFw=;
-        b=GHyj3bl8QdroXV8WdAqMjYVMqp86w6rk7pWoT2RabfiuPTZ5MDH/g3oh5ouwNfPOEE
-         vOuV2mzDxHlMAHCPP0g0OovDjjOWTxkaT13jxsikY+mFZmdP4oVYJiFoyAbwJgEGZK/k
-         m/tHXKSe5EUvZOqa/gkmE4K9fhnz2uGOFAnoFKQSobeFvf43Jno2SaAhe2t+QnoXG+Az
-         NQGZSnvuv8smbpzwKKeOpe86lUMXQMgt+b1uH+QaVQVXeXJDGpMzgrRLhmco/ezh8bYK
-         dHjnCdI62d6dTdxtPd4WydfLFbZwkQ0nfvPvSXP1fnfzmUWZjOCDDV4VWEWK08Dtz+Cq
-         Ya7g==;
+        bh=UTcUAmNhDbXfJ1YkCH2MncVbNEMdAOiqZyjVuJUmYMI=;
+        fh=jjyN5r/sD1sniiLgX04NFpzmMwPcplLp+H376bXygM4=;
+        b=GK+APIND94LcMY3jlJgeUB1dg2tVqFQs5FNSXzS+//Li2OmU0AikYExGe5zvHvLGmZ
+         j4MKRNrayZ0TztCTUrDSQo18u9/qVIrvbp/20kRvhsColPfLQC7TPlCBxJA6OsN1OM77
+         3nzmCA7NGoZGgzxmE8M2oxuVRtVE1Z8fP5eOBPmlVewxT0hIDiwkzZh7RsJox+OByivz
+         Mcoi2VtYtG9NoS1zcVN7V7KeXGVJsVmowWkMsh5XTg0+j0GcUdhwZs7e/fL3Vk5JSnWN
+         PyFrILoGjmByHEBokHaQjtCKDU0LXLnJnU91lka6Aun4Uhs2OdjQok5mSbDe6eDhK0zU
+         aaqQ==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770318191; x=1770922991; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1770318244; x=1770923044; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wMq2czingLs1wcNHuupFAGOHUrKeCMVUSnWEEmpxoVE=;
-        b=AgOttGnv/GF3e0kTs9t0jsOnwHLCeiV5MK47UjdtqnSfsTb/uKs04pbR2UE0hZWVG5
-         fSH+Cw7Yx8GRXDoI3PS/1CIocDwO380T7hTCd5ODTV/lk7kqJDxIwdIRFtE+EJJF/kMk
-         TfVN1NF56O8wUZ5Q5cTjwCMSrEUt7xiiicfrl17k3MxAwqix7TTosjqgn4boVn/dSicw
-         GxX2wPS6XHFz7hpc+BhnsJEbpSkctLtPitKv9Djf4aqD2ofhujc1WJdoNDEU2LYH0iKq
-         qEn1tLGhSaVe/qcQXH90HKmTnPY7BuXEonK5peXSx/rEjhnWgjYQyJi+yuUETegjUsy6
-         dotg==
+        bh=UTcUAmNhDbXfJ1YkCH2MncVbNEMdAOiqZyjVuJUmYMI=;
+        b=ncaJz614peRQQ433pMn2Qre+GDTrHBNU2iNrhoEANNwgGGVqtXdmmIm9nrrIjPQ0Ma
+         HK4rscQzfuz+lbBnLt35jZZG507r+jgL6+RWjF6SEf3bMko8DgcBExFdhex9hmh1oY8Y
+         J13af8O8fhOtvqIvXOIM9cZF9Ubu2XpJagsgzYfio69nPpGgbmk1i7aoxk3Zhml3d38r
+         lJ05MAB1txPItUCHe6QbWmaYsVwUd4Xp2Ub//o3k2V5JaTc0uWnJt4kULd8rmRCSFGeQ
+         +fw4EElg4d0FmKkYviCbL9qXmc9ottymNxRUo6JEp3aWvnfPsMtitOuPI35g2mu3mqEQ
+         ayzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770318191; x=1770922991;
+        d=1e100.net; s=20230601; t=1770318244; x=1770923044;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=wMq2czingLs1wcNHuupFAGOHUrKeCMVUSnWEEmpxoVE=;
-        b=Uz5qzf8zYR6CJVeqNakadksPLFuZkwoGkScus/8oTmno7V80Y2338xCGUH9cqXbCrB
-         ITZaVU0411jdTorauMx7QjkfRCQuLhRZiNRZSfW+3wYVXYOTDIUoW8BuSdBWKCC3rRJ3
-         wztlzNsWxzayCrA4QHFcNJotZbFW41pan8MrHlJrgekYAlGjYTh+gtw/v7HITzqPx/1h
-         hEtURXQkHaNFX7eAWn56UjDYvl9ea82HkQwFLshznf3gLliRk58eNDMycKHB7HUU9pud
-         hfIOw53iVIurKX4qfsCOklFlfsDHsxiC/DuXL6CXqpczFY6ZT0BmE2fCg4uTMS/95ozC
-         Ww3A==
-X-Forwarded-Encrypted: i=1; AJvYcCUo10sbkxODmH0wNtVKeSB8yWpqJYZaMlQPVDCwVEGJxDZ/f82RvfJ+bIeMTgqUjIANSN4K@lists.linux.dev
-X-Gm-Message-State: AOJu0YzjTEtu6rIKxHS81LqVRhNpnCrxV4La+DJl7v0WSdCwta34+jjj
-	eL+K1HJD8BTXZVHy7SO94F0NxIZl3vtjXpYA+AtZSv4pob+O4+VTXzTSqYGjmfIrMXtTFCtYiG/
-	gSL1irWCiS0lZ/lRiFnFn6dxm3xYrYjs=
-X-Gm-Gg: AZuq6aIR5Kxd8eDRgwLmVw5hWAMkdTL9iPjvvhqUaQ/7anEZO4KNE25fp366TJ3TctT
-	rG2MECPC0Fj8a+aJihH36r3iDmxCZabWrF1blA7cGiiMC70gIHVYWhBFi+N8RUL5swamHQwVIdo
-	V1yKfSY+ABxiVDeqmIeydD5/QWhykBx0NY8MOB1n72q465kPIqPK8YPn+lQCUhuu0zzDnJ1IfMt
-	yvQHqUhl3NXbCbea/Vmz4OagsCoZ/x85QJrlcM/mZDw5cZFsnM92QHRuSsqt6vW6EJekB43DAwu
-	oiim+/aCBhDkLx1cpsyaMmfdCWqt
-X-Received: by 2002:a17:90a:dfcd:b0:352:d59a:b28 with SMTP id
- 98e67ed59e1d1-354b3cae091mr42496a91.19.1770318190665; Thu, 05 Feb 2026
- 11:03:10 -0800 (PST)
+        bh=UTcUAmNhDbXfJ1YkCH2MncVbNEMdAOiqZyjVuJUmYMI=;
+        b=tfE/Vr/dI4T2XnlH4L7QcJi0zcfUCRUOGvnkVG4hZeMReT7s3BM+ae6ihV5x0PSgQT
+         mt925026lSB2RLOQ3D5qr75HCqmvZ74MT/4XKsy1RLNtvvdX3D2COEOSpdRdAw3+sP15
+         kUKeWG7F8+EHDhNFntjoWNDLKDKPHn6oD5SZ6utPjoTnqZsz8wtL9nse0XcwClhrvODw
+         tkp1uDEWUW7CW1a/eARzMMBCRn5F1zayn7nwytYh76QMIhup2vQbVy/7l4TR/ymGg5C7
+         CSJCCbjdmxmThKY9XGBCrQwLgexFCnQLBlWQgzInnpxB3L+ldq9XgumgJ0chLkUvhFAJ
+         YdBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXSrognpl7Lqf+b3NqKo0L1P4RPcJj5lg7Z5/pK09gyXck6HhBsz5T+i/MflaLMyEbiIIcU@lists.linux.dev
+X-Gm-Message-State: AOJu0YwihG91zLRAgebwklXfR2wDYMxcdFTG8D/z/TiJik57bakdW+th
+	6whJY+7Sor1MBnRZa/iE0GipRVWcHEf6B6UOsUYI8FzhWzVszcOusNLQKg6QQJw4Feb6GSmZTmx
+	UJJilDfl0b0nHwz1VxKUS2XDcakPq/DU=
+X-Gm-Gg: AZuq6aLTsm2s+oU4+IeaFyI9m5fVtaJenB3fqfTDmP8MDsEbu97qZZGxLuNOVdh0ZNs
+	WY+ihTaWzsg10H+cuCT2WQc4VprhPVwJIXKK84HcVNnJreS/qlj1F/wgPqiRMl5FX611rYdGWfq
+	N61L9HU1gvKyv4zH/MVZyeVArx7r+zqY94vFVTxclGX2m0LWO1GptF8iQsIAnU6bbKZkPg9S32e
+	TOV/M1oTa1XABdPkVICI1WNNDG39W+mIOMtMBl4kmjhLgAUoioRJUFa2gxb+cYemCSm4cbGRYNp
+	XBvQNwi6eR2z32G8DKyuhaQvblAR
+X-Received: by 2002:a17:903:32c2:b0:2a8:fc90:c8b7 with SMTP id
+ d9443c01a7336-2a9516299a0mr3095915ad.19.1770318244425; Thu, 05 Feb 2026
+ 11:04:04 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <431335747d3604c46f2e57a32d839a73aa8a8536.1770042461.git.lucien.xin@gmail.com>
- <20260205115542.2195362-1-horms@kernel.org>
-In-Reply-To: <20260205115542.2195362-1-horms@kernel.org>
+References: <28a1e36188b1a84193ef2d78f12ecbc0e43ae7f1.1770042461.git.lucien.xin@gmail.com>
+ <20260205115423.2195277-1-horms@kernel.org> <e9b073b0-60b7-4a45-9b6d-85c15b51fb4f@redhat.com>
+In-Reply-To: <e9b073b0-60b7-4a45-9b6d-85c15b51fb4f@redhat.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 5 Feb 2026 14:02:58 -0500
-X-Gm-Features: AZwV_QhI8OwuLRWeiqC_GNUtx69lACcTHyYZmGGt6r8v7RB2RzBMyspqQrCybPk
-Message-ID: <CADvbK_e8Sbm8Q3KVR=uZZDYuQLTdprRskN=jgompaSeYDkmhFw@mail.gmail.com>
-Subject: Re: [net-next,v9,15/15] quic: add packet parser base
-To: Simon Horman <horms@kernel.org>
-Cc: steved@redhat.com, marcelo.leitner@gmail.com, aahringo@redhat.com, 
-	alibuda@linux.alibaba.com, jbaron@akamai.com, hare@suse.de, kuba@kernel.org, 
-	tom@talpey.com, linux-cifs@vger.kernel.org, daniel@haxx.se, 
-	quic@lists.linux.dev, jlayton@kernel.org, tfanelli@redhat.com, 
+Date: Thu, 5 Feb 2026 14:03:52 -0500
+X-Gm-Features: AZwV_Qjjs7kCqix60p3yMSgDkQ3vg6ybhk9GbXkeFBD_k4Da4kanmC-HbStnhiw
+Message-ID: <CADvbK_eFXJB-JqL7w-50Jb=GNzzmSFD_cRGSmRscZ2Hq0o=6ZQ@mail.gmail.com>
+Subject: Re: [net-next,v9,02/15] net: build socket infrastructure for QUIC protocol
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, steved@redhat.com, marcelo.leitner@gmail.com, 
+	aahringo@redhat.com, alibuda@linux.alibaba.com, jbaron@akamai.com, 
+	hare@suse.de, kuba@kernel.org, tom@talpey.com, linux-cifs@vger.kernel.org, 
+	daniel@haxx.se, quic@lists.linux.dev, jlayton@kernel.org, tfanelli@redhat.com, 
 	dhowells@redhat.com, linkinjeon@kernel.org, hepengtao@xiaomi.com, 
 	pc@manguebit.com, kernel-tls-handshake@lists.linux.dev, 
 	illiliti@protonmail.com, xiyou.wangcong@gmail.com, 
 	andrew.gospodarek@broadcom.com, mail@johnericson.me, edumazet@google.com, 
-	pabeni@redhat.com, matttbe@kernel.org, netdev@vger.kernel.org, 
-	smfrench@gmail.com, metze@samba.org, mbuhl@openbsd.org, 
-	chuck.lever@oracle.com, dreibh@simula.no, davem@davemloft.net, 
-	sd@queasysnail.net
+	matttbe@kernel.org, netdev@vger.kernel.org, smfrench@gmail.com, 
+	metze@samba.org, mbuhl@openbsd.org, chuck.lever@oracle.com, dreibh@simula.no, 
+	davem@davemloft.net, sd@queasysnail.net
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Feb 5, 2026 at 6:55=E2=80=AFAM Simon Horman <horms@kernel.org> wrot=
+On Thu, Feb 5, 2026 at 7:48=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wrot=
 e:
 >
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
->
-> For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-loca=
-l.html
-> ---
-> quic: add packet parser base
->
-> This patch uses 'quic_packet' to handle packing of QUIC packets on the
-> receive (RX) path. It introduces mechanisms to parse the ALPN from client
-> Initial packets to determine the correct listener socket, routes received
-> packets accordingly, and adds support for ICMP-based MTU updates by
-> locating the relevant socket and updating the stored PMTU.
->
-> > diff --git a/net/quic/packet.c b/net/quic/packet.c
-> > index cf64a6aaa795..16a7db6ccd87 100644
-> > --- a/net/quic/packet.c
-> > +++ b/net/quic/packet.c
->
-> [ ... ]
->
-> > @@ -14,6 +14,637 @@
+> On 2/5/26 12:54 PM, Simon Horman wrote:
+> > This is an AI-generated review of your patch. The human sending this
+> > email has considered the AI review valid, or at least plausible.
 > >
-> >  #define QUIC_HLEN            1
+> > For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-lo=
+cal.html
+> > ---
+> > net: build socket infrastructure for QUIC protocol
 > >
-> > +/* Handle ICMP Toobig packet and update QUIC socket path MTU. */
-> > +static int quic_packet_rcv_err(struct sock *sk, struct sk_buff *skb)
-> > +{
-> > +     union quic_addr daddr, saddr;
-> > +     u32 info;
-> > +
-> > +     /* All we can do is lookup the matching QUIC socket by addresses.=
- */
-> > +     quic_get_msg_addrs(skb, &saddr, &daddr);
-> > +     sk =3D quic_sock_lookup(skb, &daddr, &saddr, sk, NULL);
+> > This patch lays the groundwork for QUIC socket support in the kernel.
+> > It defines the core structures and protocol hooks needed to create
+> > QUIC sockets, without implementing any protocol behavior at this stage.
+> > Basic integration is included to allow building the module via
+> > CONFIG_IP_QUIC=3Dm. This provides the scaffolding necessary for adding
+> > actual QUIC socket behavior in follow-up patches.
+> >
+> >> diff --git a/net/quic/protocol.c b/net/quic/protocol.c
+> >> new file mode 100644
+> >> index 000000000000..6ab81f1c50cc
+> >> --- /dev/null
+> >> +++ b/net/quic/protocol.c
+> >
+> > [ ... ]
+> >
+> >> @@ -0,0 +1,369 @@
+> >
+> > [ ... ]
+> >
+> >> +static int quic_protosw_init(void)
+> >> +{
+> >> +    int err;
+> >> +
+> >> +    err =3D proto_register(&quic_prot, 1);
+> >> +    if (err)
+> >> +            return err;
+> >> +
+> >> +    err =3D proto_register(&quicv6_prot, 1);
+> >> +    if (err) {
+> >> +            proto_unregister(&quic_prot);
+> >> +            return err;
+> >> +    }
+> >> +
+> >> +    inet_register_protosw(&quic_stream_protosw);
+> >> +    inet_register_protosw(&quic_dgram_protosw);
+> >> +    inet6_register_protosw(&quicv6_stream_protosw);
+> >> +    inet6_register_protosw(&quicv6_dgram_protosw);
+> >> +
+> >> +    return 0;
+> >> +}
+> >
+> > Can the return values from inet6_register_protosw() be checked?
+> >
+> > Looking at the implementation, inet6_register_protosw() returns int and
+> > can fail with -EINVAL (if p->type >=3D SOCK_MAX) or -EPERM (if trying t=
+o
+> > override a permanent protocol). The calls at lines 234-235 don't check
+> > these return values, so if registration fails, quic_protosw_init() stil=
+l
+> > returns 0 (success).
+> >
+> > More critically, quic_protosw_exit() unconditionally calls
+> > inet6_unregister_protosw() on both structures:
+> >
+> > static void quic_protosw_exit(void)
+> > {
+> >       inet_unregister_protosw(&quic_dgram_protosw);
+> >       inet_unregister_protosw(&quic_stream_protosw);
+> >       proto_unregister(&quic_prot);
+> >
+> >       inet6_unregister_protosw(&quicv6_dgram_protosw);
+> >       inet6_unregister_protosw(&quicv6_stream_protosw);
+> >       proto_unregister(&quicv6_prot);
+> > }
+> >
+> > If a protosw was never successfully registered, its list field remains
+> > zero-initialized (NULL pointers). inet6_unregister_protosw() calls
+> > list_del_rcu(&p->list), which with NULL pointers will dereference NULL
+> > in __list_del_entry() -> __list_del(NULL, NULL), causing a kernel crash=
+.
+> >
+> > Note that inet_register_protosw() returns void (cannot fail from caller=
+'s
+> > perspective), but inet6_register_protosw() returns int (can fail). The
+> > code correctly checks errors from proto_register() but not from
+> > inet6_register_protosw().
+> >
+> > Should the return values from inet6_register_protosw() be checked, and
+> > should the cleanup path track which registrations succeeded so only tho=
+se
+> > are unregistered?
 >
-> Are the address arguments swapped in quic_packet_rcv_err()? Looking at
-> other call sites in this file, quic_get_msg_addrs is consistently called
-> with &daddr first, then &saddr:
+> I think it's easy to infer that that such failures are impossible, but
+> since a repost is needed please drop some sentence in the commit message
+> to help AI see the point.
 >
->   Line 476 in quic_packet_get_listen_sock():
->     quic_get_msg_addrs(skb, &daddr, &saddr);
->
->   Line 513 in quic_packet_get_sock():
->     quic_get_msg_addrs(skb, &daddr, &saddr);
->
->   Line 536 in quic_packet_get_sock():
->     quic_get_msg_addrs(skb, &daddr, &saddr);
->
-> But here quic_packet_rcv_err() passes &saddr first, then &daddr.
->
-> Looking at the implementation of quic_v4_get_msg_addrs() in
-> net/quic/family.c, the function extracts addresses from the packet as:
->
->   sa->v4.sin_port =3D uh->source;
->   sa->v4.sin_addr.s_addr =3D ip_hdr(skb)->saddr;
->   da->v4.sin_port =3D uh->dest;
->   da->v4.sin_addr.s_addr =3D ip_hdr(skb)->daddr;
->
-> So sa gets the packet's source address (remote), and da gets the packet's
-> destination address (local).
->
-> Then quic_sock_lookup() in net/quic/socket.c expects:
->
->   if (quic_cmp_sk_addr(tmp, quic_path_saddr(paths, 0), sa) &&
->       quic_cmp_sk_addr(tmp, quic_path_daddr(paths, 0), da) &&
->
-> This compares the socket's local address with sa and the socket's remote
-> address with da, meaning sa should be the local (packet dest) address and
-> da should be the remote (packet source) address.
->
-> With the swapped arguments, quic_packet_rcv_err() would pass the remote
-> address where the local is expected and vice versa, causing the socket
-> lookup to fail. This would prevent ICMP Packet Too Big messages from bein=
-g
-> processed correctly, breaking Path MTU Discovery.
->
-The code is correct, I may add a comment for the explanation:
-
-
-        /* ICMP embeds the original outgoing QUIC packet, so
-saddr/daddr are reversed when
-         * parsed. Only address-based socket lookup is possible in this cas=
-e.
-         */
-
-Thanks.
+Will do, thanks.
