@@ -1,207 +1,247 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01055386432
-	for <quic@lists.linux.dev>; Wed,  4 Mar 2026 21:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5783976AF
+	for <quic@lists.linux.dev>; Wed,  4 Mar 2026 21:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772659563; cv=pass; b=Ti0e+vkUh7YuYbz9mdk2vQeFCu+VTsu4ODXgZ54oFbaXBVOJ22yfwppn/NGrogc2q3Y0QAhCu2qEf+zvzbyW/QcyT9JhLZLcA/Un0QJ3m1IZGvv0lUDbUc8oyU4xrbsdjUuWQVniIpShDCkg2Mgh2U64prnzCIdL5IDBzy2cFBQ=
+	t=1772660537; cv=pass; b=Yax4ULGfFCJJeAn1gW3EWF0eHAEIVWvQYgpzPKkI+il32pr2EZBfsploIvmt+w/dRHPeqWyzAdGK/PJ8Z2/a8/gpZEnWtJWJ3pbxARpIis0ptvfCpVVhrKCStPb20o224JZPMlSm0FL15gvC11iRtidxjDNAm9bC6tkyNhg6y5g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772659563; c=relaxed/simple;
-	bh=KLXKEYtmB4SEqI4A4FSyQZAfj2jvvWR0iwdwG84js9E=;
+	s=arc-20240116; t=1772660537; c=relaxed/simple;
+	bh=CZu//w8nfUqxfRbIfFweHrXIoGfZbN61WXULKZ59AeQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TwW77ltkVxle1YQk7V7aMYOVdm23toWiKdelZaGTQeYZMf7jesd+D0baHeNri+wPMwbdvhXnq9Pbfqa9a3cTtM6Qj8V7umXxidO+bsvBo7M+4LYqA6AYObmsHRS8zD0KqNrUoVdCHC9CFLJfc5ldQAH1LU5J1Oaavg4rH6xLTK0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l2RVyI73; arc=pass smtp.client-ip=209.85.210.182
+	 To:Cc:Content-Type; b=XBTLo14oToXz/doF4EzZFLz11h9+9NDpxOt0A/Re2Lx15VxBt4SFtJkdZysOYvbLBvy1Bu0oiBUDNhz5/+3nBuD87AXNfcQ0hx5LWNKgk8RJ2PaVjxfAd9kfzx8dyFBtAvBU5ww545M7FMMQR3lH2SIGsHrmzet9BW7bjXOPHkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jInS4VAZ; arc=pass smtp.client-ip=209.85.221.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l2RVyI73"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-824af5e5c81so7393752b3a.0
-        for <quic@lists.linux.dev>; Wed, 04 Mar 2026 13:26:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772659561; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jInS4VAZ"
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-56a84f2bf7bso6681733e0c.2
+        for <quic@lists.linux.dev>; Wed, 04 Mar 2026 13:42:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772660532; cv=none;
         d=google.com; s=arc-20240605;
-        b=kCp3DUAK8CIXBZVKkAKgVjuGuMRoBfLMJmDAtLMjl6uwoYvhaKDG0eV/Yh0qe6nkLn
-         IJU693LYZRrnZEvR3l3jrBBxvJlBJz0bHIKnDQgppFQOVrESFOA6XRDDi/vvZGD89rp1
-         60Jym9FcMcZiWZSJTq3KyPNV3TlK535lDkknsumGkaTny48hPmWwfQCoXDWUtxvLx6vI
-         MZ4kvuaYeK3PsQm+VQLhMGb5t8cq80hZgFGiw48gffQKqXPWoeyTcEaKcQ5/a58gz1/8
-         reDFeVJ1Vi48XxckHtF0n26oh4C6Ye4cNZfUt2lS1+dU7xl9jBVS1tO+HQhh0PIR0gtr
-         1MHw==
+        b=Ip+/m7lun47+LYntmcXla8ONBc/FTIQdoe0Kq9BCNGYvWCYz5Xp/MJ88q6IEX3XZ9n
+         F8XJnDgwgSoR05ai86rQTzslNI572lHtzU1BM+4w9GdgloHA+9I6Ls5k1umtzI3JRSFe
+         Ri/9xewP8cOsGk7KnIheYXMG5P8+Hv40i10gVLC4u5mMl/OYZ6tDy7Cy80NF94s/zJom
+         UOL2Arsyi1UYFg4SaGvO/NhJf52sstAqt7zZ3kG148GvH8mIwfZ4tJ8z2ofhECBHrMMI
+         hMC88q5hP95yV1KC28es91nQo1lheacGwp9fvk7aXwyGb7DMScl1MZtIedDmaVMnonkg
+         Ls+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=yL8TME+Vn0JkBONxs9K32ojI9vGSbFL0WZFBDJPwgpg=;
-        fh=Kl22ledljStuXl5MDgNInKCOTD5KidDOJPv4Myf4H+g=;
-        b=kstvtIZuAnsMtsckfdn3IRsKEQLMr95QhPnn+cmqc+8u102qYo8e3WwSUHdU7C0pBv
-         jThIpAvLPKXmu3DvaG0U3P9ut2VkSYFyZc4lfNGAsp8nxpNXqIt8wfPrh2v0b2IHPKr1
-         JAs3QvBV2Wn3A1C3/2d2XPUmleaRfHr6gNwN0oC8pYDU/8EScKJVFGL1nEFlrRYC93jk
-         u+DKQlJOHHHIn1+5Wt/l9xltc/pJfvawtS6puX9nnu5M2UDaARMvZhutDbKDjenSel8W
-         DKsIplxxBHsFowumXiiA5DUxL9YsAYtEZybI4EKH1iTd9YO8n+xfmCCLOK1j26e6aL/T
-         bieg==;
+        bh=k3W5ct/v2iGUTvV1EtPmndYMgCvTbcZYMCleQX41UhM=;
+        fh=VzW6AZN7sKX9MABmm5mgUgJjHGXLCxQvuS0pLLhd56I=;
+        b=grUKaLVLLY7dnZwVWL0nD+rXfP99SJLf3iBu7YySCa0eVSGvdH5LaNv3LFW9us7pqC
+         gRqvvIn8lvAQFeVUAUqnAfRjz5sWek552oxPoUKDsC1xw482/9EBX90Eqq5IN3dgcWDx
+         nz3W3pzV21zPWiyRNKqd1tCssjumTrjZFsxcjcRdgYTBwEXcZ8epsmWHcpR0pqOZI2Om
+         fZAbglSmTwj4F2RtUQj1NPP07PtROom9ad0EZUUOtriT6nLlA/sKlwVT1vSuwhgWVSe7
+         6Vnqe2qjivtWMibXQd838gvXhxmVoTELz24+95Vimph7GMnlz9YooIvDdRnHWlJcESAL
+         23Ew==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772659561; x=1773264361; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1772660532; x=1773265332; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yL8TME+Vn0JkBONxs9K32ojI9vGSbFL0WZFBDJPwgpg=;
-        b=l2RVyI73urpkzDG+lsy+UrbXw4PVh1fMhOV4XYYD98huIo9Hemtnn9t8piGg02sqcs
-         Nje/rGtSP/mSos+ureogMf0l0BdTjY2BUWNY/W46Bz3lIEeQrTdhJuAp46OKRelRwgqT
-         qtZeXW92Bs5qvKZaBGvAP0QniueeJcuhsoFRRLpYyfKML3bzKk4HZhJkSGbmuvz6Pwfk
-         hp0XFD+MY61kiwLFyzCJlH6WCP07TlFTFXY7YFGNAr3lFMVTx1UjkS+5LBSRk3u/FAfs
-         Ex2/kSZpb+PG/uOj8vftVSHY/GJ2Ku2+3P61qpfPPph62Y4RRScgYlm/f9eCYnK1RRxW
-         tC0w==
+        bh=k3W5ct/v2iGUTvV1EtPmndYMgCvTbcZYMCleQX41UhM=;
+        b=jInS4VAZLkL9pVZJAcLStf067rgcFU9TxbpBxNi0XjklN2bxozADXamOKUO4/e/+Ux
+         bG+OKrHtuDx9WFueEIClcqndVOGTUgw2PVqogfAXFttt2hssFpUNUWwtGxRi/hZ6jcmS
+         1NyGBFeQf0BGn62tgDKt+OM9kd370yok/vztQBVc0RMZOlb6iUkEG8Mox5xwFYwtK3Yx
+         pXxUG36uMUFD0x3wNXKroU3THZT+pZUOcLckhXbyUPbcD3m/lazwp+OZ8v+Wf1/15iHu
+         2rWsq2dDz5wJJD7+v1N+1tmadZNx5D7ZH8HlK39g+9/7Df6OY4EOOvmjLbPjIHxsfKOx
+         4O3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772659561; x=1773264361;
+        d=1e100.net; s=20230601; t=1772660532; x=1773265332;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=yL8TME+Vn0JkBONxs9K32ojI9vGSbFL0WZFBDJPwgpg=;
-        b=IayyO9xi0RG8wTeZ55qMzBfm4xmEGyEUI6G8Hui4MZNNYx0NxtIWCdm5YxqNHtWgVl
-         JLBD7xXmN3GhkPPKxOJmERIo3xejPxpqTe8D8+QV2SyxcKoTqKAbjhwAiikEE2CmHqPY
-         bE0xOeGWWUKh0YbqEyTBlcPLlx57Vde0uXxiv4DHxhjDaj+JiU/UaMwHEucmahqQmOag
-         mJMY/0B1q+LchkKxoROT/Uc4Y9x33NVK73nYaCOLRbHYP+teRIDXKthEh1bJHiisfnvp
-         8vT+x6bX1ETelKXdN/bcs/8P/nwhSl1aRYOWY1t7cDD7Dg4auFR6kcDhQAC5XNxyl5/r
-         kjOw==
-X-Forwarded-Encrypted: i=1; AJvYcCXy9oob/Mt7DEP7J2B4VSCj+7zIAo+pYGjgOuV7STfAF7gQlxMopiqNRlXeEF+WzpVdIrPJ@lists.linux.dev
-X-Gm-Message-State: AOJu0YzCghgBxU6izevdEJztndbCCgI7iAKZ4bfZYTQXjUNdYVMq4RLE
-	8Wm+HgJGQu959jSuJvDUXMQxat3AzmAFabqiKXJKMgc7m+m2gvCa+1J2p7BPhfceE5h/m5kSoQD
-	wAHDlv+/k3Z+jfpGlKhjwOxkmQXM9I4U=
-X-Gm-Gg: ATEYQzzvYn+eT0Vd3/FrJawF9qMQf1ccQkMqsDMcW6s9/zuD64XoEFvGGvE8JwA3+AU
-	9hMblAMo504SusL397HcOeJv6pha0mkQSyCnIhoWKXXQgy4EuSnmvlPw84sAwSJPmYhqRYwAUYD
-	x5Ps4Ru/G72rU997DhsY9cxiOtov0CAr97bbpd2CGqbW4AnteorBuKJA/XsnrmgLV3sh3UmGaxa
-	mNwRZXa9IoN6q9t0u8qYEbVGN6s2qTHWuqj1O0OcLH19zJvGLbDRavmDgNwzpf64npPHT7nDxR7
-	96UnVtrOoGtEKO+SWjH+lTFRafp8eC+LRS37JxDSL2kkU+h+939CqhKptZR9rAD4jmEZixz1eM1
-	ATumq/wghaYgMitxjt0xo3baF3FblKvorR5DGPsY3
-X-Received: by 2002:a05:6a21:44c8:b0:38b:e9eb:b12c with SMTP id
- adf61e73a8af0-3982defa8fdmr3188341637.31.1772659561307; Wed, 04 Mar 2026
- 13:26:01 -0800 (PST)
+        bh=k3W5ct/v2iGUTvV1EtPmndYMgCvTbcZYMCleQX41UhM=;
+        b=wQgrQGQlOuXOGyOKU0bPiC8mu/MIKTDn067ZW30MYnr9NrMyYIMppx+fpsE0aPaa2m
+         /yyoFT7bl3xRrGh00UDwjEfGESgJMv8Usg4sApHfa6vow6b1dOgA2cTZ/NY1cB7YYf9j
+         3diRIBJ/bnvSUhLyBPkITllbhcmu00Rskhk6aV29Bv7MeAuM2s/xSR3oUFZir3YQ0kDh
+         MrLtIXSSB2f8GJuHG1DvqctonBrVj7ZszhssKLyjeAZPHpdtItPR9ACwNDAut87ZbJap
+         INg5I6BRIwZRiOggklDnwlLhD+6ZpDzS6Gu75++nrGjwrWNk4Tv/JuJXh8FTFfClsWzj
+         C5lg==
+X-Forwarded-Encrypted: i=1; AJvYcCWi1+fw0iAfTAZqugYy7Zqv7/PfUBI9Ug73pSsuAbW6GCZnS7ATP0f8oCuwo5JINiZS4mMB@lists.linux.dev
+X-Gm-Message-State: AOJu0Yz4Y+5VJvn1hOAUj8BEpMF13N16KWVRR9kfusP4PpdxXeLbvvCQ
+	5udQMehaZ0F+mVUqBtG+D4Nv5EXF7d1JYXQC/KjfcUBST5Nbgkad11Wp1UfIJsSckrYUBjFG/4r
+	G6i+erVQdfYp4F/l14EixL06UHe10qZY=
+X-Gm-Gg: ATEYQzwERgG5qXT5/tSolh908q+CflqTXry1i7/oxjfixamAF3++tSofw57EDYCYWre
+	zmmqUAFVJlyXfTQJVs79w6r3vFcGAjJf7uTgR6Pqn7uE0UIsr6+2CoO4+d1Z0BOWyD/qlmglyaB
+	zZsSDu6JI0Ehq/9luc884ajAvk03K+BcftnEL+1CdgkhaX3IplqCLNZ7Y73E5wixO//5uzyxfB/
+	/E4ZPjP/v/kOriuOz2Mw5X8JxL2ZPTev9ZvlJThnfFFiZzuL0TYX7btm6NSQSOCmX4m7krIEOgB
+	YTLecvWv9AbRL0VaPYDdPUCj6/lM+soKt9aWqlhGxxBjDHEyBITdSCgDMDmcPypAFIu9gRr8cvt
+	SdyCDuU9K3kgNzN+w0sja6LE915Sg/Z5TTLDQpgfkYmAMy1rGyZU=
+X-Received: by 2002:a05:6102:26c6:b0:5ef:b0d3:295f with SMTP id
+ ada2fe7eead31-5ffaac4951bmr1696488137.8.1772660532453; Wed, 04 Mar 2026
+ 13:42:12 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1771986861.git.lucien.xin@gmail.com> <4e03deebdc944d9c963b0732abe8ba631893d82e.1771986861.git.lucien.xin@gmail.com>
- <CAF6piC+W=QKU53vix1f8JxxFhRKCcMvXaX1NKBT3kcZLfCydEA@mail.gmail.com>
-In-Reply-To: <CAF6piC+W=QKU53vix1f8JxxFhRKCcMvXaX1NKBT3kcZLfCydEA@mail.gmail.com>
+References: <91c5313a4c6675fc9f98efbafc92ca162a6e7d66.1771986861.git.lucien.xin@gmail.com>
+ <20260303083207.34631-1-pabeni@redhat.com>
+In-Reply-To: <20260303083207.34631-1-pabeni@redhat.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Wed, 4 Mar 2026 16:25:50 -0500
-X-Gm-Features: AaiRm50sq6Q3ttOp0vRNqW0uaev0YqHa-ggFkCiWTmshlDbHcjOdnyr83v7j-LI
-Message-ID: <CADvbK_f84jwQPRq-xztO9mN+m_NWXaf6Q+9Ao-YtDiGQfmudLw@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 08/15] quic: add path management
+Date: Wed, 4 Mar 2026 16:41:59 -0500
+X-Gm-Features: AaiRm50iQw95v8k3Y7-EQTJAv0UA-MtI9QwoadQFdZTYPxQjeDw-BRrDhXRxJ78
+Message-ID: <CADvbK_cKefZpb=yCi_yxVWX4ear96LpCb+9W7pXs_thRWCWB2g@mail.gmail.com>
+Subject: Re: [net-next,v10,09/15] quic: add congestion control
 To: Paolo Abeni <pabeni@redhat.com>
-Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev, davem@davemloft.net, 
-	kuba@kernel.org, Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
-	Stefan Metzmacher <metze@samba.org>, Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli <tfanelli@redhat.com>, 
-	Pengtao He <hepengtao@xiaomi.com>, Thomas Dreibholz <dreibh@simula.no>, linux-cifs@vger.kernel.org, 
-	Steve French <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Paulo Alcantara <pc@manguebit.com>, Tom Talpey <tom@talpey.com>, kernel-tls-handshake@lists.linux.dev, 
-	Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
-	Steve Dickson <steved@redhat.com>, Hannes Reinecke <hare@suse.de>, Alexander Aring <aahringo@redhat.com>, 
-	David Howells <dhowells@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, 
-	John Ericson <mail@johnericson.me>, Cong Wang <xiyou.wangcong@gmail.com>, 
-	"D . Wythe" <alibuda@linux.alibaba.com>, Jason Baron <jbaron@akamai.com>, 
-	illiliti <illiliti@protonmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Daniel Stenberg <daniel@haxx.se>, 
-	Andy Gospodarek <andrew.gospodarek@broadcom.com>, 
-	"Marc E . Fiuczynski" <marc@fiuczynski.com>
+Cc: hepengtao@xiaomi.com, kuba@kernel.org, jlayton@kernel.org, metze@samba.org, 
+	davem@davemloft.net, kernel-tls-handshake@lists.linux.dev, horms@kernel.org, 
+	hare@suse.de, aahringo@redhat.com, tfanelli@redhat.com, mail@johnericson.me, 
+	andrew.gospodarek@broadcom.com, linkinjeon@kernel.org, dhowells@redhat.com, 
+	matttbe@kernel.org, xiyou.wangcong@gmail.com, dreibh@simula.no, 
+	jbaron@akamai.com, quic@lists.linux.dev, pc@manguebit.com, 
+	marc@fiuczynski.com, edumazet@google.com, alibuda@linux.alibaba.com, 
+	steved@redhat.com, illiliti@protonmail.com, tom@talpey.com, 
+	marcelo.leitner@gmail.com, sd@queasysnail.net, linux-cifs@vger.kernel.org, 
+	netdev@vger.kernel.org, mbuhl@openbsd.org, smfrench@gmail.com, 
+	chuck.lever@oracle.com, daniel@haxx.se
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 3, 2026 at 3:23=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wrot=
+On Tue, Mar 3, 2026 at 3:32=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wrot=
 e:
 >
-> On 2/25/26 3:34 AM, Xin Long wrote:
-> > +/* Binds a QUIC path to a local port and sets up a UDP socket. */
-> > +int quic_path_bind(struct sock *sk, struct quic_path_group *paths, u8 =
-path)
-> > +{
-> > +     union quic_addr *a =3D quic_path_saddr(paths, path);
-> > +     int rover, low, high, remaining;
-> > +     struct net *net =3D sock_net(sk);
-> > +     struct quic_uhash_head *head;
-> > +     struct quic_udp_sock *us;
-> > +     u16 port;
-> > +
-> > +     port =3D ntohs(a->v4.sin_port);
-> > +     if (port) {
-> > +             head =3D quic_udp_sock_head(net, port);
-> > +             mutex_lock(&head->lock);
-> > +             us =3D quic_udp_sock_lookup(sk, a, port);
-> > +             if (us) {
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
 >
-> When the quick socket is already bound to a local port, reusing an
-> existing udp tunnel sock is allowed, but when the quick socket is not
-> bound, UDP tunnel sock reused is prevented. This looks confusing and not
-> documented, please clarify the behavior and/or make it consistent.
+> For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-loca=
+l.html
+> ---
+> quic: add congestion control
 >
-Yes,
-
-/* Reuse of an existing UDP tunnel socket is allowed,
-* but if it is currently being freed asynchronously by the workqueue,
-* it cannot be used now =E2=80=94 retry later.
-*/
-
-Let me know if it's still not clear.
+> This patch introduces quic_cong for RTT measurement and congestion
+> control, implementing a state machine with slow start, congestion
+> avoidance, and recovery phases using the New Reno algorithm.
 >
-> > +                     if (!quic_udp_sock_get(us)) { /* Releasing in wor=
-kqueue; retry later. */
-> > +                             mutex_unlock(&head->lock);
-> > +                             return -EAGAIN;
+> Signed-off-by: Xin Long <lucien.xin@gmail.com>
 >
-> Why not -EADDRINUSE here?
-Because in this case, the us is being released in workqueue, a retry
-will likely succeed.
-
->
-> > +                     }
-> > +             } else {
-> > +                     us =3D quic_udp_sock_create(sk, a);
-> > +                     if (!us) {
-> > +                             mutex_unlock(&head->lock);
-> > +                             return -EINVAL;
->
-> It's probably better to propagate an error code (PTR_ERR) from
-> quic_udp_sock_create(), or use -ENOMEM
->
-Changing to PTR_ERR looks better.
-
-> [...]
-> > @@ -332,6 +333,12 @@ static __init int quic_init(void)
-> >       if (err)
-> >               goto err_hash;
+> > diff --git a/net/quic/Makefile b/net/quic/Makefile
+> > index 1565fb5cef9d..4d4a42c6d565 100644
+> > --- a/net/quic/Makefile
+> > +++ b/net/quic/Makefile
+> > @@ -5,4 +5,5 @@
 > >
-> > +     quic_wq =3D create_workqueue("quic_workqueue");
-> > +     if (!quic_wq) {
-> > +             err =3D -ENOMEM;
-> > +             goto err_wq;
+> >  obj-$(CONFIG_IP_QUIC) +=3D quic.o
+> >
+> > -quic-y :=3D common.o family.o protocol.o socket.o stream.o connid.o pa=
+th.o
+> > +quic-y :=3D common.o family.o protocol.o socket.o stream.o connid.o pa=
+th.o \
+> > +       cong.o
+> > diff --git a/net/quic/cong.c b/net/quic/cong.c
+> > new file mode 100644
+> > index 000000000000..e0f78ecb00e4
+> > --- /dev/null
+> > +++ b/net/quic/cong.c
+>
+> [ ... ]
+>
+> > +static void quic_reno_on_packet_lost(struct quic_cong *cong, u64 time,=
+ u32 bytes, s64 number)
+> > +{
+> > +     if (quic_cong_check_persistent_congestion(cong, time))
+> > +             return;
+> > +
+> > +     switch (cong->state) {
+> > +     case QUIC_CONG_SLOW_START:
+> > +             pr_debug("%s: slow_start -> recovery, cwnd: %u, ssthresh:=
+ %u\n",
+> > +                      __func__, cong->window, cong->ssthresh);
+> > +             break;
+> > +     case QUIC_CONG_RECOVERY_PERIOD:
+> > +             return;
+> > +     case QUIC_CONG_CONGESTION_AVOIDANCE:
+> > +             pr_debug("%s: cong_avoid -> recovery, cwnd: %u, ssthresh:=
+ %u\n",
+> > +                      __func__, cong->window, cong->ssthresh);
+> > +             break;
+> > +     default:
+> > +             pr_debug("%s: wrong congestion state: %d\n", __func__, co=
+ng->state);
+> > +             return;
 > > +     }
+> > +
+> > +     cong->recovery_time =3D cong->time;
+> > +     cong->state =3D QUIC_CONG_RECOVERY_PERIOD;
+> > +     cong->ssthresh =3D max(cong->window >> 1U, cong->min_window);
+> > +     cong->window =3D cong->ssthresh;
+> > +}
 >
-> AI review noted that:
+> [ ... ]
 >
-> This isn't a bug, but create_workqueue() is a legacy API marked with
-> __WQ_LEGACY in include/linux/workqueue.h. Should new subsystem code use
-> alloc_workqueue() with explicit flags instead?
+> > +static void quic_reno_on_process_ecn(struct quic_cong *cong)
+> > +{
+> > +     switch (cong->state) {
+> > +     case QUIC_CONG_SLOW_START:
+> > +             pr_debug("%s: slow_start -> recovery, cwnd: %u, ssthresh:=
+ %u\n",
+> > +                      __func__, cong->window, cong->ssthresh);
+> > +             break;
+> > +     case QUIC_CONG_RECOVERY_PERIOD:
+> > +             return;
+> > +     case QUIC_CONG_CONGESTION_AVOIDANCE:
+> > +             pr_debug("%s: cong_avoid -> recovery, cwnd: %u, ssthresh:=
+ %u\n",
+> > +                      __func__, cong->window, cong->ssthresh);
+> > +             break;
+> > +     default:
+> > +             pr_debug("%s: wrong congestion state: %d\n", __func__, co=
+ng->state);
+> > +             return;
+> > +     }
+> > +
+> > +     cong->recovery_time =3D cong->time;
+> > +     cong->state =3D QUIC_CONG_RECOVERY_PERIOD;
+> > +     cong->ssthresh =3D max(cong->window >> 1U, cong->min_window);
+> > +     cong->window =3D cong->ssthresh;
+> > +}
 >
-> Looking at include/linux/workqueue.h, create_workqueue() implicitly sets
-> WQ_PERCPU, creating per-CPU worker threads. Since quic_wq only handles
-> infrequent UDP socket cleanup via quic_udp_sock_put_work() in path.c, is
-> per-CPU allocation necessary here? Would alloc_workqueue("quic_workqueue"=
-,
-> WQ_MEM_RECLAIM, 0) be more appropriate, or could this simply use system_w=
-q
-> if memory reclaim safety is not required?
+> This isn't a bug, but these two functions share almost identical logic
+> for entering the recovery state. The switch statement has the same three
+> cases with identical handling in both functions, and the four-line
+> recovery-entry block at the end is exactly the same:
 >
-This workqueue is also used for processing some backlog packets, which requ=
-ires
-process context.
+>     cong->recovery_time =3D cong->time;
+>     cong->state =3D QUIC_CONG_RECOVERY_PERIOD;
+>     cong->ssthresh =3D max(cong->window >> 1U, cong->min_window);
+>     cong->window =3D cong->ssthresh;
+>
+> The only difference is quic_reno_on_packet_lost() checks for persistent
+> congestion first. Would factoring this shared logic into a helper
+> function make future maintenance easier and ensure the recovery path
+> stays consistent across both ECN and loss events?
+>
+I will add a helper quic_reno_handle_packet_lost() for this.
 
-I will move the infrequent UDP socket cleanup to system_wq as the AI sugges=
-ts,
-and leave this workqueue for the backlog packets processing only.
-Then the allocation becomes:
-
-quic_wq =3D alloc_workqueue("quic_workqueue", WQ_PERCPU, 0);
+> [ ... ]
+>
+> > +void quic_cong_set_algo(struct quic_cong *cong, u8 algo)
+> > +{
+> > +     /* The caller must ensure algo < QUIC_CONG_ALG_MAX. */
+> > +     cong->algo =3D algo;
+> > +     cong->state =3D QUIC_CONG_SLOW_START;
+> > +     cong->ssthresh =3D U32_MAX;
+> > +     cong->ops =3D &quic_congs[algo];
+> > +     cong->ops->on_init(cong);
+> > +}
+>
+> Should this function validate the algo parameter? The comment says the
+> caller must ensure algo is less than QUIC_CONG_ALG_MAX, but there's no
+> runtime check. Since QUIC_CONG_ALG_MAX is defined in the UAPI and this
+> function is exported in cong.h, could a future caller (for example, a
+> setsockopt path accepting user-supplied algorithm choices) pass an
+> out-of-range value and cause an out-of-bounds array access into
+> quic_congs[]?
+>
+The callers will do the validation as the comment said, hopefully AI will n=
+ot
+flag this again.
 
 Thanks.
