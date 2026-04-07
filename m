@@ -1,82 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC80B1E5B7B;
-	Fri, 27 Mar 2026 01:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B60311977
+	for <quic@lists.linux.dev>; Tue,  7 Apr 2026 14:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774573204; cv=none; b=a4nx7BsyZU7vR9NBCkF3Qb+hg23zZEPsCxpeG0trYy1a1Q14jQ1rHV73AATmdMIdesMQ14WJBJp5O1h+YAc/xIGfZnobbE3m4gn8c83oJOvqxTKp30sPlYs1oO8dccGuX3xV/tiAhjWoAY5+hvmIPtS8W+Lhu2PAY9jBb45hRQk=
+	t=1775573262; cv=none; b=Yycpap+qHz1ZniDQjCn6ClNPqfH0kRcNIeLVvYINNAiW6DwNrBl8Q3R1X1D2XPui/ImvYxuEUiQXv9wwDcZ/NLh6kwm3Oav7HgT5rnUjM1jegxshMlH0VqLI2YZAhT5fiPypmaYkUWrpsW2EZkEVy4z6CrCK/SBPs765umJERVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774573204; c=relaxed/simple;
-	bh=qxY3/yGGf6j+ovhznsYEiHtyVq8spceSXqsmShyDfZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SY4pxXyiwZN63jneSnzMQP9Pl7AHos42gUT2n+/CrN8MvF5IV9IbchCZ6KhuMGyzTfn95HInwXUc+8WJ4vvu3EMeIVx6U5g4cXWdMVrzquc3EsDVciU8fNWOaPSXpkQc86gKCyjdWmLvwAamvhnCNVPno5MWsidjzrERZEBpdXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FNroW0u0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775573262; c=relaxed/simple;
+	bh=LEkhz9RNk6tC5NYe6F1u2WXpjMlteUXxksP1aHu2o4o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ebaCtIPHW1mgcXxT0FjkBKbct1MskEPP/Bfonv1xdLu6mwiGJMT4j0RyXtcWLHak7YAMuRfAWmDOLts9YK/rVZbBxdeDCmAaWSC7oJOwz45n2xbJIQpIVtihkpsUxqoEJS4eKp/xkNd06Pb0ZFA5Bf8xXNlcUA9cWK3kooMprUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=uEzIW+wb; arc=none smtp.client-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FNroW0u0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE9FC116C6;
-	Fri, 27 Mar 2026 01:00:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774573203;
-	bh=qxY3/yGGf6j+ovhznsYEiHtyVq8spceSXqsmShyDfZM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=FNroW0u0U36ViZc4+y7bksZ+3Vn2ECYJKzcMQu2+7+wgbCIIsSRoawWqyJWlucPZ7
-	 veDTO26o7D2SxZUVQnuNVRXQsH+37K7QiGKE68XMAtOISbRknR/gJz4fBKSOZAe7HQ
-	 4pSAfw8E5Sw8ox/f45asPCxLpEeiNr1H1DNmT5u3Knkt/niNOXoFoUrLn2/OvVVwlZ
-	 9aMewJKaEHrcVCtS/Cf5rmiCxdC8HI9K0r2Nb18EsYP88+4fWaaw1bMdOpv359WuHL
-	 lW4vI1EuzPrHZke3KX5/VNAvsuy0awj1MQSGvcAefO895voF4iRRZ+kav4kmluphgZ
-	 hsSU21cW2rWog==
-Date: Thu, 26 Mar 2026 18:00:01 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Xin Long <lucien.xin@gmail.com>
-Cc: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Stefan Metzmacher
- <metze@samba.org>, Moritz Buhl <mbuhl@openbsd.org>, Tyler Fanelli
- <tfanelli@redhat.com>, Pengtao He <hepengtao@xiaomi.com>, Thomas Dreibholz
- <dreibh@simula.no>, linux-cifs@vger.kernel.org, Steve French
- <smfrench@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>, Paulo Alcantara
- <pc@manguebit.com>, Tom Talpey <tom@talpey.com>,
- kernel-tls-handshake@lists.linux.dev, Chuck Lever <chuck.lever@oracle.com>,
- Jeff Layton <jlayton@kernel.org>, Steve Dickson <steved@redhat.com>, Hannes
- Reinecke <hare@suse.de>, Alexander Aring <aahringo@redhat.com>, David
- Howells <dhowells@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, John
- Ericson <mail@johnericson.me>, Cong Wang <xiyou.wangcong@gmail.com>, "D .
- Wythe" <alibuda@linux.alibaba.com>, Jason Baron <jbaron@akamai.com>,
- illiliti <illiliti@protonmail.com>, Sabrina Dubroca <sd@queasysnail.net>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Daniel Stenberg
- <daniel@haxx.se>, Andy Gospodarek <andrew.gospodarek@broadcom.com>, "Marc E
- . Fiuczynski" <marc@fiuczynski.com>
-Subject: Re: [PATCH net-next v11 06/15] quic: add stream management
-Message-ID: <20260326180001.793b62be@kernel.org>
-In-Reply-To: <CADvbK_eyNtAfA=JPR5Y4arFLPpkWMs8io=TO83rHAa-JJkhdAA@mail.gmail.com>
-References: <cover.1774410440.git.lucien.xin@gmail.com>
-	<91c6fd0a44eb15a98f945171ead8062badb89a60.1774410440.git.lucien.xin@gmail.com>
-	<CADvbK_eXUfnGGQgGc_k-ecCW3-Co1MpGb7UvMgLonPy3HRhyFA@mail.gmail.com>
-	<20260326130740.74b4c92f@kernel.org>
-	<CADvbK_eyNtAfA=JPR5Y4arFLPpkWMs8io=TO83rHAa-JJkhdAA@mail.gmail.com>
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="uEzIW+wb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=Message-ID:Date:Cc:To:From;
+	bh=9bs+E70xzu5LpaFuUzNo/5yPnyZdKVdBaQo2fRz47yM=; b=uEzIW+wbkTBxfbOC2ciOptE7dO
+	+g3IMOMNJ5GDsssalXpuq63yKaVv1S8YOH3AJ9yegOkYm3UmPXECFc9EaKYxyky+JAao7vsChSJx+
+	xVgrMxW9vcT/t7NLxE8ZyWDd3Ox40W+N+q0y+CZkg7QUlC7cf/1TbxaSfyyaZc+zOsE/XTijN8o/N
+	tiichYGtpziwETQu6ouyEXtgSLNvX61j4qpC/LL0EODtzUG3Q15jBrJJY/WCNvgcMFKwQUe9VJM3T
+	Qzlbk9vJyONZbww7JRyJqp4YffIewObgcNWgI83buD6dyzUgH9xgV5+8TgndYbDtpX+qJueezmzyY
+	oIoRmwvolOV9nKcEBYlhev4X1G6oIeDgDV+jCueSe4x54zQPwGQ7rPjAdUcNfiJ7DOHgak45ZQMty
+	b+CRxcHiHopXsYaPlurKPNZuT3bAJaPJZwPwnYQs+Isy6h10Lpom6HEz+efVxPAMPh4DTnuAIhLxo
+	8cwKxDDHQk/lRNGcviNpF9fH;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1wA7iH-00000007WPz-3q2b;
+	Tue, 07 Apr 2026 14:47:34 +0000
+From: Stefan Metzmacher <metze@samba.org>
+To: linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org
+Cc: metze@samba.org,
+	Steve French <smfrench@gmail.com>,
+	Tom Talpey <tom@talpey.com>,
+	Long Li <longli@microsoft.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Henrique Carvalho <henrique.carvalho@suse.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	netdev@vger.kernel.org,
+	Xin Long <lucien.xin@gmail.com>,
+	quic@lists.linux.dev,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5/8] net: define IPPROTO_SMBDIRECT and SOL_SMBDIRECT constants
+Date: Tue,  7 Apr 2026 16:46:31 +0200
+Message-ID: <af3d81da716943128dc98b5aefd44d1aa52c1094.1775571957.git.metze@samba.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1775571957.git.metze@samba.org>
+References: <cover.1775571957.git.metze@samba.org>
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 26 Mar 2026 17:48:51 -0400 Xin Long wrote:
-> > Can you also check the google one?
-> >
-> > https://sashiko.dev/#/patchset/4019cfba3ffd6f91aee24713d2adc778f858b4c4.1774410440.git.lucien.xin@gmail.com  
-> 
-> Will do. There are quite a few reports, and it may take me some time
-> to review them all carefully.
-> 
-> BTW, what's the workflow for the Google AI feedback? should I reply to
-> each item in this thread like we did with Claude one, or is there a
-> different workflow?
+This patch adds IPPROTO_SMBDIRECT and SOL_SMBDIRECT constants to the
+networking subsystem. These definitions are essential for applications
+to set socket options and protocol identifiers related to the SMBDIRECT
+protocol, defined in [MS-SMBD] by Microsoft. It is used as wrapper
+around RDMA in order to provide a transport for SMB3, but Microsoft also
+uses it as transport for other protocols.
 
-It's a bit more chatty and we don't have any integrations there so it's
-a bit hard to deal with :( At this point just look thru the reports and
-address what's legit. We'll probably take your word for everything that
-remains being a false positive.
+SMBDIRECT works over Infiniband, RoCE and iWarp.
+RoCEv2 is based on IP/UDP and iWarp is based on IP/TCP,
+so these use IP addresses natively.
+Infiniband and RoCEv1 require IPOIB in order to be used for
+SMBDIRECT.
+
+So instead of adding a PF_SMBDIRECT, which would only use AF_INET[6],
+we use IPPROTO_SMBDIRECT instead, this uses a number not
+allocated from IANA, as it would not appear in an IP header.
+
+This is similar to IPPROTO_SMC, IPPROTO_MPTCP and IPPROTO_QUIC,
+which are linux specific values for the socket() syscall.
+
+  socket(AF_INET, SOCK_STREAM, IPPROTO_SMBDIRECT);
+  socket(AF_INET6, SOCK_STREAM, IPPROTO_SMBDIRECT);
+
+This will allow the existing smbdirect code used by
+cifs.ko and ksmbd.ko to be moved behind the socket layer,
+so that there's less special handling. Only sock_sendmsg()
+sock_recvmsg() are used, so that the main stream handling
+is done all the same for tcp, smbdirect and later also quic.
+
+The special RDMA read/write handling will be via direct
+function calls as they are currently done for the in kernel
+consumers.
+
+As a start __sock_create(kern=0)/sk->sk_kern_sock == 0 will
+still cause a -EPROTONOSUPPORT. So only in kernel consumers
+will be supported for now.
+
+Once I have developed a stable interface for the RDMA read/write
+handling using sendmsg/recvmsg with MSG_OOB and msg_control,
+it will also exposed to userspace in order to allow Samba to
+use it.
+
+As the numbers of IPPROTO_QUIC (261) and SOL_QUIC (288) [1]
+are already used in various (released) userspace applications,
+I used 289 for SOL_SMBDIRECT instead of 288.
+
+[1]
+https://lore.kernel.org/quic/0cb58f6fcf35ac988660e42704dae9960744a0a7.1763994509.git.lucien.xin@gmail.com/T/#u
+
+Cc: Steve French <smfrench@gmail.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Long Li <longli@microsoft.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Henrique Carvalho <henrique.carvalho@suse.com>
+Cc: linux-cifs@vger.kernel.org
+Cc: samba-technical@lists.samba.org
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Willem de Bruijn <willemb@google.com>
+Cc: netdev@vger.kernel.org
+Cc: Xin Long <lucien.xin@gmail.com>
+Cc: quic@lists.linux.dev
+Cc: linux-rdma@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
+---
+ include/linux/socket.h  | 2 ++
+ include/uapi/linux/in.h | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/include/linux/socket.h b/include/linux/socket.h
+index ec715ad4bf25..e00cbfdaa8d6 100644
+--- a/include/linux/socket.h
++++ b/include/linux/socket.h
+@@ -401,6 +401,8 @@ struct ucred {
+ #define SOL_MCTP	285
+ #define SOL_SMC		286
+ #define SOL_VSOCK	287
++/* 288 reserved for SOL_QUIC */
++#define SOL_SMBDIRECT	289
+ 
+ /* IPX options */
+ #define IPX_TYPE	1
+diff --git a/include/uapi/linux/in.h b/include/uapi/linux/in.h
+index ced0fc3c3aa5..933d243b1780 100644
+--- a/include/uapi/linux/in.h
++++ b/include/uapi/linux/in.h
+@@ -85,6 +85,8 @@ enum {
+ #define IPPROTO_RAW		IPPROTO_RAW
+   IPPROTO_SMC = 256,		/* Shared Memory Communications		*/
+ #define IPPROTO_SMC		IPPROTO_SMC
++  IPPROTO_SMBDIRECT = 257,	/* RDMA based transport (mostly used by SMB3) */
++#define IPPROTO_SMBDIRECT	IPPROTO_SMBDIRECT
+   IPPROTO_MPTCP = 262,		/* Multipath TCP connection		*/
+ #define IPPROTO_MPTCP		IPPROTO_MPTCP
+   IPPROTO_MAX
+-- 
+2.43.0
+
