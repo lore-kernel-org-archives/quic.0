@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1FF375F80
-	for <quic@lists.linux.dev>; Thu, 11 Jun 2026 08:20:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2233769E0
+	for <quic@lists.linux.dev>; Thu, 11 Jun 2026 08:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781166019; cv=none; b=Y8VF0n8UOj7bD2JvQEfwFwfoXEjm0QRtdrvu8u4ssp66iDB5NJIx7XkUaQdT2dvqcJylcoqKHHZKW89qO9n44ZphPxH1MOIuAIe8MMyPLbhPmjmWqDKW0El/BI9DEO82OIWsFU4ROEPB0/TiXlWieypZQe8FjVJfN5rCe3XRuVU=
+	t=1781166044; cv=none; b=OlsXK+WxZnwqB7NXrCKDfKbQXPB+XKdlKicP6rX4RCaZqeyKTtSWKbQrElXCoqmv6Pit/+otVzUOvEvIyANlxg1MUqLNNDmcPrktg/TgZCqpqG2y/mHTNqPmDLotzGhng53CLd1x7SCNWWej5JSWxjA6yE8vaP8tmBOpd5AVudg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781166019; c=relaxed/simple;
-	bh=PbA9cVGBPmWCqiO+IZ5dyu4zT2EJrQPkSrpH/jkjrVU=;
+	s=arc-20240116; t=1781166044; c=relaxed/simple;
+	bh=kkcQnZHnYFny0i1w/9shp6dqBz5e0LrlromRHt8KlPA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:content-type; b=io+9HCFWRW4astkyqAMeWQzJszh6hF2BgWpBu0GrVYmDYogk4kt0uP2QCO0/RRcvG5FW4/kvRTT/2LWc05WV/Rj+jFYtmKTXfMHPdi9H1E+har5QVK3xxgB14vvxOkPO9mz276EZIn26ISrP+TLtoNDjxW7uigBI2gv35RmdWfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bQbYHTzt; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:content-type; b=SD8nUbi24GatqlSbjknZHQGzX7s59nw25yVetEL/PC8XQrnH8slgMZsXNN464yq5h3Krhs0lIWkir993dOsfESEA5UPZ4Q0tx6r3ydfD6ZtmAm3dKk9gEqMN0pRv7YUcZKkcbPt67w8P8EecnhzxpUmJlC4VufsNo1KLrBoenHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NyiRs2kn; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bQbYHTzt"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NyiRs2kn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781166017;
+	s=mimecast20190719; t=1781166042;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3J/CbPA1291y2zUbJKPFRYFBVcMAM9EkrwG1Dfyf1VU=;
-	b=bQbYHTztXgess1/IrOrmShZf1bIxxWx+U83jueRiEmCPCPGym5vys+htBQ661vXhQoMdOu
-	a03MXGW4lWiZ8ITPM2P2e8rEbNG/ynqNaqZwcefIAujKctk8QRJa9SCAo62+nWJGQLTiGr
-	yd2JBohHSmK/qVWD6caSxkUelRCiCRw=
+	bh=V3hQIL6Il9n0pGlq7JeeRoDQSxplVOOUfBIF2DUxuG8=;
+	b=NyiRs2knxCSuft3ojCjBvnw+aTcWfwag/Dkj/tpIXcqTozfHYV4M1V3N5K9E4mN8KXlVzl
+	HOthm8anNlrJaeR+RbBKbgRiAl/Pba9+re5AZX4lkYiMYQ9EwsaDi5t81j5/brfR+Iw6pn
+	68uRnB8q5cf6w0lMlhVyAv/O6BkGIuQ=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-82-5_sXXu3wPY2Eq8xaxhF4TA-1; Thu,
- 11 Jun 2026 04:20:13 -0400
-X-MC-Unique: 5_sXXu3wPY2Eq8xaxhF4TA-1
-X-Mimecast-MFC-AGG-ID: 5_sXXu3wPY2Eq8xaxhF4TA_1781166009
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-492-cWV9Wn1UPYSFUoUMAlqHmA-1; Thu,
+ 11 Jun 2026 04:20:38 -0400
+X-MC-Unique: cWV9Wn1UPYSFUoUMAlqHmA-1
+X-Mimecast-MFC-AGG-ID: cWV9Wn1UPYSFUoUMAlqHmA_1781166035
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E6BB01977000;
-	Thu, 11 Jun 2026 08:20:07 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E188B1944D1C;
+	Thu, 11 Jun 2026 08:20:33 +0000 (UTC)
 Received: from gerbillo.redhat.com (unknown [10.44.48.53])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40CFD2ED4;
-	Thu, 11 Jun 2026 08:19:56 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C66531800347;
+	Thu, 11 Jun 2026 08:20:23 +0000 (UTC)
 From: Paolo Abeni <pabeni@redhat.com>
 To: lucien.xin@gmail.com
 Cc: netdev@vger.kernel.org,
@@ -79,19 +79,19 @@ Cc: netdev@vger.kernel.org,
 	andrew.gospodarek@broadcom.com,
 	mef@scarletmail.rutgers.edu,
 	paul@jakma.org
-Subject: Re: [PATCH net-next v13 12/15] quic: add crypto packet encryption and decryption
-Date: Thu, 11 Jun 2026 10:19:48 +0200
-Message-ID: <20260611081948.137325-1-pabeni@redhat.com>
-In-Reply-To: <287e6b7dd877836e08b9bcb6727f547fe80f6459.1780855297.git.lucien.xin@gmail.com>
-References: <287e6b7dd877836e08b9bcb6727f547fe80f6459.1780855297.git.lucien.xin@gmail.com>
+Subject: Re: [PATCH net-next v13 15/15] quic: add packet parser base
+Date: Thu, 11 Jun 2026 10:20:08 +0200
+Message-ID: <20260611082008.138377-1-pabeni@redhat.com>
+In-Reply-To: <0b03854cabaac243a0cdf42375c66cd033750bd0.1780855297.git.lucien.xin@gmail.com>
+References: <0b03854cabaac243a0cdf42375c66cd033750bd0.1780855297.git.lucien.xin@gmail.com>
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: qHLJUjsbQ10qprGZZNmtQnIq6CacI5oc-ZbFISzZvFA_1781166009
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-MFC-PROC-ID: HvfIp9PoYA-DIVT56O7wUyA73O3M-_P21CBJPc-HWyA_1781166035
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -102,135 +102,190 @@ This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 Full review at: https://netdev-ai.bots.linux.dev/sashiko/
 ---
-quic: add crypto packet encryption and decryption
+quic: add packet parser base
 
-This patch adds AEAD-based packet encryption/decryption helpers, QUIC
-header protection, and Retry/address-validation token generation and
-verification primitives.
+This patch adds the QUIC packet RX parser, including ALPN extraction
+from the Client Initial to demux to the right listener, an ICMP-driven
+PMTU update path, and a per-net backlog/work for deferred parsing.
 
-> diff --git a/net/quic/crypto.c b/net/quic/crypto.c
-> index c68a0b570c72..77e633096c2a 100644
-> --- a/net/quic/crypto.c
-> +++ b/net/quic/crypto.c
+> diff --git a/net/quic/packet.c b/net/quic/packet.c
+> index ba5204aceda6..430fc06d0012 100644
+> --- a/net/quic/packet.c
+> +++ b/net/quic/packet.c
 
 [ ... ]
 
-> +/* Retry Packet Integrity. */
-> +int quic_crypto_get_retry_tag(struct quic_crypto *crypto, struct sk_buff *skb,
-> +			      struct quic_conn_id *odcid, u32 version, u8 *tag)
+> +static int quic_packet_get_alpn(struct quic_data *alpn, u8 *p, u32 len)
 > +{
-> +	/* Reuse RX AEAD (phase 1) in Initial crypto. */
-> +	struct crypto_aead *tfm = crypto->rx_tfm[1];
-> +	u8 *pseudo_retry, *p, *iv, *key;
-> +	DECLARE_CRYPTO_WAIT(wait);
-> +	struct aead_request *req;
-> +	struct scatterlist *sg;
-> +	u32 plen;
-> +	int err;
+> +	int err = -EINVAL, found = 0, exts = 0;
+> +	u64 length, type;
 > +
-> +	if (skb->len < QUIC_TAG_LEN)
-> +		return -EINVAL;
+
+[ ... ]
+
+> +	while (len >= 4) { /* Scan extensions for ALPN (TLS_EXT_alpn). */
+> +		if (!quic_get_int(&p, &len, &type, 2))
+> +			break;
+> +		if (!quic_get_int(&p, &len, &length, 2))
+> +			break;
+> +		if (len < (u32)length) /* Incomplete TLS extensions. */
+> +			return 0;
+
+[Medium]
+Should this branch be treated as a parse failure rather than a success?
+
+The other length-bound checks in this same function return err (-EINVAL)
+when a declared length exceeds the remaining buffer, but this one returns
+0 without populating alpn. The callers initialise alpn as
+
+	struct quic_data alpns = {};
+
+and quic_listen_sock_lookup() then takes the no-ALPN branch:
+
+    if (!alpns->len) { /* No ALPNs or parse failed */
+        sk_nulls_for_each_rcu(tmp, node, &head->head) {
+            ...
+            if (... && (!alpns->data || !quic_alpn(tmp)->len)) {
+
+Because alpns->data is still NULL, the match collapses to true and any
+listener bound to the address/port will match, including ones that
+registered a specific ALPN list. Can a peer reach an ALPN-restricted
+listener by sending a Client Initial with one extension whose declared
+length is larger than what is left in the ClientHello?
+
+Would returning err here (or always assigning alpn->data before
+returning) match the comment in quic_listen_sock_lookup() that
+distinguishes "TLS parsing succeeded but no ALPN was found" from "parse
+failed"?
+
+> +		if (type == TLS_EXT_alpn) { /* Found ALPN extension. */
+> +			if (length > QUIC_ALPN_MAX_LEN)
+> +				return err;
+> +			len = length;
+> +			found = 1;
+> +			break;
+> +		}
+> +		/* Skip non-ALPN extensions. */
+> +		p += length;
+> +		len -= length;
+> +		if (exts++ >= TLS_MAX_EXTENSIONS)
+> +			return err;
 
 [Low]
-The guard rejects skb->len < QUIC_TAG_LEN, but a later comment in the
-same function says:
+Is the post-increment intended here? With TLS_MAX_EXTENSIONS == 128, the
+check (exts++ >= 128) first becomes true when exts has already reached
+129, so 129 extensions are consumed before bail-out even though the
+constant name suggests a cap of 128. Would
 
-> +	/* The caller must ensure skb->len > QUIC_TAG_LEN. */
-> +	plen = 1 + odcid->len + skb->len - QUIC_TAG_LEN;
+	if (++exts > TLS_MAX_EXTENSIONS)
+		return err;
 
-Should the check be <= QUIC_TAG_LEN, or should the comment say >= to
-match the strict-less-than test?
+(or moving the check to the loop top) better reflect the intended limit?
 
-In the boundary case where skb->len == QUIC_TAG_LEN, plen becomes
-1 + odcid->len, and quic_put_data(p, skb->data, skb->len - QUIC_TAG_LEN)
-copies zero bytes, so the integrity tag would be computed over a
-pseudo-packet containing only the ODCID length and ODCID with no actual
-Retry header bytes.  Is that intended?
+> +	}
 
 [ ... ]
 
-> +/* Derives a key and IV using HKDF, configures the AEAD transform and performs
-> + * AEAD encryption/decryption for the provided token.
-> + */
-> +static int quic_crypto_token_protect(struct quic_crypto *crypto, u8 *token,
-> +				     u32 len, u32 adlen, bool enc)
+> +static int quic_packet_parse_alpn(struct sk_buff *skb, struct quic_data *alpn)
+
+[ ... ]
+
+> diff --git a/net/quic/socket.c b/net/quic/socket.c
+> index 8f348d7c678b..19b164baf55d 100644
+> --- a/net/quic/socket.c
+> +++ b/net/quic/socket.c
+
+[ ... ]
+
+> +struct sock *quic_sock_lookup(struct sk_buff *skb, union quic_addr *sa,
+> +			      union quic_addr *da, struct sock *usk,
+> +			      struct quic_conn_id *dcid)
 > +{
-> +	u8 key[TLS_CIPHER_AES_GCM_128_KEY_SIZE], iv[QUIC_IV_LEN], *tiv;
-> +	/* Reuse TX AEAD (phase 1) in Initial crypto. */
-> +	struct crypto_aead *tfm = crypto->tx_tfm[1];
-> +	u32 extra = enc ? QUIC_TAG_LEN : 0;
-> +	struct quic_data srt = {}, k, i;
-> +	DECLARE_CRYPTO_WAIT(wait);
-> +	struct aead_request *req;
-> +	struct scatterlist *sg;
-> +	void *ctx = NULL;
-> +	int err;
-> +
-> +	quic_data(&srt, quic_random_data, QUIC_RANDOM_DATA_LEN);
-> +	quic_data(&k, key, TLS_CIPHER_AES_GCM_128_KEY_SIZE);
-> +	quic_data(&i, iv, QUIC_IV_LEN);
-> +	err = quic_crypto_keys_derive(crypto->secret_tfm, &srt, &k, &i, NULL,
-> +				      QUIC_VERSION_V1);
 
-[Critical]
-Can this lead to AES-GCM nonce reuse across all generated tokens?
+[ ... ]
 
-quic_random_data is a module-global buffer initialized once in
-quic_crypto_init() via get_random_bytes() and never refreshed:
-
-    static u8 quic_random_data[QUIC_RANDOM_DATA_LEN] __read_mostly;
-
-quic_crypto_keys_derive() runs HKDF-Expand-Label over that constant
-secret with constant labels "quic key" and "quic iv", so both the
-derived key and the derived IV are deterministic and identical on every
-invocation of quic_crypto_token_protect().
-
-> +	if (err)
-> +		goto out;
-> +	err = crypto_aead_setauthsize(tfm, QUIC_TAG_LEN);
-> +	if (err)
-> +		goto out;
-> +	err = crypto_aead_setkey(tfm, key, TLS_CIPHER_AES_GCM_128_KEY_SIZE);
-> +	if (err)
-> +		goto out;
-> +	ctx = quic_crypto_aead_mem_alloc(tfm, 0, &tiv, &req, &sg, 1);
-> +	if (!ctx) {
-> +		err = -ENOMEM;
-> +		goto out;
+> +	rcu_read_lock();
+> +begin:
+> +	sk_nulls_for_each_rcu(tmp, node, &head->head) {
+> +		if (net != sock_net(tmp))
+> +			continue;
+> +		paths = quic_paths(tmp);
+> +		odcid = quic_path_orig_dcid(paths);
+> +		if (quic_cmp_sk_addr(tmp, quic_path_saddr(paths, 0), sa) &&
+> +		    quic_cmp_sk_addr(tmp, quic_path_daddr(paths, 0), da) &&
+> +		    quic_path_usock(paths, 0) == usk &&
+> +		    (!dcid || !quic_conn_id_cmp(odcid, dcid))) {
+> +			sk = tmp;
+> +			break;
+> +		}
 > +	}
-> +	memcpy(tiv, iv, QUIC_IV_LEN);
-> +
-> +	sg_init_one(sg, token, len);
-> +	aead_request_set_tfm(req, tfm);
-> +	aead_request_set_ad(req, adlen);
-> +	aead_request_set_crypt(req, sg, sg, len - adlen - extra, tiv);
 
-Every call ends up using the same (K, N) pair under AES-GCM, with no
-per-token random prefix and no packet-number XOR like
-quic_crypto_payload_protect() does via cb->number.
+[High]
+Is the sk memory itself RCU-protected here? sk_nulls_for_each_rcu()
+dereferences fields of tmp (sock_net(tmp), quic_paths(tmp),
+quic_path_saddr(...), etc.) before any reference is taken. That is only
+safe when the sk allocation is freed via RCU.
 
-NIST SP 800-38D forbids reuse of (K, N) under GCM; from two valid
-ciphertexts an attacker can recover the GHASH authentication subkey H
-and forge tokens for arbitrary client addresses, which would defeat
-the address validation in quic_crypto_verify_token() and the
-anti-amplification protections in RFC 9000 section 8.
+quic_init_sock() does not call sock_set_flag(sk, SOCK_RCU_FREE), and
+neither quic_prot nor quicv6_prot sets slab_flags to SLAB_TYPESAFE_BY_RCU,
+so sk_destruct() (and quic_sock_destruct()) runs synchronously on the
+last sock_put(). Can a parallel close on tmp free the sock between
+sk_nulls_for_each_rcu() exposing it and the field dereferences above?
 
-Could a unique per-token nonce be derived (for example from a random
-prefix stored in the token itself), or a nonce-misuse-resistant AEAD
-be used here instead?
+The same shape appears in quic_listen_sock_lookup() further down, where
+quic_alpn(tmp)->len is read inside the RCU walk before
+refcount_inc_not_zero().
 
-> +	aead_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-> +				  crypto_req_done, &wait);
-> +	err = enc ? crypto_aead_encrypt(req) : crypto_aead_decrypt(req);
-> +	if (err == -EINPROGRESS || err == -EBUSY)
-> +		err = crypto_wait_req(err, &wait);
-> +
-> +out:
-> +	memzero_explicit(key, sizeof(key));
-> +	memzero_explicit(iv, sizeof(iv));
-> +	kfree_sensitive(ctx);
-> +	return err;
+> +	if (sk && unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+> +		sk = NULL;
+> +	rcu_read_unlock();
+> +	return sk;
 > +}
+
+[ ... ]
+
+> +struct sock *quic_listen_sock_lookup(struct sk_buff *skb, union quic_addr *sa,
+> +				     union quic_addr *da,
+> +				     struct quic_data *alpns)
+> +{
+
+[ ... ]
+
+> +	rcu_read_lock();
+> +	if (!alpns->len) { /* No ALPNs or parse failed */
+> +		sk_nulls_for_each_rcu(tmp, node, &head->head) {
+
+[ ... ]
+
+> +			a = quic_path_saddr(quic_paths(tmp), 0);
+> +			if (net == sock_net(tmp) &&
+> +			    quic_cmp_sk_addr(tmp, a, sa) &&
+> +			    quic_path_usock(quic_paths(tmp), 0) == skb->sk &&
+> +			    (!alpns->data || !quic_alpn(tmp)->len)) {
+
+[ ... ]
+
+> @@ -48,6 +196,9 @@ static void quic_sock_destruct(struct sock *sk)
+>  	for (i = 0; i < QUIC_CRYPTO_MAX; i++)
+>  		quic_crypto_free(quic_crypto(sk, i));
+>  
+> +	/* Deferred ALPN free for RCU readers in quic_listen_sock_lookup(). */
+> +	quic_data_free(quic_alpn(sk));
+> +
+
+Without SOCK_RCU_FREE or SLAB_TYPESAFE_BY_RCU on quic_prot/quicv6_prot,
+does moving the alpn free into the destruct callback actually defer it
+past an RCU grace period? quic_sock_destruct() is invoked from
+sk_destruct() on the final sock_put() and is not itself an RCU callback,
+so the comment's "Deferred ALPN free for RCU readers" assumption seems to
+rely on a guarantee that is not configured on this protocol. Should this
+patch also set sock_set_flag(sk, SOCK_RCU_FREE) in quic_init_sock(), or
+alternatively take refcount_inc_not_zero() in the lookup helpers before
+touching any fields of tmp?
+
+>  	quic_sk_destruct(sk);
+>  }
+>  
 
 [ ... ]
 -- 
