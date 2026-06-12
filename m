@@ -1,94 +1,93 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF447369D43
-	for <quic@lists.linux.dev>; Fri, 12 Jun 2026 19:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9A43537EE
+	for <quic@lists.linux.dev>; Fri, 12 Jun 2026 19:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781293299; cv=pass; b=BSsZzC1DJ6kUgTzEhJ4fD/hf9RTIagZ2vO7oUtU6+UAyY1nkJISUAYkpKeuS3nVZnHswSfdC4khHNiF3H2VaCbP00/HUbOlKBog5EVdt5SQ90dhD9NY0QTlFFGDzFTKrQMXf2uIFmimR42rxM/G5qBXkEgEKVG9fZvBmxtpHEL0=
+	t=1781293437; cv=pass; b=XKQsXvSL5N26NyZ4T4cbvrAY3GSOiEJUPA3GQEzQw5acvsM0XM0utgcCOURGaqTzUuayTkY0f9cP93s8TLGaaIeHgpsBnqpRq/aObioHb+UGtW/UQnCVwp+XKvi5h0OAs8zN+Xwap8KpEq+02fFlianJzy7K+l5iTjnCC1Iw0T0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781293299; c=relaxed/simple;
-	bh=8ZLOGvGFodYhD0qua0VuzQdoTndbnD664tOVgr1qn2c=;
+	s=arc-20240116; t=1781293437; c=relaxed/simple;
+	bh=0MIzScJKL1xXmPrlbYULoUIxKe1BsiEaaVgILh54qWo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=olkpUZABD3/OOO1QYYbvWsGJ9U22t5Z5bmxoPM+RV6YrJn/1aXiPWJ9Tzc/WtmgDaSjjnjZKROKRZtcY1E+9C220dPfqYICG5NkKk4Eg//LUeBHYBiqSUHJsg9RTPqXM9nqPuzrPRDIUthM0z3hTTBaAaQd3IFSlzl/nVGxpLYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWCh3jnq; arc=pass smtp.client-ip=209.85.210.171
+	 To:Cc:Content-Type; b=Fo85Lbp/p2sI4ywB72LM/yuTvpfHwproCGKaQ1idNbcepfN9WYFoB6aF/M5rbtsKTkAbmByyJ10yNpX6/og7hVYHCTaAjh64CRHMmdoWKYDO55pGXcowp6Z5mjETp9flDj8UsSkLNyUps61ezXMdngfAS21dOYuu/CSUKdyaDDk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LfSurQj8; arc=pass smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWCh3jnq"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84226d0f1d2so1008977b3a.1
-        for <quic@lists.linux.dev>; Fri, 12 Jun 2026 12:41:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781293298; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LfSurQj8"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-842848fd613so1401097b3a.3
+        for <quic@lists.linux.dev>; Fri, 12 Jun 2026 12:43:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781293436; cv=none;
         d=google.com; s=arc-20240605;
-        b=Bs4YqPcjNLvSLhA72spD/gNVi9d2STiAl4Wqsdu1uvi9oBhsWBm+lLPHKxmkK2upob
-         xCVFjMIOr37jBeJvqXXxxQT6hQxHX6gTyc8hn6nnyvm4P07UpvZWmKBRKqQngSLINE4t
-         6nBqfh0xuH+2bQVjBqLf2YdFXxRL9MwfcZcEaoQjUo0q0b8teZyLp3dFWl3ZtizBHzq3
-         bWxha0KgTBY8s6TmYOeENlpNTCi7Nj4qQFEjIM+ilLollwT85w6+ePlGl5h8XDsFo/68
-         nhl/1wwXlvLZ8hE1pKyxuUFDqSf6ORmBgYVAidy4nFRjJTMwf2SRr+z4ZmAGKquBTa0+
-         kVUQ==
+        b=ErzU9C8FPa93MC2P/pp5DKBzU7Fk1cuyO8HibQhmNqmEioXgGkIEuA3atVao7zTzr3
+         5ykzIRLQDUXbuhXRTFhemRvW5vrIIfybckFYFWhR8UZ2wUNjazyHvhtSDIyNRjmDGJ63
+         QG3yPzk7PrCX6T9saYf4IUCWtpXhGMH4PrqfkkAG0vyYa1Q/umIDwud+Tfh3CtBzc78v
+         V+tMYIVM0PsCswK5Fb/EhuaeW0PPMCtuDoXglcYJLjYL5C0GjioZtFKxo7hrcmMBuIlb
+         3g6BrCwRS2DlPQucVY/YqXmjQf2KMx5LZZDDQ/wmq797VjbyTMkCmIxRfMsjE1yRAJVj
+         0lqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=Rbi30ru7gSioJ7/e48J895iPmcFfwsVcpIndfODcrgQ=;
-        fh=hQDW3kafaNozBhmpAy2jU14cMulTsmq9EzHcnmWkU7E=;
-        b=d/cCflnzOuewQLNgnFzLkH07q8xp7R8xoMHEMITi2UCk+fid9uKwJnbixpbyeszj0q
-         RN7GHpWdMbu+s8LCY4B8uLMl5Dk/uaF/4NYlwxN0jY4gJx10SAzlZiKRVOpanDIAiWMG
-         Gc+UjIkW8H2Lrt0zOnn/KWpFpjFn8xkT2zsTPgax3xK82wszcMN91yyepIBUB446gD4T
-         s2Ib977L2xV2LpFaXlCq8mxxhy13YUx2UAiHB4DHFHOjDNQBfOgY10jItuQFLBeFLzl/
-         6hsCQnS2AvBmfBhLI0xH5IJ65gtgWswu3ZfMyvTapvzMXfg+wpfieEQ1m5x4lc2cF2N1
-         go3Q==;
+        bh=0MIzScJKL1xXmPrlbYULoUIxKe1BsiEaaVgILh54qWo=;
+        fh=b/8BSdvsf4bF/lZ4EK67vhbSxemUyMwXXLbDNIPQps0=;
+        b=DYmzek4ZtmH7mglJQZ972R1AGK/qxu0PeZpRTnHdKKKbv4fq5JdqhsTWXSUa61Pbr2
+         mUWNfbCY1dXDxywbIp42C3sgcyy/yhLUO7nZJdzBQE/Fj+SiiNogn5JegDLdzn6gP8hl
+         3BckXgLJj+UGA02UDwuzAbnsNF1FB6JSLrv61OBhjl1jqimbfPCBKmUv2TI3+DBEtIlq
+         G9qrj0JrcIKcsN+2sA4LaqRhabrP1fXEMtE+K9fbLBEnpVgBjHRaW6DAuZpf2zHlBZXt
+         OibgKkqkBbnFobuhDn0fl7ciTW7tid7PDDzSAhwuWLr04sAh9fdj2JdLp6j4+c53htdf
+         cDxw==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781293298; x=1781898098; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1781293436; x=1781898236; darn=lists.linux.dev;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rbi30ru7gSioJ7/e48J895iPmcFfwsVcpIndfODcrgQ=;
-        b=JWCh3jnq+zTwsfa6e752v+Q5JnmwsoVUYM77XCTdbgwlC2nGIlRAtgJCS8twUSecAn
-         V87l4ICHF08F30iThrDago3in+jRiAZDHrk9bxSk8hsoOhTY6EDfzse6IaeFse4lWLxM
-         HxT4DjeKCyVGThPhQvz6TJnODVPsMh9F6ErwEAzfpDijAG+Y0wMHWIALMixGTz3ijICw
-         ex3elnbR5WOjYKeRejQkJobEpXmdRptQTf5HOvpn7+zdtpmdW3pEA6YoPupQv+13K3JJ
-         yQFw1XQIA2mNra1+iBe3iIcLZOtp2PvURswfL9y4u1Enb5zCZpmI3e5imriLkc0h4k31
-         xFiA==
+        bh=0MIzScJKL1xXmPrlbYULoUIxKe1BsiEaaVgILh54qWo=;
+        b=LfSurQj8iw0ulrY5pkO6UEqO6mtOciGWrOczqksYLiRai1Y7QHWPGMiU2M1ZUI3psF
+         oqAALAjxRDiSZ6JMqsbk2yuADR9mNW4mCQzYLAynmmH9lGHHC5qtLgQOHJQr6508w4pH
+         nC6dYE7BAO9J5cv+3Bz8xLA60HrXwyrXjl/Eiw3ghI4QTyNCPTBxSHxFk3XzZerKHG2C
+         /6ob57UDN+lyffzQsQZTGKXkxaWhSllI02J8Nc+VND6/SuCy0OJguwpUfzTTZncunAh4
+         woP0CsJ0IlFqe5JO64eT9CGVhGkHc80h0LMTddjWvJzBzSUedxPGY2m3eNcvrQhnpNsV
+         fPlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781293298; x=1781898098;
+        d=1e100.net; s=20251104; t=1781293436; x=1781898236;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Rbi30ru7gSioJ7/e48J895iPmcFfwsVcpIndfODcrgQ=;
-        b=CQHCQI91FTac8JNGGlKyg11paPFq6unpvMXByI/l+6Z4MMMzEG6ESWc0aWUy0OuhyQ
-         wZXBQ37P9h9d8k9YTzAHinIVADAbiqhgbI3cuYMHdtrNbSxrfPygjSl5fBGz13mSMuWR
-         IqbXAPPLmj8tyVtGOiIvtmo+X+G+0059nklWFomYgW8q9JiSUfU27BLhlsdoVI7EftAB
-         Wh/IHltwwPOGYbE4wcl55PNz8UZCR7XMCsbGtI167H38DUfucGxtEiOxABUYtoZoqHHr
-         DtQ97rYLNnqb255Twt9rVIhyxtUOlZ1MzhPUpM3Sy/6pY7yNU8bfV0BX2qPW1W/rZ2nL
-         OOPQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9byq7OQUxuA62yR8H9croTXuEapcBtPinYOgseNrEnBTgAVug5Ynl3e4LGZnQWb5iGXLP5@lists.linux.dev
-X-Gm-Message-State: AOJu0Yx3RkCVRpuRnq2c0wP3XJMbIEaR1R4E4k1fQ1kwT7jvsMxxLc04
-	TR3bdoYI1hOYmok+Fdsfw/DnAEklSrANh0kkHKmgIuimAZvCFjSTXs09nYCOAQAbd24jPBUAu2r
-	aqMiUWN8nLXXtlxGvf68UkCpRkxr3FHk=
-X-Gm-Gg: Acq92OGaBqrJ1ya6wDonHMBM9+6iKH0pv4IBI9P2DZng4iL/KFIxrefG4vlMvoxCraz
-	KpCcSE1JHC/w0X8GXtXA2skmXya4FwNBcFRF1uA8Hs6tQfyvIpDyCmVh7xOVcIiyZN6zJB/k/GV
-	5/mrnzwCRR0mbtBFC3Er+D1Hq2x6vNw0CzgY7Ok1Ucb0GVVF+V/b0e146eav362nwm4k6hjzbEC
-	l9IybdMvzvYZwjeEOowWnDwLNWxcvXd0MjPzu9blLmPlPBNEkgDgGsmsz0ko3aRr/ybzCBKZgTK
-	ahApLyMML2HvJldWfVANUbpweLMX6G4b87msyitl8BbcC37JO3ytGOBR0/UMv+hGgzDoCh1AX6X
-	djN5IOFq9K2RtOgPS
-X-Received: by 2002:a05:6a00:18aa:b0:842:4387:34b7 with SMTP id
- d2e1a72fcca58-8434cd41f33mr4652675b3a.10.1781293298066; Fri, 12 Jun 2026
- 12:41:38 -0700 (PDT)
+        bh=0MIzScJKL1xXmPrlbYULoUIxKe1BsiEaaVgILh54qWo=;
+        b=LoCuSUWTOkjZdN3FLIiKbbgDcrneRJMOPYJAqH96VFn7T2oxbEjRFGu14kyBGE7KiO
+         +v/LKFRjcn2vzThELFwarR10MFdDFmWTb2sbY94upG7Y1vPZ5gdxjcRy/MHOT/nxqd1d
+         uqWtJd+2zP5KaOpeTL1itsZtIHHbQ1WzUDAXg2w2KX+t6qghqL4EwUNBNv2X/ewcmBj7
+         gnR8DItkv8PWXtfbt7FWOL0LocFsWBBQJpTcEN6IoeFO2uAAN5B+YMjKoAPsLlLDw0gJ
+         hiWq62ugThZ+PxdD1VMXlk20KwKYNLz/jr/ugFhuFSC4V7yPeLIZIUmHjnjZXAjsI3mY
+         uyvA==
+X-Forwarded-Encrypted: i=1; AFNElJ8ccHcn6GZq0VVEqpIXQW8L7mhZ1sdNNeyMYoSKRFixdQ9zQ312I8jKxL+xT3QYoXzu4xSP@lists.linux.dev
+X-Gm-Message-State: AOJu0Yz5k/AQd+gMsCejrhOt1CSGzJggHTOzdzQR/1JPbCb9HXK9l/yp
+	kNTpSiOlK7eo9rF9HWCbI+lv/DsYTx2U1ln5ssUU0jLItOCtH9OaOKl+luscIgPnjiu62ahXjwK
+	0Tcdd9DtJdPltvmjOfKrpmT747O47e8E=
+X-Gm-Gg: Acq92OFrGym8LG3Nqs0IWNi4g9FvcEIQ1EQznUNcud7Y27+ctONmWQwopHsI6krgopZ
+	EB9E96VxKzuidvUKv4ggrqqPZL4Ey7F32cjrqk/UYi3NzaVCWcy31lSK2iTDNRtx7vK2Om5OO1A
+	CijP3Tqb6F8hl8qNZHE92wmS3okMaYwLcDRiheGEW21go+32AE4XEpQN4Ziprva0qLkEOABBVUi
+	gqRJUHmmk/ex7eHAyGDoi6Dxcdiaek7n23UgU4qaKxvYirWMnGVcCz+YEsmvSWi0Yel/+HPNCVN
+	ojmyLbMEzex6+DguLUtuy3RpYeGQzMtfZozWhuYRrkwjzxTKZgXzUtn/6+T8aLdICh+OVhAon9K
+	0asuWig==
+X-Received: by 2002:a05:6a00:4146:b0:82f:1b1b:e166 with SMTP id
+ d2e1a72fcca58-8434d0aeb79mr6315498b3a.33.1781293435882; Fri, 12 Jun 2026
+ 12:43:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1780855296.git.lucien.xin@gmail.com> <e73d8f69b67fdeeec076fbe772ca465d7e1af4cb.1780855297.git.lucien.xin@gmail.com>
-In-Reply-To: <e73d8f69b67fdeeec076fbe772ca465d7e1af4cb.1780855297.git.lucien.xin@gmail.com>
+References: <cover.1780855296.git.lucien.xin@gmail.com> <1b5480358209643e574188ccba83bc9ef0a84aee.1780855297.git.lucien.xin@gmail.com>
+In-Reply-To: <1b5480358209643e574188ccba83bc9ef0a84aee.1780855297.git.lucien.xin@gmail.com>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 12 Jun 2026 15:41:26 -0400
-X-Gm-Features: AVVi8CccjtCVNlXysoHMU93ce-8zqlj8T5zFjNLF2CVr-6fSHzwtKPVAgQLYHfw
-Message-ID: <CADvbK_e7wpf=-C9h97b2JWUMQ6YkQLtVeTcxxCdQPaFTN+Litw@mail.gmail.com>
-Subject: Re: [PATCH net-next v13 04/15] quic: provide family ops for address
- and protocol
+Date: Fri, 12 Jun 2026 15:43:44 -0400
+X-Gm-Features: AVVi8CcosIZ2HodYXSoI2GurOTwt4JyXnbbeTIrOgwh_78ZtgEuE0FazxT7w2bQ
+Message-ID: <CADvbK_cvO+EGvbzySPQc4DvN7GM-94gFZK+_pXMSkj8b9--DDA@mail.gmail.com>
+Subject: Re: [PATCH net-next v13 06/15] quic: add stream management
 To: network dev <netdev@vger.kernel.org>, quic@lists.linux.dev
 Cc: davem@davemloft.net, kuba@kernel.org, Eric Dumazet <edumazet@google.com>, 
 	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
@@ -108,40 +107,49 @@ Content-Type: text/plain; charset="UTF-8"
 
 [sashiko-claude]
 
-> +static void quic_v4_lower_xmit(struct sock *sk, struct sk_buff *skb,
-> +        struct flowi *fl)
+> +/* Get or create a send or recv stream by ID. Requires sock lock held. */
+> +struct quic_stream *quic_stream_get(struct quic_stream_table *streams,
+> + s64 stream_id, u32 flags, bool is_serv,
+> + bool send)
 > +{
-> + struct quic_skb_cb *cb = QUIC_SKB_CB(skb);
-> + u8 tos = (inet_sk(sk)->tos | cb->ecn), ttl;
-> + struct flowi4 *fl4 = &fl->u.ip4;
-> + struct dst_entry *dst;
-> + __be16 df = 0;
+> + struct quic_stream *stream;
 > +
-> + pr_debug("%s: skb: %p, len: %d, num: %llu, %pI4:%d -> %pI4:%d\n",
-> + __func__, skb, skb->len, cb->number, &fl4->saddr,
-> + ntohs(fl4->fl4_sport), &fl4->daddr, ntohs(fl4->fl4_dport));
-Should cb->number use %lld here rather than %llu? Looking at struct
-quic_skb_cb in net/quic/common.h:
-    s64 number;  /* Parsed packet number, or the largest previously seen */
-Since number is s64, a negative initial value (such as -1 for "largest
-previously seen") would be printed as 18446744073709551615 with %llu, and
-compilers with -Wformat-signedness flag the mismatch.
-[ ... ]
-> +static void quic_v6_lower_xmit(struct sock *sk, struct sk_buff *skb,
-> +        struct flowi *fl)
-> +{
-> + struct quic_skb_cb *cb = QUIC_SKB_CB(skb);
-> + u8 tc = (inet6_sk(sk)->tclass | cb->ecn), ttl;
-> + struct flowi6 *fl6 = &fl->u.ip6;
-> + struct dst_entry *dst;
-> + __be32 label;
+> + if (!quic_stream_id_valid(stream_id, is_serv, send))
+> + return ERR_PTR(-EINVAL);
 > +
-> + pr_debug("%s: skb: %p, len: %d, num: %llu, %pI6c:%d -> %pI6c:%d\n",
-> + __func__, skb, skb->len, cb->number, &fl6->saddr,
-> + ntohs(fl6->fl6_sport), &fl6->daddr, ntohs(fl6->fl6_dport));
-Same question about cb->number being printed with %llu while the field is
-declared s64.
+> + stream = quic_stream_find(streams, stream_id);
+> + if (stream)
+> + return stream;
+> +
+> + if (!send && quic_stream_id_local(stream_id, is_serv)) {
+> + if (quic_stream_id_closed(streams, stream_id, !send))
+> + return ERR_PTR(-ENOSTR);
+> + return ERR_PTR(-EINVAL);
+> + }
+The recv path here rejects stream IDs whose initiator does not match the
+caller's role (a server cannot accept a SERVER_BIDI on the recv path
+without it being closed/already-open). Should the send path have the
+symmetric guard for peer-initiated bidi stream IDs?
+Walking through quic_stream_get() with is_serv=true, send=true,
+stream_id=4 (CLIENT_BIDI), flags=MSG_QUIC_STREAM_NEW:
+- quic_stream_id_valid(4, true, true) only rejects CLIENT_UNI on the
+server send path, so CLIENT_BIDI passes.
+- The !send && local block is skipped because send is true.
+- quic_stream_id_closed() compares 4 < next_bidi_stream_id (initially
+SERVER_BIDI = 1) and returns false.
+- quic_stream_id_exceeds() can pass when the peer's max_streams_bidi
+is non-trivial.
+Control then reaches quic_stream_create():
+> + stream_id = limits->next_bidi_stream_id;
+> + if (quic_stream_id_uni(max_stream_id))
+> + stream_id = limits->next_uni_stream_id;
+For a non-uni max_stream_id, stream_id is initialised from
+streams->send.next_bidi_stream_id (SERVER_BIDI = 1), so the loop creates
+a stream with id=1 instead of the requested id=4, increments
+streams->send.streams_bidi as if locally initiated, and advances
+streams->send.next_bidi_stream_id past 4.
 
-A minor one but legit, will fix it.
+
+This is a good catch, will add quic_stream_id_local() for send.
 
 Thanks.
