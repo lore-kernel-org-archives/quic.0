@@ -1,96 +1,96 @@
 Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63A7533596
-	for <quic@lists.linux.dev>; Wed, 16 Sep 2026 15:43:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB8E4D794B
+	for <quic@lists.linux.dev>; Wed, 16 Sep 2026 15:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573431; cv=pass; b=hGvMT2fJlMvov5QvNil1YbJOJ3X93FyEfQ+Acb47hozC2f8/H08jhps3Ozn/Jc7PcL5wfYOkHqF/tlZtWEn1shMtiEoUT7QHWK52EIleAlIv4p+Mll83rMRLZfJnJiQlYXdMMHbS0xBhs3WU2/wZ5ZyHnqEwt4aWmvW8yh7F/Qc=
+	t=1789573744; cv=pass; b=OOnqyKmQPRIF2hWbopbRuAOuccGv0rQymoAe2/75CyUArtGXgYsDneNh7DG/xgOf6XeCcEzOWrsGNX0bE6795vRcGxKKBpkX50JunMQ0syL2S+6sozoVpYBcJ4mPOaZZ1vrwLExHueXRicRsmVGQhIvF+XCA7lnHTzxP4lZ7EDE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573431; c=relaxed/simple;
-	bh=5r9oITh6Ke0h0LdwQAODmCkNekYxLU9BUgIqqL0e/CQ=;
+	s=arc-20240116; t=1789573744; c=relaxed/simple;
+	bh=2HTFcw51GJTpM0vzPofi6oeFOtDofXyLi0if3h9f4Tg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Dwt/msNwiKjxadsVSwZfsXZxG1etpkZyrRPWFgkN9gVUx3xQQ3wqCGvDk2cNu97j9sE2/q94xpbJyRg3sjLmRKJ5W7HuPOTB2/7akNOBKNIyZlw+agBmPzoIXC8ScR+YyJ3cjyZ2GmqSjTPBRWOIRKkWNc8llBFxGfklqYi0H8Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iaxIHgcT; arc=pass smtp.client-ip=74.125.228.41
+	 To:Cc:Content-Type; b=Z3dy3MgGaWgPSTWhc4iv+1slwLU4tLmtyg0OvOkNBYGgo+0r3hgZ0t//RtRsbTOxUTSDDfaXLyKVpohSO7rqt/apEEcAAGnEowdlUGaIOUzoXOYl65pEs4LsFo7p/UKLN6yyGZGawUqG2kvNXoFxx9pCslHXXiQ4PpDvTpb3ZyE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVC66FWU; arc=pass smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iaxIHgcT"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b2e1d7so886801b3a.0
-        for <quic@lists.linux.dev>; Wed, 16 Sep 2026 08:43:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789573429; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVC66FWU"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86212a185dcso1019347b3a.1
+        for <quic@lists.linux.dev>; Wed, 16 Sep 2026 08:49:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789573741; cv=none;
         d=google.com; s=arc-20260327;
-        b=n2F6AsxElLOS+fgeWak9cGlHQdy9Pz6FgdvfsrInNzOV4BG1upaxBUyuYiMQw3/96t
-         XcTgORefBFVhTl4eSjtTiRYQCU+BmYepV3yYSEe1BpOESrJWx+GA1o9cFOOW1ccdu6sd
-         j76wxVG/eu7ofgrf40XP5aIb87d6fGSLkpZsQx3x5b3YhZTQDho9ONYirOTv73WswMwN
-         g6+/crPWbXEOABR1oPdKqsBp7YVFE77tWuQJ6Tyb3Sh+0Gf2i64q9zeMHHiH/56kupOd
-         v178uv92YfvNqGSOz6b+3G81XxzZ8Wvg2bBbJN6zNpeRajpq/gokqDdueF1VKu7ZCeFK
-         bMjA==
+        b=A5GO0xM8W081ohe5rPzC0UxwvSkRkaxTyq/T8p4XVqpRBJB3oRpulTTm8+xlx+0TVq
+         xy+HWGTumvODE8g8mngkP8eyGicyHruNUlMKe7OEhX0a0mNI693LpAwL8eeNgy+VTYUw
+         9V5qAY05KH/dTD2MhVMnrrma9NH1KF4pNkMEXx3QuNpFGPmXyTMl/co9M/vZEP3P3bD8
+         6GT5ri7yNhrwlC/8zNRLZUu7T78D/h2QBm6SI5ScBRM4OOkiqI85y3wXtmGIAbwYtO71
+         DMjInTFCl0/fi+T2g9rZAYSYVTx/1PFw2FcufhX9Mi5UFJIscQIzdl7xMXNxM05Hb/QZ
+         JlCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ODqiZXRBdCHmyesWjPny1yNGa+YI4ZP+iScqkVqOaCM=;
-        fh=mBc5Fy2q9GxbdWmvDUCJs3vszBc6eEbg8tdfXuxZSwk=;
-        b=Rc5ZXp7I7pF0NHedKYK2m76esQCnPL0NTXlEZ+dkgDS2bYKka0gLzXPMr2sn4CAl+I
-         0gJ1OiQNIS+kAE2SRa7XpgKZXLlyJv/66vzsMn90lW93HgvvlL3tWToWrX66/QozTUak
-         N/+5fJ10O7DaEE5TwZJ2EvbaiOmTlbjYk+MYuqB5YXLU4L99iLXGSIAuP1xvqrPKc42+
-         K71Rlkk533mye4gqyokuDKkCZvgxY5NSnu3qTTk1r8pioT1Q0792e6ACeF+nqhfT4AJp
-         4/tpLxrryKcctFaiX+BwZ8T5AhqEXiTMbQmOGqN10aqVshGxBn9RuUGb1YTbCkBSnlwU
-         KF8g==;
+        bh=9gmxz7ND3t4uc8MZW2dQN60LpvsltqXz4L3oWlJ7Ftw=;
+        fh=4BYIiwG6Xdz8QvPtvnDOWRakS0JbFKF52M6WYBHSQWY=;
+        b=IHeP6GrAx+5qq5bkfgrl9SB3kgwc7xNwRULsXfMLIvpgwwSa4YsPwKBrL7bXsRN3lG
+         iYEeQ6N2mD4+lwrJhWMJUGiyDarPGOoFyj1UYfOZg5v4lp/M/CHqEefEeerWRMerPts3
+         eoUXDJUTKRAvxys1Nd5P3Ql89kp/exVjzlEfaLCHWzg9XqA9iBin9gxxJdkOFvIyykOn
+         7omqELHmiCSxLjSUmnK9XedstHMUjAMZWmQpmTKdg+LBR8HzSuaDj0Z1XPqOimlkEyMS
+         HLrhXDEMmSn6rFPhBamuUtUAkJOQy82q0sROZ9ArqSLoqGA0Zrjyr1zjxLpZ1J5P4Fmq
+         V9bA==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789573429; x=1790178229; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1789573741; x=1790178541; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ODqiZXRBdCHmyesWjPny1yNGa+YI4ZP+iScqkVqOaCM=;
-        b=iaxIHgcTlUUDTEQEcaLinU6tPccqoixGKZBhdI7hHTQFHx2YPzm/sr7Xcn2bU03yx4
-         XiBiFJP9iN/s+MhhbcKqc9px31blYemHyuqv81M1CjBRI4EHIvMQ1K3kCUuYqHG9FhRz
-         ofw/UqAgFFBjahOZODWnAaHwtX3p0lhqy8wDtdkay+j9gO3Rysbheq0tk8Fth7jUKoUf
-         4TgBIjMg1NtN0OQz2FUwGwZuS4gKhJRR9oqOlZ43GtQLwlYAtDSikb6ieM7v4gvgqd5K
-         0r49JNue3ML1JDCxErb5EjMQ4XFhvROQKzPDjUOH7pHuECPCNEEcp1H0YEH3D8KequWA
-         KoVA==
+        bh=9gmxz7ND3t4uc8MZW2dQN60LpvsltqXz4L3oWlJ7Ftw=;
+        b=FVC66FWUJT5FKCUfp6qmK7lCtFpiVPZbGuzGv2UIMp0bENpzq9A3C4akFOXt/YsTxz
+         R0KiwokjWMrPx+gipMCLZoAGgi/yZiQmJWLZwnPFZFMccT8oKsbxieWvXe44zvWrKT/n
+         rc8uBnp/FyzQNwgSOKHT8m0+zP7+7GE+6aBHBrh97KujuakejpYwNQV87lq/PiGlY+fm
+         s1bI0vJKa6qi43iyRTgUbE1si+qPORoadEe6pKHbRhRWfsQtJTDy5ns3oSAb4YcMIZu7
+         xFvyIfn+rradm5OxE+WK8OPfQFcUpbfXYyawisPXBhSNlgDCETo8mny6Y9gVtdeNTsLU
+         zEyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789573429; x=1790178229;
+        d=1e100.net; s=20260707; t=1789573741; x=1790178541;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ODqiZXRBdCHmyesWjPny1yNGa+YI4ZP+iScqkVqOaCM=;
-        b=dzVe+KzWlQtHbOXFGYIccMNViQ6O+wVq4n9ZQhlUVpD7Tvqi3ObSzb0BLbYdTAo5br
-         kTB0qfAJtbqAZmbHRwRWaYw4RVIl0ClUultj+kM1NYnnQk1YwgpZ8CNsH6Ko6iElY9DO
-         o6PDOQ09Wr+5wWbU7KISq17Cdmzokl3SAqtu0rr8aTBMpjR2ngpTfPzxsNu78odKdNs7
-         W1LbG1Ap5o10ih+cJvIsxmu4eKs1yt/QKobgTvvCrMz29bzYQ4lbhVr+hG+O3lG4IodW
-         VAzuMSpwSWlSVucq2U/8JtNdHYg91NM56bzKXLuWFkNr7y7YBS84hQWAfXmeIBMz4dwt
-         MxNA==
-X-Forwarded-Encrypted: i=1; AKwUvByzJC0HCRiPL1LMkex/KtHkdx4AMnJOOU3KGdLmBYdtitxBXF85jsiPIOBsz/xbRPg6g370@lists.linux.dev
-X-Gm-Message-State: AFuF++kheErCw6GDw6hdP2+YFeViwmIrAKaqVhfRH3ZgRVqA1zDsorJ7
-	EpI443CxP0O2ME0IaXodm39BUNo/0pdfECtcZB71dvvEksG6ioO5ifiyeuNf1PuXlEyIYa6j3mR
-	JLEK6CyOlb5r3uULBlpKp3ePjLU17I2s=
-X-Gm-Gg: AYBFou2a4wvZ3UT+AORqdg9R/Z+yOTBvTvErStPNGWMyt8p76dpq6qGPCGIlj2acmah
-	hpsVVtgX7/UZ/DmFj2ECs+daNXV6nlbFK90GXq7ZNag0ykBdRpOONk5U8obJzd8Oj0ob799Pnyh
-	2nNJz1cb0h/QJjxuIuXFlm0ljX9+mS69GiI+3WCjL5y7+0xhg0aKXj5kF2xLx6T7otrrUAYyTJW
-	qhtq0+l4PNppHolbqeCjBPwmfd34y2ZL7nMlXLVH2dZJcvgwhH7LSA2acDvlCx+cG2w0lzRpNMJ
-	2tHJ4ZObX+nYBS2cGNBzzj3ncyS0KYG2nCZtzMT36dXjTR4u3u7UL+4fjGw9/70BDmavfXlZDdJ
-	twQPU5X93vMPaSfm81xLsGWulyHlHDSGuwcsHxrrJ9dlQyo/MCbaYgipR
-X-Received: by 2002:a05:6a00:4406:b0:86a:141e:2a8d with SMTP id
- d2e1a72fcca58-872379b1f8cmr7321250b3a.11.1789573429057; Wed, 16 Sep 2026
- 08:43:49 -0700 (PDT)
+        bh=9gmxz7ND3t4uc8MZW2dQN60LpvsltqXz4L3oWlJ7Ftw=;
+        b=tfNMdXC8NJsfrLjkj+MXz44bRT7yNvUqP4ns+Ivv1bq61Lsimzwpzy8vI1F74xlz0Q
+         1yGr1ySLp1KP0mdGP+6hRTXT1JYo1IQLa9sRrW1PtCb+44GfnosTyoquTDmbSiUHS/9L
+         ZetXg60wVZqU8hdIcCxpqKRWb7T78kVfIqh7iy6QWHZyWOv6pqjgAVRdI0tckFblXcrT
+         PwjVwbia38g++U/qrb2uS0H4wVEoMpqK5cgFJMAiHAfWSkceHfzmex8JvJ+Af3Cg7PKX
+         tLPUbvDfgdGIJhb+RpSRSCYF/YCv1MgBr4BeACkYt48p4C7Nk8J/LzNx6UJawdpKwe6/
+         ShoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxB47IxazkaqUY7tayQIGPNlzZrnuTZ1M5u8TkKo2N9hOyux+qUPXqCuMvdKdQfUkoscPee@lists.linux.dev
+X-Gm-Message-State: AFuF++kk2VaFXOMCH6NNpRnGDE03VuTEBcDMfaHt+EocS4bkFT75pdWe
+	LZQixn33iXC2ucaT/iccHYF9U2x8eJdLg84EWWni7eEhX6lGqe/4BKNXubd3rhUmEXYpvqqehu8
+	lDt5J99Sv4wCtt2zJdAg1p3VOhd0wktc=
+X-Gm-Gg: AYBFou0zyciew0Hxonxc0njNS6z4+y82QSJ/qWnY0BWo8fbXS3ZdGjqXKbxmFJ/ITh8
+	qmraoxbkaeuZVCmFU2rR4bmt4nQE1+OqFeTrQ6skklUjpPdxkINb2Rw1bBTVm2wJG26X/9/PLnF
+	eL5xIebrDaEpcQ0PmmVQa2nOdNiItRJfor5QuIv/SFOCTzLOUyefuEuAw6JjFLkVqLhwPbVqKV8
+	0J/De3Jdqy9IqnPCu66ufZ29ytnY8sHLq34OSd9NMDneJinA2yVE4ogIu5iVJ+vH5OQPjM+LLpv
+	jXvj5X0uHHQNowxyXy0xqYmD5+uXK8bemjMtsKKKtlMcPaECfPI6ZNfcu2DGybVWuPggPi3UPf1
+	4t76E0RCuMedAcrOfVnXCr6E13ypYVdBkskOheZfByJbi4FIA8h/0JgHq
+X-Received: by 2002:a05:6a00:a88e:b0:872:20f2:3282 with SMTP id
+ d2e1a72fcca58-8723de188d4mr6336975b3a.22.1789573740955; Wed, 16 Sep 2026
+ 08:49:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <375ee7fe827d9df248a27a8072c84a7c167fc50a.1789393775.git.lucien.xin@gmail.com>
- <178950184430.22033.8793987707688483661@kernel.org>
-In-Reply-To: <178950184430.22033.8793987707688483661@kernel.org>
+References: <ede5ba63212b87ddfa14acf70426b81d87501e44.1789393775.git.lucien.xin@gmail.com>
+ <178950184662.22033.5889968066649167674@kernel.org>
+In-Reply-To: <178950184662.22033.5889968066649167674@kernel.org>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Wed, 16 Sep 2026 11:43:37 -0400
-X-Gm-Features: AcwNN1XSc3BIya9VHdn-b90bW5THPSIgMzBCtVU9z3ZhvPnGIT-zThpbhq1QirI
-Message-ID: <CADvbK_dwf3bMTs_TnOsqJQMAnCCvnr1M8x8DyCtesaL2Wy5ceg@mail.gmail.com>
-Subject: Re: [PATCH net-next v15 08/15] quic: add path management
+Date: Wed, 16 Sep 2026 11:48:49 -0400
+X-Gm-Features: AcwNN1Xi8cSlHvt5PrpP04qaA_yB_ZBp9zlIFRWFrwm51DDVLQoanNnzmXwbS2M
+Message-ID: <CADvbK_eU+ozoWVcCWEhKuyeBK_c78Eqp-OTKQHqUBTu8hwq+hg@mail.gmail.com>
+Subject: Re: [PATCH net-next v15 09/15] quic: add congestion control
 To: netdev-bot+sashiko@kernel.org
 Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, edumazet@google.com, pabeni@redhat.com, horms@kernel.org, 
@@ -109,191 +109,114 @@ Content-Transfer-Encoding: quoted-printable
 On Tue, Sep 15, 2026 at 3:50=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
 te:
 >
-> Thank you for your contribution! Sashiko AI review found 7 potential
+> Thank you for your contribution! Sashiko AI review found 2 potential
 > issue(s) to consider:
 >
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 5
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
 >
-> - [Medium] quic_path_swap() opens a write section on a bare seqcount_t
->   (paths->path_seq) with only local_bh_disable() for context protection.
-> - [Medium] In the explicit-port branch of quic_path_bind(), an existing
->   UDP tunnel socket is reused whenever quic_cmp_sk_addr() matches.
-> - [Low] Commit message claims PLPMTUD/ICMP feedback is integrated, but at
->   this commit quic_udp_err() is a stub returning 0 and no quic_path_pl_*=
+> - [Medium] Spurious persistent-congestion detection:
+>   quic_cong_on_packet_lost() (net/quic/cong.c:125-140) is the ONLY place=
 =E2=80=A6
-> - [Low] quic_path_pl_send()'s kernel-doc ("Called immediately after
->   sending a probe packet in QUIC Path MTU Discovery") and the matching=E2=
-=80=A6
-> - [Low] The new file net/quic/path.c carries the header comment
->   "Initialization/cleanup for QUIC protocol support." =E2=80=94 verbatim=
-=E2=80=A6
-> - [Low] quic_path_pl_recv()'s documented contract ("Return: New PMTU to
->   apply if search completes, or 0 if no change") disagrees with the=E2=80=
-=A6
-> - [Low] The three PLPMTUD pr_debug() statements in quic_path_pl_send(),
->   quic_path_pl_recv() and quic_path_pl_toobig() print the label "dst:=E2=
+> - [Low] Commit message vs. what the patch actually enables: the message
+>   says the implementation 'adjusts the congestion window accordingly=E2=
 =80=A6
 >
 > --
 >
-> quic: add path management
+> quic: add congestion control
 >
-> This patch adds struct quic_path / struct quic_path_group plus the global
-> hash table of UDP tunnel sockets, with helpers to bind, unbind, swap and
-> detect alternate paths for connection migration.  It also adds the RFC 88=
-99
-> PLPMTUD state machine helpers (quic_path_pl_send/recv/toobig/reset/confir=
-m)
-> and a quic_wq workqueue used to release UDP tunnel sockets.
+> This adds net/quic/cong.c and net/quic/cong.h with RTT estimation, a
+> congestion control state machine (slow start, recovery, congestion
+> avoidance), pacing helpers and the New Reno algorithm behind a
+> quic_cong_ops indirection.  quic_init_sock() now calls quic_cong_init().
 >
-> A few questions below.
+> A couple of questions below.
 >
-> > diff --git a/net/quic/path.c b/net/quic/path.c
-> > new file mode 100644
-> > index 0000000000000..a9e02fc22e609
-> > --- /dev/null
-> > +++ b/net/quic/path.c
->
+> > This patch introduces 'quic_cong' for RTT measurement and congestion
+> > control. The 'quic_cong_ops' is added to define the congestion
+> > control algorithm.
 > [ ... ]
->
-> > +             head =3D quic_udp_sock_head(net, port);
-> > +             mutex_lock(&head->lock);
-> > +             us =3D quic_udp_sock_lookup(sk, a, port);
-> > +             if (us) {
-> > +                     if (!uid_eq(sk->sk_uid, us->sk->sk_uid)) {
-> > +                             mutex_unlock(&head->lock);
-> > +                             return -EADDRINUSE;
-> > +                     }
-> > +                     /* Allow reuse of an existing UDP tunnel socket.
-> > +                      * However, if it is in the middle of asynchronou=
-s
-> > +                      * teardown (via workqueue), it is temporarily un=
-usable.
-> > +                      * Return -EAGAIN (not -EADDRINUSE) to signal the=
- caller
-> > +                      * to retry soon.
-> > +                      */
-> > +                     if (!quic_udp_sock_get(us)) {
-> > +                             mutex_unlock(&head->lock);
-> > +                             return -EAGAIN;
-> > +                     }
-> > +             } else {
-> > +                     us =3D quic_udp_sock_create(sk, a);
-> > +                     if (IS_ERR(us)) {
-> > +                             mutex_unlock(&head->lock);
-> > +                             return PTR_ERR(us);
-> > +                     }
-> > +             }
-> > +             mutex_unlock(&head->lock);
-> > +             quic_path_set_udp_sk(&paths->path[path], us);
-> > +             return 0;
+> > +static bool quic_cong_check_persistent_congestion(struct quic_cong *co=
+ng,
+> > +                                               u64 time)
+> > +{
+> > +     u32 ssthresh;
+> > +
+> > +     time -=3D cong->pc_start_time;
+> > +
+> > +     /* rfc9002#section-7.6.1:
+> > +      *   (smoothed_rtt + max(4*rttvar, kGranularity) + max_ack_delay)=
+ *
+> > +      *      kPersistentCongestionThreshold
+> > +      */
+> > +     ssthresh =3D cong->smoothed_rtt +
+> > +                max(4 * cong->rttvar, QUIC_KGRANULARITY);
+> > +     ssthresh =3D (ssthresh + cong->max_ack_delay) *
+> > +                QUIC_KPERSISTENT_CONGESTION_THRESHOLD;
+> > +
+> > +     return time > ssthresh;
+> > +}
+> > +
+> > +/* COMMON APIs */
+> > +void quic_cong_on_packet_lost(struct quic_cong *cong, u64 time, u32 by=
+tes,
+> > +                           s64 number)
+> > +{
+> > +     if (cong->pc_start_time && time > cong->pc_start_time &&
+> > +         quic_cong_check_persistent_congestion(cong, time)) {
+> > +             cong->pc_start_time =3D 0;
+> > +             cong->min_rtt_valid =3D 0;
+> > +             cong->window =3D cong->min_window;
+> > +             cong->state =3D QUIC_CONG_SLOW_START;
+> > +             return;
 > > +     }
+> > +
+> > +     if (!cong->pc_start_time && cong->is_rtt_set)
+> > +             cong->pc_start_time =3D time;
+>                 ^^^^
 >
 > [Severity: Medium]
-> Can this reuse branch bind a path to a source address the host does not o=
-wn?
+> Can persistent congestion be declared here even though a packet sent
+> inside the interval was acknowledged?
 >
-> quic_udp_sock_lookup() calls quic_cmp_sk_addr(us->sk, &us->addr, a), so t=
-he
-> existing tunnel socket address is the first argument, and
-> net/quic/family.c:quic_v4_cmp_sk_addr() has:
+> quic_cong_on_packet_lost() is the only place that establishes
+> cong->pc_start_time, and quic_cong_on_packet_acked() can only clear an
+> interval that already exists, so an acknowledgment processed before the
+> first loss callback leaves no state behind.
 >
->         /* Match only if socket is also ANY-bound. */
->         if (addr->v4.sin_addr.s_addr =3D=3D htonl(INADDR_ANY))
->                 return a->v4.sin_addr.s_addr =3D=3D htonl(INADDR_ANY);
->         if (a->v4.sin_addr.s_addr =3D=3D htonl(INADDR_ANY))
->                 return true;
+> With srtt =3D 100ms the duration threshold is roughly 400ms.  Consider
+> packet A sent at t=3D0, B sent at t=3D100ms, C sent at t=3D500ms, and B
+> acknowledged first (ACK processing precedes loss detection):
 >
-> That second test means an ANY-bound tunnel socket matches a request for a=
-n
-> arbitrary specific address (quic_v6_cmp_sk_addr() has the same rule for
-> IPv6).
+> quic_cong_on_packet_acked(time=3D100ms)
+>         /* pc_start_time =3D=3D 0, so this guard is false */
+>         if (cong->pc_start_time && time > cong->pc_start_time &&
+>             !quic_cong_check_persistent_congestion(cong, time))
+>                 cong->pc_start_time =3D 0;
 >
-> On that branch quic_path_bind() returns 0 without ever going through
-> quic_udp_sock_create() -> udp_sock_create() -> kernel_bind(), so
-> __inet_bind()'s address ownership check (inet_addr_type() must be
-> RTN_LOCAL/MULTICAST/BROADCAST unless IP_FREEBIND, ip_nonlocal_bind or
-> CAP_NET_ADMIN) never runs, and paths->path[path].saddr keeps the
-> unvalidated address:
+> quic_cong_on_packet_lost(time=3D0ms)      /* A declared lost */
+>         if (!cong->pc_start_time && cong->is_rtt_set)
+>                 cong->pc_start_time =3D time;     /* pc_start_time =3D 0m=
+s */
 >
->   process A: bind 0.0.0.0:P     -> quic_udp_sock_create(), tunnel sk is A=
-NY
->   process B (same uid): bind <non-local addr>:P
->                                -> quic_udp_sock_lookup() matches the ANY =
-sk
->                                -> quic_udp_sock_get(), return 0
+> quic_cong_on_packet_lost(time=3D500ms)    /* C declared lost */
+>         /* 500ms - 0ms > 400ms */
+>         quic_cong_check_persistent_congestion() =3D=3D true
+>                 cong->window =3D cong->min_window;
+>                 cong->state =3D QUIC_CONG_SLOW_START;
+>                 cong->min_rtt_valid =3D 0;
 >
-> The same request would be rejected if no wildcard tunnel socket existed f=
-or
-> port P, since then udp_sock_create() would do the bind and validate the
-> address.  Should the reuse branch validate the requested source address
-> before accepting it?
+> B was sent at 100ms, i.e. between the send times of A and C, and it was
+> acknowledged, which rfc9002#section-7.6.2 says should disqualify the
+> interval.  Since neither the acknowledgment timestamp nor the packet
+> number is retained (the number argument is unused in both callbacks), is
+> there a way to reject this interval, for example by recording the send
+> time or packet number of the most recently acknowledged packet?
 >
 False:
 
-The source address to bind is validated by quic_get_user_addr() when the
-quic_bind() socket API is added in the next patchset, including the
-FREEBIND and sysctl_ip_nonlocal_bind checks.
-
-> [ ... ]
->
-> > +void quic_path_swap(struct quic_path_group *paths)
-> > +{
-> > +     struct quic_path path =3D paths->path[0];
-> > +
-> > +     paths->alt_probes =3D 0;
-> > +     paths->alt_state =3D QUIC_PATH_ALT_SWAPPED;
-> > +
-> > +     /* Protect path[0] modifications with seqcount for RCU readers in
-> > +      * quic_sock_lookup(). The seqcount allows readers to detect torn=
- reads
-> > +      * during the non-atomic structure assignment.
-> > +      */
-> > +     local_bh_disable();
-> > +     write_seqcount_begin(&paths->path_seq);
->
-> [Severity: Medium]
-> Is local_bh_disable() enough to open a write section on a bare seqcount_t=
-?
->
-> path_seq is declared as a plain counter in net/quic/path.h:
->
->         seqcount_t path_seq;      /* Protects path[0] during swap */
->
-> so there is no associated write serialization lock, and
-> write_seqcount_begin() expands to seqprop_assert(s), which for seqcount_t=
- is
-> lockdep_assert_preemption_disabled().  On PREEMPT_RT
-> __local_bh_disable_ip() only takes softirq_ctrl.lock and does
-> migrate_disable(); it does not touch preempt_count():
->
->         kernel/softirq.c (CONFIG_PREEMPT_RT)
->         void __local_bh_disable_ip(unsigned long ip, unsigned int cnt)
->         {
->                 ...
->                 local_lock(&softirq_ctrl.lock);
->                 ...
->         }
->
-> Does that make write_seqcount_begin() warn on every path swap with lockde=
-p
-> enabled on PREEMPT_RT?
->
-> The other half of the same point: the odd-sequence window becomes
-> preemptible, and the reader added later in the series busy-waits on it:
->
->         do {
->                 seq =3D read_seqcount_begin(&paths->path_seq);
->                 ...
->         } while (read_seqcount_retry(&paths->path_seq, seq));
->
-> Would preempt_disable_nested() around the write section, or declaring the
-> counter as a seqcount_LOCKNAME_t associated with the socket lock, be a
-> better fit here?
->
-True:
-
-I missed that local_bh_disable() does not disable preemption on PREEMPT_RT.
-I'll add preempt_disable_nested(), which disables preemption on PREEMPT_RT.
+The above case relies on packet A having a send time of 0, but packet send
+times come from quic_ktime_get_us(), which cannot return 0 in practice on a
+running system.
 
 Thanks.
