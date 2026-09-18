@@ -1,83 +1,82 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560C349D5AB
-	for <quic@lists.linux.dev>; Thu, 17 Sep 2026 19:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85EB51DAEF
+	for <quic@lists.linux.dev>; Fri, 18 Sep 2026 19:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672017; cv=pass; b=D3ycsJvP4IwYfDK+JEGH/Zyqim0RZovdJ/BLPqNeqnMzegWOTpEmdLnDTdCKJdvq9RiqwmabjzQPEspqfTF9h9DP1dqP9JO+Hn0UWiCLIwEoneJaiEYGODPWZvBcqABKnC7Y28Fw9/D6/g704ftllRdmyYb81GWyXe6IRfAje/8=
+	t=1789761085; cv=pass; b=AF6WgRSMvP06P2TGctlGgo6EkIIa+w0RkzeiwIH6E21MpHIsrbbSQlwFH/AaAEEfu5tibM6l9MkzCe3UldX+n9jZI/nkDWAwZef2RwORdge4Gh9ctI6ZwvCKcxJgs64g9RlQGAjllvGHucM5Jfgf2qEDTC/iyXGyO4nJ8smnhhw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672017; c=relaxed/simple;
-	bh=qqBrqtVZFn6NsXxcXXIMtlSWkhWESw0qIbjgWLUJZHc=;
+	s=arc-20240116; t=1789761085; c=relaxed/simple;
+	bh=y/292QxEdUMf5pPsOfQZfieYF0PKSz2Ezz35GxIZDCw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vGoJUSBq8DSvOovtaXwznk56snJYDUcYpgzsw902ucYLajiv4hn3FCXLF7R/0okn/EifP3IswKXmB6tJ+RjiJ/KLwcNtrFSNMXuyRcV27HAdGSEW7jzw23f45WMi4f0c2qCQB316FXbWSwmaQ7tcF0zwdMIRmsrUtXyfHgJgb70=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=poCrWqCM; arc=pass smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=E5laGJU7EKekiTALw17UeP+DnCnjnTye4MnBBOaOqQDlCemQZIrjz9uXi9fOjM0xWG31QGz/Fg8lTqXFvetB8Ziv6qs+PH/YlVw1Y6yfQx4sV2Vi90yycd8i3mykN3NfEPaRonoyExAZKjGRY4iME+TnWdqsOGFqCkWe2GKjO0o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nYdcX/Jp; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="poCrWqCM"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso7523a91.2
-        for <quic@lists.linux.dev>; Thu, 17 Sep 2026 12:06:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789672014; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYdcX/Jp"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8633a38df87so810803b3a.2
+        for <quic@lists.linux.dev>; Fri, 18 Sep 2026 12:51:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789761082; cv=none;
         d=google.com; s=arc-20260327;
-        b=eoTU1WvOZ9wuHvah+FvtlUNWWl2OFbSpmuuLkeK/EMlJUmXKxpbWK29CYIAJ8gllCB
-         tb0OR/vt4bWuTatlX+4BKfho64sZ1VcVhJT1CahBhB7TaMUdFRTVfx/0YuyzH37fdJmS
-         m/GUu7Aj1GAKRVBGjAt0+NtYC8v4SamjbioO7T7qLhkYbZzCSMEmVjFqta7KWTf8vagI
-         7IKN+qAjt73+rN5nuwbgn2a2PS49whogstglGmJ2G6KGNfRi6eWXKSIngT3dVUCdYPq1
-         eaGlNcemhFu+X+3giCi/NRV/tl/s+cHaZCHus80ZK6CZ3PQyqkaIV3okWcxL8iYDjVBe
-         dflg==
+        b=kqlNCwOVOp7ZTj3NVvCi3SvelqYHU2Dsx0SRnhP5/a59GcyRCn/vFs177YZOHoCIAx
+         3Ah9sqOKMLAiIfMcSjTPkyUqitxbgfpvS+gnkXOTvxwk9thxRFBrbDm6ei+nCjupb+BS
+         9PY38Hg1EuhaTDSquYdPYs+4QkMNGHLCNApSdQk8CE1G6xm7uju/eiCmLf6l4ooBx2tq
+         deu+2UUb/qkpSw9mnMbGbPK5li6TF+ByH0sFZZSxAl7aqmPMM67H4YCBGl6rA4lUTvFW
+         LHCkSo2JyZcL2w59sF2REKTLsldu7UGDMyPHiy0XxbgDCxbxh6c7qbioU8ijZPMniOMY
+         mPJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=AJdmTMqYmE/7xu/8ItFmggn+Kr8BDXFZhgiN1tzQfFI=;
-        fh=ssEereSpcPj4UEA8SY8ZiRlseNqDmj/EZiTwxrXtteE=;
-        b=i7z39FQMy+0c9gOX1lT7/VkdpsInRCvYLqNdkMYslbqPRnqWaz9bTNeAPS6lk2GNaq
-         ZARHqAdGPSGGtgfl5J75xJk+IvbPy2pwGpZy91+lKvFqvqZlaJg27+Lx40xHg5E94mn+
-         RrppSk2W+KDc49ijtzeXAUOmehe1fW5zcZzScls88daJ7axaEruVPcUPtkhSUa/DHWyY
-         Td4IN9zIMTdh0FDWdwHoRL8AqVsnN5qX2QfCX1t9YzORY7z/o5baPqs+iHLJ+63B5t0Z
-         gvaJKaWDmTeFz/7/KuL/zLJ9R2fa3Cl6sZtNGf0gNRRbc01hiSnQtePaVrjUWYA10NLg
-         BOBQ==;
+        bh=87V+Fh4sb0y1GssnVq8tqPVBCLJOUuiDb7vS0kmG6PY=;
+        fh=0CLMkV707R9J9If/FJ8Kxl3W/5rtPzv2LumLu1N/r+A=;
+        b=GvHu2aOlz3P7Jjw9yVlXegx0QY3aTCQV4bKziSp4Zt0P9kaAiFSA7P49dw25XLEFtI
+         355cNHT1J6Yk1nnST2cqp0a9YY8XEkYVR2zadm8wn0RNiNWkUnEUVNjadlfYFV2SoS2T
+         3tfx7HXgA9xzprVHuUKXloGimimGrDUhP8RBFdOaCuTJJ5zRoCAOs7bUpNados/PmW2B
+         beleZdaYJ44IZkDhlsx1H8xXzWqTSPLLl1f+d145mBLxFH417ZwnDMrXvAM50U+/0eq2
+         eQzFLlANzDJvWfw3IzJEHATaOU7qQZb3haWB+q9P6sDAnSf08Xcx1IvCjR9E9SpBY+U5
+         9Ywg==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789672014; x=1790276814; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1789761082; x=1790365882; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AJdmTMqYmE/7xu/8ItFmggn+Kr8BDXFZhgiN1tzQfFI=;
-        b=poCrWqCMvr2EbIQWEfR+NqVa4zGtElq/sl4situ0SiPK+8hH1MUSqSKn0NeEy6lV7f
-         fFeXbsw0bP9TIxdTSxhM2aGbyH9m4wEVeP2N0MZfUFrIDTJTrTH4ynpUONkspxVa+1zF
-         CXJ1g/k2AUNSh153+Sz08Ds9yi541Gp4xO4yJwaWzlJ5HuPdtQ6AofSN9V2w/9vA7z1O
-         yCb4TxgnVf06uFUhARzZsbQvAJy3p6Fphiz3WTEr2Hzt0ldZjxwYRqhyQKU0JM2oT04X
-         +jONybztfACq29mGr674VHvxkI2TfgjaGlPm+gVZSmWGaGGMVFdfIHdETQepMEVBjxJ4
-         tiNw==
+        bh=87V+Fh4sb0y1GssnVq8tqPVBCLJOUuiDb7vS0kmG6PY=;
+        b=nYdcX/Jp5vErx9BGAnEb0hSygDn7f2TtrAB0yBbuKWoBVCEtBLPNecxuaw8m85Z88a
+         f9nkLgZP0SVv0XZzvFz+DDF83SvAL8Qt0OJ1mqukSIFyeyVYcOzeFwLlDE3MzQmqrRhQ
+         iWjYHmtnGmCaL3DIHzCuPz4udG9nJZlMBJfQ7MhJH9wps7ae0xwgmiGLu49FjeAagVNA
+         AmzfiUd+5oGrPZqQgGKeLgKrg7hSV+LSQsuHE/4GGULKrcnzfMizygEqj/9XVffyQOYb
+         y01ZygNjc//2xu1If7VVIH9vU1blduaolEME702wRgdsn1G3IG4s7nI9xFOj3j27Tl6f
+         DL2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789672014; x=1790276814;
+        d=1e100.net; s=20260707; t=1789761082; x=1790365882;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AJdmTMqYmE/7xu/8ItFmggn+Kr8BDXFZhgiN1tzQfFI=;
-        b=w0PF2noVwxv1QNo3jI5hM0s+9nSot1xKTvNBozyDu53QGHjpVsMBOiC1eUxPZEb3PR
-         1DIUUB9eIu3lLdpP8l8VCvUxEYV+lXsQtxy9YSmDKns8Mwfbu78gsUhv43D1s0a/ULw+
-         Y1fXUH4Tccbnil1hBorU4NRg7bFoi3WX9aL4jLR+YdvIxKaLyaxi6jBAWBdn+T6qzwvN
-         smgWMV4VseaFxHp7n+R7u5ockShOPkW0cAWrpJfW1uCgtuQr3weSxl847YuwWvUoKlqD
-         Mscb0qPxPoydEF579YUEu+4/TVJvBPUqYnMlHsqmJCBMpc3srn0zhPouwS47EfAOL5/T
-         orLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzIPAR6xiJjPgECEwY90BRy6Zfx35yFyWw0UhCidqmwANYPJ8iNkseWXUP6bF40ffieuGW0@lists.linux.dev
-X-Gm-Message-State: AFuF++mNxuNoU5YImXpE21slXJFyaGYTHO2W4oGm2Ki2P2jLpChGZ9jV
-	lHawX3iOvUwDrAqqY0AoxlTmyvm5QNij59Ir3HO94tQykxC1fC0Tw0fiBL/WwvpcpQ6V1NkWADz
-	DzinOuO/UHw2E972Kfed5LwUuaZB4kYYVO8i59F9G
-X-Gm-Gg: AYBFou3a/AFSBC5fTIAgJIglNxfcpSZZ3VP0uKXCOv72mQZRQUQ99cAQSTLJ5YgLlYE
-	6bDGPRMn5NZZiYRwe2uSCcV67jhX8LRyXdV+4bjmqtGBCU3HZbK+tX7wojEJ034Zjgf1O3Mfax/
-	whp+SVd83caqa+mqsnp0wZ6HhM5AsFw5njzBTCzEfw2gQv5yb4iYnQ1BOnMtmPMfNYXnjF+h/r2
-	CG1iv5zjF9SnldsWZ3XwxRGkMZCA7gz26cnWw7mYO/GgLe/9nsLQgTZmky7DnK355IiVNfS9prJ
-	zn9APktAQWkIt9g1/F2zN/O5GuAxKgOHELPOinrC+nrl6xa6Fr2+vnYK39zjVQAfU4JBwdlKRxW
-	vAJJUrMB/Fzmzs32LRTBVf9SKnK9pGs2gkZjStKmsR9D1oQmltwT+RbzaAFWqWuF+a+dtH4vu1K
-	jMA8QYFDC6mJPpLWUkcXGbAi44Tg==
-X-Received: by 2002:a17:90b:54c4:b0:39e:4c7f:7308 with SMTP id
- 98e67ed59e1d1-39e55071981mr225580a91.31.1789672013089; Thu, 17 Sep 2026
- 12:06:53 -0700 (PDT)
+        bh=87V+Fh4sb0y1GssnVq8tqPVBCLJOUuiDb7vS0kmG6PY=;
+        b=c3mPXN3/RV9HtOJm7FyL4ehq8dHXR6IyGl6XOCu/28dkHrvEldNUVuLtYg9xQBDPJP
+         S8AZAoqQ1tpAo2O5n46qKxBU7DvHLnBRecIoRFLI6CBLn4+W0EW91c6i2KRbfEMffr+2
+         OP8Tostvzur2AVzep3GDGTsVBGA0vyB5h7FrPyXM1dOOmpE6QwUHemM8i4abAFdLYde2
+         5tVuyJkAK6ZUXrPL9zuB8RTM70z64cJjgvzdLYArysgZu3/NTofdMKBbR1AUaCloFg7h
+         WCMicBBVI8Qu4nNapkCu22NDB2xQRZo8sdZ5ixfFNaKy2Tie4Qz9e0UOmIEvs2STkEC4
+         jdUA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5lraOH6OcMTLWy8YgH6eFVyyQFmkcfL3g3uECGGLFuVYmlbdUpSrVhKCbZkqtNJCrDwNc@lists.linux.dev
+X-Gm-Message-State: AFuF++kJomY6I0O7zpsvkiKVlJXt4K1AWoX26JWscQm19V6L1qRDBz0t
+	kLRrE6upeyW78GXKGoFhazNcEV/XRw0uG1DEfBsbBRNpA7v1bdZ6rezhwtRgzrC76fOOkLdD3s+
+	TNdcnWpdu2t2UYUk50UBI4c8I3Z8kIB8=
+X-Gm-Gg: AYBFou2EBjMAJUWFv7YcV3SPCCGgiKuvHyDw2+W70HhoLjKNdTVOHU+HPG2w6zNi87H
+	aUMxdROl064MRtrr6Xu1fKlPmerwlRUyDXiUbDyFDNQ0kpjN8sJsyeKb2hJwgWc+AdI4AZpAA7+
+	6ose4d1C3hK8VtTOWOeJrWzCPcoy0yhGka+Gi25b8jvCJqg05hdPD+ax90i4QdsCXezfqN7W6Dv
+	tf0Sqxa2i1lTjTSbVdnhCMBzTgBIpOlTsR4k/btI42wALSWqX7Abo4PSLR/MX3bvCdK60HNaUGv
+	evbuO7JFygiGl8iBroNGm2udbMd8yzqh6PlycODwNsREvgQzESP6x/7OfT6MppGo88aXqNKdsiX
+	P2yLO6+J8zbb3YY7xRA7TU4GTZggpwSdTSSsvBVaLvo4BxDyfZfKwHwJw
+X-Received: by 2002:a05:6a00:4185:b0:86b:b308:b926 with SMTP id
+ d2e1a72fcca58-874dcbed261mr7094177b3a.14.1789761082116; Fri, 18 Sep 2026
+ 12:51:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
@@ -86,13 +85,14 @@ List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 References: <CADvbK_dHPkHjkPwu0RepYgDsHs5reHepprRHU9hDFBxQM9_RGw@mail.gmail.com>
  <20260916234654.420056-1-kuniyu@google.com> <CADvbK_df5X=Szsd-d8=0gndhoBSHJhnEqSh826iYUW6=Ce_xEw@mail.gmail.com>
-In-Reply-To: <CADvbK_df5X=Szsd-d8=0gndhoBSHJhnEqSh826iYUW6=Ce_xEw@mail.gmail.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Thu, 17 Sep 2026 12:06:41 -0700
-X-Gm-Features: AcwNN1Vf1Dgl1Yuz1331KMxjXrgwRsS9uLrWePJOZIUaTVSoZLWo_yT69Va3HQo
-Message-ID: <CAAVpQUCRcBQOS4H5zJBOoYeCgsQBiGyu8gjhXaocDXDw9jqTOg@mail.gmail.com>
+ <CAAVpQUCRcBQOS4H5zJBOoYeCgsQBiGyu8gjhXaocDXDw9jqTOg@mail.gmail.com>
+In-Reply-To: <CAAVpQUCRcBQOS4H5zJBOoYeCgsQBiGyu8gjhXaocDXDw9jqTOg@mail.gmail.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Fri, 18 Sep 2026 15:51:09 -0400
+X-Gm-Features: AcwNN1VIcCElFEGPge_VRMPC4oISQAbf6IB5C7NCKiJGMnhf9LEZN0g8RJucO_Q
+Message-ID: <CADvbK_cweNjHtX-m=Ba5BT3g3aHhJ7se5TqaW44OXicONW6oYQ@mail.gmail.com>
 Subject: Re: [PATCH net-next v15 15/15] quic: add packet parser base
-To: Xin Long <lucien.xin@gmail.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>
 Cc: aahringo@redhat.com, alibuda@linux.alibaba.com, 
 	andrew.gospodarek@broadcom.com, chuck.lever@oracle.com, daniel@haxx.se, 
 	davem@davemloft.net, dhowells@redhat.com, dreibh@simula.no, 
@@ -108,80 +108,78 @@ Cc: aahringo@redhat.com, alibuda@linux.alibaba.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 6:38=E2=80=AFAM Xin Long <lucien.xin@gmail.com> wro=
-te:
+On Thu, Sep 17, 2026 at 3:06=E2=80=AFPM Kuniyuki Iwashima <kuniyu@google.co=
+m> wrote:
 >
-> On Wed, Sep 16, 2026 at 7:46=E2=80=AFPM Kuniyuki Iwashima <kuniyu@google.=
-com> wrote:
+> On Thu, Sep 17, 2026 at 6:38=E2=80=AFAM Xin Long <lucien.xin@gmail.com> w=
+rote:
 > >
-> > From: Xin Long <lucien.xin@gmail.com>
-> > Date: Wed, 16 Sep 2026 14:08:22 -0400
-> > > > > +struct sock *quic_listen_sock_lookup(struct sk_buff *skb, union =
-quic_addr *sa,
-> > > > > +                                  union quic_addr *da, struct so=
-ck *usk,
-> > > > > +                                  struct quic_data *alpns)
-> > > > > +{
-> > > >
-> > > > [ ... ]
-> > > >
-> > > > > +out:
-> > > > > +     if (sk && sk->sk_reuseport)
-> > > > > +             sk =3D reuseport_select_sock(sk, quic_addr_hash(net=
-, da), skb, 1);
-> > > >
-> > > > [Severity: Medium]
-> > > > Should the hdr_len argument be 0 rather than 1 here?
-> > > >
-> > > > quic_udp_rcv() already did skb_pull(skb, sizeof(struct udphdr)) bef=
-ore
-> > > > quic_packet_rcv() is reached, so skb->data points at the QUIC paylo=
-ad, and
-> > > > reuseport_select_sock() documents hdr_len as how far the pointer mu=
-st advance
-> > > > to reach the payload.
-> > > >
-> > > > With a classic SO_ATTACH_REUSEPORT_CBPF program, run_bpf_filter() d=
-oes:
-> > > >
-> > > > net/core/sock_reuseport.c:
-> > > >         if (unlikely(!pskb_may_pull(skb, hdr_len)))
-> > > >                 return -EINVAL;
-> > > >         ...
-> > > >         pskb_pull(skb, hdr_len);
-> > > >         ...
-> > > >         __skb_push(skb, hdr_len);
-> > > >
-> > > > so the filter would see the datagram starting one byte into the QUI=
-C header:
-> > > > all its offsets are shifted and the first byte (form/fixed/type bit=
-s) is
-> > > > invisible, which can select the wrong socket in the reuseport group=
-.
-> > > >
-> > > > [ ... ]
-> > > >
-> > > True:
+> > On Wed, Sep 16, 2026 at 7:46=E2=80=AFPM Kuniyuki Iwashima <kuniyu@googl=
+e.com> wrote:
 > > >
-> > > BPF programs may need to access the QUIC header, so I will pass 0 to
-> > > reuseport_select_sock() to ensure the full QUIC packet is visible.
+> > > From: Xin Long <lucien.xin@gmail.com>
+> > > Date: Wed, 16 Sep 2026 14:08:22 -0400
+> > > > > > +struct sock *quic_listen_sock_lookup(struct sk_buff *skb, unio=
+n quic_addr *sa,
+> > > > > > +                                  union quic_addr *da, struct =
+sock *usk,
+> > > > > > +                                  struct quic_data *alpns)
+> > > > > > +{
+> > > > >
+> > > > > [ ... ]
+> > > > >
+> > > > > > +out:
+> > > > > > +     if (sk && sk->sk_reuseport)
+> > > > > > +             sk =3D reuseport_select_sock(sk, quic_addr_hash(n=
+et, da), skb, 1);
+> > > > >
+> > > > > [Severity: Medium]
+> > > > > Should the hdr_len argument be 0 rather than 1 here?
+> > > > >
+> > > > > quic_udp_rcv() already did skb_pull(skb, sizeof(struct udphdr)) b=
+efore
+> > > > > quic_packet_rcv() is reached, so skb->data points at the QUIC pay=
+load, and
+> > > > > reuseport_select_sock() documents hdr_len as how far the pointer =
+must advance
+> > > > > to reach the payload.
+> > > > >
+> > > > > With a classic SO_ATTACH_REUSEPORT_CBPF program, run_bpf_filter()=
+ does:
+> > > > >
+> > > > > net/core/sock_reuseport.c:
+> > > > >         if (unlikely(!pskb_may_pull(skb, hdr_len)))
+> > > > >                 return -EINVAL;
+> > > > >         ...
+> > > > >         pskb_pull(skb, hdr_len);
+> > > > >         ...
+> > > > >         __skb_push(skb, hdr_len);
+> > > > >
+> > > > > so the filter would see the datagram starting one byte into the Q=
+UIC header:
+> > > > > all its offsets are shifted and the first byte (form/fixed/type b=
+its) is
+> > > > > invisible, which can select the wrong socket in the reuseport gro=
+up.
+> > > > >
+> > > > > [ ... ]
+> > > > >
+> > > > True:
+> > > >
+> > > > BPF programs may need to access the QUIC header, so I will pass 0 t=
+o
+> > > > reuseport_select_sock() to ensure the full QUIC packet is visible.
+> > >
+> > > Why do you use reuseport_select_sock() here ?
 > >
-> > Why do you use reuseport_select_sock() here ?
+> > Because QUIC socket supports SO_REUSEPORT and allows multiple sockets
+> > listening on the same addr/port/ALPNs:
+> >
+> > https://github.com/lxin/quic/blob/main/modules/net/quic/socket.c#L724
 >
-> Because QUIC socket supports SO_REUSEPORT and allows multiple sockets
-> listening on the same addr/port/ALPNs:
+> Okay, I was wondering how it was supposed to work without
+> reuseport_add_sock() etc.
 >
-> https://github.com/lxin/quic/blob/main/modules/net/quic/socket.c#L724
-
-Okay, I was wondering how it was supposed to work without
-reuseport_add_sock() etc.
-
-reuseport_select_sock() should be moved to a later patch.
-
-
+> reuseport_select_sock() should be moved to a later patch.
 >
-> The client Initial packet can select the listening socket based on the
-> packet's source address and port, or by a BPF program that can inspect
-> the QUIC packet.
->
-> Thanks.
+I'll try. Thanks.
