@@ -1,96 +1,96 @@
 Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7844233345A
-	for <quic@lists.linux.dev>; Fri,  9 Oct 2026 01:44:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB061429D
+	for <quic@lists.linux.dev>; Fri,  9 Oct 2026 01:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791510286; cv=pass; b=jHVgMNae+rgJCFNPzeLmbq1mpN4HgLRICcASg1G2A9VVn2OQ1IRtoQHEP/ezIbpxPESme/oQgg5+YcAiZ8z9051qJg68pZuoz6EeO2lm/DziVDVdtOC7EFIHITEESc9CXz4RfWkd0v7Wfnlg36nSKK0RNNN0ajZXFHeM65XG+6s=
+	t=1791510518; cv=pass; b=of+N+LITgEQPrhwyWQSfwjHYcuip6a4vzL86+zdSKufM9eXSlXoTLjMEz2JYeU40ZJHLMGO91zz2Oln/9pAKiaOvYj4hygx3dVeI2c2repxLVzyEf0nP0FrEwNHoWKlxt4YTcmjcvsxunXmRfJvxEdcLgqTDHZvpwW3unThhoRU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791510286; c=relaxed/simple;
-	bh=ifO55Y1woCrSdawvKXwuZCI6hB5bLQyKtt689Hg6oug=;
+	s=arc-20240116; t=1791510518; c=relaxed/simple;
+	bh=wUTN84wEWmLrTrkwe83lVi5yrj5Vdynx3RbkpcvXUYQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mV8F2wQMV+51DNdF7/7wQyhidRWdMYnBXtJniIcEHhEkrFe5omSOQew+XaGNVLBDnMemuthTz02K802RvY5A0e7Fpf5Jb7IA2hxg3youwbkYX1Gk0ACb59UZ6e9tamTKgStBjZD24/LYYSk/pF1NI8Eo0zzzgbhEbLZaubriHzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R4rBIA7v; arc=pass smtp.client-ip=209.85.210.173
+	 To:Cc:Content-Type; b=Uym91Jdcj/BJ1PXTg7IR86fopnCaBkPbBi0E04PQ0RRjnlY0fH0+ier/rhfort4d8UBJ2va4/bIxAPRvvA4UWeMDvcGu8Lj0EhJj4huboTkAfL/VDrLhcjca8cGkY/Wws32955AoPuEoWkHgxSDasKdQW3Ft2w6DrAZI4NcQHqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TbsOAXDT; arc=pass smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R4rBIA7v"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-878b44611ffso2846301b3a.3
-        for <quic@lists.linux.dev>; Thu, 08 Oct 2026 18:44:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791510284; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TbsOAXDT"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-872024e2b4eso1853001b3a.0
+        for <quic@lists.linux.dev>; Thu, 08 Oct 2026 18:48:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791510516; cv=none;
         d=google.com; s=arc-20260327;
-        b=olr236YcGDbStyO4pbT4dFrW+5lMATbjQOOj8/+FHqOe5kQuLoaoNeD/zH1t17qAMT
-         D50IdYo7GMvXI1TH9JovFq1OCeq9ZIgKrsqWabwVeaHKcUSfwuPlPIobC5sFaumPiXbd
-         5NGwHswhxB8bfpMhiPbMzGGrS1blwFFtCZCTfn07hVKR8fE2I/58O90UiLuuLRnVsn1E
-         MQNL+pksvYUhfHb5NGDAIrVpg+oDbCNKxAkSdtSThzJftP7IR0MwQzKENRLOLg1kJQWj
-         0gZggavDSPJ+kwqKMJE8g5sRqDLdV8FnRuxfqrNSBbWFcYP1Qg9g4Bqpv1bTOQXKvqGO
-         ezJQ==
+        b=dhLTfNnSP2xYs3wcXJuq1K3A2cNR2DvpbAMYX+FNpfjb7XSfxss8/eVRS5qauUOB1R
+         e2IRtRCNzyiTlCjPwTcx74Ivg8ilsLV3UZtEn25LtiSf6Ho0Yavp7Llgr6xp+K1AYW55
+         CIJFe2zZ9O+ZfrJMgYSRtMCXZ55IaBzq04mFxxCRkfx4qOlC7vzOvltjZexlf5+Ckev1
+         VUlgf1r4N+FuAfFXHIWVqG15v77jF/lDFs55sFBjdZwXXB0kpdB+S6Lz67rQ8LSBFKgv
+         Alk28fCJpOdwi6k7G7wwwhOR2TTDdS6ujJXXI3V1WlzqLS3UwAywYmzQQJz/UpzjZTo2
+         NViQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZlGj4iJYIsBwKh9YN7bwtWSK6UPi/wdJW0+jMmmEn7w=;
-        fh=NNGRC0Fv0C8SHYVKb5tUC6IFXfBFaDXAJnun9+DEpGs=;
-        b=ieI6Q1/dPljBQbv59u2e0tDWI55QsMVFZMx+QsKePN7Mge/oxHRgcOfe+QlyoCBb5D
-         iVTa2sFPNYCL4A/UsnqjCb8KKaGpmQsgW9EdtD55xQ8HT/x8bamC1AlYztUOQsUI3rhj
-         FpN5RRtplfW5iUSRD2fB+sRv2R0y13GXLTvPjZP/FMGFicMEBhxPi4lJ2QVg2apUPmhs
-         6Exv2/5mAFr8fxvo3hapGdh/1NuAL7/2XeGFxyhqNChbEZ5kPhGcKpifht9RNX4yYu0K
-         K2wgXNa2wvKCMu18DoV+TRyfEHrhQJ6dbHVcD5TwD9rj4LZ7EbCDBRqC5KIKbbQC5uab
-         EpaQ==;
+        bh=g0cBSDkX5TVuKiqF8g84xPSGpnh8it3kfI90lKRUo4w=;
+        fh=mLN1zxFqhWW4BFQsNX3N1v+3vr7DrVoBnhJqWcDq0xU=;
+        b=jLnR6HXeE/Ua97w0YUTCRq4FTyC7A3iiPGrjJOKVQ7PGgV0mDnhghzllmyWgdRNQVq
+         S92G1A/vfLtIqQ2XXyBfhpLApGiyC6IWet841v9jgZYq5WFyMEm/ZkcNvgyqUjA151DS
+         NnI4QLsFgnr8RQ9SQUpU2b1OL3bXUIuSJWLTw4jrhaTUIvuPFGAZkBHun+EY39mbu9xp
+         TU6iMB5ZM6WEZaEyMz0Tb/MfbrVnDbo1WueoO8cCy6FlrRrICnnC1Rce0L0/a1YJlEH/
+         47lm7thOK1lsCOBW6kl5+NSfa9wziX5OikRcNOmX5X/kV8fWWOo+alcNIGxqYbL138oU
+         08DQ==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791510284; x=1792115084; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1791510516; x=1792115316; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZlGj4iJYIsBwKh9YN7bwtWSK6UPi/wdJW0+jMmmEn7w=;
-        b=R4rBIA7voaDKGjPzx9az6uMoLlrjmZw+TGGx0FCaDXEqfPH35uOXTUENbT49sqS2Z2
-         7kqf8thdB59w8FoBLTYlpfQ69f6m/7tHu4+gOCLP6+C6mYlShJmW3nMU/iPd0KiHRHRd
-         QABLDVIHoIU5ExdppzTWSdg8jNCufqXqIVPEPvzfk9zmSlRlRkHHVUk4XeLJrqmgYDaB
-         dxfdv8qJZhYnA9Y+DeFUmT3qVsuw+ujZ89+2OuQpK4gw29K0hub4JYKED7+C2tNnXIAJ
-         5QBIXPtWjqlIXgSaBYrENSeYifNJ0i3LcWnQ14h4P+/Lal+C6wOyEkfhgvXB9SD7lwwx
-         ghxA==
+        bh=g0cBSDkX5TVuKiqF8g84xPSGpnh8it3kfI90lKRUo4w=;
+        b=TbsOAXDT4NW5x825Lr9cVL6zPBKW3v+xvT5++OcA4uno45ZW0jogDRxKfjhlesh4ot
+         fYGmuE1PH42AIZPlRrNSE/52NWR6K5Pg7x5AKSHsEMtk4c/8V8uyxpK43OdjucFv4pBf
+         r/WNtBuY4zIPIvx5TjgQeCMISoN0AL0qJF1O+DFyEOCFYq4J4dnpffF67dUBN2+sT359
+         pGjKQxW05kJatCaGCmQqb7NIF6W3+swbQ+Pkw4Ni4FzVFeC7UnmyOf8J96miY6mKOQL8
+         Hkd+bBejvozaDQX67qz/0dGTKbQ+UwbI0TRHHV4Opc+vW1ML2RpbRF0mrROXTrXeS5hf
+         EBtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791510284; x=1792115084;
+        d=1e100.net; s=20260707; t=1791510516; x=1792115316;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZlGj4iJYIsBwKh9YN7bwtWSK6UPi/wdJW0+jMmmEn7w=;
-        b=wU071uLy56HFBdL+hcV8dRQ31PWqCm1H2Bt8PAqIGjCpZ38dquhiZ9Fr7879OpsK7k
-         ncTHwxhnDXUPcEjKNkdRay9Q9jC2n6tIxN5puUlm8EUMJ8o8h7rF5cU4Isc1hDp2YNkG
-         ctTifSlIdKDR7v/QpZe+wd5BzKtTxYVEzP1yxFqn4HVmQ1jVErI13063qyx/gWwHvNLv
-         fOG4BcFdX1/CU3L/z9gxR7HoJGlzX7coJiw4vT2eSSoLjW9lmYpPOuPBJg3qhtiXzk0O
-         tob01KSvEfN0Ea9+xjFhGD8WvsT3N8FitBnyUJKC/ITVCLDKEcH2ii3QmK3tISzOSfyk
-         IcJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYPQTN2oEljgIHo6PrhFOU0p1eeCA4jJlupTM6YMGs2JhIUss4CzraVjfdSO5fz3FFXILP@lists.linux.dev
-X-Gm-Message-State: AFq9FYL30ZaNJjUDuLo72xz2O1f8o2AzzTmuy1Q0XZgk6nbbYTN46Blq
-	cme42kGWPTQ6hl3vrMTo748zvBs4FcHhArZXrl5RRnwC0UingD/2F+z58utmkrgVqqpExxC0wxb
-	nZj3isXWnpTLJl3W2AXtpJ5I/YMwvT1M=
-X-Gm-Gg: AYBFou2uDLiBRUPLRLKW2aKUedQlYbSCkytSjKTA9BTE11aeKBUDFKiNXTpUdsrSNsY
-	cO1n/XVRkHmDc5s7Hh3AxwMfgtSLODjyiIp1HrpNqLADI7QjJ8hXJ77kZNNa5zFPHbKYGhDSF9u
-	LkgfHzB0Zc530MeBSa/Epsn/7L2VhDGMQpyHTIknza9BV08DDqyCJV6fKMJCLkOsj/a+5yPrBty
-	rHYj7Ev4o4Iv2M2oFNxGxm7Oc50GAjvpsXCCWbLfgLIEMzD+ZBhqWOh5IuaIHy2D4RWqQUZ4S2o
-	zXb4KepwrjGmnFkVGNy2PoR53sogBbtrs/aJZaFSffYAh9KMJCpTM3WbsgXB8MUVmYTktWuUaUY
-	/1asPnG6L8pMlESMOW6m3hBix1128/Ltkqt51nAPXyigfEWCnUGr5I38a+UHcH4Qo
-X-Received: by 2002:a05:6a00:f8a:b0:880:740c:927c with SMTP id
- d2e1a72fcca58-897c41e8cf0mr271786b3a.8.1791510283786; Thu, 08 Oct 2026
- 18:44:43 -0700 (PDT)
+        bh=g0cBSDkX5TVuKiqF8g84xPSGpnh8it3kfI90lKRUo4w=;
+        b=dO6TQ33BkUVJURbfc6f6KX7ODSaLLFtvaLblQ7V0yA83+lgJCik7nHYzNNIQtEKhT8
+         wRd5PS9BvT6SY8YxqndtzstESgR0lcfB2Dl4SlssUcnvCWwDLjGG7UeCXNaL9JhZ17t4
+         BOXu4qPwQpfVGiefoayMm2Oi3IxHRuVl5iDrGB/BXjwWB1tAX+hRYniWbf1qTCSaPa4t
+         V30LDc+tpnUV7t6ZgsiKQB2UVTzXDh3i7ae2U3tePyKd8mkkCJrUMq/UdALuF4xtH7mm
+         dXCBdIeCFFUCJSSoJU4A9WVXcdSfEQ3evTuue4fgATV/Sa0ecsyip/+jTXMxSaq8pXQ1
+         LSpw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDhlIOiSpvW+Ddn9moYYhaut8IkUPmwa8mAcY4P6f92NtOTE8Y2BEMvKzdJUEg1l9b9HEb@lists.linux.dev
+X-Gm-Message-State: AFq9FYKe86hpGZ2UCyIuhsWyYgTsYKKRNQETAfYgp/gD0wl2vTH0nsFt
+	/XcTF3zAlG5h709YUfx4GdXpyp1czILgjOFxAip2Qowt1VKvZv5lzPaPovA5991Zx+Z14a7Df/d
+	g6/eVqIhB9zUwpxYoci+7wgnGzyVmLTo=
+X-Gm-Gg: AYBFou0kMkqlR3hG0YLdHS+ejigl+RG++J0vXk0fhbFKyvjiT0USH4X3bRo1dr05//J
+	mVd2Bh6jVy/ldJZL+7fBWEgx/OwkcsZ5MTDlhntD6IqFDrFkK8UHjilNPLpfVDvkTllfpPRAwiL
+	YGNXiru3NvHnBUfi3sjpJZpZTbL6FE1cfzE2tNPjhAO9KyvGsGiM5tIPTBljrXvr8zLUp+NTblo
+	i1vWtfU6IcURisQVgLYk6chEZpmIwAPt5PUjnqSodeXmee2zDdcon2f5L8fDdQ/3DKZODX9Jxvb
+	54AidOUx+B4jMU+BEylL9P3Adtqx0qq4iTF0HG9OpO8h+h0bPmLpvYS7hMCMuUwFFAAjXDUApwD
+	Cz+TVFQ2dhxTYARv9iuTYSmlR9L7BkG2lXotyvjdIcNJbG8I/wxz9
+X-Received: by 2002:a05:6a00:99a:b0:881:ac65:715e with SMTP id
+ d2e1a72fcca58-897c82b3a1dmr267063b3a.58.1791510515511; Thu, 08 Oct 2026
+ 18:48:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <e7412c320cae4da8e01f4f4809f92e570a999593.1791227050.git.lucien.xin@gmail.com>
- <179133512119.434549.18318076229328796602@kernel.org>
-In-Reply-To: <179133512119.434549.18318076229328796602@kernel.org>
+References: <4dc3c5117810571e41211781bd0280510460e4da.1791227050.git.lucien.xin@gmail.com>
+ <179133512379.434549.1011079085204348692@kernel.org>
+In-Reply-To: <179133512379.434549.1011079085204348692@kernel.org>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 8 Oct 2026 21:44:30 -0400
-X-Gm-Features: AclHuK-lPgRdTjidUztJ96WcL1mJloJjp4wGF3s35F5afM1dBKT-4-2J0gwHe18
-Message-ID: <CADvbK_dAWQs-duCEhK8wuZ9CHto1Ykmpyh9X_8rR1kS503EaDg@mail.gmail.com>
-Subject: Re: [PATCH net-next v16 11/15] quic: add crypto key derivation and installation
+Date: Thu, 8 Oct 2026 21:48:24 -0400
+X-Gm-Features: AclHuK9uRikezuu_s0N89XRYmqsG92abnIe6hnbR5B-c3f-eILbuCbfT4rSeql8
+Message-ID: <CADvbK_f3s+p803=1UmbsG594jNsjXoyy4DDB4wzhCCoK_+EYAA@mail.gmail.com>
+Subject: Re: [PATCH net-next v16 12/15] quic: add crypto packet encryption and decryption
 To: netdev-bot+sashiko@kernel.org
 Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, edumazet@google.com, pabeni@redhat.com, horms@kernel.org, 
@@ -109,10 +109,10 @@ Content-Transfer-Encoding: quoted-printable
 On Tue, Oct 6, 2026 at 9:05=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
 e:
 >
-> Thank you for your contribution! Sashiko AI review found 2 potential
+> Thank you for your contribution! Sashiko AI review found 5 potential
 > issue(s) to consider.
 >
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 3
 >
 > If you believe none of the issues are legitimate, please reply to each
 > issue of Medium severity or higher and explain why the AI is wrong.
@@ -122,115 +122,282 @@ k
 y
 > (one such reply per series is enough).
 >
-> - [Medium] quic_crypto_keys_derive_and_install() (net/quic/crypto.c) sets
->   `crypto->rx_fails[phase] =3D 0` every time it installs RX keys.
-> - [Low] Two comments in net/quic/crypto.c do not match the code.
+> - [Medium] The AEAD integrity limit that this patch enforces does not
+>   count failures across the whole connection, as RFC 9001 =C2=A76.6 requi=
+res.
+> - [Medium] quic_crypto_generate_token() writes the raw 64-bit
+>   quic_ktime_get_us() timestamp (ktime_get(), i.e. CLOCK_MONOTONIC in =C2=
+=B5s=E2=80=A6
+> - [Low] The kernel-doc of quic_crypto_verify_token() says "Return: 0 if
+>   the token is valid, -EINVAL if invalid, or another negative error=E2=80=
+=A6
+> - [Low] quic_crypto_decrypt() counts every non-EINPROGRESS failure of
+>   quic_crypto_payload_protect() toward the AEAD integrity limit, not=E2=
+=80=A6
+> - [Low] async_pending[] is used as a quiescence check before re-keying a
+>   tfm, but both sides use unordered atomics.
 >
 > --
 >
-> quic: add crypto key derivation and installation
+> quic: add crypto packet encryption and decryption
 >
-> This patch adds the quic_crypto component. It derives and installs QUIC
-> packet protection keys for the Initial, Handshake, 0-RTT and 1-RTT
-> levels. Its helpers cover initial key installation, transform allocation,
-> traffic secret installation, key updates, and secret derivation for
-> stateless reset tokens and session resumption, and a new
-> quic_sock_destruct() frees the crypto state.
+> This patch adds AEAD payload protection and QUIC header protection for
+> TX and RX via quic_crypto_encrypt() and quic_crypto_decrypt(). It also
+> adds helpers to compute the Retry integrity tag, and to generate and
+> verify Retry/address validation tokens.
 >
 > > diff --git a/net/quic/crypto.c b/net/quic/crypto.c
-> > new file mode 100644
-> > index 0000000000000..4bb6acea5112a
-> > --- /dev/null
+> > index 4bb6acea5112a..fa326cc9266a8 100644
+> > --- a/net/quic/crypto.c
 > > +++ b/net/quic/crypto.c
-> > @@ -0,0 +1,587 @@
+> > @@ -270,6 +271,484 @@ ciphers[QUIC_CIPHER_MAX + 1 - QUIC_CIPHER_MIN] =
+=3D {
 >
 > [ ... ]
 >
-> > +/* Derive and install reception (RX) or transmission (TX) packet prote=
-ction
-> > + * keys for the current key phase.  This installs AEAD protection key,=
- IV, and
-> > + * optionally header protection key.
-> > + */
->
-> [Severity: Low]
-> This isn't a bug, but this comment says the keys are installed "for the
-> current key phase". The function takes an explicit phase argument, and
-> quic_crypto_key_update() calls it with !phase, which is the next phase.
->
-> That is also the case where header protection key derivation is skipped:
->
->         if (crypto->key_phase =3D=3D phase)
->                 hp =3D quic_data(&hp_k, hp_key, keylen);
->
-> There is a similar mismatch in quic_crypto_set_cipher(). The comments say=
-:
->
->         /* Allocate AEAD and HP transform for each RX key phase. */
->         ...
->         /* Allocate AEAD and HP transform for each TX key phase. */
->
-> But only one HP skcipher is allocated per direction (rx_hp_tfm and
-> tx_hp_tfm), and both phases share it. Only the AEAD tfms are per phase.
->
-> Could these comments be updated to match the code?
->
-> > +static int quic_crypto_keys_derive_and_install(struct quic_crypto *cry=
-pto,
-> > +                                            bool rx, u8 phase)
+> > +int quic_crypto_decrypt(struct quic_crypto *crypto, struct sk_buff *sk=
+b,
+> > +                     gfp_t gfp)
 > > +{
 >
 > [ ... ]
 >
-> > +     if (rx) {
-> > +             crypto->rx_fails[phase] =3D 0;
+> > +     phase =3D cb->key_phase;
+> > +     if (phase !=3D crypto->key_phase && !crypto->key_pending) {
+> > +             if (!crypto->send_ready) /* Not ready for key update. */
+> > +                     return -EINVAL;
+> > +             if (!cb->backlog) /* Key update requires process context.=
+ */
+> > +                     return -EKEYREVOKED;
+> > +             /* Cannot do key update while async crypto is in progress=
+. */
+> > +             if (unlikely(atomic_read(&crypto->async_pending[phase])))
+> > +                     return -EBUSY;
+> > +             err =3D quic_crypto_key_update(crypto); /* Perform key up=
+date. */
 >
-> [Severity: Medium]
-> Can resetting rx_fails[phase] here let the connection go past the AEAD
+> [Severity: Low]
+> Is the ordering here strong enough for async_pending[] to work as a
+> quiescence check before re-keying?
+>
+> quic_crypto_done() signals completion with a plain atomic_dec(). Per
+> Documentation/atomic_t.txt, that operation is unordered:
+>
+>     atomic_dec(&crypto->async_pending[cb->key_phase]);
+>
+> This side reads the counter with a relaxed atomic_read(). When it sees 0,
+> it calls quic_crypto_key_update(), which rewrites the key schedule throug=
+h
+> crypto_aead_setkey().
+>
+> Nothing orders the completing CPU's loads of the key schedule during the
+> AEAD operation before its decrement. The socket lock does not cover this,
+> because the decrement happens before cb->crypto_done() takes the lock
+> again.
+>
+> On weakly ordered architectures, can the re-keying CPU see 0 and overwrit=
+e
+> the key while the completing request's reads are still unordered? Would
+> atomic_dec_return_release(), or smp_mb__before_atomic() plus atomic_dec()=
+,
+> in quic_crypto_done() paired with atomic_read_acquire() here be needed?
+>
+> > +             if (err) {
+> > +                     cb->errcode =3D QUIC_TRANSPORT_ERROR_KEY_UPDATE;
+> > +                     return err;
+> > +             }
+> > +             cb->sync =3D 1;
+> > +             cb->key_update =3D 1; /* Mark packet as triggering key up=
+date. */
+> > +     }
+> > +
+> > +     err =3D quic_crypto_payload_protect(crypto, skb, false, gfp);
+> > +     if (err) {
+> > +             if (err =3D=3D -EINPROGRESS)
+> > +                     return err;
+> > +             /* When using the old keys can not decrypt the packets, t=
+he
+> > +              * peer might start another key_update. Thus, clear the l=
+ast
+> > +              * key_pending so that next packets will trigger the new
+> > +              * key-update.
+> > +              */
+> > +             if (crypto->key_pending && phase !=3D crypto->key_phase) =
+{
+> > +                     crypto->key_pending =3D 0;
+> > +                     crypto->key_update_time =3D 0;
+> > +                     crypto->key_update_send_time =3D 0;
+> > +             }
+> > +             goto err;
+> > +     }
+>
+> [Severity: Low]
+> Should every quic_crypto_payload_protect() failure count toward the AEAD
 > integrity limit?
 >
-> RFC 9001 section 6.6 says endpoints must count packets that fail
-> authentication across all keys used in the connection. Once that total
-> goes over the integrity limit, the endpoint has to close the connection
-> with AEAD_LIMIT_REACHED.
+> All of these reach the err label and increment rx_fails[cb->key_phase]:
 >
-> Here the counter is split by key phase, and every RX key installation
-> zeroes it, including each key update:
+>   - -ENOMEM from quic_crypto_aead_mem_alloc()
+>   - a negative skb_to_sgvec() result
+>   - on the resume path, any async engine error delivered in
+>     cb->crypto_err
 >
-> quic_crypto_key_update()
->     quic_crypto_keys_derive_and_install(crypto, true, !phase)
->         crypto->rx_fails[phase] =3D 0;
+> RFC 9001 section 6.6 counts only received packets that fail
+> authentication.
 >
-> crypto.h also describes rxlimit as "Max failures decrypted per key".
+> Under sustained allocation failure, could a legitimate connection end up
+> with -EKEYEXPIRED (AEAD_LIMIT_REACHED) instead of just dropping packets?
 >
-> Later in the series, "quic: add crypto packet encryption and decryption"
-> checks the limit in quic_crypto_decrypt() like this:
+> [ ... ]
 >
->         if (++crypto->rx_fails[cb->key_phase] >=3D crypto->cipher->rxlimi=
+> > +     return 0;
+> > +err:
+> > +     if (++crypto->rx_fails[cb->key_phase] >=3D crypto->cipher->rxlimi=
 t)
->                 err =3D -EKEYEXPIRED;
+> > +             err =3D -EKEYEXPIRED;
+> > +     return err;
+> > +}
 >
-> The later patches do not change how the counter works.
+> [Severity: Medium]
+> Does this enforce the integrity limit across the whole connection, as
+> RFC 9001 section 6.6 requires?
 >
-> An off-path attacker who knows the connection ID could send forged
-> short-header packets until one phase counter is just below rxlimit. The
-> next legitimate key update would then reset that counter to zero.
+> The comment on the QUIC_AEAD_RX_* constants cites that section. It says
+> endpoints MUST count packets that fail authentication during the lifetime
+> of a connection, across all keys.
 >
-> With AES-CCM the limit is 2^21.5. A busy connection also has to update
-> its keys about every 2^21.5 sent packets, so the attacker's total
-> forgery budget grows with each key update. Splitting the count by phase
-> also allows about twice rxlimit per key epoch.
+> Two things seem to weaken the limit here.
 >
-> Should rx_fails be one connection-wide counter that key installation does
-> not reset?
+> First, cb->key_phase comes from the key bit after header protection is
+> removed, and the packet has not been authenticated yet. Forged
+> short-header packets therefore spread across both rx_fails[] slots, which
+> allows about 2 * rxlimit forgeries.
 >
+> Second, quic_crypto_keys_derive_and_install() resets the slot on every RX
+> key install. That includes each key update reached through
+> quic_crypto_decrypt()->quic_crypto_key_update():
+>
+> net/quic/crypto.c:quic_crypto_keys_derive_and_install() {
+>     ...
+>         if (rx) {
+>                 crypto->rx_fails[phase] =3D 0;
+>     ...
+> }
+>
+> For AES-CCM (rxlimit 2965820, about 2^21.5), an off-path sender would get
+> roughly (2 + number of key updates) * rxlimit forgery attempts.
+>
+> Would a single connection-wide failure counter, not indexed by key phase
+> and not reset on key install, be more appropriate? tx_count could stay
+> per key.
 True.
 
-Will make rx_fails per connection instead of per key.
+But the same as the one reported on the last patch.
+
+>
+> [ ... ]
+>
+> > @@ -560,6 +1039,234 @@ int quic_crypto_initial_keys_install(struct quic=
+_crypto *crypto,
+>
+> [ ... ]
+>
+> > +int quic_crypto_generate_token(struct quic_crypto *crypto, void *addr,
+> > +                            u32 addrlen, struct quic_conn_id *conn_id,
+> > +                            u8 *token, u32 *tlen)
+> > +{
+> > +     u8 *token_buf, *p, flag =3D *token;
+> > +     u64 ts =3D quic_ktime_get_us();
+> > +     u32 len, tslen =3D sizeof(ts);
+> > +     int err;
+> > +
+> > +     len =3D sizeof(flag) + addrlen + tslen + conn_id->len + QUIC_TAG_=
+LEN;
+> > +     token_buf =3D kmalloc(len, GFP_KERNEL);
+> > +     if (!token_buf)
+> > +             return -ENOMEM;
+> > +
+> > +     p =3D token_buf;
+> > +     p =3D quic_put_int(p, flag, sizeof(flag));
+> > +     p =3D quic_put_data(p, addr, addrlen);
+> > +     p =3D quic_put_int(p, ts, tslen);
+> > +     quic_put_data(p, conn_id->data, conn_id->len);
+>
+> [Severity: Medium]
+> Does this expose the server's uptime to any client that receives a token?
+>
+> ts is the raw ktime_get() value, in microseconds since boot.
+> quic_crypto_token_protect() only authenticates the flag, address and
+> timestamp as associated data. It does not encrypt them:
+>
+>         aead_request_set_ad(req, adlen);
+>         aead_request_set_crypt(req, sg, sg, len - adlen - extra, nonce);
+>
+> Tokens are sent to unauthenticated clients in Retry packets and NEW_TOKEN
+> frames, so the monotonic clock can be read from them in plaintext. TCP
+> avoids a similar leak with per-connection timestamp offsets
+> (secure_tcp_ts_off).
+>
+> The v14 change moved the timestamp from the encrypted part into the AAD
+> so it could be used for the nonce. That change appears to have introduced
+> this exposure.
+>
+> The serialized address is also sent in plaintext. For IPv6,
+> quic_v6_get_msg_addrs() in net/quic/family.c sets:
+>
+>         sa->v6.sin6_scope_id =3D skb->skb_iif;
+>
+> Would the server's ingress ifindex end up in the token as well?
+>
+True.
+- Will add crypto->ts_off to randomize the timestamps as TCP does.
+- Will move the address from the auth part to the encrypted part in token.
 
 Thanks.
 
 > [ ... ]
+>
+> > +/* Validate a Retry or address validation token.
+> > + *
+> > + * Decrypts and authenticates the token, checks the client address and=
+ validates
+> > + * the timestamp against the timeout selected by the token flag. For a=
+ Retry
+> > + * token, extracts the original destination connection ID.
+> > + *
+> > + * Return: 0 if the token is valid, -EINVAL if invalid, or another neg=
+ative
+> > + * error code.
+> > + */
+> > +int quic_crypto_verify_token(struct quic_crypto *crypto, void *addr,
+> > +                          u32 addrlen, struct quic_conn_id *conn_id,
+> > +                          u8 *token, u32 len)
+> > +{
+>
+> [ ... ]
+>
+> > +     err =3D quic_crypto_token_protect(crypto, token_buf, len,
+> > +                                     sizeof(flag) + addrlen + tslen, f=
+alse);
+> > +     if (err)
+> > +             goto out;
+> > +
+> > +     err =3D -EINVAL;
+>
+> [Severity: Low]
+> The kernel-doc says -EINVAL is returned for an invalid token. Does a
+> forged or tampered token actually return -EINVAL?
+>
+> A tag mismatch makes crypto_aead_decrypt() return -EBADMSG. That value is
+> returned unchanged through the goto out above, before err is set to
+> -EINVAL. A token key that was never set would give -ENOKEY in the same
+> way.
+>
+> Only the length precheck and the address, timestamp and ODCID length
+> checks return -EINVAL.
+>
+> Should the comment be updated, or should authentication failures be
+> mapped to -EINVAL?
 >
 > --
 > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
