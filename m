@@ -1,66 +1,65 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643474E1C7F
-	for <quic@lists.linux.dev>; Fri, 16 Oct 2026 15:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F2247F3D7
+	for <quic@lists.linux.dev>; Fri, 16 Oct 2026 15:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164555; cv=none; b=K+ajjX+tOoOPpngXg9DvKh8gxewGolVbMzwF4QkkDvQRpL+ba7wyJCrFxG6Sw4wVaafULNHSAFT376Un+daaBD0Jy+k8oIYkN47qlM9U5QRYPM4Z4yOtO4+bWUjxt3bP3Q1EGEX6KTh/AV+srRAFwARojycCS10DHvueN4kwL8w=
+	t=1792164557; cv=none; b=K6wpNjH8UCqiTNZA0+WZ6f5HgZVgMrp13yEFz6qP9arldPyh3mWY1OPWscY1bSwrRtxdZ6CR0ixIWxc5sGZuGETPSzRDgzsJ9z3w4tdchd1+JJRFbyPmqXFSjLS/CfBE+MiFOw+6U3FCcIGy6XHuirMyVl8pfkbsC7UWMlgk2KA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164555; c=relaxed/simple;
-	bh=ZjDnCaFSKcca/4hRtVh62d1tySwiSmL//LrHcgP5eqw=;
+	s=arc-20240116; t=1792164557; c=relaxed/simple;
+	bh=4weiZ8s/zoFxLORNMtCzZPjDJlnOGBD8wexRCQFR7l4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aVQHdLg5NuvTzJ8bIpamRUk4OXQkfaZXVYsNOL1r9bZnYDp2gyuZGwCwlNLehoHFnB0/EGoVbzpjJrbi1AKfVzoGJ500/yKon1nCZ+4PyZxlLwcJEmRDS3Igbxx9Qr3ofnE455eUwVR3L8BRjEeIEe5LIwxRFJZo4p0qFeBbUnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FL91FTZr; arc=none smtp.client-ip=209.85.222.174
+	 MIME-Version; b=t6p+UV1XkyvNPLyAYXrhf5JUeZosezp6bVDi8d1nRqtuoOSXXXlb7UlPQs8QPVYIPQukd95PSXsfjO5zGUEVlzrhuKlIpvL55J5E6RwF81xlGnreBjMrmOinmT4WFQMJORKpcBwJ72O08U+CmPjJqTJRwBHHNrVoFtLtxianeE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TCpke9MK; arc=none smtp.client-ip=209.85.160.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FL91FTZr"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f079a63b8so5725085a.3
-        for <quic@lists.linux.dev>; Fri, 16 Oct 2026 08:29:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TCpke9MK"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5364042eecfso197791cf.2
+        for <quic@lists.linux.dev>; Fri, 16 Oct 2026 08:29:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792164548; x=1792769348; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gZfmSQ2D12PW7K8GZGU6XvSc2XzBTr0tF05wzu1puj0=;
-        b=FL91FTZrXzRJvfST3cxFYPEWm7o7L4Z+IjiWIt7rr8b1sxbDhYJ/34MBnPkWi2clpo
-         nQZTG0gV7uiyYCFwDcEalYc+e3QyJjZhnrppvjoZWrkQ3anTT2J75qDiZXZ+XMAlLwwT
-         D6UHhq1uchjJ7K4thRx0V4jUwULcWov0Nw7g0SZ02dc3y6DTNMS30IEZP9p9bAsntxXM
-         anzuRGhzSYyh9HiwdsbuR9VT5BAx0h0bO5IPPNB5IA7gTCPNf7/QYaigOSsM2wmShxqU
-         V009yZrSu1kpQxMPccqP/XqhaC90lzuIzzv0fI/xTpZ1WcsuNYq1zPkXgbdHqFnpuHms
-         hoIg==
+        d=gmail.com; s=20251104; t=1792164551; x=1792769351; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A6fgdBohbRlu1Ma0yTQQOrI9ZBb7MGPE+WWLLFtv1kY=;
+        b=TCpke9MKjVHsH+0S/Za6XY0mGnsyc1u2mw4w1fHaSbUYQxxkQEUbFkcfChtneEDt/j
+         gptXAgbJ/5/zmJEQOpeW1mhOpN/7JQWuhVKZrMX6rd2zOSX6yL38cAD7lA5hEdaiXNLQ
+         jism9TviZtmIYxmNwfiIF5ZQqmIXNHzR6BdgxF1vOGTmm7tNotGZUQaPCJqUnSJehFhO
+         seanZ4ZTbo6Bihlta7j8aAnSpcIfp0JAwHmdVhEyHTjOpRDWd34b2liI6p/53Br7X8A0
+         3ZKHFA330UGo6JInY6Y1e7/HUn4j6kjBdENUHpZKEGIzyQ79Vdr9qUWFXlUcDJVGGTMr
+         Wtwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792164548; x=1792769348;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gZfmSQ2D12PW7K8GZGU6XvSc2XzBTr0tF05wzu1puj0=;
-        b=AohRb1ksS+oPYffCjBwdGWkmlI7Wi8/oRpOynrOsfpB6EL07kwyqNMoIp7GdvzVH49
-         SuS2oPi+Vfr1GSObOMqe6QH19v4INec8ZWlckXxX0jvw206SMTMcBuSp6MyY+tOD35hO
-         8cqwlWiAQPFIFYjBAIAPSBDNYCMHF+6+vgrMpAiseJAAFGuq8Ncd0/WsKrUWH7God87Q
-         8XkEgxPKZwR5RKAnMuqimf1+pzpQPEU2ZDsGI+KcQb6mph/KJ14D+swS7Y/YkSqBA7Mn
-         32h6Qgrzgv6n9Tdrdw9A2G8e2E1UM7pqJvi+r7SpwP3cx0bDGM7toU2LGs6RDhosbIqh
-         dZOg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKZhWCXNtliyXipxMp8IIIwysAsd1acjaqYVHCVYzaWQdX7CTUl+zq44ScYa15MI56878J@lists.linux.dev
-X-Gm-Message-State: AFq9FYJa99i0jSE5SoB18M5A313XezZ6OTa+bYbMVuVYDm6S/edRr0OC
-	dY1r8fhx8tmzgDqEIZ+E39IK6aB8mrHN17njHMqHLUmgOBvbSyYXvvqN
-X-Gm-Gg: AYBFou2HHOF6nv3DCuSTn35WK9yYap5nViG4np2MlQDCrct75SZa+pxy38rAEvfj/78
-	B05IZOdB+3F4QDx3FUF5xnsQpAMeEePtIoO3rCW92aVEXRUoTOErfwhLnfe/zOFVTZ5UH8lSpqN
-	GGE8hb6jN0JgEnVKimjoHFTDJf3n9ZoSa1pf5EYIb4O11xcyhl8uv2w+Qp8tqPecTS8E1wAtW45
-	7LRQnD46G8t6F+VR/I0sRRAClU24cIsZXHJXgojsUddZIQCzSjiZKpgxfZY4bHt4/bcpmB8ppmv
-	CiiK5aUpMTa/yH8xcmYZUUXIlxX9WM3/aLgDywNsMciMC3Jb+hpCQEZ0qgLXe+RTOvLlaEWQAFZ
-	KhImqi1rBIZ6+NIj4Zuwglhxmu1QZWS/8Wqp102vCIasWYSq8oE6Hi8C8A4LjaFgrGFwt7/EFW8
-	LATKme4FViNxhlTSPJWZOjo/AVMADl9WLpIDYbKNYWnpL9DzB/m5mdShuHZL57hRgPjD526i+rU
-	W8MuihBxGdUg+hWtEurr0mHKo6/W6oKcHpFdwzFTJigDSxO/N0glJfBKoG5HTVVfIkU3dklgePZ
-	eqeQ62DXt2V2TZmonytGN3y7cKyTkhwQ1j4dmtwE
-X-Received: by 2002:a05:620a:371f:b0:939:6de9:4cff with SMTP id af79cd13be357-93f29d39303mr31216985a.45.1792164547967;
-        Fri, 16 Oct 2026 08:29:07 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792164551; x=1792769351;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A6fgdBohbRlu1Ma0yTQQOrI9ZBb7MGPE+WWLLFtv1kY=;
+        b=Au9EOYKzcb0r5f5MBNCXlp5HWBK/1pGwo6VaGr6gp3zEle94Ww31zV9D8W4hCYRF8C
+         sR6w8HGMYL7Wh0Bhd85k4ov5L17AbfRD78fEUPLfnOK0edJcnsnhb4kLHTIe5xqxPwpU
+         chjE1QR/lplkNXLTq3w7jbUWT+1s7v8mWdyX5DHQwixywWNQGYAC6XPqDDWJUqOCGHaC
+         AtDNpae1iLTK/KZVxOLwzpXfTfXn+JPjx1nwKb37alV6ZAzsxV484Y6vLeHZShjtuRi1
+         Mzo+DYWMA4vj9oIeJ1KLWh6h71psbLKTcNqFezoOjU8J03QfpbEuggHsAs2b/T2wlzQS
+         zQGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLbRKOE92oC0oET2oj+6tmX6fLLnQgfLqH0j474UuxtBneyrnoY4CFakISHU25I8HKPleC@lists.linux.dev
+X-Gm-Message-State: AFq9FYIGRyyQtP9rNtNujA/Mof+FXk9WQ0ZgZgL0CT8aHOYyY5zKN/oa
+	OJM/pq3LHPtPB+jnyttyhvBLqPVmgc+wNVfT3fooQbwV9UoO0GO/xVw0
+X-Gm-Gg: AYBFou0wpG98/rXVAb2D5UYNwwg9d+gJUg1JmhXjPeZusC1uWRMPsQ8/zEwn8/Ux5A7
+	jyzHWhaoQFIy934yfeuSFt7IRpv7OyVROv+P9xj2IwtPU0HSniiUhENgfD5jk/epXMx6GgcipSY
+	QU+Ia6uj75ZKPeRmFmGZl02lPt7Z6KnEsiUdO2NlvTHNaRkCIDZKvTrAU9ZTr3CZQptmTYrRKaa
+	RjmecbZnQuMri6fHO2WZ8dZXYRHSZWg4wRrq3T9RSaFEkItY7qm5c3KmVyNrvwme/j7f/jJkI0c
+	1qvdmn2vJXNgcNytfoVQGeFiKRw2USA8Ft1p08E4U45sbeEsLFEVQBn4pchuXDLPHEV3RDQwp/R
+	5rs0n8qL7rgTzcU5CUTMe1iN2pk432/ZzxlQmemnn91nxJ9jlWGMzwIhVcGiaf30/YLIPxCwV/7
+	LXTyVaRA/Je+9ER7bT3wdFhow9EzRgyhItkLssPtTE4acR3G+Xuj3pAOrK+EGalNWu6UeU/BUvK
+	UCJXH+LCNIkxDmm7mGuJUBJO7V4HSjoJ+uoXLYV2Oks+3k0Rrgv39zSUQRSvhshbwZzT+Cl+lHP
+	NO7cVyB8BG2HRI7hvIj2yN4osIBgQXrKrNZjCLYL
+X-Received: by 2002:a05:622a:4d48:b0:532:c9be:7e52 with SMTP id d75a77b69052e-5359fac9911mr355805271cf.18.1792164551164;
+        Fri, 16 Oct 2026 08:29:11 -0700 (PDT)
 Received: from wsfd-netdev58.anl.eng.rdu2.dc.redhat.com ([66.187.232.140])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba473easm25601866d6.17.2026.10.16.08.29.06
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba473easm25601866d6.17.2026.10.16.08.29.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 08:29:07 -0700 (PDT)
+        Fri, 16 Oct 2026 08:29:10 -0700 (PDT)
 From: Xin Long <lucien.xin@gmail.com>
 To: network dev <netdev@vger.kernel.org>,
 	quic@lists.linux.dev
@@ -98,9 +97,9 @@ Cc: davem@davemloft.net,
 	mef@scarletmail.rutgers.edu,
 	paul@jakma.org,
 	Kuniyuki Iwashima <kuniyu@google.com>
-Subject: [PATCH net-next v17 03/15] quic: provide common utilities and data structures
-Date: Fri, 16 Oct 2026 11:27:06 -0400
-Message-ID: <98f259bc7f66c5743f60c4b7bae03dfcbf0d5247.1792164438.git.lucien.xin@gmail.com>
+Subject: [PATCH net-next v17 05/15] quic: provide quic.h header files for kernel and userspace
+Date: Fri, 16 Oct 2026 11:27:08 -0400
+Message-ID: <4a49051cad7f108f91400ea5b3ee351ab3414314.1792164438.git.lucien.xin@gmail.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1792164438.git.lucien.xin@gmail.com>
 References: <cover.1792164438.git.lucien.xin@gmail.com>
@@ -110,741 +109,225 @@ List-Id: <quic.lists.linux.dev>
 List-Subscribe: <mailto:quic+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This patch provides foundational data structures and utilities used
-throughout the QUIC stack.
+This commit adds quic.h to include/uapi/linux, providing the necessary
+definitions for the QUIC socket API. Exporting this header allows both
+user space applications and kernel subsystems to access QUIC-related
+control messages, socket options, and event/notification interfaces.
 
-It introduces packet header types, connection ID support, and address
-handling. Hash tables are added to manage socket lookup and connection
-ID mapping.
+Since kernel_get/setsockopt() is no longer available to kernel consumers,
+a corresponding internal header, include/linux/quic.h, is added. This
+exposes quic_do_get/setsockopt() to handle QUIC socket options directly
+for kernel subsystems.
 
-A flexible binary data type is provided, along with helpers for parsing,
-matching, and memory management. Helpers for encoding and decoding
-transport parameters and frames are also included.
+Detailed descriptions of these structures are available in [1], and will
+be also provided when adding corresponding socket interfaces in the
+later patches.
+
+[1] https://datatracker.ietf.org/doc/html/draft-lxin-quic-socket-apis
 
 Signed-off-by: Xin Long <lucien.xin@gmail.com>
+Signed-off-by: Tyler Fanelli <tfanelli@redhat.com>
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
+Signed-off-by: Thomas Dreibholz <dreibh@simula.no>
 Acked-by: Paolo Abeni <pabeni@redhat.com>
 ---
 Sashiko, do not report any of the following concerns:
-  - Ignore the concern about quic_put_int() handling a length of 3.
-    Although quic_get_int() supports 3-byte integers, quic_put_int() is
-    only used with the fixed integer lengths supported by its callers. A
-    length of 3 is never passed to quic_put_int() in the later code, so
-    the default case cannot be reached through any of its intended uses.
+  - Ignore the implicit trailing padding in these UAPI structures causing
+    a size mismatch between 32-bit and 64-bit systems for struct
+    quic_stream_info and struct quic_errinfo. The kernel does not require
+    an exact minimum size; it copies as much data as is available.
 
-  - Ignore the concern about quic_put_varint() handling a length of 8.
-    While QUIC variable-length integers support an 8-byte encoding, the
-    later code only calls quic_put_varint() with lengths of 1, 2, or 4.
-    A length of 8 is never passed by any caller, so no 8-byte case is
-    required here.
+  - Ignore the concern about errcode being limited to __u32. __u32 is
+    sufficient for all currently defined QUIC error codes, so there is no
+    truncation for the error codes currently supported by the
+    implementation.
 
-  - Ignore the concern about quic_hash_tables_destroy() being
-    non-idempotent.  The function is only called once in the QUIC module's
-    lifecycle, and the later initialization and teardown paths ensure that
-    it cannot be invoked more than once. Therefore, clearing the .hash
-    pointers after vfree() is not necessary.
+  - Ignore the concern about frame being limited to __u8. __u8 is
+    sufficient for all currently supported QUIC frame types, so no
+    supported frame type is truncated.
 
-  - Ignore the concern about zero-length transport parameters in
-    quic_get_param(). Although QUIC allows transport parameters with a
-    zero-length value, this helper is only used later for parameters that
-    carry a value. Zero-length parameters are handled separately and never
-    passed to quic_get_param(), so the current parsing and return
-    convention is sufficient for all its callers.
+  - Ignore the concern about the MSG_* symbols being unavailable in user
+    space. These MSG_* flags are defined by glibc's <sys/socket.h>. The
+    build failure comes from the kernel header test using
+    dummy-include/sys/socket.h, which does not define these flags.
+    Therefore, linux/quic.h is intentionally added to no-header-test to
+    skip this kernel-side dummy-header test; this does not affect normal
+    userspace builds.
 
-  - Ignore the concern about the inner IPv6 and connection-ID hashes being
-    unseeded. The per-netns net_hash_mix(net) is already used as the seed
-    of the final jhash_3words()/jhash_2words() call, so the resulting
-    bucket selection is still randomized per network namespace. Therefore,
-    seeding the intermediate jhash() calls is not necessary.
+  - Ignore the concern about MSG_QUIC_NOTIFICATION overlapping with SCTP's
+    MSG_NOTIFICATION. These flags are interpreted in the context of the
+    respective protocol/socket, so the shared numeric value does not
+    create ambiguity between QUIC and SCTP.
 
-  - Ignore the concern about quic_get_param() leaving the cursor advanced
-    on failure. Failures while parsing transport parameters are treated as
-    fatal by all callers added in the next patchset, so the caller does not
-    continue parsing from the partially advanced cursor. Therefore,
-    restoring *pp and *plen on failure is not necessary.
+  - Ignore the concern about the current -EOPNOTSUPP stubs.
+    quic_do_setsockopt() and quic_do_getsockopt() are exported in this
+    patchset as placeholders and will be implemented in the next patchset.
+    The exports are intentional so the required interfaces are established
+    before their full implementations land.
 
-v3:
-  - Rework hashtables: split into two types and size them based on
-    totalram_pages(), similar to SCTP (reported by Paolo).
-  - struct quic_shash_table: use rwlock instead of spinlock.
-  - quic_data_from/to_string(): add safety and common-case checks
-    (noted by Paolo).
+  - Ignore the concern about union quic_event exposing unrelated data.
+    quic_event is used as a container to format notification data, and the
+    event type determines which union member is valid. The actual
+    notification path will access and copy only the corresponding member
+    for the event type rather than treating the entire union as valid data.
+
+  - Ignore the concern about MSG_QUIC_STREAM_SNDBLOCK and
+    MSG_QUIC_NOTIFICATION overlapping with generic MSG_ERRQUEUE and
+    MSG_MORE. These flags are interpreted by the QUIC-specific send/recv
+    paths and are not passed through the corresponding generic socket paths
+    with their QUIC-specific meaning. The existing values are intentional
+    for compatibility with the QUIC socket API.
+
+  - Ignore the concern about the stream state enum values changing. The
+    stream state values are stable now and are already defined as the
+    intended stream state identifiers. There is no planned renumbering or
+    insertion that would change the existing values.
+
+  - Ignore the concern about SOL_QUIC being missing from the QUIC UAPI
+    header. SOL_QUIC is provided by linux/socket.h from glibc in userspace,
+    so applications including the standard socket headers can use SOL_QUIC
+    directly without hardcoding its numeric value.
+
+  - Ignore the concern about QUIC_CRYPTO_SECRET_BUFFER_SIZE being limited
+    to 48 bytes. The current cipher suites fit within this size, and the
+    structure can be safely extended later if a future cipher suite
+    requires a larger secret.
+
+  - Ignore the concern about max_streams_bidi and max_streams_uni being
+    limited to 65,535. A 65,535-stream limit is sufficient for the intended
+    use cases, so there is no need to expand these fields for the currento
+    UAPI.
+
+  - Ignore the concern about implicit enum values in the UAPI enums. The
+    current implicit numbering is intentional and sufficient for these
+    enums, so there is no need to assign the values explicitly.
+
+  - Ignore the concern about the _MAX enum values being part of the UAPI.
+    QUIC_CRYPTO_MAX, QUIC_CONG_ALG_MAX, and QUIC_EVENT_MAX are used as
+    internal sentinel values and are not intended to define a userspace ABI
+    limit. Their presence in the UAPI header is fine.
+
+  - Ignore the concern about using IS_REACHABLE(CONFIG_IP_QUIC) here.
+    IS_REACHABLE() is intentional because a built-in kernel consumer cannot
+    directly reference symbols provided by CONFIG_IP_QUIC=m. Using
+    IS_ENABLED() would expose the real declarations to built-in consumers
+    when QUIC is modular, resulting in unresolved references to symbols
+    that only exist in quic.ko. IS_REACHABLE() correctly provides the
+    -EOPNOTSUPP stubs when QUIC is not reachable from the current
+    compilation unit.
+
+  - Ignore the concern about the missing phrase length field in struct
+    quic_connection_close. Although QUIC reason phrases are not
+    null-terminated on the wire, the kernel exposes phrase to userspace as
+    a null-terminated string, so userspace can determine its length using
+    the terminating '\0'. The interface intentionally does not require a
+    separate length field.
+
+  - Ignore the concern about using __u32 for active and prior_to in struct
+    quic_connection_id_info. Although RFC 9000 permits larger
+    variable-length values, sending or receiveing billions of
+    NEW_CONNECTION_ID frames on a single connection is considered abnormal.
+    Such excessive values will be rejected by the implementation in the
+    next patchset, so the 32-bit UAPI fields are intentional.
+
+  - Ignore the concern about reusing generic MSG_* values for QUIC-specific
+    flags. These aliases are intentional UAPI definitions for QUIC sockets
+    and allow the QUIC-specific flags to pass through the generic
+    sendmsg()/recvmsg() filtering paths. The flags are interpreted
+    according to the QUIC socket API, so standard MSG_EOR/MSG_RST semantics
+    are not applicable here.
+
+  - Ignore the concern about union quic_event lacking a type discriminator.
+    The event type is provided separately and union quic_event is only used
+    to parse the event-specific payload; it is not intended to contain the
+    type itself. Embedding the __u8 type at the beginning would also
+    introduce unwanted padding and memory holes in the UAPI layout.
+
+v2:
+  - Fix a kernel API description warning, found by Jakub.
+  - Replace uintN_t with __uN, capitalize _UAPI_LINUX_QUIC_H, and
+    assign explicit values for QUIC_TRANSPORT_ERROR_ enum in UAPI
+    quic.h, suggested by David Howells.
 v4:
-  - Handle the error returned by quic_hash_tables_init() properly
-    (reported by Simon).
-  - Use vmalloc() to simplify hashtable allocations (suggested by Paolo).
-  - Replace rwlock_t with spinlock_t and use hlist_nulls_head in
-    quic_shash_head for lockless lookup/access (suggested by Paolo).
-  - Define QUIC_PN_BITS to replace a magical number in quic_get_num()
-    (reported by Paolo)
-  - Rename several hash-related functions:
-    * quic_(listen_)sock_hash() → quic_(listen_)sock_head()
-    * quic_(listen_)sock_head() → quic_(listen_)sock_hash()
-    * quic_shash() → quic_addr_hash()
-    * quic_ahash() → call its code directly in quic_sock_hash().
-  - Include net in the hash calculations in quic_listen_sock_hash() and
-    quic_udp_sock_head(), and include len in quic_source_conn_id_head().
+  - Use MSG_QUIC_ prefix for MSG_* flags to avoid conflicts with other
+    protocols, such as MSG_NOTIFICATION in SCTP (reported by Thomas).
+  - Remove QUIC_CONG_ALG_CUBIC; only NEW RENO congestion control is
+    supported in this version.
 v5:
-  - Use u64 for skb_cb->time and u32 for skb_cb->seqno, and introduce
-    quic_ktime_get_us() to obtain timestamps in microseconds.
-  - Remove skb_cb->number_max and reuse number as the largest previously
-    seen, and add skb_cb->crypto_ctx for async crypto context freeing.
-  - Add case 8 to quic_put_int(), which will be used to pack a u64
-    timestamp into the token in a later patch.
+  - Add include/linux/quic.h and include/uapi/linux/quic.h to the
+    QUIC PROTOCOL entry in MAINTAINERS.
 v6:
-  - Since transport_header is no longer set for QUIC, use skb->data
-    instead in quic_hdr() and quic_hshdr(). As the UDP header can now
-    be accessed via udp_hdr(), drop udph_offset from struct quic_skb_cb.
-  - Note for AI reviews: although ticket/token/alpn are not initialized
-    in quic_init_sock(), it is safe to kfree() them in quic_destroy_sock()
-    because they are always set to NULL (via sk_alloc() in inet/6_create()
-    or memset(0) in quic_accept() in a later patchset).
+  - Fix the copy/pasted the uAPI path for SCTP to the QUIC entry (noted
+    by Jakub).
 v7:
-  - Add the missing check len < length in quic_data_has/match() (reported
-    by AI review).
-v9:
-  - Add BUILD_BUG_ON() to check size of struct quic_skb_cb in quic_init()
+  - Expose quic_do_get/setsockopt() instead of quic_kernel_get/setsockopt()
     (suggested by Paolo).
 v10:
-  - Add a comment to quic_conn_id_update() to clarify that the caller is
-    responsible for ensuring the connection ID length does not
-    exceed QUIC_CONN_ID_MAX_LEN.
-  - Ensure quic_get_param() validates that the decoded parameter value
-    consumes exactly the expected valuelen in quic_get_param() (noted by
-    AI review).
-  - Replace manual memcpy() + endian conversion and temporary union usage
-    with get_unaligned_beNN() and put_unaligned_beNN() helpers for reading
-    and writing integers in network byte order.
-  - Replace vmalloc(size * sizeof(type)) with vmalloc_array() in hash
-    table allocations.
-  - Move *plen update to after successful parse in quic_get_int().
+  - Fix typo: 'extented' -> 'extended' (noted by AI review).
+  - Add comment for inclusion of sys/socket.h in uapi quic.h.
+  - Add uses-libc += linux/quic.h in usr/include/Makefile to fix the new
+    build error.
+  - Delete config from struct quic_sock, its members will be split into
+    other subcomponents in the future patches.
+  - Add explicit reserved fields to multiple structs to account for
+    implicit padding and ensure UAPI stability.
+  - Expand reserved fields in struct transport_param and config, handshake
+    and stream_info to allow future extensions without breaking the UAPI.
 v11:
   - Set maximum line length to 80 characters.
-  - Change return type of quic_data_match() and quic_data_has() to bool.
-  - Add a check for len in quic_conn_id_update().
-  - Avoid roundup_pow_of_two(0) in quic_hash_tables_init().
+  - Drop trailing reserved fields in structs and rely on
+    copy_struct_to/from_user() for extensibility; keep reserved fields
+    in the middle to indicate memory holes.
 v12:
-  - Move QUIC_VARINT_nBYTE_MAX definitions to common.h for later use.
-  - Add sync field to struct quic_skb_cb to support forcing synchronous
-    crypto processing for specific packets late.
-v14:
-  - Pass gfp flags through quic_data_append() and quic_data_dup().
-  - Add an overflow check to quic_data_append(), even though current
-    callers cannot trigger it.
-  - Call quic_data_free() when len is zero in quic_data_dup().
-  - Change the 'limit' type in quic_hash_tables_init() from u32 to
-    unsigned long.
-  - Use net_hash_mix(net) as the initval argument to jhash_Nwords().
+  - Make the phrase field in struct quic_connection_close a fixed-size
+    array.
+  - Add QUIC_TRANSPORT_ERROR_VERSION_NEGOTIATION for late use.
+  - Add keepalive_probe_interval to struct quic_config to make keepalive
+    probing configurable.
+  - Relace uses-libc += linux/quic.h with no-header-test += linux/quic.h
+    in usr/include/Makefile to fix the new build error.
+  - Add forward declaration for struct sock in include/linux/quic.h.
+v15:
+  - Add stub definitions for quic_do_setsockopt() and quic_do_getsockopt()
+    when IS_REACHABLE(CONFIG_IP_QUIC) is false.
+  - Change MSG_QUIC_STREAM_DONTWAIT from MSG_WAITFORONE to MSG_EOR to avoid
+    being filtered out by MSG_INTERNAL_SENDMSG_FLAGS in ____sys_sendmsg().
 v16:
-  - Add crypto_err to struct quic_skb_cb, as a union with crypto_ctx, to
-    preserve errors from asynchronous crypto operations. It will be used
-    to implement AEAD usage limits in a later patch.
-  - Remove the err parameter from .crypto_done() in struct quic_skb_cb, as
-    errors from asynchronous crypto operations are now preserved in
-    skb->cb.
-  - Improve common.c file description.
-  - Limit individual token length to 255 bytes and return -EINVAL when
-    exceeded in quic_data_from_string().
+  - Update the function annotations for quic_do_set/getsockopt() to reflect
+    its actual usage, as optval argument can point to either a user or
+    kernel buffer (noted by Sashiko AI review).
 ---
- net/quic/Makefile   |   2 +-
- net/quic/common.c   | 565 ++++++++++++++++++++++++++++++++++++++++++++
- net/quic/common.h   | 220 +++++++++++++++++
- net/quic/protocol.c |  10 +
- net/quic/socket.c   |   4 +
- net/quic/socket.h   |  21 ++
- 6 files changed, 821 insertions(+), 1 deletion(-)
- create mode 100644 net/quic/common.c
- create mode 100644 net/quic/common.h
+ MAINTAINERS               |   2 +
+ include/linux/quic.h      |  38 ++++++
+ include/uapi/linux/quic.h | 241 ++++++++++++++++++++++++++++++++++++++
+ net/quic/socket.c         |  36 +++++-
+ net/quic/socket.h         |   1 +
+ usr/include/Makefile      |   1 +
+ 6 files changed, 315 insertions(+), 4 deletions(-)
+ create mode 100644 include/linux/quic.h
+ create mode 100644 include/uapi/linux/quic.h
 
-diff --git a/net/quic/Makefile b/net/quic/Makefile
-index 020e4dd133d8..e0067272de7d 100644
---- a/net/quic/Makefile
-+++ b/net/quic/Makefile
-@@ -5,4 +5,4 @@
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2347aa31cfd7..40a22b86d86e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22702,6 +22702,8 @@ M:	Xin Long <lucien.xin@gmail.com>
+ L:	quic@lists.linux.dev
+ S:	Maintained
+ W:	https://github.com/lxin/quic
++F:	include/linux/quic.h
++F:	include/uapi/linux/quic.h
+ F:	net/quic/
  
- obj-$(CONFIG_IP_QUIC) += quic.o
- 
--quic-y := protocol.o socket.o
-+quic-y := common.o protocol.o socket.o
-diff --git a/net/quic/common.c b/net/quic/common.c
+ RADEON and AMDGPU DRM DRIVERS
+diff --git a/include/linux/quic.h b/include/linux/quic.h
 new file mode 100644
-index 000000000000..8114be4fbb1e
+index 000000000000..51c099e9547f
 --- /dev/null
-+++ b/net/quic/common.c
-@@ -0,0 +1,565 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* QUIC kernel implementation
-+ * (C) Copyright Red Hat Corp. 2023
-+ *
-+ * This file is part of the QUIC kernel implementation
-+ *
-+ * Common data structures and utility functions.
-+ *
-+ * Written or modified by:
-+ *    Xin Long <lucien.xin@gmail.com>
-+ */
-+
-+#include <linux/unaligned.h>
-+#include <net/netns/hash.h>
-+#include <linux/vmalloc.h>
-+#include <linux/jhash.h>
-+
-+#include "common.h"
-+
-+#define QUIC_VARINT_2BYTE_PREFIX	0x40
-+#define QUIC_VARINT_4BYTE_PREFIX	0x80
-+#define QUIC_VARINT_8BYTE_PREFIX	0xc0
-+
-+#define QUIC_VARINT_LENGTH(p)		BIT((*(p)) >> 6)
-+
-+struct quic_hashinfo {
-+	struct quic_shash_table shash; /* Source connection ID hashtable */
-+	struct quic_shash_table lhash; /* Listening sock hashtable */
-+	struct quic_shash_table chash; /* Connection sock hashtable */
-+	struct quic_uhash_table uhash; /* UDP sock hashtable */
-+};
-+
-+static struct quic_hashinfo quic_hashinfo;
-+
-+u32 quic_sock_hash_size(void)
-+{
-+	return quic_hashinfo.chash.size;
-+}
-+
-+u32 quic_sock_hash(struct net *net, union quic_addr *s, union quic_addr *d)
-+{
-+	u32 ports = ((__force u32)s->v4.sin_port) << 16 |
-+		    (__force u32)d->v4.sin_port;
-+	u32 saddr = (s->sa.sa_family == AF_INET6) ?
-+		    jhash(&s->v6.sin6_addr, 16, 0) :
-+		    (__force u32)s->v4.sin_addr.s_addr;
-+	u32 daddr = (d->sa.sa_family == AF_INET6) ?
-+		    jhash(&d->v6.sin6_addr, 16, 0) :
-+		    (__force u32)d->v4.sin_addr.s_addr;
-+	u32 hash = jhash_3words(saddr, daddr, ports, net_hash_mix(net));
-+
-+	return hash & (quic_sock_hash_size() - 1);
-+}
-+
-+struct quic_shash_head *quic_sock_head(u32 hash)
-+{
-+	return &quic_hashinfo.chash.hash[hash];
-+}
-+
-+u32 quic_listen_sock_hash_size(void)
-+{
-+	return quic_hashinfo.lhash.size;
-+}
-+
-+u32 quic_listen_sock_hash(struct net *net, u16 port)
-+{
-+	u32 hash = jhash_1word((__force u32)port, net_hash_mix(net));
-+
-+	return hash & (quic_listen_sock_hash_size() - 1);
-+}
-+
-+struct quic_shash_head *quic_listen_sock_head(u32 hash)
-+{
-+	return &quic_hashinfo.lhash.hash[hash];
-+}
-+
-+struct quic_shash_head *quic_source_conn_id_head(struct net *net, u8 *scid,
-+						 u32 len)
-+{
-+	u32 hash = jhash_1word(jhash(scid, len, 0), net_hash_mix(net));
-+	struct quic_shash_table *ht = &quic_hashinfo.shash;
-+
-+	return &ht->hash[hash & (ht->size - 1)];
-+}
-+
-+struct quic_uhash_head *quic_udp_sock_head(struct net *net, u16 port)
-+{
-+	u32 hash = jhash_1word((__force u32)port, net_hash_mix(net));
-+	struct quic_uhash_table *ht = &quic_hashinfo.uhash;
-+
-+	return &ht->hash[hash & (ht->size - 1)];
-+}
-+
-+u32 quic_addr_hash(struct net *net, union quic_addr *a)
-+{
-+	u32 addr = (a->sa.sa_family == AF_INET6) ?
-+		   jhash(&a->v6.sin6_addr, 16, 0) :
-+		   (__force u32)a->v4.sin_addr.s_addr;
-+
-+	return jhash_2words(addr, (__force u32)a->v4.sin_port,
-+			    net_hash_mix(net));
-+}
-+
-+void quic_hash_tables_destroy(void)
-+{
-+	vfree(quic_hashinfo.shash.hash);
-+	vfree(quic_hashinfo.lhash.hash);
-+	vfree(quic_hashinfo.chash.hash);
-+	vfree(quic_hashinfo.uhash.hash);
-+}
-+
-+static int quic_shash_table_init(struct quic_shash_table *ht, u32 size)
-+{
-+	int i;
-+
-+	ht->hash = vmalloc_array(size, sizeof(struct quic_shash_head));
-+	if (!ht->hash)
-+		return -ENOMEM;
-+
-+	ht->size = size;
-+	for (i = 0; i < ht->size; i++) {
-+		spin_lock_init(&ht->hash[i].lock);
-+		INIT_HLIST_NULLS_HEAD(&ht->hash[i].head, i);
-+	}
-+	return 0;
-+}
-+
-+static int quic_uhash_table_init(struct quic_uhash_table *ht, u32 size)
-+{
-+	int i;
-+
-+	ht->hash = vmalloc_array(size, sizeof(struct quic_uhash_head));
-+	if (!ht->hash)
-+		return -ENOMEM;
-+
-+	ht->size = size;
-+	for (i = 0; i < ht->size; i++) {
-+		mutex_init(&ht->hash[i].lock);
-+		INIT_HLIST_HEAD(&ht->hash[i].head);
-+	}
-+	return 0;
-+}
-+
-+int quic_hash_tables_init(void)
-+{
-+	unsigned long nr_pages = totalram_pages();
-+	unsigned long limit;
-+	u32 size;
-+	int err;
-+
-+	/* Scale hash table size based on system memory, similar to SCTP. */
-+	if (nr_pages >= (128 * 1024))
-+		limit = nr_pages >> (22 - PAGE_SHIFT);
-+	else
-+		limit = nr_pages >> (24 - PAGE_SHIFT);
-+
-+	limit = roundup_pow_of_two(limit ?: 1);
-+
-+	/* Source connection ID table (fast lookup, larger size) */
-+	size = min_t(unsigned long, limit, 64 * 1024UL);
-+	err = quic_shash_table_init(&quic_hashinfo.shash, size);
-+	if (err)
-+		goto err;
-+	size = min_t(unsigned long, limit, 16 * 1024UL);
-+	err = quic_shash_table_init(&quic_hashinfo.lhash, size);
-+	if (err)
-+		goto err;
-+	err = quic_shash_table_init(&quic_hashinfo.chash, size);
-+	if (err)
-+		goto err;
-+	err = quic_uhash_table_init(&quic_hashinfo.uhash, size);
-+	if (err)
-+		goto err;
-+	return 0;
-+err:
-+	quic_hash_tables_destroy();
-+	return err;
-+}
-+
-+/* Returns the number of bytes required to encode a QUIC variable-length
-+ * integer.
-+ */
-+u8 quic_var_len(u64 n)
-+{
-+	if (n <= QUIC_VARINT_1BYTE_MAX)
-+		return 1;
-+	if (n <= QUIC_VARINT_2BYTE_MAX)
-+		return 2;
-+	if (n <= QUIC_VARINT_4BYTE_MAX)
-+		return 4;
-+	return 8;
-+}
-+
-+/* Decodes a QUIC variable-length integer from a buffer. */
-+u8 quic_get_var(u8 **pp, u32 *plen, u64 *val)
-+{
-+	u8 *p = *pp, len;
-+	u64 v = 0;
-+
-+	if (!*plen)
-+		return 0;
-+
-+	len = QUIC_VARINT_LENGTH(p);
-+	if (*plen < len)
-+		return 0;
-+
-+	switch (len) {
-+	case 1:
-+		v = *p;
-+		break;
-+	case 2:
-+		v = get_unaligned_be16(p) & QUIC_VARINT_2BYTE_MAX;
-+		break;
-+	case 4:
-+		v = get_unaligned_be32(p) & QUIC_VARINT_4BYTE_MAX;
-+		break;
-+	case 8:
-+		v = get_unaligned_be64(p) & QUIC_VARINT_8BYTE_MAX;
-+		break;
-+	default:
-+		return 0;
-+	}
-+
-+	*plen -= len;
-+	*pp = p + len;
-+	*val = v;
-+	return len;
-+}
-+
-+/* Reads a fixed-length integer from the buffer. */
-+u32 quic_get_int(u8 **pp, u32 *plen, u64 *val, u32 len)
-+{
-+	u8 *p = *pp;
-+	u64 v = 0;
-+
-+	if (*plen < len)
-+		return 0;
-+
-+	switch (len) {
-+	case 1:
-+		v = *p;
-+		break;
-+	case 2:
-+		v = get_unaligned_be16(p);
-+		break;
-+	case 3:
-+		v = get_unaligned_be24(p);
-+		break;
-+	case 4:
-+		v = get_unaligned_be32(p);
-+		break;
-+	case 8:
-+		v = get_unaligned_be64(p);
-+		break;
-+	default:
-+		return 0;
-+	}
-+	*plen -= len;
-+	*pp = p + len;
-+	*val = v;
-+	return len;
-+}
-+
-+u32 quic_get_data(u8 **pp, u32 *plen, u8 *data, u32 len)
-+{
-+	if (*plen < len)
-+		return 0;
-+
-+	memcpy(data, *pp, len);
-+	*pp += len;
-+	*plen -= len;
-+
-+	return len;
-+}
-+
-+/* Encodes a value into the QUIC variable-length integer format. */
-+u8 *quic_put_var(u8 *p, u64 num)
-+{
-+	if (num <= QUIC_VARINT_1BYTE_MAX) {
-+		*p++ = (u8)num;
-+		return p;
-+	}
-+	if (num <= QUIC_VARINT_2BYTE_MAX) {
-+		put_unaligned_be16((u16)num, p);
-+		*p |= QUIC_VARINT_2BYTE_PREFIX;
-+		return p + 2;
-+	}
-+	if (num <= QUIC_VARINT_4BYTE_MAX) {
-+		put_unaligned_be32((u32)num, p);
-+		*p |= QUIC_VARINT_4BYTE_PREFIX;
-+		return p + 4;
-+	}
-+	put_unaligned_be64(num, p);
-+	*p |= QUIC_VARINT_8BYTE_PREFIX;
-+	return p + 8;
-+}
-+
-+/* Writes a fixed-length integer to the buffer in network byte order. */
-+u8 *quic_put_int(u8 *p, u64 num, u8 len)
-+{
-+	switch (len) {
-+	case 1:
-+		*p++ = (u8)num;
-+		return p;
-+	case 2:
-+		put_unaligned_be16((u16)num, p);
-+		return p + 2;
-+	case 4:
-+		put_unaligned_be32((u32)num, p);
-+		return p + 4;
-+	case 8:
-+		put_unaligned_be64(num, p);
-+		return p + 8;
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+/* Encodes a value as a variable-length integer with explicit length. */
-+u8 *quic_put_varint(u8 *p, u64 num, u8 len)
-+{
-+	switch (len) {
-+	case 1:
-+		*p++ = (u8)num;
-+		return p;
-+	case 2:
-+		put_unaligned_be16((u16)num, p);
-+		*p |= QUIC_VARINT_2BYTE_PREFIX;
-+		return p + 2;
-+	case 4:
-+		put_unaligned_be32((u32)num, p);
-+		*p |= QUIC_VARINT_4BYTE_PREFIX;
-+		return p + 4;
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+u8 *quic_put_data(u8 *p, u8 *data, u32 len)
-+{
-+	if (!len)
-+		return p;
-+
-+	memcpy(p, data, len);
-+	return p + len;
-+}
-+
-+/* Writes a transport parameter as two varints: ID and value length, followed
-+ * by value.
-+ */
-+u8 *quic_put_param(u8 *p, u16 id, u64 value)
-+{
-+	p = quic_put_var(p, id);
-+	p = quic_put_var(p, quic_var_len(value));
-+	return quic_put_var(p, value);
-+}
-+
-+/* Reads a QUIC transport parameter value. */
-+u8 quic_get_param(u64 *pdest, u8 **pp, u32 *plen)
-+{
-+	u64 valuelen;
-+
-+	if (!quic_get_var(pp, plen, &valuelen))
-+		return 0;
-+
-+	if (*plen < valuelen)
-+		return 0;
-+
-+	if (quic_get_var(pp, plen, pdest) != valuelen)
-+		return 0;
-+
-+	return (u8)valuelen;
-+}
-+
-+/* rfc9000#section-a.3: DecodePacketNumber()
-+ *
-+ * Reconstructs the full packet number from a truncated one.
-+ */
-+s64 quic_get_num(s64 max_pkt_num, s64 pkt_num, u32 n)
-+{
-+	s64 expected = max_pkt_num + 1;
-+	s64 win = BIT_ULL(n * 8);
-+	s64 hwin = win / 2;
-+	s64 mask = win - 1;
-+	s64 cand;
-+
-+	cand = (expected & ~mask) | pkt_num;
-+	if (cand <= expected - hwin && cand < BIT_ULL(QUIC_PN_BITS) - win)
-+		return cand + win;
-+	if (cand > expected + hwin && cand >= win)
-+		return cand - win;
-+	return cand;
-+}
-+
-+int quic_data_dup(struct quic_data *to, u8 *data, u32 len, gfp_t gfp)
-+{
-+	if (!len) {
-+		quic_data_free(to);
-+		return 0;
-+	}
-+
-+	data = kmemdup(data, len, gfp);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	kfree(to->data);
-+	to->data = data;
-+	to->len = len;
-+	return 0;
-+}
-+
-+int quic_data_append(struct quic_data *to, u8 *data, u32 len, gfp_t gfp)
-+{
-+	u8 *p;
-+
-+	if (!len)
-+		return 0;
-+
-+	if (to->len > U32_MAX - len)
-+		return -EOVERFLOW;
-+
-+	p = kmalloc(to->len + len, gfp);
-+	if (!p)
-+		return -ENOMEM;
-+	p = quic_put_data(p, to->data, to->len);
-+	p = quic_put_data(p, data, len);
-+
-+	kfree(to->data);
-+	to->len = to->len + len;
-+	to->data = p - to->len;
-+	return 0;
-+}
-+
-+/* Check whether 'd2' is equal to any element inside the list 'd1'.
-+ *
-+ * 'd1' is assumed to be a sequence of length-prefixed elements. Each element
-+ * is compared to 'd2' using 'quic_data_cmp()'.
-+ *
-+ * Returns true if a match is found, false otherwise.
-+ */
-+bool quic_data_has(struct quic_data *d1, struct quic_data *d2)
-+{
-+	struct quic_data d;
-+	u64 length;
-+	u32 len;
-+	u8 *p;
-+
-+	for (p = d1->data, len = d1->len; len; len -= length, p += length) {
-+		if (!quic_get_int(&p, &len, &length, 1) || len < length)
-+			return false;
-+		quic_data(&d, p, length);
-+		if (!quic_data_cmp(&d, d2))
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/* Check if any element of 'd1' is present in the list 'd2'.
-+ *
-+ * Iterates through each element in 'd1', and uses 'quic_data_has()' to check
-+ * for its presence in 'd2'.
-+ *
-+ * Returns true if any match is found, false otherwise.
-+ */
-+bool quic_data_match(struct quic_data *d1, struct quic_data *d2)
-+{
-+	struct quic_data d;
-+	u64 length;
-+	u32 len;
-+	u8 *p;
-+
-+	for (p = d1->data, len = d1->len; len; len -= length, p += length) {
-+		if (!quic_get_int(&p, &len, &length, 1) || len < length)
-+			return false;
-+		quic_data(&d, p, length);
-+		if (quic_data_has(d2, &d))
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/* Serialize a list of 'quic_data' elements into a comma-separated string.
-+ *
-+ * Each element in 'from' is length-prefixed. This function copies their raw
-+ * content into the output buffer 'to', inserting commas in between. The
-+ * resulting string length is written to '*plen'.
-+ */
-+int quic_data_to_string(u8 *to, u32 *plen, struct quic_data *from)
-+{
-+	u32 remlen = *plen;
-+	struct quic_data d;
-+	u8 *data = to, *p;
-+	u64 length;
-+	u32 len;
-+
-+	p = from->data;
-+	len = from->len;
-+	while (len) {
-+		if (!quic_get_int(&p, &len, &length, 1) || len < length)
-+			return -EINVAL;
-+
-+		quic_data(&d, p, length);
-+		if (d.len > remlen)
-+			return -EOVERFLOW;
-+
-+		data = quic_put_data(data, d.data, d.len);
-+		remlen -= d.len;
-+		p += d.len;
-+		len -= d.len;
-+		if (len) {
-+			if (!remlen)
-+				return -EOVERFLOW;
-+			data = quic_put_int(data, ',', 1);
-+			remlen--;
-+		}
-+	}
-+	*plen = data - to;
-+	return 0;
-+}
-+
-+/* Parse a comma-separated string into a 'quic_data' list format.
-+ *
-+ * Each comma-separated token is turned into a length-prefixed element. The
-+ * first byte of each element stores the length. Elements are stored in
-+ * 'to->data', and 'to->len' is updated.
-+ */
-+int quic_data_from_string(struct quic_data *to, u8 *from, u32 len)
-+{
-+	u32 remlen = to->len;
-+	struct quic_data d;
-+	u8 *p = to->data;
-+
-+	to->len = 0;
-+	while (len) {
-+		while (len && *from == ' ') {
-+			from++;
-+			len--;
-+		}
-+		if (!len)
-+			break;
-+		if (!remlen)
-+			return -EOVERFLOW;
-+		d.data = p++;
-+		d.len  = 0;
-+		remlen--;
-+		while (len) {
-+			if (*from == ',') {
-+				from++;
-+				len--;
-+				break;
-+			}
-+			if (!remlen)
-+				return -EOVERFLOW;
-+			if (d.len == U8_MAX)
-+				return -EINVAL;
-+			*p++ = *from++;
-+			len--;
-+			d.len++;
-+			remlen--;
-+		}
-+		*d.data = (u8)(d.len);
-+		to->len += d.len + 1;
-+	}
-+	return 0;
-+}
-diff --git a/net/quic/common.h b/net/quic/common.h
-new file mode 100644
-index 000000000000..8e13ddda2cf6
---- /dev/null
-+++ b/net/quic/common.h
-@@ -0,0 +1,220 @@
++++ b/include/linux/quic.h
+@@ -0,0 +1,38 @@
 +/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/* QUIC kernel implementation
 + * (C) Copyright Red Hat Corp. 2023
@@ -855,319 +338,365 @@ index 000000000000..8e13ddda2cf6
 + *    Xin Long <lucien.xin@gmail.com>
 + */
 +
-+#include <net/net_namespace.h>
++#ifndef _LINUX_QUIC_H
++#define _LINUX_QUIC_H
 +
-+#define QUIC_MAX_ACK_DELAY	(16384 * 1000)
-+#define QUIC_DEF_ACK_DELAY	25000
++#include <linux/sockptr.h>
++#include <uapi/linux/quic.h>
 +
-+#define QUIC_STREAM_BIT_FIN	0x01
-+#define QUIC_STREAM_BIT_LEN	0x02
-+#define QUIC_STREAM_BIT_OFF	0x04
-+#define QUIC_STREAM_BIT_MASK	0x08
++struct sock;
 +
-+#define QUIC_CONN_ID_MAX_LEN	20
-+#define QUIC_CONN_ID_DEF_LEN	8
-+
-+#define QUIC_PN_MAX_LEN		4 /* For encoded packet number */
-+#define QUIC_PN_BITS		62
-+#define QUIC_PN_MAX		(BIT_ULL(QUIC_PN_BITS) - 1)
-+
-+#define QUIC_VARINT_1BYTE_MAX		0x3fULL
-+#define QUIC_VARINT_2BYTE_MAX		0x3fffULL
-+#define QUIC_VARINT_4BYTE_MAX		0x3fffffffULL
-+#define QUIC_VARINT_8BYTE_MAX		0x3fffffffffffffffULL
-+
-+struct quic_conn_id {
-+	u8 data[QUIC_CONN_ID_MAX_LEN];
-+	u8 len;
-+};
-+
-+static inline void quic_conn_id_update(struct quic_conn_id *conn_id, u8 *data,
-+				       u32 len)
++#if IS_REACHABLE(CONFIG_IP_QUIC)
++int quic_do_setsockopt(struct sock *sk, int optname, sockptr_t optval,
++		       unsigned int optlen);
++int quic_do_getsockopt(struct sock *sk, int optname, sockptr_t optval,
++		       sockptr_t optlen);
++#else
++static inline int quic_do_setsockopt(struct sock *sk, int optname,
++				     sockptr_t optval, unsigned int optlen)
 +{
-+	/* The caller must ensure len does not exceed QUIC_CONN_ID_MAX_LEN. */
-+	if (WARN_ON_ONCE(len > QUIC_CONN_ID_MAX_LEN))
-+		return;
-+	memcpy(conn_id->data, data, len);
-+	conn_id->len = (u8)len;
++	return -EOPNOTSUPP;
 +}
 +
-+struct quic_skb_cb {
-+	void (*crypto_done)(struct sk_buff *skb); /* Async crypto callback */
-+	union { /* Async context before completion, error after completion */
-+		void *crypto_ctx;
-+		int crypto_err;
-+	};
-+	union {
-+		struct sk_buff *last; /* Last packet in bundle on TX */
-+		u64 time; /* Arrival timestamp in UDP tunnel on RX */
-+	};
-+	s64 number;  /* Parsed packet number, or the largest previously seen */
-+	u32 seqno;   /* Dest connection ID number on RX */
-+	u16 length;  /* Payload length + packet number length */
-+
-+	u16 number_offset; /* Offset of packet number field */
-+	u8 number_len;     /* Length of the packet number field */
-+	u8 level; /* Encryption level: Initial, Handshake, App, or Early */
-+
-+	u16 errcode;     /* Error code on packet processing failure */
-+	u8 errframe;     /* Frame type causing packet processing failure */
-+
-+	u8 key_update:1; /* Key update triggered by this packet */
-+	u8 key_phase:1;  /* Key phase used (0 or 1) */
-+	u8 backlog:1;    /* Enqueued into backlog list */
-+	u8 resume:1;     /* Crypto already processed (encrypted or decrypted) */
-+	u8 path:1;       /* Packet arrived from a new or migrating path */
-+	u8 sync:1;       /* Force synchronous crypto (process context only) */
-+	u8 ecn:2;        /* ECN marking used on TX */
-+};
-+
-+#define QUIC_SKB_CB(skb)	((struct quic_skb_cb *)&((skb)->cb[0]))
-+
-+struct quichdr {
-+#if defined(__LITTLE_ENDIAN_BITFIELD)
-+	__u8 pnl:2,
-+	     key:1,
-+	     reserved:2,
-+	     spin:1,
-+	     fixed:1,
-+	     form:1;
-+#elif defined(__BIG_ENDIAN_BITFIELD)
-+	__u8 form:1,
-+	     fixed:1,
-+	     spin:1,
-+	     reserved:2,
-+	     key:1,
-+	     pnl:2;
++static inline int quic_do_getsockopt(struct sock *sk, int optname,
++				     sockptr_t optval, sockptr_t optlen)
++{
++	return -EOPNOTSUPP;
++}
 +#endif
-+};
 +
-+static inline struct quichdr *quic_hdr(struct sk_buff *skb)
-+{
-+	return (struct quichdr *)skb->data;
-+}
-+
-+struct quichshdr {
-+#if defined(__LITTLE_ENDIAN_BITFIELD)
-+	__u8 pnl:2,
-+	     reserved:2,
-+	     type:2,
-+	     fixed:1,
-+	     form:1;
-+#elif defined(__BIG_ENDIAN_BITFIELD)
-+	__u8 form:1,
-+	     fixed:1,
-+	     type:2,
-+	     reserved:2,
-+	     pnl:2;
 +#endif
+diff --git a/include/uapi/linux/quic.h b/include/uapi/linux/quic.h
+new file mode 100644
+index 000000000000..ae37d6a7bc36
+--- /dev/null
++++ b/include/uapi/linux/quic.h
+@@ -0,0 +1,241 @@
++/* SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note */
++/* QUIC kernel implementation
++ * (C) Copyright Red Hat Corp. 2023
++ *
++ * This file is part of the QUIC kernel implementation
++ *
++ * Written or modified by:
++ *    Xin Long <lucien.xin@gmail.com>
++ */
++
++#ifndef _UAPI_LINUX_QUIC_H
++#define _UAPI_LINUX_QUIC_H
++
++#include <linux/types.h>
++#ifdef __KERNEL__
++#include <linux/socket.h>
++#else
++#include <sys/socket.h> /* for MSG_* flags */
++#endif
++
++/* NOTE: Structure descriptions are specified in:
++ * https://datatracker.ietf.org/doc/html/draft-lxin-quic-socket-apis
++ */
++
++/* Send or Receive Options APIs */
++enum quic_cmsg_type {
++	QUIC_STREAM_INFO,
++	QUIC_HANDSHAKE_INFO,
 +};
 +
-+static inline struct quichshdr *quic_hshdr(struct sk_buff *skb)
-+{
-+	return (struct quichshdr *)skb->data;
-+}
++#define QUIC_STREAM_TYPE_SERVER_MASK	0x01
++#define QUIC_STREAM_TYPE_UNI_MASK	0x02
++#define QUIC_STREAM_TYPE_MASK		0x03
 +
-+union quic_addr {
-+	struct sockaddr_in6 v6;
-+	struct sockaddr_in v4;
-+	struct sockaddr sa;
++enum quic_msg_flags {
++	/* flags for stream_flags */
++	MSG_QUIC_STREAM_NEW		= MSG_SYN,
++	MSG_QUIC_STREAM_FIN		= MSG_FIN,
++	MSG_QUIC_STREAM_UNI		= MSG_CONFIRM,
++	MSG_QUIC_STREAM_DONTWAIT	= MSG_EOR,
++	MSG_QUIC_STREAM_SNDBLOCK	= MSG_ERRQUEUE,
++
++	/* extended flags for msg_flags */
++	MSG_QUIC_DATAGRAM		= MSG_RST,
++	MSG_QUIC_NOTIFICATION		= MSG_MORE,
 +};
 +
-+static inline union quic_addr *quic_addr(const void *addr)
-+{
-+	return (union quic_addr *)addr;
-+}
-+
-+struct quic_shash_head {
-+	struct hlist_nulls_head	head;
-+	spinlock_t		lock; /* Protects 'head' in atomic context */
++enum quic_crypto_level {
++	QUIC_CRYPTO_APP,
++	QUIC_CRYPTO_INITIAL,
++	QUIC_CRYPTO_HANDSHAKE,
++	QUIC_CRYPTO_EARLY,
++	QUIC_CRYPTO_MAX,
 +};
 +
-+struct quic_shash_table {
-+	struct quic_shash_head *hash;
-+	u32 size;
++struct quic_handshake_info {
++	__u8	crypto_level;
 +};
 +
-+struct quic_uhash_head {
-+	struct hlist_head	head;
-+	struct mutex		lock; /* Protects 'head' in process context */
++struct quic_stream_info {
++	__s64	stream_id;
++	__u32	stream_flags;
 +};
 +
-+struct quic_uhash_table {
-+	struct quic_uhash_head *hash;
-+	u32 size;
++/* Socket Options APIs */
++#define QUIC_SOCKOPT_EVENT				0
++#define QUIC_SOCKOPT_STREAM_OPEN			1
++#define QUIC_SOCKOPT_STREAM_RESET			2
++#define QUIC_SOCKOPT_STREAM_STOP_SENDING		3
++#define QUIC_SOCKOPT_CONNECTION_ID			4
++#define QUIC_SOCKOPT_CONNECTION_CLOSE			5
++#define QUIC_SOCKOPT_CONNECTION_MIGRATION		6
++#define QUIC_SOCKOPT_KEY_UPDATE				7
++#define QUIC_SOCKOPT_TRANSPORT_PARAM			8
++#define QUIC_SOCKOPT_CONFIG				9
++#define QUIC_SOCKOPT_TOKEN				10
++#define QUIC_SOCKOPT_ALPN				11
++#define QUIC_SOCKOPT_SESSION_TICKET			12
++#define QUIC_SOCKOPT_CRYPTO_SECRET			13
++#define QUIC_SOCKOPT_TRANSPORT_PARAM_EXT		14
++
++#define QUIC_VERSION_V1			0x1
++#define QUIC_VERSION_V2			0x6b3343cf
++
++struct quic_transport_param {
++	__u8	remote;
++	__u8	disable_active_migration;
++	__u8	grease_quic_bit;
++	__u8	stateless_reset;
++	__u8	disable_1rtt_encryption;
++	__u8	disable_compatible_version;
++	__u8	active_connection_id_limit;
++	__u8	ack_delay_exponent;
++	__u16	max_datagram_frame_size;
++	__u16	max_udp_payload_size;
++	__u32	max_idle_timeout;
++	__u32	max_ack_delay;
++	__u16	max_streams_bidi;
++	__u16	max_streams_uni;
++	__u64	max_data;
++	__u64	max_stream_data_bidi_local;
++	__u64	max_stream_data_bidi_remote;
++	__u64	max_stream_data_uni;
 +};
 +
-+struct quic_data {
-+	u8 *data;
-+	u32 len;
++struct quic_config {
++	__u32	version;
++	__u32	plpmtud_probe_interval;
++	__u32	initial_smoothed_rtt;
++	__u32	payload_cipher_type;
++	__u8	congestion_control_algo;
++	__u8	validate_peer_address;
++	__u8	stream_data_nodelay;
++	__u8	receive_session_ticket;
++	__u8	certificate_request;
++	__u8	reserved[3];
++	__u32	keepalive_probe_interval;
 +};
 +
-+static inline struct quic_data *quic_data(struct quic_data *d, u8 *data,
-+					  u32 len)
-+{
-+	d->data = data;
-+	d->len  = len;
-+	return d;
-+}
++struct quic_crypto_secret {
++	__u8	send;  /* send or recv */
++	__u8	level; /* crypto level */
++	__u16	reserved;
++	__u32	type; /* TLS_CIPHER_* */
++#define QUIC_CRYPTO_SECRET_BUFFER_SIZE 48
++	__u8	secret[QUIC_CRYPTO_SECRET_BUFFER_SIZE];
++};
 +
-+static inline int quic_data_cmp(struct quic_data *d1, struct quic_data *d2)
-+{
-+	return d1->len != d2->len || memcmp(d1->data, d2->data, d1->len);
-+}
++enum quic_cong_algo {
++	QUIC_CONG_ALG_RENO,
++	QUIC_CONG_ALG_MAX,
++};
 +
-+static inline void quic_data_free(struct quic_data *d)
-+{
-+	kfree(d->data);
-+	d->data = NULL;
-+	d->len = 0;
-+}
++struct quic_errinfo {
++	__s64	stream_id;
++	__u32	errcode;
++};
 +
-+static inline u64 quic_ktime_get_us(void)
-+{
-+	return ktime_to_us(ktime_get());
-+}
++struct quic_connection_id_info {
++	__u8	dest;
++	__u8	reserved[3];
++	__u32	active;
++	__u32	prior_to;
++};
 +
-+u32 quic_sock_hash(struct net *net, union quic_addr *s, union quic_addr *d);
-+struct quic_shash_head *quic_sock_head(u32 hash);
-+u32 quic_sock_hash_size(void);
++struct quic_event_option {
++	__u8	type;
++	__u8	on;
++};
 +
-+u32 quic_listen_sock_hash(struct net *net, u16 port);
-+struct quic_shash_head *quic_listen_sock_head(u32 hash);
-+u32 quic_listen_sock_hash_size(void);
++/* Event APIs */
++enum quic_event_type {
++	QUIC_EVENT_NONE,
++	QUIC_EVENT_STREAM_UPDATE,
++	QUIC_EVENT_STREAM_MAX_DATA,
++	QUIC_EVENT_STREAM_MAX_STREAM,
++	QUIC_EVENT_CONNECTION_ID,
++	QUIC_EVENT_CONNECTION_CLOSE,
++	QUIC_EVENT_CONNECTION_MIGRATION,
++	QUIC_EVENT_KEY_UPDATE,
++	QUIC_EVENT_NEW_TOKEN,
++	QUIC_EVENT_NEW_SESSION_TICKET,
++	QUIC_EVENT_MAX,
++};
 +
-+struct quic_shash_head *quic_source_conn_id_head(struct net *net, u8 *scid,
-+						 u32 len);
-+struct quic_uhash_head *quic_udp_sock_head(struct net *net, u16 port);
-+u32 quic_addr_hash(struct net *net, union quic_addr *a);
++enum {
++	QUIC_STREAM_SEND_STATE_READY,
++	QUIC_STREAM_SEND_STATE_SEND,
++	QUIC_STREAM_SEND_STATE_SENT,
++	QUIC_STREAM_SEND_STATE_RECVD,
++	QUIC_STREAM_SEND_STATE_RESET_SENT,
++	QUIC_STREAM_SEND_STATE_RESET_RECVD,
 +
-+void quic_hash_tables_destroy(void);
-+int quic_hash_tables_init(void);
++	QUIC_STREAM_RECV_STATE_RECV,
++	QUIC_STREAM_RECV_STATE_SIZE_KNOWN,
++	QUIC_STREAM_RECV_STATE_RECVD,
++	QUIC_STREAM_RECV_STATE_READ,
++	QUIC_STREAM_RECV_STATE_RESET_RECVD,
++	QUIC_STREAM_RECV_STATE_RESET_READ,
++};
 +
-+u32 quic_get_data(u8 **pp, u32 *plen, u8 *data, u32 len);
-+u32 quic_get_int(u8 **pp, u32 *plen, u64 *val, u32 len);
-+s64 quic_get_num(s64 max_pkt_num, s64 pkt_num, u32 n);
-+u8 quic_get_param(u64 *pdest, u8 **pp, u32 *plen);
-+u8 quic_get_var(u8 **pp, u32 *plen, u64 *val);
-+u8 quic_var_len(u64 n);
++struct quic_stream_update {
++	__s64	id;
++	__u8	state;
++	__u8	reserved[3];
++	__u32	errcode;
++	__u64	finalsz;
++};
 +
-+u8 *quic_put_param(u8 *p, u16 id, u64 value);
-+u8 *quic_put_data(u8 *p, u8 *data, u32 len);
-+u8 *quic_put_varint(u8 *p, u64 num, u8 len);
-+u8 *quic_put_int(u8 *p, u64 num, u8 len);
-+u8 *quic_put_var(u8 *p, u64 num);
++struct quic_stream_max_data {
++	__s64	id;
++	__u64	max_data;
++};
 +
-+int quic_data_from_string(struct quic_data *to, u8 *from, u32 len);
-+int quic_data_to_string(u8 *to, u32 *plen, struct quic_data *from);
++struct quic_connection_close {
++	__u32	errcode;
++	__u8	frame;
++	__u8	reserved[3];
++#define QUIC_CLOSE_PHRASE_BUFFER_SIZE 64
++	__u8	phrase[QUIC_CLOSE_PHRASE_BUFFER_SIZE];
++};
 +
-+int quic_data_append(struct quic_data *to, u8 *data, u32 len, gfp_t gfp);
-+int quic_data_dup(struct quic_data *to, u8 *data, u32 len, gfp_t gfp);
-+bool quic_data_match(struct quic_data *d1, struct quic_data *d2);
-+bool quic_data_has(struct quic_data *d1, struct quic_data *d2);
-diff --git a/net/quic/protocol.c b/net/quic/protocol.c
-index 77171dbe3b0a..1a741f6b1c21 100644
---- a/net/quic/protocol.c
-+++ b/net/quic/protocol.c
-@@ -311,6 +311,9 @@ static __init int quic_init(void)
- 	int max_share, err = -ENOMEM;
- 	unsigned long limit;
- 
-+	BUILD_BUG_ON(sizeof(struct quic_skb_cb) >
-+		     sizeof_field(struct sk_buff, cb));
++union quic_event {
++	struct quic_stream_update	update;
++	struct quic_stream_max_data	max_data;
++	struct quic_connection_close	close;
++	struct quic_connection_id_info	info;
++	__u64	max_stream;
++	__u8	local_migration;
++	__u8	key_update_phase;
++};
 +
- 	/* Set QUIC memory limits based on available system memory, similar to
- 	 * sctp_init().
- 	 */
-@@ -335,6 +338,10 @@ static __init int quic_init(void)
- 	if (err)
- 		goto err_percpu_counter;
- 
-+	err = quic_hash_tables_init();
-+	if (err)
-+		goto err_hash;
++enum {
++	QUIC_TRANSPORT_ERROR_NONE			= 0x00,
++	QUIC_TRANSPORT_ERROR_INTERNAL			= 0x01,
++	QUIC_TRANSPORT_ERROR_CONNECTION_REFUSED		= 0x02,
++	QUIC_TRANSPORT_ERROR_FLOW_CONTROL		= 0x03,
++	QUIC_TRANSPORT_ERROR_STREAM_LIMIT		= 0x04,
++	QUIC_TRANSPORT_ERROR_STREAM_STATE		= 0x05,
++	QUIC_TRANSPORT_ERROR_FINAL_SIZE			= 0x06,
++	QUIC_TRANSPORT_ERROR_FRAME_ENCODING		= 0x07,
++	QUIC_TRANSPORT_ERROR_TRANSPORT_PARAM		= 0x08,
++	QUIC_TRANSPORT_ERROR_CONNECTION_ID_LIMIT	= 0x09,
++	QUIC_TRANSPORT_ERROR_PROTOCOL_VIOLATION		= 0x0a,
++	QUIC_TRANSPORT_ERROR_INVALID_TOKEN		= 0x0b,
++	QUIC_TRANSPORT_ERROR_APPLICATION		= 0x0c,
++	QUIC_TRANSPORT_ERROR_CRYPTO_BUF_EXCEEDED	= 0x0d,
++	QUIC_TRANSPORT_ERROR_KEY_UPDATE			= 0x0e,
++	QUIC_TRANSPORT_ERROR_AEAD_LIMIT_REACHED		= 0x0f,
++	QUIC_TRANSPORT_ERROR_NO_VIABLE_PATH		= 0x10,
++	QUIC_TRANSPORT_ERROR_VERSION_NEGOTIATION	= 0x11,
 +
- 	err = register_pernet_subsys(&quic_net_ops);
- 	if (err)
- 		goto err_def_ops;
-@@ -352,6 +359,8 @@ static __init int quic_init(void)
- err_protosw:
- 	unregister_pernet_subsys(&quic_net_ops);
- err_def_ops:
-+	quic_hash_tables_destroy();
-+err_hash:
- 	percpu_counter_destroy(&quic_sockets_allocated);
- err_percpu_counter:
- 	return err;
-@@ -364,6 +373,7 @@ static __exit void quic_exit(void)
- #endif
- 	quic_protosw_exit();
- 	unregister_pernet_subsys(&quic_net_ops);
-+	quic_hash_tables_destroy();
- 	percpu_counter_destroy(&quic_sockets_allocated);
- 	pr_info("quic: exit\n");
- }
++	/* The cryptographic handshake failed. A range of 256 values is reserved
++	 * for carrying error codes specific to the cryptographic handshake that
++	 * is used. Codes for errors occurring when TLS is used for the
++	 * cryptographic handshake are described in Section 4.8 of [QUIC-TLS].
++	 */
++	QUIC_TRANSPORT_ERROR_CRYPTO			= 0x0100,
++};
++
++#endif /* _UAPI_LINUX_QUIC_H */
 diff --git a/net/quic/socket.c b/net/quic/socket.c
-index f133fb55484f..34a1975853af 100644
+index 0037cd4010f7..1fb948602e56 100644
 --- a/net/quic/socket.c
 +++ b/net/quic/socket.c
-@@ -54,6 +54,10 @@ static int quic_init_sock(struct sock *sk)
- 
- static void quic_destroy_sock(struct sock *sk)
- {
-+	quic_data_free(quic_ticket(sk));
-+	quic_data_free(quic_token(sk));
-+	quic_data_free(quic_alpn(sk));
-+
- 	sk_sockets_allocated_dec(sk);
- 	sock_prot_inuse_add(sock_net(sk), sk->sk_prot, -1);
+@@ -111,11 +111,25 @@ static void quic_close(struct sock *sk, long timeout)
+ 	sk_common_release(sk);
  }
+ 
+-static int quic_do_setsockopt(struct sock *sk, int optname, sockptr_t optval,
+-			      unsigned int optlen)
++/**
++ * quic_do_setsockopt - set a QUIC socket option
++ * @sk: socket to configure
++ * @optname: option name (QUIC-level)
++ * @optval: user or kernel buffer containing the option value
++ * @optlen: size of the option value
++ *
++ * Sets a QUIC socket option on a given socket.
++ *
++ * Return:
++ * - On success, 0 is returned.
++ * - On error, a negative error value is returned.
++ */
++int quic_do_setsockopt(struct sock *sk, int optname, sockptr_t optval,
++		       unsigned int optlen)
+ {
+ 	return -EOPNOTSUPP;
+ }
++EXPORT_SYMBOL_GPL(quic_do_setsockopt);
+ 
+ static int quic_setsockopt(struct sock *sk, int level, int optname,
+ 			   sockptr_t optval, unsigned int optlen)
+@@ -127,11 +141,25 @@ static int quic_setsockopt(struct sock *sk, int level, int optname,
+ 	return quic_do_setsockopt(sk, optname, optval, optlen);
+ }
+ 
+-static int quic_do_getsockopt(struct sock *sk, int optname, sockptr_t optval,
+-			      sockptr_t optlen)
++/**
++ * quic_do_getsockopt - get a QUIC socket option
++ * @sk: socket to query
++ * @optname: option name (QUIC-level)
++ * @optval: user or kernel buffer to receive the option value
++ * @optlen: pointer to buffer size; updated with actual size on return
++ *
++ * Gets a QUIC socket option from a given socket.
++ *
++ * Return:
++ * - On success, 0 is returned.
++ * - On error, a negative error value is returned.
++ */
++int quic_do_getsockopt(struct sock *sk, int optname, sockptr_t optval,
++		       sockptr_t optlen)
+ {
+ 	return -EOPNOTSUPP;
+ }
++EXPORT_SYMBOL_GPL(quic_do_getsockopt);
+ 
+ static int quic_getsockopt(struct sock *sk, int level, int optname,
+ 			   char __user *optval, int __user *optlen)
 diff --git a/net/quic/socket.h b/net/quic/socket.h
-index 98d3f738e909..9a2f4b851676 100644
+index 0aa642e3b0ae..61df0c5867be 100644
 --- a/net/quic/socket.h
 +++ b/net/quic/socket.h
-@@ -10,6 +10,8 @@
+@@ -9,6 +9,7 @@
+  */
  
  #include <net/udp_tunnel.h>
++#include <linux/quic.h>
  
-+#include "common.h"
-+
- #include "protocol.h"
- 
- extern struct proto quic_prot;
-@@ -25,6 +27,10 @@ enum quic_state {
- struct quic_sock {
- 	struct inet_sock		inet;
- 	struct list_head		reqs;
-+
-+	struct quic_data		ticket;
-+	struct quic_data		token;
-+	struct quic_data		alpn;
- };
- 
- struct quic6_sock {
-@@ -42,6 +48,21 @@ static inline struct list_head *quic_reqs(const struct sock *sk)
- 	return &quic_sk(sk)->reqs;
- }
- 
-+static inline struct quic_data *quic_token(const struct sock *sk)
-+{
-+	return &quic_sk(sk)->token;
-+}
-+
-+static inline struct quic_data *quic_ticket(const struct sock *sk)
-+{
-+	return &quic_sk(sk)->ticket;
-+}
-+
-+static inline struct quic_data *quic_alpn(const struct sock *sk)
-+{
-+	return &quic_sk(sk)->alpn;
-+}
-+
- static inline bool quic_is_serv(const struct sock *sk)
- {
- 	return !!sk->sk_max_ack_backlog;
+ #include "common.h"
+ #include "family.h"
+diff --git a/usr/include/Makefile b/usr/include/Makefile
+index ee69dd9d970e..8b4133d38da2 100644
+--- a/usr/include/Makefile
++++ b/usr/include/Makefile
+@@ -31,6 +31,7 @@ no-header-test += linux/omap3isp.h
+ no-header-test += linux/omapfb.h
+ no-header-test += linux/patchkey.h
+ no-header-test += linux/phonet.h
++no-header-test += linux/quic.h
+ no-header-test += linux/sctp.h
+ no-header-test += linux/sysctl.h
+ no-header-test += linux/usb/audio.h
 -- 
 2.47.1
 
