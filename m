@@ -1,68 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792445413;
-	b=kMtmkWo5Yu27bhX3Y/b2iPc4AzAwvPyulL4/tyaVGLl/Q0WfcwcOwV5RiymjcOOG5Emu
-	 iwBeWDHR3s1Er1VzLLWMX4uTwybifwOifu3MQerjxKzFIsgsRcJgaz8Hsq1FtMtckQnNM
-	 nurwP4xQfiDE4QZYUgJ8Saix7JT8goyqmnFNgqP+LL5sKTpe/bBbe3tzZKUAf1La2vggJ
-	 r9H12mfh2nwvBRhq6y8OV46aHcVnb9RmnYJepfokZBezzaKcZNlMHG8VQ2AGfcgzeT81n
-	 FKUlYNQkP+jTNf/U7ldnvF9g5X3nmqz4SvGOi5HCTe9vPHItqG273nNALWra+Rxr0AQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445413;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=UuICSS5DMo4Gcw0hAWTDJJ5h4bUS85wyXSJnINw8FnE=;
-	b=aSe763eP1Pv4KRW4qFZKeIJLJrXVwjU2oeMBmv7PvEpkJ6XVz/uC/7xeZyPVBrpHtVE0
-	 N1MtJy/JMdO7PXgx60Xt6DeOQ3cn2+syM87YwazjijSa2g5f1ZQEi5VCEEXIzv4v4Mqq4
-	 KnA2p4UI0eTh3cm+Tg0BmTb/BD8I/1y2y28utkZq2h5MdIwyG6nRAnZsZrUb3vIfBWdSA
-	 yplkzhp+RLZZAKyi3mGKsNIH7oUXQjRCPPHQFAFjwEUVeX5GnBFKTn9tOGapW3/TzavPh
-	 1Yh+jT0/62o3Bj+UyzAtAt3TpWWMsW95o3BZ2DRvuYgtzLADWBxi2Y7rulzabDm2arg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6BYdnTv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792529759;
+	b=XpeYzSxHjE/SFi2vw/QDxFORTe+IMoktA6Rr5pEDgRd0EmTvcKWGyE98MwGzhw6vi0KK
+	 j6y7vSv/sBHmoWtNL0WVLGNaeEd+gOPaNfa3/V6oUVCMzftjvSGoG8uRg+B4wDVXb4kGJ
+	 lx2lpsHBceTggJYnQsAJ0ZYolTw7DJrmrT+ftgPPRaRlMYLVKNiYatdU5R5rmtwEgCXUs
+	 MktF1kczbpNJXBkeuiNI8gjPoodZdSuoKh4yp9cwZ2wgPN/eLYkb6jxgBmV468bhBNw77
+	 FqYY7hLuaxYtGD9hKW+udXvkS58YGyM0wwsgnArALI1PvtcmBSbGhKg8TT3LPbIREsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792529759;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9va69Z70VDBET6RC2fy59u2Ycvr0LSmJxWPH1bvD2co=;
+	b=3AwSvXOOHXVGvi4FCn5fC5XdfQaW6slhBBRKE3EIGNvqjoFnb4RKdRR1s08nhhjJiPp9
+	 7JZDlDXM+jq5VmeaZ7OJdjvykZD2WyaC7Rf6hk0dNvETgQBjRhUVjElAHYn9UF9AKwaVs
+	 BomUa6rfpDzmN5eODjNf7r8DR/GxZXQaZkycy0fSGygve5Fo16UrUNvnxmK2BlM6ZNvYo
+	 UfZ+34dFpTyrb7hV5o5A2Oslevu5z5NMmA9Tkmv/mj+xFlwI3Ri61dnuzmOrt46s45rmH
+	 f3cMPHUuhWUC0eoOMG2UsUPqPdQ/FJsypFN2q0/nFXALzhk5zZ2oSLJhDis458PuX4g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PDEXopoO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63506606A319;
-	Mon, 19 Oct 2026 21:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83ACC606A31D
+	for <quic@lists.linux.dev>; Tue, 20 Oct 2026 20:55:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83ACC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6BYdnTv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88A01F000C9;
-	Mon, 19 Oct 2026 21:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792445412;
-	bh=UuICSS5DMo4Gcw0hAWTDJJ5h4bUS85wyXSJnINw8FnE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=X6BYdnTvC6C15mHDkX22cBjEl6SoM5OpsD1FPrncIRLgN2Y7ja0uoYw6CPQrHHlEQ
-	 cV2fGLklVZXA7zmRbtdkOhRn29swKPDzzh3I5d/3lMuT005nTO9lXJ3N49RWNpUAoE
-	 mid7bcvLFFQ8YQCcRGxfHueccbAcZqn4jFY85UJfggmQ/tKMSLQ5cgcf4YEIkTKKMF
-	 taTnKv155x3+a+xP3fk2RArbEUHBL+7kIUrH1eWiX5PgzbuIu9l6yxtaK4euEQjZDA
-	 0RIXXvXy9cbipOpnmKDyiPVKmVjgBFVsNA36wEPI5iFxBuZDoOmdJ6IsMIPGA+pgeO
-	 64S7a2B3ujdVA==
-Subject: Re: [PATCH net-next v17 15/15] quic: add packet parser base
-From: netdev-bot+sashiko@kernel.org
-To: lucien.xin@gmail.com
-Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net,
- kuba@kernel.org, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- metze@samba.org, mbuhl@openbsd.org, tfanelli@redhat.com, hepengtao@xiaomi.com,
- dreibh@simula.no, linux-cifs@vger.kernel.org, pc@manguebit.org,
- linkinjeon@kernel.org, tom@talpey.com, kernel-tls-handshake@lists.linux.dev,
- chuck.lever@oracle.com, jlayton@kernel.org, steved@redhat.com, hare@suse.de,
- aahringo@redhat.com, dhowells@redhat.com, matttbe@kernel.org,
- mail@johnericson.me, xiyou.wangcong@gmail.com, alibuda@linux.alibaba.com,
- jbaron@akamai.com, illiliti@protonmail.com, sd@queasysnail.net,
- marcelo.leitner@gmail.com, daniel@haxx.se, andrew.gospodarek@broadcom.com,
- mef@scarletmail.rutgers.edu, paul@jakma.org, kuniyu@google.com
-Date: Mon, 19 Oct 2026 21:30:10 +0000
-Message-ID: <179244541026.3135.1595523596507400028@kernel.org>
-In-Reply-To: =?utf-8?q?=3C47ec29f97f3986e6b9cb5b07f109dcae340916e6=2E1792164?=
- =?utf-8?q?438=2Egit=2Elucien=2Exin=40gmail=2Ecom=3E?=
-References: =?utf-8?q?=3C47ec29f97f3986e6b9cb5b07f109dcae340916e6=2E17921644?=
- =?utf-8?q?38=2Egit=2Elucien=2Exin=40gmail=2Ecom=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PDEXopoO
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06b436dffso16904b3a.3
+        for <quic@lists.linux.dev>; Tue, 20 Oct 2026 13:55:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792529758; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LUw1kNSDq1WnaHgd3HTKRcvo5XMDuVbh1qmcJd0cb209mYQo26lm4lfVO5qIkLSVbN
+         ZRscSInUmUNAQL5OM5Ke7s3TSW4AmS+NNnrFKdEU9+4o99vtWYEAeGh8I71tMidQdit7
+         P9E3+lBUFEemRhApucYj8kyCzQ2KfHvHhhweFwqZ26TMhMSrWwWSslNP8jK8XopO0sZg
+         6me6lgpIdLlFlt1X4uVjIvtHDw7jxKunS4E1cWZrg8DPW8qFZ0II9E023rQapdyOIubd
+         wOXr44mr98halwXTUM7aJKOEwVmeofycIAvVryFCwkYS7MJrhpEX9qdakIDp9bYPcJWT
+         yM2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9va69Z70VDBET6RC2fy59u2Ycvr0LSmJxWPH1bvD2co=;
+        fh=hHZP7O7h02mDfArsjAvnKh5rp5cKOv8hTbI2SLxYS40=;
+        b=OJCZo5KxsymMoGQz8b5d+xNocPUHwBKIaKu3lDePB1dqHolonlmJrzlowF52Vr5A4P
+         YyjVS9JpH5YV0u1R8T4CY7NmRxOqKj3aB+Lg2nlP5Zpf0c8IG+WULVjDDHo5uiVHudlx
+         dsgC5/Nvjjsnwo62tWApxPsJb3IfjN/PvcEo40+rzc84S1Q5IJIXFU0e7ocBF+iXHAyG
+         SSspoHcKMRHTUhNTV+Z6xK4QCEtNu3Hai60QiUJ9kYBMCSjc2PnMmf+kFdZTGNwY1itR
+         hdtMldvpjL1POlgDECjjjdT1hsryF8El1xe+aqSbOX6cX9jc3EcRZR2pJrAsdwChI/06
+         m6BQ==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792529758; x=1793134558; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9va69Z70VDBET6RC2fy59u2Ycvr0LSmJxWPH1bvD2co=;
+        b=PDEXopoOQZvlNMysAWJAISCMzUjoaMLPQZTXDk6FzA15mcpjCXZqZY6HbhQMt7c5pP
+         RX6QzsOLjBR3zgmObVdqujNbzlDIAz5gP+04rHBkNe5nhIUSCGHJaOKsNdcyNpv+e/+c
+         MxknR2nK/VAl6mbAmMQHbIalUjl2a6cKBH81B7IyZDyUK01XdWSY4sP5qLg15nqgbdLP
+         7LHYoo9ss4Bi6JGjmu3cFjjP1+sCV7cDPThHp5hnllR4jxPaSmGa5Cdyry6+dNWifHfz
+         mpf5yfHjsFG5xzIruDs/ajAhBVnkHbxvI1l0Z8E/7ejmUqzEl2inL2Ox3l0MN4uys2RH
+         GPqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792529758; x=1793134558;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9va69Z70VDBET6RC2fy59u2Ycvr0LSmJxWPH1bvD2co=;
+        b=ORYrn/tSwpRE1xQ6FbrSgDh1tkwK75sfvAVSybQ54uU2RYp+vY9FdNWHN4x4ieZYuA
+         0sgqmffW7HqNaHIFDVALQmm02Z+n6e+7jALhXsvHl4WiCChQjAY2gG1k3q8jxi/l9FjT
+         tKLHw6VkdMQqiGXRso4Y6i5pLp0QDweAzA2bZgg5QoNDXZA+Zjo9ToQmH+qL7rN5Y+PO
+         k3lc4US8S6S/GD3W399O9lUHPw18Cj///slxBWay+/2Z9qSLaJw9xlbD6vXu1PhRVFfq
+         CDtzztxJ2MDeQK1rZXiV5iXCeQyw8j7/jjyAL3H7g5BnlCDcq2qdby4H1/0y+WDsG1rd
+         fJlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLPn0NeWnYIh1SYWXu7r89BPSTkDoHENpiVzJkSYtKsi/ypaD1w6Zyej+L4Ke+nlC/jSBN@lists.linux.dev
+X-Gm-Message-State: AFq9FYJBqTR5Jx1+ZRH3IilpBl6V/d9PcsmndjOWuQieH+xGl1WahgGd
+	6H2hgIy4/ku1MEHkjWs6nqtt6H2ubjBam8XbOM79reyEa8R00DIP54NhnigaNakoOA4FeTgrF/o
+	z+Wv6CfWg6ocfro+PF7oq521FJcXffPw=
+X-Gm-Gg: AYBFou1VLd6Yq48CUbQcqg/aalfvjkQab2Rnj4neJgL5N9LoZxUNKvEtOBDOU48ch1P
+	zsRSf6dFoYpjIWcTthIydWvp+gRWscebHBRBlsOTRclHn8UhzZtleubU+X24KrokQeClSxJLBBM
+	YQnarHB0yzfnu7A56417jQM4HQNPJXF/K4qBUIu4vDyD2UW+jVbQLiWwxDlnyDhgHHFWTMmtLWv
+	IMeXTTPI0q6CuU5oSHqtUuC8ta2RHFlSF4PFGMooZQTej7evbQRrVe8IdWm8Hlq5mtfBf29pxaC
+	UlPQPQORMVveTlOHYUbXX2eqwe/fPyP9dHQbpgnYaMzPgSE0fLUanlgjccGtNX9bE8435gTIpOp
+	hTIU++8RY1ycsWQYoqgjMexVvKtsp1oTQTJ3IGV0IdF9qup7TYoQ7ScWEwJSp/gEH4RoP8+ytEg
+	A7EKtAiU2nmeCLuA==
+X-Received: by 2002:a05:6a00:4c92:b0:89e:261c:447a with SMTP id
+ d2e1a72fcca58-8a089d8f4cdmr110909b3a.7.1792529757792; Tue, 20 Oct 2026
+ 13:55:57 -0700 (PDT)
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Post: <mailto:quic@lists.linux.dev>
@@ -72,301 +105,130 @@ List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:quic+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
+References: <1da72318e969eb252977ccf5d8e3e506c2fa2e69.1792164438.git.lucien.xin@gmail.com>
+ <179244540463.3135.17132817693152829356@kernel.org>
+In-Reply-To: <179244540463.3135.17132817693152829356@kernel.org>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Tue, 20 Oct 2026 16:55:46 -0400
+X-Gm-Features: AclHuK_xypNF_3ZupZmQ5gCHrMwwp4u_9BbDfwJ9qW_3NU4_ksSvUmCEVd-BZ04
+Message-ID: <CADvbK_d=J7Oq8VQFRYzoxX0YPs26tnJvxE7wMa4hyoe_M5n39A@mail.gmail.com>
+Subject: Re: [PATCH net-next v17 11/15] quic: add crypto key derivation and installation
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net, 
+	kuba@kernel.org, edumazet@google.com, pabeni@redhat.com, horms@kernel.org, 
+	metze@samba.org, mbuhl@openbsd.org, tfanelli@redhat.com, hepengtao@xiaomi.com, 
+	dreibh@simula.no, linux-cifs@vger.kernel.org, pc@manguebit.org, 
+	linkinjeon@kernel.org, tom@talpey.com, kernel-tls-handshake@lists.linux.dev, 
+	chuck.lever@oracle.com, jlayton@kernel.org, steved@redhat.com, hare@suse.de, 
+	aahringo@redhat.com, dhowells@redhat.com, matttbe@kernel.org, 
+	mail@johnericson.me, xiyou.wangcong@gmail.com, alibuda@linux.alibaba.com, 
+	jbaron@akamai.com, illiliti@protonmail.com, sd@queasysnail.net, 
+	marcelo.leitner@gmail.com, daniel@haxx.se, andrew.gospodarek@broadcom.com, 
+	mef@scarletmail.rutgers.edu, paul@jakma.org, kuniyu@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
+On Mon, Oct 19, 2026 at 5:30=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] quic_init_sock() (net/quic/socket.c:58) sets sk->sk_destruct =3D
+>   quic_sock_destruct.
+>
+> --
+>
+> quic: add crypto key derivation and installation
+>
+> This patch adds quic_crypto, which derives and installs QUIC packet
+> protection keys for the Initial, Handshake, 0-RTT and 1-RTT levels. It
+> handles key updates and stateless reset token generation. It also adds a
+> quic_sock_destruct() callback that frees the per-level crypto transforms
+> when the last socket reference goes away.
+>
+> > diff --git a/net/quic/socket.c b/net/quic/socket.c
+> > index 12f0817c8b55f..9b1106a9f5e73 100644
+> > --- a/net/quic/socket.c
+> > +++ b/net/quic/socket.c
+> > @@ -40,10 +40,22 @@ static void quic_write_space(struct sock *sk)
+> >       rcu_read_unlock();
+> >  }
+> >
+> > +static void quic_sock_destruct(struct sock *sk)
+> > +{
+> > +     u8 i;
+> > +
+> > +     /* Deferred crypto free for async encryption/decryption. */
+> > +     for (i =3D 0; i < QUIC_CRYPTO_MAX; i++)
+> > +             quic_crypto_free(quic_crypto(sk, i));
+>
+> [Severity: High]
+> Is it safe to free the crypto transforms from sk_destruct, given the
+> context it can run in?
+>
+> sk_destruct runs in whatever context drops the last socket reference.
+> Later in this series, several of those contexts are softirq:
+>
+>   quic_packet_rcv() (UDP encap receive) ends with sock_put(sk)
+>   quic_timer_timeout() ends with sock_put(sk)
+>   quic_packet_rcv_err() drops its reference with sock_put()
+>   quic_packet_xmit() takes a reference per TX skb through
+>     skb_set_owner_sk_safe(); sock_efree() releases it on TX completion,
+>     usually in NAPI
+>
+> If the user has already closed the socket, any of these can end up as:
+>
+>   sock_put()
+>     __sk_destruct()
+>       quic_sock_destruct()
+>         quic_crypto_free()
+>           crypto_free_aead()
+>             crypto_destroy_tfm()
+>               alg->cra_exit()
+>
+> The AEADs come from crypto_alloc_aead(cipher->aead, 0, 0), so an async
+> hardware implementation can be selected. hisi_sec2, for example, register=
+s
+> both "gcm(aes)" and "ccm(aes)". Its sec_aead_exit() calls
+> dma_free_coherent(). Behind an IOMMU that leads to __iommu_dma_free() and
+> then vunmap(), which begins with:
+>
+> mm/vmalloc.c:vunmap() {
+>         ...
+>         BUG_ON(in_interrupt());
+>         ...
+> }
+>
+> Can this hit that BUG when a QUIC socket is destroyed from softirq?
+> Listen sockets already hold AEAD transforms in this series, via
+> quic_packet_get_alpn()->quic_crypto_initial_keys_install().
+>
+> macsec hit the same crash and fixed it in commit 6624bba469a3 ("macsec:
+> use rcu_work to defer RX SA crypto cleanup out of softirq").
+>
+> The note about in-flight async requests holding a socket reference covers
+> the lifetime of the transforms. It does not cover the context in which
+> the free runs.
+>
+> Would it work to defer the tfm teardown to process context, for example
+> with a work item or rcu_work queued from quic_sock_destruct()?
+>
+True.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 4
+Didn't know crypto_free_aead() must be called in process context
+due to the async hardware crypto implementation.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I will  defer crypto cleanup to a work thread like quic_udp_sock.
 
-- [High] When PLPMTUD is disabled, ICMP Packet Too Big messages never
-  lower the MSS.
-- [Medium] quic_accept_sock_exists() (net/quic/socket.c) passes an skb to
-  an accept socket's sk_backlog_rcv() while atomic: local_bh_disable()…
-- [Low] quic_packet_get_connid() rejects any connection ID longer than
-  QUIC_CONN_ID_MAX_LEN (20) regardless of version.
-- [Low] quic_request_sock_backlog_tail() calls __sk_rmem_schedule(sk,
-  len) before skb_set_owner_r().
-- [Low] quic_packet_deferred_work() drains deferred_list while holding
-  lock_sock(sk) and never calls cond_resched(): `while ((skb =…
-- [Low] quic_packet_get_alpn() prints the u32 field alpn->len (struct
-  quic_data in net/quic/common.h) with %d: `pr_debug("%s: alpn_len:…
-
---
-
-quic: add packet parser base
-
-This patch adds the QUIC receive path. Sockets are looked up by
-connection ID and address, and packets are dispatched by socket state.
-Listen sockets handle client Initial packets (request sockets, ALPN
-demux, deferred work), and ICMP Packet Too Big errors update the path
-MTU.
-
-> diff --git a/net/quic/packet.c b/net/quic/packet.c
-> index 56d2b8df292a0..a2f836cc22d70 100644
-> --- a/net/quic/packet.c
-> +++ b/net/quic/packet.c
-> @@ -14,6 +14,801 @@
-
-[ ... ]
-
-> +/* Extracts a QUIC Connection ID from a buffer in the long header packet. */
-> +static int quic_packet_get_connid(struct quic_conn_id *connid, u8 **pp,
-> +				  u32 *plen)
-> +{
-> +	u64 len;
-> +
-> +	if (!quic_get_int(pp, plen, &len, 1) ||
-> +	    len > *plen || len > QUIC_CONN_ID_MAX_LEN)
-> +		return -EINVAL;
-
-[Severity: Low]
-Should the 20-byte connection ID limit be applied before we know the
-version is supported?
-
-quic_packet_get_long_header() is called from quic_packet_get_sock() and
-from quic_packet_listen_process(). Both calls happen before the
-!quic_packet_compatible_versions(version) branch that sends Version
-Negotiation.
-
-So a long-header packet with an unknown version and a CID longer than
-20 bytes is dropped as an invalid header, and no Version Negotiation is
-sent.
-
-RFC 9000 section 17.2 limits CIDs to 20 bytes only for version 1.
-Sections 5.2.2 and 6.1 say a server SHOULD be able to read longer CIDs
-from other versions so that it can send Version Negotiation.
-
-[ ... ]
-
-> +/* Process PMTU reduction event on a QUIC socket. */
-> +void quic_packet_rcv_err_pmtu(struct sock *sk)
-> +{
-
-[ ... ]
-
-> +	info = clamp(paths->mtu_info, QUIC_PATH_MIN_PMTU, QUIC_PATH_MAX_PMTU);
-> +	/* If PLPMTUD is not enabled, update MSS using route and ICMP info. */
-> +	if (!paths->plpmtud_interval) {
-> +		if (quic_packet_route(sk))
-> +			return;
-> +
-> +		dst = __sk_dst_get(sk);
-> +		if (dst) {
-> +			dst->ops->update_pmtu(dst, sk, NULL, info, true);
-> +			/* Re-read actual MTU after update_pmtu, which may have
-> +			 * rejected the increase. Only use values accepted by
-> +			 * route layer to prevent spoofed ICMP from raising MSS.
-> +			 */
-> +			info = clamp(dst_mtu(dst), QUIC_PATH_MIN_PMTU,
-> +				     QUIC_PATH_MAX_PMTU);
-> +		}
-> +		quic_packet_mss_update(sk, info - packet->hlen);
-
-[Severity: High]
-Does this ever lower the MSS when PLPMTUD is disabled?
-
-With skb == NULL, ip_rt_update_pmtu() builds its flow key through
-ip_rt_build_flow_key()->build_sk_flow_key(), which takes the
-destination from the socket:
-
-net/ipv4/route.c:build_sk_flow_key() {
-    ...
-	__be32 daddr = inet->inet_daddr;
-    ...
-}
-
-When there is no packet header, __ip6_rt_update_pmtu() does the same
-with sk->sk_v6_daddr.
-
-Nothing in net/quic sets inet_daddr or sk_v6_daddr, and ip6_dst_store()
-is called with daddr_set false. The exception would then be created for
-0.0.0.0 or :: instead of the peer.
-
-Even with the right key there is a second problem. When
-update_or_create_fnhe() creates a new exception, it only marks the
-cached routes obsolete:
-
-	WRITE_ONCE(rt->dst.obsolete, DST_OBSOLETE_KILL);
-
-It does not change their MTU. The IPv6 path inserts a new RTF_CACHE
-route and leaves the old dst unchanged.
-
-So re-reading dst_mtu(dst) on the same cached dst would return the old
-MTU, and quic_packet_mss_update() keeps the old MSS.
-
-If that's right, the v17 change to re-read the MTU after update_pmtu()
-makes the ICMP-driven reduction a no-op. plpmtud_interval is 0 by
-default, so a path whose PMTU is below the local MTU could stall:
-full-size DF packets are dropped and the PTBs are ignored.
-
-For comparison, SCTP temporarily sets the socket daddr around
-update_pmtu() (to_sk_daddr()), and inet_csk_update_pmtu() re-checks the
-dst with __sk_dst_check() afterwards. Is something similar needed here?
-
-[ ... ]
-
-> +	pr_debug("%s: alpn_len: %d\n", __func__, alpn->len);
-
-[Severity: Low]
-This isn't a bug, but alpn->len is a u32 in struct quic_data, so %u
-would match it. The v16 changelog made the same fix in quic_packet_rcv().
-
-[ ... ]
-
-> +/* Work function to process packets in the deferred list. */
-> +static void quic_packet_deferred_work(struct work_struct *work)
-> +{
-> +	struct quic_sock *qs = container_of(work, struct quic_sock, work);
-> +	struct sock *sk = &qs->inet.sk;
-> +	struct sk_buff_head *head;
-> +	struct sk_buff *skb;
-> +
-> +	lock_sock(sk);
-> +	head = &quic_packet(sk)->deferred_list;
-> +	while ((skb = __skb_dequeue(head)) != NULL)
-> +		quic_packet_process(sk, skb, GFP_KERNEL);
-
-[Severity: Low]
-Was the cond_resched() from the v12 changelog lost in the v15 rework?
-The v12 entry reads:
-
-  "Call cond_resched() in the loop inside quic_packet_backlog_work()."
-
-Each iteration here can run synchronous AEAD decryption (cb->sync = 1),
-GFP_KERNEL allocations and token verification, all under lock_sock().
-
-On the quic_listen_sock_switch() path, the listener lock is dropped and
-re-taken in the middle of this loop. Under sustained traffic, packets
-processed from the socket backlog in that window can keep adding to
-deferred_list, so the loop keeps running.
-
-> +	release_sock(sk);
-> +	sock_put(sk);
-> +}
-
-[ ... ]
-
-> diff --git a/net/quic/socket.c b/net/quic/socket.c
-> index 0173416d0368a..c75d2dcaba9d4 100644
-> --- a/net/quic/socket.c
-> +++ b/net/quic/socket.c
-> @@ -24,6 +24,319 @@ static void quic_enter_memory_pressure(struct sock *sk)
-
-[ ... ]
-
-> +int quic_request_sock_backlog_tail(struct sock *sk,
-> +				   struct quic_request_sock *req,
-> +				   struct sk_buff *skb)
-> +{
-> +	u32 limit = sk->sk_rcvbuf / sk->sk_max_ack_backlog;
-> +	int len = skb->truesize;
-> +
-> +	limit =  max_t(u32, limit, QUIC_MIN_UDP_PAYLOAD * 4);
-> +	if (req->blen + len > limit || !__sk_rmem_schedule(sk, len, false)) {
-> +		QUIC_INC_STATS(sock_net(sk), QUIC_MIB_PKT_RCVDROP);
-> +		kfree_skb(skb);
-> +		return -ENOBUFS;
-> +	}
-> +
-> +	QUIC_SKB_CB(skb)->backlog = 1;
-> +	skb_set_owner_r(skb, sk);
-
-[Severity: Low]
-Can this push sk_forward_alloc negative when the skb is already charged
-to this listener?
-
-Consider a second Initial packet for the same connection that was
-deferred through quic_packet_deferred_schedule(). Its destructor is
-already sock_rfree, and in quic_packet_listen_process() it takes this
-path, which skips skb_set_owner_sk_safe():
-
-	req = quic_request_sock_lookup(sk);
-	if (req) /* If request sock already exists, enqueue packet directly. */
-		goto out;
-
-In quic_request_sock_backlog_tail(), __sk_rmem_schedule() reserves the
-memory first. skb_set_owner_r() then orphans the skb
-(sock_rfree()->sk_mem_uncharge()->sk_mem_reclaim()) and charges it
-again.
-
-The reclaim can return the pages that were just reserved, so the
-sk_mem_charge() that follows can leave sk_forward_alloc below zero.
-
-For example, start with forward_alloc 2000 and truesize 2304:
-
-  schedule adds a page:      6096
-  uncharge:                  8400
-  reclaim leaves:            208
-  charge leaves:             -2096
-
-Would orphaning the skb before the __sk_rmem_schedule() check avoid
-this?
-
-> +	__skb_queue_tail(&req->backlog_list, skb);
-> +	req->blen += len;
-
-[ ... ]
-
-> +	/* Look up accepted socket matching packet addresses and DCID. */
-> +	local_bh_disable();
-> +	sk = quic_sock_lookup(skb, &packet->daddr, &packet->saddr,
-> +			      quic_path_usock(quic_paths(sk), 0),
-> +			      &packet->dcid);
-> +	if (!sk)
-> +		goto out;
-> +
-> +	/* Found a matching accept socket. Process packet with this socket. */
-> +	skb_orphan(skb);
-> +	bh_lock_sock_nested(sk);
-> +	if (sock_owned_by_user(sk)) {
-> +		/* Socket is busy (owned by user context): queue to backlog. */
-> +		if (sk_add_backlog(sk, skb, READ_ONCE(sk->sk_rcvbuf))) {
-> +			QUIC_INC_STATS(sock_net(sk), QUIC_MIB_PKT_RCVDROP);
-> +			kfree_skb(skb);
-> +		}
-> +	} else {
-> +		/* Socket not busy: process immediately. */
-> +		sk->sk_backlog_rcv(sk, skb); /* quic_backlog_rcv(). */
-> +	}
-
-[Severity: Medium]
-Should cb->backlog and cb->sync be cleared before the skb is handed to
-the accept socket here?
-
-When this runs from quic_packet_deferred_work(), the skb came off
-deferred_list with cb->backlog = 1. An skb that went through
-quic_listen_sock_switch() also has cb->sync = 1 and cb->resume = 1, set
-by quic_packet_get_alpn().
-
-The call path here is atomic:
-
-quic_packet_deferred_work()
-  quic_packet_process()
-    quic_packet_listen_process()
-      quic_accept_sock_exists()
-        local_bh_disable()
-        bh_lock_sock_nested(accept_sk)
-        accept_sk->sk_backlog_rcv()
-          quic_packet_process(..., GFP_ATOMIC)
-
-Elsewhere the patch treats cb->backlog as meaning the context can sleep,
-for example in quic_packet_deferred_schedule():
-
-	if (cb->backlog)
-		return 0;
-
-quic_crypto_decrypt() also checks !cb->backlog before doing a key
-update, and cb->sync forces a blocking crypto wait.
-
-The handshake and app handlers are still stubs in this patch. Once they
-are filled in, could these leftover flags make them sleep while holding
-the spinlock with BH disabled?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1792164438.git.lucien.xin%40gmail.com
+Thanks.
