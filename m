@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792532114;
-	b=SVYNYLXighZVmf0MOPllpKCeHcBkFOHGnZ6B4UDRndyzciKmveMnVj0fcDOK3mdH2wN2
-	 RqjjdAnclCHxhL38iqhVKECN4eJ09+PHn66neqqYchsDiobPJ2CFasNTeSMMwzzMfJy5J
-	 mKIjaI3oT7ZdKY+beB0s4ZZWRvEgnZLkkgaN6ZJSzT6djaT6wv8fAI2qoceiW6ACyY9Y0
-	 xJ9s5phwjDvIxXgGhcwsb5Txurn+mtlXisIc4hJ/3ePNMNpSzvIjZRIU/JXFBjBwMzKK0
-	 l0STOtEA8eTNGBih13jN+N5pQxKzuu8LUpmHKShjP3KytfygY5BjZ9Fb9d4TYwvPO7g==
+	t=1792532334;
+	b=T7d7pRY/xOeZfXwXWdQxOv75qFYNwFntx1h4V6rEWagiVXFetAcOuI7eEv2xNdg/A/kt
+	 /v3/t84fuZ4jzW9j240bb3A6AK2ZRRBteRBsFDD9oCln6Rj75Trf4J7FvD7DLIQy/ylQC
+	 ZYSob2jjkxVLZkG49m64sqVGLNFVN32n4dzovTJ0AR9mPDdDBOo45TXeB983sIotPz6JA
+	 yraBGx/XbB5g/jd1cnJoiTgnHonhA5Je5GtyruwmnhOnPcRJdW9MQCmgu4g9N5guBasf7
+	 /+Lu8zPbbBFrTvdnUQGVuH4oTK6uaOGZILYDCXrVQHfFTr9nVQRHY8f1x7iMJbTXUPg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792532114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792532334;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kxbmWpHG63bcj8caJCx8dB80g5mvO4e9eYY/N+k9SP8=;
-	b=EUo1Ea0Ecum/d2R8C0rxY5BeMQtg68nqBpAv8g01fSsGCSYn2bf97vYry0MpVj/uqnee
-	 c1WV/cYC4Nd3I+VLMjAK+32JKTJkZ5XIQTy2w7BbX92Sev1KzisW9mqUMa3YSVGBnyhQr
-	 s3fMH1dhbSpml60QMECMrJi7jwGoUwgJFh+BBqN4eF0klIJeD51p86E3bZ9F30viU2914
-	 tIH7wouOpQ+VdjAQrOi7cqOl5rizG1Ncf2o6CWfRj5KinaZRR+Ubi5QsIRukc8JkvigjX
-	 XHomQ414gZf+xz/JuiiF2rJ5e0MNGP9UjOLooT1ZGYU2KWCPSO/uHJUI4sWo8cg3n0g==
+	bh=T07kOSF9AnuZjBYq6sbm0WLv57Cp3iAwopu/k0yBEUo=;
+	b=v7IINtwhrZ1t+AnXVYwRqbRYysIayt+V2CbCEq7QV00GWmouuDk3qBXrf3SMJeC9LIZ8
+	 3Uxwmtt3whwgD7nMWow/nktOpHOsJDBtbUb4c/vnMvreUJ20zskQuWlyEm1LX58ZrarHu
+	 e3Oc2PADnRqnRwjTYJEvJbs39Uf6UnDfqXpkqrmbIH0jdD1Fg87+pcwvNn1BV37KtVKg0
+	 GJrmIXD3VLCIeLRUChfNiqRTFbf4phHBebqd2MreGzanXC7NM2FH2aB++Rl8ItVaoJx9p
+	 dOHiihfKgVZVdguHatkYEUIJGxlQ/251JiqotfEdvxoA9wa3lnn+DbRiMcIwUD7OezA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ksrXS4MK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="RhCSg/It";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA91F606A320
-	for <quic@lists.linux.dev>; Tue, 20 Oct 2026 21:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA91F606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386F6606A32F
+	for <quic@lists.linux.dev>; Tue, 20 Oct 2026 21:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 386F6606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ksrXS4MK
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ea97b74acaso1817e0c.1
-        for <quic@lists.linux.dev>; Tue, 20 Oct 2026 14:35:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792532112; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RhCSg/It
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eadef147ffso16026e0c.3
+        for <quic@lists.linux.dev>; Tue, 20 Oct 2026 14:38:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792532332; cv=none;
         d=google.com; s=arc-20260327;
-        b=abMoBUCPp9J35mXavyau+kPfQJ00aNOSl3lvBxDAdKyM3uQThE5WxITBh69kqGpxmo
-         P9XUzJ0VIwS2niYdrIt7AEC8pxWKW8Sbqe+PiCFfBAzR8xkCwtsOG3sBCfhIeILeKByz
-         e27q195qINQIq0If053qgF5F05OxbGiiJJ6+UTcZIw+G/A/BGkqu2hP32pgefjngFC3l
-         4h3W6bFs4M4uB3os4xhLJAkJSLYwr4KlrR4ZVaOIaaUxlGxmkd9cijqk0sUifyn4hGSs
-         E+ZPpv84aJg6plh3Yqq0kWbzEgFt+jpeR93x50dSMI4fq21GPZdkq38r+1UvK5ItOo2b
-         c0jA==
+        b=D9eFtHvsqktp63qcIeSU2HK18pOl3uaTzTM2NP6Zq+0ACMyXqzrnTwdiOyE1YLUoBR
+         qOfnvpGeuO3Mx2ii9/pfAI0xMVS7Un7Xb7t2s6P1IuYTGFi2/yY0bsTuA2KAimMP8MO/
+         IF4gn96AgKWdyHci0+JwehIxUqPXJM7VcnZc5wdTMTPnflyKPVhhUEJ7ROtIyoZYkk+7
+         +DIeeoEOM0xa2kwqvLM+oOPrH8BKwf7EAJruzs2xsWZSbeB1PXdmJnjplDV7wNiHG4W+
+         ORTPGth5Lk9JO8kAmMo8QD6eIRvmxRB31HW/fFcU9ldhFbUSMMY7Q7DoqJ/tkQyd2Y14
+         2BDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=kxbmWpHG63bcj8caJCx8dB80g5mvO4e9eYY/N+k9SP8=;
-        fh=RBpFNZxJdPTE4jnS7cYj14Jgca51MBnsjVfFA1dGN1c=;
-        b=YPt3VKYuwaxJUYJwuLd4SvZUaGHRryZ3hwxIogU4AywaRDNM8dtKWq290M/Nl15qqC
-         jXpgbbSLI77w4FoU6h51JnRygaxYl8MWzU2mjYYBSEs9BQTFQu35UX6G/NSRSaAL0NuW
-         WljBjRs0ioscCuDMLlVD2CFUeIwwBmagougY8/ua0KHTOIu4DqKNFZZ4cDMCSI4nBP3G
-         MOsoKQhsy6j5h6SJsX5kvheJ3qLkldO5/CkVzuI8jprfHMcSHctlGkl0umC6GBEl0P59
-         UKKKFxc+JzC/i4halhtR58PGNhLgJwMCrAurlaHwUo+3rBN0hLW5Ep5Ylogpeoxd8xGI
-         YDNw==;
+        bh=T07kOSF9AnuZjBYq6sbm0WLv57Cp3iAwopu/k0yBEUo=;
+        fh=Vvu0mD/NlojXP31+4Jo5TBmjmPNh0gTCTjpXIUBFP4A=;
+        b=GJo9yTwuP9F7wQzARShn4GXX29YefiJJ23cZTdeSJyV7Vu0Kfi5+z7rC5jQLJ68/13
+         Bt125I8ParcmqXjwEzPqCxA6TxN+/pNipfAz9RSHupfUzf+El0TsJmdKX0ScNccYtWBM
+         T7xfLTcXt+exLLUJ5cBWmWGo2t/jTeJjJ+I77l2E8Z9KvgJqQCECLWv3YNz2TxCjW20a
+         Z25GNJwhr1oLdMv8JSONCwlZxsoW0b4WlmL48z8qJXw+hUfZ8GT7tXdOcXGP+mElCTcK
+         rgDBW96eAum6WGNcrZA8m5zNQ0zUpR01mQJFTKDxA5/c4d/WO0Tf4uJUuCSRlER0vO5d
+         t8jQ==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792532112; x=1793136912; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1792532332; x=1793137132; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kxbmWpHG63bcj8caJCx8dB80g5mvO4e9eYY/N+k9SP8=;
-        b=ksrXS4MKf2FXDlwP4QJknd7mq/OKje7ulmV3jIfrjtVpbYnRHMTa6vcbkpTHu8WE3n
-         1HEG4PgA2M028Bq80vi/j5zwGFoUwIn4BPjfyipoBWdUzbG5gkTMwIbh5UFW6Ye3HL3E
-         qOX/hRvjMr5e/LaHR+2uift3dCMeH1gMLvywwc+tUA/UbUjV/IvVcYDxwYbXjq6YFNWb
-         19DOpzV9GfJaIrGBFxQaF9PHsiuYwnfRMKZoByk8J/h1Ro+wtHLMn+z7iSoRKMJnWCId
-         ZvJjPgayglxyQ2Ok6d3wPxh6qxAMNWOrqvNweH1Ss9i1hybvWMiuKoRN4VDvXuV749UR
-         wyOQ==
+        bh=T07kOSF9AnuZjBYq6sbm0WLv57Cp3iAwopu/k0yBEUo=;
+        b=RhCSg/It4/dw6rxRfz7FLdWvHdB9vUQNGEPh0t3XqEBgeMfa8ZKCX+L3toi+ju8ECG
+         f0MlZzbQG+y1Bq12IIzf3cPEb4I4Q+PLyhRCCeihzPeCmHEFDZAs2TLpayMZ3oKD5mrx
+         +GY25sGgxqrTGHBCOK2B72krRsYgFuAIF7cFq413px+Xz5qlY+m20sQ119r5rW2sdsws
+         LxvaQfMsG1i2Tv5nO62WK5kmHP6Ms/Ta3rkUDJOczOgBrSgHgAnvd+6XuEi1Qid+Ot5+
+         BJagj38qggH1YThVof/Y/DqaGqtYjWhQ9e1CdfWFYiHUXbzsau6OlXxjVQrJJR44ZDxF
+         OVXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792532112; x=1793136912;
+        d=1e100.net; s=20260707; t=1792532332; x=1793137132;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kxbmWpHG63bcj8caJCx8dB80g5mvO4e9eYY/N+k9SP8=;
-        b=pTYi6eksRYdwu8ifL1suicifksm4QWpqNMqP4SOpIyOItix+4S8FHGzlPrrfC9ewmk
-         KFAfinNurFGI+d/S5iHqv7dfNPHxEjKSuyMSv4rX2Agx4JMpP+b1/E25yO149WDbimZR
-         VY9RTkI+3o4uAW+eyb/4yy8JWgGuqjKeSIuR8CytfDN968s/ueYBagcpbyQyyRPdbUgO
-         6k0bm+m9vQPuM8j7s/Ar371ADzuoj/ikxSgJ5tZL+O1jjoZvtmKhHDb7cMlFEPt3Hg8j
-         Fsr3+zdY2UodFH+K0V/7yI2dZlO498SkUKj4w2h1XhKOlyDrKzk+YeyFNOV+FTqDfh5b
-         BE/w==
-X-Forwarded-Encrypted: i=1; AKwUvBw2Y0ux2+InOT0O4Zxyv5JrW84mBT+kqYuQfj/02KxFrupnWH3MYrmDvZfZYNGg7Jb9kMU6@lists.linux.dev
-X-Gm-Message-State: AFq9FYIFA81oyx4WlE0ln/f43BjtAaVyffXewZhP5P0qWs0mAcnIXiKd
-	qAHczvy3eDLhCd0TItp2x+Gz14IPhoH2E2/msMKn8/LVgIoGS0MpbM9pfM+SedRFkSFH4C5Iieg
-	yOxaGbUfC2zAiBCd2WpF/zTfgECbUO1I=
-X-Gm-Gg: AYBFou2dF1uxZIb7AMxGBoGncPBmeHnEmy7fF7EGeNK+kz6sWLlSC1v5UvWKfHOkbKY
-	LLwFF89fV8FmnOuaBzTJroXJCIUvnML6GqJOdoC8Tv0iLBF5kOAUZSZREymsJEc+hKbXXGr+asc
-	HjxFNjtUIarYsl2o6ltpez72YoqT/Z1rJ5pIVhm4hiX4q7QJSA3LAN6HR8VxVqBNxyhwMo4niWy
-	JZzY4/5wA60nwDROdngUef1a/D1Gasfyps5K5ax6N3fo+fWIzXv4yc5+VlBAKVMKpmGtssPJG9h
-	2D8w9zZ2I0QtPbCupCPlqH+HdQd2EN5Y9cXYCOdYNTBuHkRyfU/CsHt8vgt0j/AQv13uiYq1cwK
-	GwsehfSzhfeJBeCu+vxQ4hjKL3CyfQbuC1bJLAIUDFNytlF6EiIdJOPG4nY6sVVlCsRAlhuAyMm
-	P9Fz/O8xu6Px94
-X-Received: by 2002:a05:6102:448f:b0:7cc:2cd0:e73c with SMTP id
- ada2fe7eead31-7cc926c4d1cmr146631137.25.1792532112476; Tue, 20 Oct 2026
- 14:35:12 -0700 (PDT)
+        bh=T07kOSF9AnuZjBYq6sbm0WLv57Cp3iAwopu/k0yBEUo=;
+        b=WwOIcyFL3dKl+JryRSI+SyYUdANn8vlQAGsMRwwzKndl5XQzLVIq6Kq34ZvSupZJyy
+         R3mVoTfCTa7aLieyxJCXQnhpy7nsh/4BuPr4IRHcVZNtt7H1OlILrgNdlEmeDwbjU4gS
+         4LhVHaPw9fHo7q8pbwB4FOHFlc5YCQ8+eKB85E8WpdLzHWpOzc8H6Bz1y5HIPjEkL94g
+         uzUCfiQvr5UdUAyfFHHtM/9OIe2P0ACFSbLbSuJVZhR55V5Dl0pp6MtwcP+hmHZWjo4l
+         GzGefvaFnOIZVc3O3/8BaUtcSXJXbb8xV0YlNq11I8XyaYi/s6Fvzx17Gx+0cC3NDyGJ
+         yzdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwu8eaIyKttdC1UfIlMPWs0PKVjmv1lvBqimQJNvOd2trzBg9nGQoeKztpKY+0TRfrC08kR@lists.linux.dev
+X-Gm-Message-State: AFq9FYLnPLM3vOIZqvNf3DAWM0fWExLbmoM8p0Mpy4hoj8RL9WP4ER/i
+	JpsOFX56MZof5s2RTdVkmLMzjwSXb1sG+WsYdSUE8gMZHpWSmo9XeK0DIajrUZ7piimqxFHOXe4
+	1p8elFhKML9knShzrgfG3BIKDpEWknJ4=
+X-Gm-Gg: AYBFou1ElPpfw/vxE1REUrSLy6dmRYWu5HtDEgrT/+XHJjdoWBpdqKAseMrWK0mXUL2
+	/y1hgvnMqbMEaHoDi+ajGUaOscPb2n+7MGo6Z78CQutd2aFAcLWgruRyeWJkmjL2nONCLWGHHzg
+	UDwyXJCuGiwNxQTKcZTvzOPeDDNZeXLez/NOMmMHX/td83ygna8SBVN/nJBjjXqPe6p8yp8x1ee
+	nXoz4J+ueZrP3m4JNK7d8Ml/Z04JgOkGd75HQBF+tkiZieoG4ffS1nyQa/KMQcvIUhhEN4rNxoM
+	qyGU+WAGwtg/1HiqUmldn/5Pcsx4lJcVyMeo77/ys6xx9g5NRVthxyx9lqND2vdRoAVcvbwZs/S
+	Uz3u8DaZwI8nFVWCGMyMgGi1QdciqQw677bk1yiEwjlTZNcNzOWPq/dQ18PFJaN99gg9/tbhTY6
+	f6y/lw35LzgsEI
+X-Received: by 2002:a05:6122:f8f:b0:5c9:a60b:e5a2 with SMTP id
+ 71dfb90a1353d-5eaebe1fda5mr38131e0c.13.1792532332203; Tue, 20 Oct 2026
+ 14:38:52 -0700 (PDT)
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Post: <mailto:quic@lists.linux.dev>
@@ -105,14 +105,14 @@ List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:quic+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-References: <9e1c586f76943aa9fcd96cecedec805c66fc6e07.1792164438.git.lucien.xin@gmail.com>
- <179244540161.3135.791644548439735124@kernel.org>
-In-Reply-To: <179244540161.3135.791644548439735124@kernel.org>
+References: <25d5d63b6de931191e4c1bb0d99edf427facf1a6.1792164438.git.lucien.xin@gmail.com>
+ <179244540755.3135.6629272689764365696@kernel.org>
+In-Reply-To: <179244540755.3135.6629272689764365696@kernel.org>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 20 Oct 2026 17:34:59 -0400
-X-Gm-Features: AclHuK-cqHur22QaAJB_O1MpvembykENtwhk63DMyFXPnpV5d6Oxh4y7OPcqRQU
-Message-ID: <CADvbK_cWtvHg2Mbgwe1+2TZgGDwF9DY5NO8vjim5RLwufW3e5Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v17 09/15] quic: add congestion control
+Date: Tue, 20 Oct 2026 17:38:39 -0400
+X-Gm-Features: AclHuK_BijVex1bq8DNyjPV3DVLOPmzVNY4j7ByN2m0CAL1TjImhtpQ-k6hL3bE
+Message-ID: <CADvbK_fJ1czV0OU_oTKAjKG+3807yhBbOTddkzJE0+Aqz3+u6A@mail.gmail.com>
+Subject: Re: [PATCH net-next v17 12/15] quic: add crypto packet encryption and decryption
 To: netdev-bot+sashiko@kernel.org
 Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, edumazet@google.com, pabeni@redhat.com, horms@kernel.org, 
@@ -131,10 +131,10 @@ Content-Transfer-Encoding: quoted-printable
 On Mon, Oct 19, 2026 at 5:30=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
 te:
 >
-> Thank you for your contribution! Sashiko AI review found 3 potential
+> Thank you for your contribution! Sashiko AI review found 4 potential
 > issue(s) to consider.
 >
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 2
 >
 > If you believe none of the issues are legitimate, please reply to each
 > issue of Medium severity or higher and explain why the AI is wrong.
@@ -144,182 +144,270 @@ k
 y
 > (one such reply per series is enough).
 >
-> - [Medium] When quic_cong_on_packet_lost() (net/quic/cong.c:94-99)
->   declares persistent congestion, it sets cong->window =3D=E2=80=A6
-> - [Low] The commit message says the implementation "adjusts the
->   congestion window accordingly during packet transmission and=E2=80=A6
-> - [Low] quic_cong_rtt_update() (net/quic/cong.c:207-209) throws away the
->   whole RTT sample when the raw send-to-ACK interval (cong->time - time)=
-=E2=80=A6
+> - [Medium] The token timestamp is sent in cleartext, and the obfuscation
+>   offset is too narrow to hide server uptime.
+> - [Medium] NEW_TOKEN tokens can be linked to the connection that issued
+>   them, which RFC 9000 Section 8.1.3 forbids.
+> - [Low] quic_crypto_decrypt() adds every payload-stage failure to the
+>   connection-wide integrity counter crypto->rx_fails, not just=E2=80=A6
+> - [Low] When an old-key TX packet resumes after async encryption, it can
+>   start the key-retention timer meant for the first new-key packet.
 >
 > --
 >
-> quic: add congestion control
+> quic: add crypto packet encryption and decryption
 >
-> This patch adds struct quic_cong and struct quic_cong_ops to the QUIC
-> stack. They cover RTT measurement, loss and ECN handling, and pacing.
-> New Reno is the only algorithm so far, and quic_init_sock() sets it up
-> through quic_cong_init().
+> This patch adds AEAD payload protection and QUIC header protection for
+> packets on TX and RX, along with key phase tracking and key update
+> handling. It also adds helpers to compute the Retry integrity tag and to
+> generate and verify Retry and address validation tokens.
 >
-> > The implementation updates RTT estimates when packets are acknowledged,
-> > reacts to loss and ECN signals, and adjusts the congestion window
-> > accordingly during packet transmission and acknowledgment processing.
->
-> [Severity: Low]
-> Is this accurate for the transmit path? quic_cong_on_packet_sent() never
-> touches cong->window:
->
->     if (cong->ops->on_packet_sent)
->         cong->ops->on_packet_sent(cong, time, bytes, number);
->     quic_cong_update_pacing_time(cong, bytes);
->
-> The New Reno entry in quic_congs[] has no .on_packet_sent, so on transmit
-> only cong->pacing_time changes.
->
-> The commit message body also doesn't mention pacing. That covers the
-> pacing_rate and pacing_time fields, the 2 * window / smoothed_rtt rate in
-> quic_cong_pace_update(), and quic_cong_update_pacing_time(). Pacing only
-> shows up in the version changelog notes.
->
-> Could the commit message describe pacing, and drop the part about
-> adjusting the window during transmission?
->
-> > diff --git a/net/quic/cong.c b/net/quic/cong.c
-> > new file mode 100644
-> > index 0000000000000..765f50660f0e4
-> > --- /dev/null
-> > +++ b/net/quic/cong.c
-> > @@ -0,0 +1,287 @@
+> > diff --git a/net/quic/crypto.c b/net/quic/crypto.c
+> > index 2b72a781493af..93fd4cdb055f2 100644
+> > --- a/net/quic/crypto.c
+> > +++ b/net/quic/crypto.c
 >
 > [ ... ]
 >
-> > +/* NEW RENO APIs */
-> > +static void reno_recovery(struct quic_cong *cong)
+> > @@ -269,6 +270,484 @@ ciphers[QUIC_CIPHER_MAX + 1 - QUIC_CIPHER_MIN] =
+=3D {
+>
+> [ ... ]
+>
+> > +int quic_crypto_encrypt(struct quic_crypto *crypto, struct sk_buff *sk=
+b,
+> > +                     gfp_t gfp)
 > > +{
-> > +     cong->recovery_time =3D cong->time;
-> > +     cong->ssthresh =3D max(cong->window >> 1U, cong->min_window);
-> > +     cong->window =3D cong->ssthresh;
+> > +     struct quic_skb_cb *cb =3D QUIC_SKB_CB(skb);
+> > +     int err;
+> > +
+> > +     /* Packet payload is already encrypted (e.g., resumed from async)=
+,
+> > +      * proceed to header protection only.
+> > +      */
+> > +     if (cb->resume) {
+> > +             err =3D cb->crypto_err;
+> > +             if (err)
+> > +                     return err;
+> > +             goto out;
+> > +     }
+> > +
+> > +     cb->key_phase =3D crypto->key_phase;
+>
+> [ ... ]
+>
+> > +out:
+> > +     err =3D quic_crypto_header_protect(crypto, skb, true, gfp);
+> > +     if (err)
+> > +             return err;
+> > +     /* If a key update is pending and this is the first packet using =
+the
+> > +      * new key, save the current time. Later used to clear old keys a=
+fter
+> > +      * some time has passed (see quic_crypto_decrypt()).
+> > +      */
+> > +     if (crypto->key_pending && !crypto->key_update_send_time)
+> > +             crypto->key_update_send_time =3D quic_ktime_get_us();
+>
+> [Severity: Low]
+>
+> Can a packet protected with the old key start the old-key retention timer
+> here when it resumes from async encryption?
+>
+> One possible sequence:
+>
+>   TX packet encrypted asynchronously with cb->key_phase =3D 0
+>     (async_pending[0]++)
+>
+>   RX packet with key phase 1 arrives on the backlog
+>     quic_crypto_decrypt()
+>       async_pending[1] check passes
+>       quic_crypto_key_update()
+>       key_pending =3D 1, key_phase =3D 1, key_update_send_time still 0
+>
+>   Phase 0 TX packet resumes
+>     quic_crypto_encrypt()
+>       cb->resume -> goto out
+>       key_update_send_time =3D quic_ktime_get_us()
+>
+> The comment says the timestamp is for "the first packet using the new
+> key", but this packet used the old key.
+>
+> The next phase 1 RX packet in quic_crypto_decrypt() can then clear
+> key_pending based on this earlier timestamp. A later reordered phase 0
+> packet would then trigger a new key derivation instead of being decrypted
+> with the retained old keys.
+>
+> Should this condition also require cb->key_phase =3D=3D crypto->key_phase=
+?
+>
+> > +     return 0;
 > > +}
 >
 > [ ... ]
 >
-> > +/* COMMON APIs */
-> > +void quic_cong_on_packet_lost(struct quic_cong *cong, u64 time, u32 by=
-tes,
-> > +                           s64 number)
+> > +int quic_crypto_decrypt(struct quic_crypto *crypto, struct sk_buff *sk=
+b,
+> > +                     gfp_t gfp)
 > > +{
-> > +     if (cong->pc_detected)
-> > +             return;
-> > +
-> > +     if (cong->pc_start_time && time > cong->pc_start_time &&
-> > +         quic_cong_check_persistent_congestion(cong, time)) {
-> > +             cong->pc_detected =3D 1;
-> > +             cong->min_rtt_valid =3D 0;
-> > +             cong->window =3D cong->min_window;
-> > +             return;
+>
+> [ ... ]
+>
+> > +     err =3D quic_crypto_payload_protect(crypto, skb, false, gfp);
+> > +     if (err) {
+> > +             if (err =3D=3D -EINPROGRESS)
+> > +                     return err;
+>
+> [ ... ]
+>
+> > +             goto err;
 > > +     }
 >
+> [ ... ]
+>
+> > +     return 0;
+> > +err:
+> > +     if (++crypto->rx_fails >=3D crypto->cipher->rxlimit)
+> > +             err =3D -EKEYEXPIRED;
+>
+> [Severity: Low]
+>
+> Should rx_fails only count authentication failures here?
+>
+> Every error that reaches the err label is counted. That includes -ENOMEM
+> from quic_crypto_aead_mem_alloc() and negative returns from skb_to_sgvec(=
+)
+> in quic_crypto_payload_protect(). It also includes any non-authentication
+> error a driver reports through cb->crypto_err on the resume path.
+>
+> RFC 9001 Section 6.6 defines the integrity limit in terms of packets that
+> fail authentication. For AES-CCM the rxlimit is about 2^21.5. On a
+> long-lived connection, repeated local allocation failures under memory
+> pressure could eventually push it to -EKEYEXPIRED.
+>
+> Would it be more accurate to increment rx_fails only when
+> err =3D=3D -EBADMSG?
+>
+> > +     return err;
+> > +}
+>
+> [ ... ]
+>
+> > @@ -565,6 +1044,241 @@ int quic_crypto_initial_keys_install(struct quic=
+_crypto *crypto,
+>
+> [ ... ]
+>
+> > +int quic_crypto_generate_token(struct quic_crypto *crypto, void *addr,
+> > +                            u32 addrlen, struct quic_conn_id *conn_id,
+> > +                            u8 *token, u32 *tlen)
+> > +{
+> > +     u64 ts =3D quic_ktime_get_us() - crypto->ts_off;
+>
 > [Severity: Medium]
-> Should this branch also reset cong->recovery_time?
 >
-> The recovery state comes only from quic_cong_in_recovery():
+> Does this offset hide the server uptime?
 >
->     return time <=3D cong->recovery_time;
+> quic_ktime_get_us() is the monotonic clock in microseconds, but ts_off is
+> only 32 bits wide:
 >
-> The only place that writes recovery_time is reno_recovery(), which sets
-> it to cong->time (now).
+> net/quic/crypto.h:
+>         u32 ts_off;      /* Random offset for token timestamps */
 >
-> Take a single loss-detection pass after a link outage:
+> net/quic/crypto.c:quic_crypto_set_token_secret() {
+>     ...
+>         if (!crypto->ts_off)
+>                 get_random_bytes(&crypto->ts_off, sizeof(crypto->ts_off))=
+;
+>     ...
+> }
 >
->   P1 lost (pc_start_time is 0, first_rtt_time is set, not in recovery)
->     quic_cong_on_packet_lost()
->       cong->pc_start_time =3D time of P1
->       quic_reno_on_packet_lost()
->         reno_recovery()
->           cong->recovery_time =3D cong->time;    /* now */
+> That caps the offset at 2^32 us, or about 71.6 minutes.
 >
->   P2 lost, sent more than the persistent congestion duration after P1
->     quic_cong_on_packet_lost()
->       quic_cong_check_persistent_congestion() returns true
->       cong->window =3D cong->min_window;
+> The timestamp is also part of adlen in the quic_crypto_token_protect()
+> call below. Bytes 1..8 of the token are therefore authenticated but not
+> encrypted, and they go out in cleartext.
 >
-> Every packet still in flight was sent before now, so the ACK for each of
-> them returns early here:
+> Any client that receives a Retry or NEW_TOKEN token can read the server's
+> monotonic uptime to within about 72 minutes. The v17 changelog says ts_of=
+f
+> is used "to prevent timestamps from directly revealing system uptime". Is
+> that achieved with a 32-bit offset?
 >
->     quic_cong_on_packet_acked()
->         if (quic_cong_in_recovery(cong, time))
->             return;
->
-> In that case ops->on_packet_acked() is never called. Would the window
-> then stay at min_window for at least one more RTT, until a packet sent
-> after recovery_time is acked?
->
-> RFC 9002 Appendix B.8 sets congestion_recovery_start_time to 0 on
-> persistent congestion, so these ACKs grow the window in slow start. The
-> state diagram in cong.h shows the same transition:
->
->  *             persistent congestion |   Slow     |
->  *         (O)---------------------->|   Start    |
->
-> Here, though, the derived state ends up as Recovery Period, not Slow
-> Start.
->
-> Nothing in this patch calls the quic_cong_on_packet_* hooks yet. This
-> would show up once the outqueue changes start calling them.
+> quic_crypto_verify_token() already uses the wrap-safe age =3D (s64)(ts - =
+t).
+> Would a 64-bit random offset work here with no other changes?
 >
 True.
 
-Good catch.
-I will reset congestion_recovery_start_time to 0 on  persistent congestion.
+will move ts from AAD to the encrypted part of the token.
+
+> > +     u8 *token_buf, *p, flag =3D *token;
+> > +     u32 len, tslen =3D sizeof(ts);
+> > +     int err;
+> > +
+> > +     len =3D sizeof(flag) + tslen + addrlen + conn_id->len + QUIC_TAG_=
+LEN;
+> > +     token_buf =3D kmalloc(len, GFP_KERNEL);
+> > +     if (!token_buf)
+> > +             return -ENOMEM;
+> > +
+> > +     p =3D token_buf;
+> > +     p =3D quic_put_int(p, flag, sizeof(flag));
+> > +     p =3D quic_put_int(p, ts, tslen);
+> > +     p =3D quic_put_data(p, addr, addrlen);
+> > +     quic_put_data(p, conn_id->data, conn_id->len);
+> > +
+> > +     err =3D quic_crypto_token_protect(crypto, token_buf, len,
+> > +                                     sizeof(flag) + tslen, true);
+>
+> [Severity: Medium]
+>
+> Can an observer link a NEW_TOKEN token to the connection that issued it?
+>
+> With adlen =3D sizeof(flag) + tslen, the microsecond timestamp is associa=
+ted
+> data. The client later presents the token in the Token field of an Initia=
+l
+> packet, and the timestamp is readable there in cleartext.
+>
+> ts_off is set only once per crypto context. Tokens are generated and
+> verified with the listener's initial crypto, so every token from a
+> listener uses the same offset.
+>
+> An on-path observer could find that offset by requesting its own Retry
+> token. It could then map the ts in any presented token to the microsecond
+> it was issued and match that against the packet timing of the earlier
+> connection, even across address changes.
+>
+> RFC 9000 Section 8.1.3 requires that a token issued with NEW_TOKEN must
+> not include information that would allow an observer to link it to the
+> connection on which it was issued.
+>
+> This appears to come from the v14 change that moved the timestamp from th=
+e
+> encrypted part into the AAD so it could be used to derive the nonce. Coul=
+d
+> the timestamp stay in the encrypted part, with the nonce built from
+> something that does not reveal the issue time?
+>
+True.
+
+will add a field (u64 random) in the AAD part in the token, and use
+iv xor  random to generate the nonce for token encryption.
 
 Thanks.
-> [ ... ]
->
-> > +/* rfc9002#section-5: Estimating the Round-Trip Time */
-> > +void quic_cong_rtt_update(struct quic_cong *cong, u64 time, u32 ack_de=
-lay)
-> > +{
-> > +     u32 adjusted_rtt, rttvar_sample;
+> > +     if (err)
+> > +             goto out;
 > > +
-> > +     /* Ignore RTT sample if ACK delay is suspiciously large. */
-> > +     if (ack_delay > cong->max_ack_delay * 2 ||
-> > +         cong->time - time > QUIC_RTT_MAX)
-> > +             return;
+> > +     memcpy(token, token_buf, len);
+> > +     *tlen =3D len;
+> > +out:
+> > +     kfree_sensitive(token_buf);
+> > +     return err;
+> > +}
 >
-> [Severity: Low]
-> Is the 6 second QUIC_RTT_MAX cutoff too tight here?
->
-> cong->time - time is the raw interval from send to ACK, so it includes
-> the peer's ACK delay. RFC 9000 allows max_ack_delay up to 2^14 ms, which
-> matches common.h:
->
->     #define QUIC_MAX_ACK_DELAY  (16384 * 1000)
->
-> For example, take a peer max_ack_delay of 8s, an ack_delay of 7s and a
-> measured interval of 7.1s. The sample passes the ack_delay check but is
-> still thrown away. The same happens on any path whose RTT stays above
-> 6s.
->
-> The early return comes before anything is updated. smoothed_rtt and
-> rttvar stay at their initial 333ms and 166ms, and those feed into pto,
-> loss_delay and the pacing rate.
->
-> first_rtt_time also stays 0, so this condition in
-> quic_cong_on_packet_lost() is never true:
->
->     if (!cong->pc_start_time && cong->first_rtt_time &&
->         time > cong->first_rtt_time)
->         cong->pc_start_time =3D time;
->
-> As a result, persistent congestion tracking never starts.
->
-> The v14 changelog says the cap prevents latest_rtt overflow. latest_rtt
-> is a u32 in microseconds, though, so it doesn't overflow until about
-> 4295 seconds.
->
-> Could the limit be raised, or could ack_delay be subtracted before the
-> check? Nothing in this patch calls quic_cong_rtt_update() yet, so this
-> only matters once later patches call it.
+> [ ... ]
 >
 > --
 > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
