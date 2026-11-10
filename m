@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349783;
-	b=qLd8ja9VsMhgQy/3EcqEWXQ0MEba3uSq9piXLzw97wBKYfT71ZIm0JINzBXsoqj0JhUX
-	 71Jun/6OkJL9YUnnYuCv/1TWN13COmEGBtpiJPk0DpTes8ObHFVN+NTi7zHRwNVuuTI4b
-	 Rpo4Ts+3G4kaSAxa37ye8k6u3hEr+PJRScOl4np/tivsXeycQtKlZyofdjb3MWXDgfURP
-	 emq28tO5zWPnVqhz4waYjfap05G4VkNH6gN08ezbiba2i0PortPuDhbVu+mysdF+9MTkX
-	 +4FggLo9Jk3/tDlX8qdgXCRszssI7ebx+9una0Yx00aTIHINRv2jqfAV+DteWlltUPA==
+	t=1794349791;
+	b=RN8x1sojbjwEwqo9R11T+gN/piFkrcmXZLtIGL284YNXuhPObkXZcN2Sy9AHRtM6WY17
+	 CcqZQM3j8FLWQkAc92ydNqLW7I1okCLAG3AIf799daAF15QhScL1kdWpNaC9o/ZlFsyQv
+	 YpTUfsupFh4h+eCMlnASrj5lBNC/jK1fx60lItjOjRgI1PCu9wz+9iVBoC7D4VVlQ1lRU
+	 e0o0nJ1Mx17/WxEAieJBMVnvkzwNue/i8qBZOrhNLBPgXmAlBOElqUtAExLi9/3XqKn5F
+	 AzYWvyirmOuRjADHea4Jq86C2dpABR3RzKXXlmp8JssVtdhKIxu2NTgspw9m6Mg3DoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349783;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349791;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=k4ry2FuKm6/wn7zPNOWjR0bvBTiFyxSL17iQ8UC47ho=;
-	b=TNKbm4kX56WQmdytdWMA+JP6hTPFBpG9K0WpElaPWZZrGSc7DWV+Zg8HslE8QkQXXW1a
-	 yqnRNB9SCbIsDzdSycZj5tDSL2huOxSCqihCDP7pp8VnfHxmO3HDdZKiXHOGhql2NXtgq
-	 vjpqdGuBBxYSqDkNaSHXY3UCz7HxH/n/mTvSbDGoZYrwW/kU8cVp0oImkXeqNrNmjlUaS
-	 Jw2wimJDLHBeRJd7X8mccIZPm3wwbKiXURmWcfBl4o58D0b4+zS+jFy/HhNgxqbCTOBZH
-	 T4ujz1A4uIspX3NhXnk0P0m58KD+zJWxRVRxjP/TYqu2T1FxzyoHcFfdbbHWJXVXtmw==
+	bh=A7tASFXnNuPE+e+nS1b06UWislcan1F6/IvDUWRJ6dY=;
+	b=yNL66GEQaEO0EBwlLoL562gKsLnCA+sCfY1witHKsWdL9UQowA5VOHpE+r9KiRTQZW2w
+	 SSYm8qYcw4o29hvRXYk2UaGxLOdadw/59ObxWLyudptE0sk39No/R1++c8+zokW/1uU1f
+	 2MnzL7r5GwaLpoSWzpqH+53A9Z+zlK9tkiqudUFEaVzL5/irseWn+FhVLcf9oS+Ya15Ct
+	 s179dVage5IJHOTNtcFO4mnF4Ozd8nYVOdjnyrdGrryiBOkKVKSLHxo4bc6jjIQ5WM2g9
+	 jyQIE8z/Yq0ErgxuSnQXpKfXt5Nx0WFyJJJwdn9cDiZyWMj9Kz2gw4+0zKgCGS2ViKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H//nUfTT";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYAFMpwx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFCB606A320;
-	Tue, 10 Nov 2026 22:29:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27D0606A325;
+	Tue, 10 Nov 2026 22:29:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H//nUfTT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C461F008A4;
-	Tue, 10 Nov 2026 22:29:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYAFMpwx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614441F008A2;
+	Tue, 10 Nov 2026 22:29:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794349782;
-	bh=k4ry2FuKm6/wn7zPNOWjR0bvBTiFyxSL17iQ8UC47ho=;
+	s=k20260515; t=1794349790;
+	bh=A7tASFXnNuPE+e+nS1b06UWislcan1F6/IvDUWRJ6dY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=H//nUfTT3XeX3t9DwE+A4CWvNomW24yOHa6FTkkvKVtsa/peQfm6PclxIk6Jguaem
-	 mZNpmlJJ3IqlIglJviJ2qW5XjBYByTpmZGCRAIX388ZhB+oWWOkl3PoTOsXc2DMmJI
-	 NafuWLvrb9RyY58CF3TKh4726hmAYhmGQ+I4lQJrzTmiAyq+TfZinZE766gzv1d/AW
-	 MOm9NMNAnKvZ/Tm1t0NHeDrO5KolAfhoEdC2LKYIIcqXtws3t1l44UZKtPYIikKLip
-	 uR+4uHX3VFejym88zuvfxPWUXlAsLIbBtkr5Q2ZYc5QZdQu1UanaHnmDbV9KkmyPEI
-	 90rawtZjiTZ+w==
-Subject: Re: [PATCH net-next v18 08/15] quic: add path management
+	b=XYAFMpwxw45Mkdk/2AXix7iUkAY1Rlyq/LaeRmxo2ZjGrowkCLXk3KEBUGulsXekV
+	 bmSSzJ4an125Gqm1gKtJKoVoFIJQrnUePTefr1iaTldCLN2lh64LouTcFPx24kMBAE
+	 S2W8xZ9s80qGLkMUUtJDErfiYwzS69M5K6XHgzLVO02mo/2yn5Y+WhJ+16pHFQGX6O
+	 91bwg4+RziJEIUvoSY94FuYsGBzc5MldYAnZgu637Rox3jGNzVoigXhy/9rjpMc3cL
+	 OCYOWyCNOyvW5qqTnydp31qSrF9e/F6zdArpmqUxoGP8HT9MCPDN/AQeXirofAoqmX
+	 O2orAmc+iok1g==
+Subject: Re: [PATCH net-next v18 11/15] quic: add crypto key derivation and
+ installation
 From: netdev-bot+sashiko@kernel.org
 To: lucien.xin@gmail.com
 Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net,
@@ -54,10 +55,10 @@ Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net,
  jbaron@akamai.com, illiliti@protonmail.com, sd@queasysnail.net,
  marcelo.leitner@gmail.com, daniel@haxx.se, andrew.gospodarek@broadcom.com,
  mef@scarletmail.rutgers.edu, paul@jakma.org, kuniyu@google.com
-Date: Tue, 10 Nov 2026 22:29:40 +0000
-Message-ID: <179434978039.994134.3389995581310140385@kernel.org>
-In-Reply-To: <a9a2d4c0a8fc6b0d9e8abe804aac0b25d2459532.1794241656.git.lucien.xin@gmail.com>
-References: <a9a2d4c0a8fc6b0d9e8abe804aac0b25d2459532.1794241656.git.lucien.xin@gmail.com>
+Date: Tue, 10 Nov 2026 22:29:47 +0000
+Message-ID: <179434978792.994134.17759133431780284123@kernel.org>
+In-Reply-To: <b269e7436d8e9b5816a8e716d661767a2e43c27b.1794241656.git.lucien.xin@gmail.com>
+References: <b269e7436d8e9b5816a8e716d661767a2e43c27b.1794241656.git.lucien.xin@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,10 +72,10 @@ List-Owner: <mailto:quic+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -82,106 +83,150 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] quic_udp_sock_create() in net/quic/path.c (line 100) always
-  takes an active netns reference with get_net_track(net,…
+- [Medium] quic_crypto_set_cipher() (net/quic/crypto.c:272) stores seven
+  freshly allocated transforms (secret_tfm, rx_tfm[0..1], rx_hp_tfm,…
+- [Low] The commit message that stays in git history leaves out the
+  socket lifecycle changes in net/quic/socket.c.
+- [Low] quic_crypto_set_cipher() allocates the header-protection
+  transforms with crypto_alloc_sync_skcipher(), which returns struct…
 
 --
 
-quic: add path management
+quic: add crypto key derivation and installation
 
-This patch adds struct quic_path_group to manage the active and alternate
-QUIC paths. Each path is bound to a UDP tunnel socket, which is wrapped in
-a refcounted struct quic_udp_sock and stored in a global hash table. The
-patch also adds connection migration helpers and basic PLPMTUD state
-handling.
+This patch adds net/quic/crypto.c. It provides HKDF helpers, cipher
+transform allocation, traffic secret installation, key update and
+stateless reset token derivation for QUIC. It also allocates one
+struct quic_crypto per encryption level in quic_init_sock(), and a new
+sk_destruct callback defers freeing those contexts to quic_wq.
 
-> diff --git a/net/quic/path.c b/net/quic/path.c
+> quic: add crypto key derivation and installation
+>
+> This patch introduces 'quic_crypto', a component responsible for QUIC
+> encryption key derivation and installation across the various key
+> levels: Initial, Handshake, 0-RTT (Early), and 1-RTT (Application).
+
+[ ... ]
+
+> - quic_crypto_derive_secret(): Generate token for stateless reset or
+>   master key for session resumption.
+>
+> These mechanisms are essential for establishing and maintaining secure
+> communication throughout the QUIC connection lifecycle.
+
+[Severity: Low]
+The commit message describes this patch only as adding crypto helpers.
+Could it also mention the socket lifecycle changes in net/quic/socket.c?
+
+The patch also does the following:
+
+  - installs a new quic_sock_destruct() as sk->sk_destruct in
+    quic_init_sock()
+  - allocates QUIC_CRYPTO_MAX struct quic_crypto contexts per socket
+    with kzalloc_obj()
+  - defers transform teardown to quic_crypto_free_work() on quic_wq,
+    which runs after the socket has been destroyed
+
+The function list also leaves out the new exported helper
+quic_crypto_set_token_secret().
+
+These details appear only in the v18 notes below the --- line, and
+git am drops that text.
+
+> diff --git a/net/quic/crypto.c b/net/quic/crypto.c
 > new file mode 100644
-> index 0000000000000..e24968376f6b1
+> index 0000000000000..c4bf99b3e8239
 > --- /dev/null
-> +++ b/net/quic/path.c
-> @@ -0,0 +1,596 @@
+> +++ b/net/quic/crypto.c
 
 [ ... ]
 
-> +static void quic_udp_sock_put_work(struct work_struct *work)
+> +int quic_crypto_set_cipher(struct quic_crypto *crypto, u32 type)
 > +{
+> +	const struct quic_cipher *cipher;
+> +	void *tfm;
+> +	int err;
+> +
+> +	if (type < QUIC_CIPHER_MIN || type > QUIC_CIPHER_MAX)
+> +		return -EINVAL;
+> +
+> +	cipher = &ciphers[type - QUIC_CIPHER_MIN];
+> +	tfm = crypto_alloc_shash(cipher->shash, 0, 0);
+> +	if (IS_ERR(tfm))
+> +		return PTR_ERR(tfm);
+> +	crypto->secret_tfm = tfm;
 
 [ ... ]
 
-> +	head = quic_udp_sock_head(sock_net(sk), ntohs(us->addr.v4.sin_port));
-> +	mutex_lock(&head->lock);
-> +	__hlist_del(&us->node);
-> +	mutex_unlock(&head->lock);
+> +	tfm = crypto_alloc_sync_skcipher(cipher->skc, 0, 0);
+> +	if (IS_ERR(tfm)) {
+> +		err = PTR_ERR(tfm);
+> +		goto err;
+> +	}
+> +	crypto->rx_hp_tfm = tfm;
+
+[Severity: Low]
+Are the types for the header protection transforms consistent here?
+
+crypto_alloc_sync_skcipher() returns a struct crypto_sync_skcipher *.
+The result passes through the void *tfm local into rx_hp_tfm, and
+tx_hp_tfm is handled the same way. Both fields are declared as struct
+crypto_skcipher * in net/quic/crypto.h.
+
+quic_crypto_free() then releases them with crypto_free_skcipher()
+instead of crypto_free_sync_skcipher():
+
+	if (crypto->rx_hp_tfm)
+		crypto_free_skcipher(crypto->rx_hp_tfm);
+	if (crypto->tx_hp_tfm)
+		crypto_free_skcipher(crypto->tx_hp_tfm);
+
+This works today only because struct crypto_sync_skcipher wraps a
+struct crypto_skcipher base at offset 0. Because tfm is a void *, the
+compiler cannot catch the mismatch. The mismatch is still present at
+the end of the series, where quic_crypto_header_protect() uses these
+fields as struct crypto_skcipher *.
+
+Should the fields be declared as struct crypto_sync_skcipher * and
+freed with crypto_free_sync_skcipher()?
+
+[ ... ]
+
+> +	crypto->tx_hp_tfm = tfm;
 > +
-> +	put_net_track(sock_net(sk), &us->ns_tracker);
-> +	sock_put(sk);
-> +	kfree(us);
+> +	crypto->cipher = cipher;
+> +	crypto->cipher_type = type;
+> +	return 0;
+> +err:
+> +	quic_crypto_free(crypto);
+> +	return err;
 > +}
-> +
-> +static struct quic_udp_sock *quic_udp_sock_create(struct sock *sk,
-> +						  union quic_addr *a)
-> +{
-
-[ ... ]
-
-> +	refcount_set(&us->refcnt, 1);
-> +	us->sk = sock->sk;
-> +	memcpy(&us->addr, a, sizeof(*a));
-> +	us->bind_ifindex = udp_conf.bind_ifindex;
-> +	get_net_track(net, &us->ns_tracker, GFP_KERNEL);
 
 [Severity: Medium]
-If the QUIC socket doing the bind is a kernel socket, can this active
-netns reference keep the namespace alive forever?
+Can this error path destroy state that this call did not create?
 
-quic_udp_sock_create() calls get_net_track() for every quic_udp_sock. The
-only matching put_net_track() is in quic_udp_sock_put_work(). That work
-runs only after the last path using the tunnel is unbound, which happens
-through quic_destroy_sock()->quic_path_unbind() when the QUIC socket is
-closed.
+quic_crypto_set_cipher() stores seven newly allocated transforms
+without checking whether the context already holds any. On failure it
+calls quic_crypto_free() on the whole context. That frees every
+transform and then zeroes the structure up to send_offset:
 
-Kernel sockets are deliberately kept from holding an active netns
-reference. sk_alloc() does:
+	memzero_explicit(crypto, offsetof(struct quic_crypto, send_offset));
 
-	sk->sk_net_refcnt = kern ? 0 : 1;
-	if (likely(sk->sk_net_refcnt)) {
-		get_net_track(net, &sk->ns_tracker, priority);
-		sock_inuse_add(net, 1);
-	} else {
-		net_passive_inc(net);
-		...
+If this ran on a context that was already set up, the old transforms
+would leak. If that second call then failed, it would also wipe the
+live keys, the token secret in tx_secret[1], and the cipher,
+send_ready and recv_ready state.
 
-The UDP tunnel socket created by udp_sock_create() follows that rule, but
-the reference held by quic_udp_sock does not.
+In this series the only caller is quic_crypto_set_secret(). It calls
+quic_crypto_set_cipher() only when crypto->cipher is NULL, so this
+path does not appear to be reachable yet.
 
-Consider an in-kernel user that creates a QUIC socket with
-sock_create_kern() in a non-init netns. It then closes that socket from
-its pernet ->exit handler, which is the usual pattern for netns-scoped
-kernel sockets:
+The notes say later patches call quic_crypto_set_cipher() directly from
+quic_inet_listen(), quic_connect() and quic_accept(). Those patches are
+not part of this series.
 
-  quic_path_bind()->quic_udp_sock_create()
-    get_net_track()            /* active netns ref taken */
-
-  netns teardown:
-    active netns count never drops to zero
-      cleanup_net() and pernet ->exit never run
-        kernel QUIC socket is never closed
-          quic_udp_sock_put_work() never runs
-            put_net_track() never runs
-
-In that case, wouldn't the namespace and everything it owns be leaked?
-
-No in-tree code creates IPPROTO_QUIC kernel sockets yet, either at this
-commit or at the end of the series. So this depends on a future
-in-kernel user. The code is still the same at the end of the series.
-
-For user sockets, the extra active reference adds nothing while the
-socket is alive, because the socket already holds one. Would a passive
-reference (net_passive_inc()/net_passive_dec()) be enough to keep struct
-net valid for sock_net() and quic_udp_sock_head() in the deferred work?
-Another option would be to follow the owning socket's sk_net_refcnt
-semantics.
+Would it be safer to reject a context that already has transforms, and
+to unwind only the allocations made by this call?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794241654.git.lucien.xin%40gmail.com
