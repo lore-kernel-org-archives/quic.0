@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795551597;
-	b=dQcTapCP3/RxwJ2Nk+KG81lrbIEUlVAviiTb5xl/aQIDfk4cXHfDudDM1MgJBafn/hGG
-	 pkv3HA8K8lmg7B2p37oPn/n55XJVuLFXmCcnOj78oPOCmY2NzME3EtNT/6CLKGHnP2/GL
-	 ock/QuDhuUK8RmZvn99rj0yKPSxJtooLLUJnKUx+VaUVjxcSabJyhn1A1HLaQZUXQ8U+o
-	 RUH7m6eUDjjSpLTLiK8QFUFbY02X4ag8cEZQtw5+7uo6GoTZR8vjcjLvDEW/H+vau3aDW
-	 ZazkPXZ1I6yIzjRC5qMOWkgTbXr0h3HXOFQ5Aqvj4tzBodouQrL+IoX+2xEAVqtyRhA==
+	t=1795621940;
+	b=Nmkd1l1RhBdHl5VpxkK+OITvlZhonw8mNPLOL+dwVIwwKQ+tE2OdkJXELKFkEyosECSh
+	 ntlPSxWfV3/CEPKe3YRK7s3qL6mphPIwr8GcRTURnZqZRJ/52RgL8DRvr6/eXD9br/dBL
+	 WxDsVV4Kiyq2UbkEri38SkGghTiRBS5pWZfRW3CAngibXtnYW5qQD1HwtyaRuEnZvZmdI
+	 dibiYS30zFIuHKjXW7GZvJ3vr68jqLz8DKASwFeexWiNaoj3E74t86NlYZ3FCFNcnHnMf
+	 QcxiYKJpitoEDePaL/VsOUS6LleUxtFnmIxo/VTxhXf8MHJsKWpLCq2l0j1IMiqgqlw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795551597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621940;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IWHkOExNTIIKhjxQS3sMtn2Z92YI/DSSmmMbSwEzbEA=;
-	b=GKXpyKz0E/7cwzhKVeLkXzZ6cUDbbH6JwDd7ky7hm+M9KBR68PEU/QEvdQy5yAFLC4w0
-	 Ie6MyIQuTeqtbA5ebTkPzfYaJTUHq8R3tKzn+HL+N0/9rkIX52eGKDw/EJ3MvZc+4mA4M
-	 td6Kmtu0KOVqOCUv597DDlZjApfOVbHyv8lr/H47BqFHm+0NrdGb6N7TBPd+4NmfiMaQn
-	 6a/ECgfDxzW8HsUVLWn+IqnRXV6Hv7SllVDXMMcbq04uHHvme652CUIlqpK4+RzaZOoEi
-	 ORIsG+xtL7pcQSZ2JARmvhsuAkmJUPJDFsWDKjdJ1UvHskp5REwTGcyV4urYbRkSyCQ==
+	bh=Wl1gc75zEow3srAWy7eV7VFmzyOiVWcKqUcpVHuYC6w=;
+	b=o3DfPEPqR8ij37JF7XTH68rWbJCu5DdoM6c+dUQMgtD1ksOhFjCt1sQocbnzxh8aAGW1
+	 yI2yV7kpsQhkuWoP8Psx9Om5FfOFWQySIAmgDzOLoQEzSU9bZDNCptODh4mrJ4Udb1KVu
+	 B5tEGcXDbocRXr+T9HAWYt+EDEb6qOwQrmU34F6KdFUMLmqxky6lAh0YC0SKVI4F0Xmsl
+	 Hwdw7a87EqCuUM1leQ+LaAda2/VDzHSFDiqSSQXExhdurhPgMfirwz2QJTjnR+1X2kSvv
+	 TDeC7T7ez2/q+z1vw410sfrTesCHvgZ1nlCJQJznhdj43WRs80vxj0gk9Pd6NEmtkMw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OC0kw8dI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dUpuXlpO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB1E606A33B
-	for <quic@lists.linux.dev>; Tue, 24 Nov 2026 20:19:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEB1E606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D0F606A32C
+	for <quic@lists.linux.dev>; Wed, 25 Nov 2026 15:52:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71D0F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OC0kw8dI
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b58d6f67a5so2479259b3a.2
-        for <quic@lists.linux.dev>; Tue, 24 Nov 2026 12:19:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795551596; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dUpuXlpO
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a070755c8cso2910250b3a.0
+        for <quic@lists.linux.dev>; Wed, 25 Nov 2026 07:52:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795621939; cv=none;
         d=google.com; s=arc-20260327;
-        b=D86FlnxoG901PbQZRbofJHFx2t3iyDMhac/lA/PBVwTyyiPhGUTEeSAAhkiZ1dr1+S
-         y74xD9beS8MCC5IR7kh22vRKU9Eqf9RbqmAHVuq5IcahLaXunmbo2vSmH0PLcOWKS3EG
-         NjZawaF6eHqTWy+S6rz5eR7b/1AtNJP57VcpyfUoIexihzD+y4qhAyFXiSaImzNnhJbm
-         IP2qkrjjn1bVVP9uh2j0v6utGVdLAEvxKDF0UTm1tQl0DUFfUSJVXSiQ3FJEtdwe1r3T
-         fohknpreGYs2yPZ+b/eZwjsUp5f9Ju0KPR5y/LuO/xBgJakp411CG9qqw8mc0mJRBT66
-         JoZg==
+        b=sTcfFEc2V4q5BgXivqmWnilefdzbwYSjh2PDlfaWUD7lhW2lGaV01CLZOeEjINZ8tM
+         PT2ODEX9qJj1kl5EimM1dPEpTSiMZZ6ALHBd728g2C0uA2G8N2UCX1+asRMD4ph3r2WN
+         EYK8wu2Pi9QaZWTohIyVjaQqsUoZidRtAaZ3XRfig2RQQqpRqR9PisEbR90KURg8zRm0
+         4bBO0G6XW4rwCcCSbnfHhOZ8C/7aJIgOqPOPGFtZ7pobL4dVNW/2uxr4D2VBcrXyisto
+         cYNImAHI5HY+LUbXbDO+vtFt4PeYoLKI1+n3oEluC1v4Ed/O4xp/aFagJ9VxSiH8YHGw
+         FYgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=IWHkOExNTIIKhjxQS3sMtn2Z92YI/DSSmmMbSwEzbEA=;
-        fh=W4zF4QFPU0at287DUeDsNc/tapnttnXbyOL3Zr/2smc=;
-        b=gggAE71LZFE1ZMX81u8w888JYtFjWIRJW3EdmFVjpNimTBfSo21rVwhT8mSStcMOdm
-         b/k5AE/DGSR8XlFxDLU6YYTxIb1P+bcqp7Labcn9EzF4zqESeIIW5u6Y+Ocf+ZHUIsim
-         eL6zkUxZEkhNdpVXa+ffEPYosnnuJHilxcv6dpocnKhpFHqeGvq82aOw6h/BT8RCLCuB
-         r8LANdtzejBlsbpwZ5reEmaTzNi5v+9Aub4rnCmLyL8dMcWeGjsUip6z852D9rxW0f7T
-         qu8n686zNRVcpnqynXj1DL0kP7v8s5Oft0t/GcmjizD7xPxUTeenFsf3fjoIjdspt6fN
-         j4Jw==;
+        bh=Wl1gc75zEow3srAWy7eV7VFmzyOiVWcKqUcpVHuYC6w=;
+        fh=4DQavjddgEvnETfRDxBk20ZYrGv1RvAqaUhIS9nDink=;
+        b=QR+IgPl+KP/GJRLiuAr+bJHFn+gATEAvZCQXy1ppq02n+8jHMbfSAMdiUIb/8AbGpU
+         0bRxXgX82DPAL2HQ7nCkTgtlylj7D7r5k8tAo7etMrpRbXpD+lCsbRQWx7fH9bxPpJ8x
+         XgJcNaEaFPL1k0FgMiZfTf8IqMZT0yj5uzXoRwNd7prxvOlMkLhdBZ7Xo3JYbhIQ+NIP
+         1jdioY6rajcHcnxiH7nbX3t+MPg62vruHpoPxcbqI3syB5neLeYVf6fEsCBxwt325Vv3
+         tVhqDTH+Z4qXpd9fpSVMo2uS8KaDocQCeODIti76QlEluMD5IJ3+JGojpsxFydS2tDEt
+         UuIQ==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795551596; x=1796156396; darn=lists.linux.dev;
+        d=gmail.com; s=20260707; t=1795621939; x=1796226739; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IWHkOExNTIIKhjxQS3sMtn2Z92YI/DSSmmMbSwEzbEA=;
-        b=OC0kw8dI13VfP7bPU/OXRfiPprPhkE0rTc+a4NCBtLgr/zu7HSRCJGHrxDEdx4OEKb
-         2PfsBSmfCD3hJWyBqVQjpjZDOL1gIRpojPj6LuVgLOJTxiOWnyyRLdQG08S0YAGDb28E
-         Xb2Apj4C4sGHvk7dTlG0bnvKo2zSXo9kz7yDkjEPseIQ4HGdLoVhGk8ZZ7cwN5pSxJXu
-         nzVMCnrgdcqGUwDbJjnWRJwBwaz3fLkQHBtW+Fyg5QHRnaD+zbzCm2dxllBNdnmlAoh8
-         6FER2n/8Ql2yaRi/YtzEO9HNnFW4aIFXTMNkGvZdQh0azYbgX3+2nrpz/+xyaUnAm0PR
-         ENHQ==
+        bh=Wl1gc75zEow3srAWy7eV7VFmzyOiVWcKqUcpVHuYC6w=;
+        b=dUpuXlpOisquLJerK3ED14Z++JZBPL0gDHKYafcd2ofaTxbVeu3uOsYDSJyVIZODYp
+         P5o9w46MFnSRkK2qynH3bzz/4yoVGTJcKkd70+eN1fCQQwgjqfk9C4Hq6juix1yCQExH
+         ZNm6X3BAO2rB7o3ZY+uSr5HZEY4hmQxo5ZzGVCTLCpHiJbG4nd7j2PxjaDKL6K+utwX8
+         RLtmjbpD7T14OIfgWanfIMqnVW3clHdoekEoePytjKnOh97SxKLOKzaEP4Q2krwzIVJn
+         HYllfwFa8iJLRpofU6PjSEagsnSn2hP0nUuNQr4DQMeXjkAZvbSlNn4mZjeCnGBTuvCn
+         05oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795551596; x=1796156396;
+        d=1e100.net; s=20260707; t=1795621939; x=1796226739;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IWHkOExNTIIKhjxQS3sMtn2Z92YI/DSSmmMbSwEzbEA=;
-        b=NzgvbOXzndLRaMj/71cYP4TxP+zfc73F1CK2exrhAC5EtlQ8kZT+Ad3nUQA4fx+EAX
-         nhgPJp60l+bR6QlVNTtip3SO7aNcKhc0lc4Frulzb70AUZfRdm4MZO4e8IHnECbTO2SA
-         Ex+XeRZmRVlSjTjD4i5KX9Kqt2FzTfr3+D06WhUyB6Wvs2E+02dOCHNPOHT5i/UYvj1U
-         JYeh0ITwvI44iMqwY3xW9cP6JDik00WGeydO39vRIMbxpJQ6YiL7lgG/6XkdEMIpeqyc
-         Bnar+qU8MFlrOqobTj0d0N2oEgSxp3YWAwUnBrzvItYfPvCTFJGbtTQdiCLja0XBq/4d
-         yfaA==
-X-Forwarded-Encrypted: i=1; AL+hErEBc4F9UkMyRALoiogn3sDZCbM80shd/sjI3yGqoLn5U8mgdtOqXYwx6AGjONfMFJLpHj6+@lists.linux.dev
-X-Gm-Message-State: APuU4Z9arCuUdm6CNuAf5wJn252l8uUvE2jjRm3ISHs3ftT2rBCPc/XM
-	ejvHGybE6CGiT3PjLKuFBP7kulzwHHNhidTbDQ3wouTU4S099E37r/TSbtvMZpMsyEdTEYsHduN
-	YxfZXHs2LJ68G7Adj8a27Opgzkc6mDqQ=
-X-Gm-Gg: AZFdTZd92QdzoN9l81OyqeSm5s4BbKKpd89T9N+2GRtGE/u+f7KaoQfbQothQhzgYyN
-	hMuiGFmmt0n7UzsTfOa52b7Q0HrdU9gI8vF+2BJq2YNNpw4Diql0ZWztBPrh792fB7151EwwyRk
-	2nKDE7FYMcYhpo3axjsvLgl6rsaFKGVkIchBXjekOIHTDsQjKtlRGGbb8C2u0oenYtbbjqJvYoq
-	3NtluidD+AhbidTU/vDSKqqJhOzYrlykE58LByVzIG0rIyfFEbOtnl8sgLVpRH8l/ur+T0tv7s3
-	/YvdecpRCAdPC3f1RA7//OhA1iSerYc9SaAw3HSaXQlZv+9y4qeuIGGJkX9llg79J/gUQp+2AOa
-	Cyv2huNj2vUIpQykx/mnnBmjCZ2/FrqQdhJy8zGp4K5Lhkuo9opWdGSQWMGO327G/s/k1YKJoSU
-	rN7aAPgdcgZ4L8fBhH4V3YBF8C3qaNgl/UOXJ2gNLroOtfc5HMcRTAi2bA
-X-Received: by 2002:aa7:87cf:0:b0:8b6:12fd:7286 with SMTP id
- d2e1a72fcca58-8cf8604d889mr607750b3a.58.1795551595957; Tue, 24 Nov 2026
- 12:19:55 -0800 (PST)
+        bh=Wl1gc75zEow3srAWy7eV7VFmzyOiVWcKqUcpVHuYC6w=;
+        b=lUJ033Fd48U2EijTnsZK5ztJmmLcEbyoA3NyjqED/xGIa9p1x/R9wgjK3CDNxroCLH
+         YSQh5Go7cd54BEfFUnVDN5iW171srwkBgO4+3ZOoHSnXUkISAmKCBElttvjmqVgsNbTh
+         FT/MBgKwrozCaB1rQ1FTOAhn1o92hXV4exhtQMu49rA/+DBKkEtN+Tz77vWSa3q3ARGU
+         4fRmL8r53g2VlpV0pdFLsQn8ukUfWdcnEEZyxfr6cQI5Kizo9C6afqGXDwKhi03McqjW
+         Uyw1UNBnu8cUJYdSMp6z8oPEsDsRteCgs5493ikguI50Yru1eQtt1jBpRq57JtHxVfY9
+         JaIA==
+X-Forwarded-Encrypted: i=1; AL+hErESJswzEkeDGlKMDvHPu8kitG7of3UTBHqwE4qqHEO4tbleIXla9pkAbtzASYuUCpnm35tL@lists.linux.dev
+X-Gm-Message-State: APuU4Z+D4zZC7fR5qnymRKOqOeNrCYPyRpt4/FShFXGRLfh3ARgDR3N8
+	qyup2refdI19SSzYfY+peOZ/dBuMChvuNZGzIq3FdtMfht0gt1tkJP3D3f1OR+qOcE98qSFhiKA
+	GxDp/AAoKJg/vTT0QhS9mPD+6B+1ROGo=
+X-Gm-Gg: AZFdTZfhA+AWQKnpp6uRAq7U8BV4DONFBGh/XnYxlzz60VcRJ651N7tJtPKpG2KORWl
+	zbfxe8WZDUtx5TVdMt9Cu67nEnRD5GswUGYjYDFy9fF0ZJXmEtaYgw9vKfvzk7DhXuKblinO9n4
+	j92Wcz7cYNDiPA6vdpPOcwfmVYQpDy9DhK2+ECunWnhKvzsiXKnCKHuQV+WixFKt4CFCgbSqoVW
+	+y47EDl3ncEaPPjDHaIAP2TCH+Fo4gOuf1le4zxIpQtYUbEvIC/ymZvX8DIQ+uglk4vVsxkaMgG
+	Ecb4Go5Z1fgpddyjslzKjtEHRahfa3l5vOr3bpumyRMrPLw+mjhSaxcEWujqNwitGBRBVSJ+ZUQ
+	w0rxtvLDJSbOYTnL7vTn2krSVoBEM4/XelLc5VQjFLo16XM4Yx71A4l5Z9yMPQs6nMZ/yQFl60G
+	LppoLujXpIXRllQoURARwVVNaESw/SDceEz8MUTTZ584BgSC55xkGHNTfcoA0uhPrxTTJd
+X-Received: by 2002:a05:6a00:1c84:b0:89d:a947:9d58 with SMTP id
+ d2e1a72fcca58-8c87bfa78d6mr15873197b3a.25.1795621938615; Wed, 25 Nov 2026
+ 07:52:18 -0800 (PST)
 X-Mailing-List: quic@lists.linux.dev
 List-Id: <quic.lists.linux.dev>
 List-Post: <mailto:quic@lists.linux.dev>
@@ -105,14 +105,14 @@ List-Unsubscribe: <mailto:quic+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:quic+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-References: <21e45bc3fabb264d05600bfc7c32f1e680c8140a.1795393691.git.lucien.xin@gmail.com>
- <179548328461.3135.7564598888424511077@kernel.org>
-In-Reply-To: <179548328461.3135.7564598888424511077@kernel.org>
+References: <5c305e22057f748d5c4d4cbc94a1e14271dbc485.1795393691.git.lucien.xin@gmail.com>
+ <179548328755.3135.13551034983466058259@kernel.org>
+In-Reply-To: <179548328755.3135.13551034983466058259@kernel.org>
 From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 24 Nov 2026 15:19:44 -0500
-X-Gm-Features: Aa3M54rfVVIoS2yfErEj9uGMU9IT79u6PyZ7COn7zv9bV2E6axQ8BLvwPXukCPQ
-Message-ID: <CADvbK_cRwWH6xLeQa6HwnTMTAfpo-h1CSyP3LJW+oxLvVvtUgQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v19 12/15] quic: add crypto packet encryption and decryption
+Date: Wed, 25 Nov 2026 10:52:07 -0500
+X-Gm-Features: Aa3M54pb6nKYJidOZT5TgP5nXd3wLNCTpX3AZEaTxx4hR_vcQqSA7EC-JYn_mcw
+Message-ID: <CADvbK_e4PXuzSrvuErCMQ2wPSFrvOW7-JwruzUBbLeENkKOg9w@mail.gmail.com>
+Subject: Re: [PATCH net-next v19 15/15] quic: add packet parser base
 To: netdev-bot+sashiko@kernel.org
 Cc: netdev@vger.kernel.org, quic@lists.linux.dev, davem@davemloft.net, 
 	kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, 
@@ -132,10 +132,10 @@ Content-Transfer-Encoding: quoted-printable
 On Mon, Nov 23, 2026 at 8:21=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
 te:
 >
-> Thank you for your contribution! Sashiko AI review found 3 potential
+> Thank you for your contribution! Sashiko AI review found 1 potential
 > issue(s) to consider.
 >
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 1 =C2=B7 Low: 1
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
 >
 > If you believe none of the issues are legitimate, please reply to each
 > issue of Medium severity or higher and explain why the AI is wrong.
@@ -145,742 +145,95 @@ k
 y
 > (one such reply per series is enough).
 >
-> - [High] quic: missing packet number decode on backlog retry in
->   quic_crypto_decrypt()
-> - [Medium] Retry and NEW_TOKEN tokens now carry a sequential 64-bit
->   counter in cleartext.
-> - [Low] The kernel-doc for quic_crypto_decrypt() says 'Return: 0 on
->   success, -EINPROGRESS for async operation, or negative error.' It also=
-=E2=80=A6
+> - [Medium] When ALPN demux is enabled, a valid ClientHello with an ALPN
+>   extension longer than 128 bytes is silently dropped, so that client=E2=
+=80=A6
 >
 > --
 >
-> quic: add crypto packet encryption and decryption
+> quic: add packet parser base
 >
-> This patch adds AEAD payload protection and QUIC header protection for
-> the TX and RX paths through quic_crypto_encrypt() and
-> quic_crypto_decrypt(). It also adds Retry integrity tag computation and
-> helpers to generate and verify Retry and address validation tokens.
+> This patch adds RX packet parsing for QUIC. Sockets are looked up by
+> connection ID and address, and Initial packets are decrypted to pull ALPN
+> out of the TLS ClientHello so the right listener can be selected. It also
+> adds ICMP PMTU handling, deferred packet processing, and the request sock
+> and backlog infrastructure for incoming connections.
 >
-> > diff --git a/net/quic/crypto.c b/net/quic/crypto.c
-> > index c28c6fa565c1a..ccb1050921c34 100644
-> > --- a/net/quic/crypto.c
-> > +++ b/net/quic/crypto.c
-> > @@ -269,6 +270,485 @@ ciphers[QUIC_CIPHER_MAX + 1 - QUIC_CIPHER_MIN] =
-=3D {
->
-> [ ... ]
->
-> > +/* Decrypts a QUIC packet after reception.  This function removes head=
-er
-> > + * protection, decrypts the payload, and processes any key updates if =
-the key
-> > + * phase bit changes.
-> > + *
-> > + * Return: 0 on success, -EINPROGRESS for async operation, or negative=
- error.
-> > + */
-> > +int quic_crypto_decrypt(struct quic_crypto *crypto, struct sk_buff *sk=
-b,
-> > +                     gfp_t gfp)
-> > +{
->
-> [Severity: Low]
-> Is this return documentation complete? quic_crypto_decrypt() also returns
-> several negative values that act as control signals rather than ordinary
-> drop-the-packet errors:
->
->         if (!cb->backlog) /* Key update requires process context. */
->                 return -EKEYREVOKED;
->         /* Cannot do key update while async crypto is in progress. */
->         if (unlikely(atomic_read(&crypto->async_pending[phase])))
->                 return -EBUSY;
->         ...
-> err:
->         if (err =3D=3D -EBADMSG && ++crypto->rx_fails >=3D crypto->cipher=
-->rxlimit)
->                 err =3D -EKEYEXPIRED;
->
-> -EKEYREVOKED defers the key update to process context. -EBUSY is a
-> transient retry-later result. -EKEYEXPIRED means the integrity limit was
-> reached, and RFC 9001 section 6.6 requires the connection to be closed.
->
-> The text "processes any key updates if the key phase bit changes" also
-> doesn't hold for the -EKEYREVOKED and -EBUSY cases. In both, the key upda=
-te
-> is postponed.
->
-> quic_crypto_encrypt() has the same gap for its confidentiality limit:
->
->         if (crypto->tx_count[cb->key_phase] >=3D crypto->cipher->txlimit)
->                 return -EKEYEXPIRED;
->
-> Could these return values be documented, so that the callers added later =
-in
-> the series know which ones need more than a plain drop? A caller that dro=
-ps
-> on every negative return would lose key-update packets that arrive outsid=
-e
-> backlog context.
+> > diff --git a/net/quic/packet.c b/net/quic/packet.c
+> > index b6f76681b6902..919745d954403 100644
+> > --- a/net/quic/packet.c
+> > +++ b/net/quic/packet.c
 >
 > [ ... ]
 >
-> > @@ -566,6 +1046,257 @@ int quic_crypto_initial_keys_install(struct quic=
-_crypto *crypto,
->
-> [ ... ]
->
-> > +int quic_crypto_generate_token(struct quic_crypto *crypto, void *addr,
-> > +                            u32 addrlen, struct quic_conn_id *conn_id,
-> > +                            u8 *token, u32 *tlen)
-> > +{
->
-> [ ... ]
->
-> > +     /* Use counter for nonce derivation to prevent collisions. */
-> > +     counter =3D crypto->tx_count[1]++;
-> > +     p =3D token_buf;
-> > +     p =3D quic_put_int(p, flag, sizeof(flag));
-> > +     p =3D quic_put_int(p, counter, sizeof(counter));
-> > +     p =3D quic_put_int(p, ts, tslen);
-> > +     p =3D quic_put_data(p, addr, addrlen);
-> > +     quic_put_data(p, conn_id->data, conn_id->len);
-> > +
-> > +     err =3D quic_crypto_token_protect(crypto, token_buf, len,
-> > +                                     sizeof(flag) + sizeof(counter), t=
-rue);
+> > +     /* Read TLS extensions length (2 bytes). */
+> > +     if (!quic_get_int(&p, &len, &length, 2))
+> > +             return err;
+> > +     if (len > (u32)length) /* Limit len to extensions length if large=
+r. */
+> > +             len =3D length;
+> > +     while (len >=3D 4) { /* Scan extensions for ALPN (TLS_EXT_alpn). =
+*/
+> > +             if (exts++ >=3D TLS_MAX_EXTENSIONS)
+> > +                     return err;
+> > +             if (!quic_get_int(&p, &len, &type, 2))
+> > +                     break;
+> > +             if (!quic_get_int(&p, &len, &length, 2))
+> > +                     break;
+> > +             /* Incomplete TLS extensions: skip ALPN demux. */
+> > +             if (len < (u32)length)
+> > +                     return 0;
+> > +             if (type =3D=3D TLS_EXT_alpn) { /* Found ALPN extension. =
+*/
+> > +                     if (length > QUIC_ALPN_MAX_LEN)
+> > +                             return err;
 >
 > [Severity: Medium]
-> Does this put a linkable sequence number in cleartext into every token?
 >
-> The counter occupies token bytes 1-8. quic_crypto_token_protect() uses it
-> only as AAD and as nonce input (adlen =3D 1 + 8), so it is never encrypte=
-d.
-> quic_crypto_set_token_secret() seeds it only once per crypto instance:
+> Is returning err the right choice in quic_packet_get_alpn() when the ALPN
+> extension is longer than QUIC_ALPN_MAX_LEN (128)?
 >
->         get_random_bytes(&crypto->tx_count[1], sizeof(crypto->tx_count[1]=
-));
+> RFC 7301 defines ProtocolNameList<2..2^16-1>, so a ClientHello that offer=
+s
+> more than 128 bytes of protocol names is still well formed.
 >
-> As a result, successive tokens from the same issuer carry X, X+1, X+2, an=
-d
-> so on in the clear.
->
-> Clients send these tokens back in cleartext Initial packets. Suppose a
-> server issues several NEW_TOKEN tokens on one connection, and the client
-> uses each one on a separate later connection, as RFC 9000 section 8.1.3
-> asks in order to avoid linking. An on-path observer could still group tho=
-se
-> connections by their adjacent counter values.
->
-> For a listener that issues Retry tokens, the gap between two observed
-> counters also shows how many tokens were issued in between.
->
-> The v18 changelog moved the timestamp into the encrypted payload "to
-> prevent exposing server uptime and linking NEW_TOKEN tokens to their
-> issuing connections".
->
-> Would a random per-token nonce stored in the token, or a nonce input that
-> isn't visible on the wire, keep nonces unique without adding a new linkab=
-le
-> cleartext field?
->
-> [ ... ]
->
-> > @@ -269,6 +270,485 @@ ciphers[QUIC_CIPHER_MAX + 1 - QUIC_CIPHER_MIN] =
-=3D {
-> >                   QUIC_AEAD_TX_CHACHA, QUIC_AEAD_RX_CHACHA),
-> >  };
-> >
-> > +static bool quic_crypto_is_cipher_ccm(struct quic_crypto *crypto)
-> > +{
-> > +     return crypto->cipher_type =3D=3D TLS_CIPHER_AES_CCM_128;
-> > +}
-> > +
-> > +static bool quic_crypto_is_cipher_chacha(struct quic_crypto *crypto)
-> > +{
-> > +     return crypto->cipher_type =3D=3D TLS_CIPHER_CHACHA20_POLY1305;
-> > +}
-> > +
-> > +static void *quic_crypto_skcipher_mem_alloc(struct crypto_skcipher *tf=
-m,
-> > +                                         u32 mask_size, u8 **iv,
-> > +                                         struct skcipher_request **req=
-,
-> > +                                         gfp_t gfp)
-> > +{
-> > +     unsigned int iv_size, req_size;
-> > +     unsigned int len;
-> > +     u8 *mem;
-> > +
-> > +     iv_size =3D crypto_skcipher_ivsize(tfm);
-> > +     req_size =3D sizeof(**req) + crypto_skcipher_reqsize(tfm);
-> > +
-> > +     len =3D mask_size;
-> > +     len +=3D iv_size;
-> > +     len +=3D crypto_skcipher_alignmask(tfm) &
-> > +            ~(crypto_tfm_ctx_alignment() - 1);
-> > +     len =3D ALIGN(len, crypto_tfm_ctx_alignment());
-> > +     len +=3D req_size;
-> > +
-> > +     mem =3D kzalloc(len, gfp);
-> > +     if (!mem)
-> > +             return NULL;
-> > +
-> > +     *iv =3D (u8 *)PTR_ALIGN(mem + mask_size,
-> > +                           crypto_skcipher_alignmask(tfm) + 1);
-> > +     *req =3D (struct skcipher_request *)PTR_ALIGN(*iv + iv_size,
-> > +                                                 crypto_tfm_ctx_alignm=
-ent());
-> > +
-> > +     return (void *)mem;
-> > +}
-> > +
-> > +/* Extracts and reconstructs the packet number from an incoming QUIC p=
-acket. */
-> > +static int quic_crypto_get_number(struct sk_buff *skb)
-> > +{
-> > +     struct quic_skb_cb *cb =3D QUIC_SKB_CB(skb);
-> > +     s64 number_max =3D cb->number;
-> > +     u32 len =3D cb->length;
-> > +     u8 *p;
-> > +
-> > +     /* rfc9000#section-17.1:
-> > +      *
-> > +      * Once header protection is removed, the packet number is decode=
-d by
-> > +      * finding the packet number value that is closest to the next ex=
-pected
-> > +      * packet. The next expected packet is the highest received packe=
+> Other cases this parser cannot demux return 0 and keep the current
+> listener. Those cases are a missing CRYPTO frame, a non-zero CRYPTO offse=
 t
-> > +      * number plus one.
-> > +      */
-> > +     p =3D (u8 *)quic_hdr(skb) + cb->number_offset;
-> > +     if (!quic_get_int(&p, &len, &cb->number, cb->number_len))
-> > +             return -EINVAL;
-> > +     cb->number =3D quic_get_num(number_max, cb->number, cb->number_le=
-n);
-> > +     return 0;
-> > +}
-> > +
-> > +#define QUIC_SAMPLE_LEN              16
-> > +
-> > +#define QUIC_HEADER_FORM_BIT 0x80
-> > +#define QUIC_LONG_HEADER_MASK        0x0f
-> > +#define QUIC_SHORT_HEADER_MASK       0x1f
-> > +
-> > +/* Header Protection. */
-> > +static int quic_crypto_header_protect(struct quic_crypto *crypto,
-> > +                                   struct sk_buff *skb, bool enc, gfp_=
-t gfp)
-> > +{
-> > +     struct quic_skb_cb *cb =3D QUIC_SKB_CB(skb);
-> > +     u8 *mask, *iv, *p, h_mask, chacha;
-> > +     struct skcipher_request *req;
-> > +     struct crypto_skcipher *tfm;
-> > +     struct sk_buff *trailer;
-> > +     struct scatterlist sg;
-> > +     int err, i;
-> > +
-> > +     chacha =3D quic_crypto_is_cipher_chacha(crypto);
-> > +     if (!enc) {
-> > +             tfm =3D crypto->rx_hp_tfm;
-> > +             if (cb->length < QUIC_PN_MAX_LEN + QUIC_SAMPLE_LEN)
-> > +                     return -EINVAL;
-> > +
-> > +             err =3D skb_cow_data(skb, 0, &trailer);
-> > +             if (err < 0)
-> > +                     return err;
-> > +     } else {
-> > +             tfm =3D crypto->tx_hp_tfm;
-> > +     }
-> > +
-> > +     mask =3D quic_crypto_skcipher_mem_alloc(tfm, QUIC_SAMPLE_LEN, &iv=
-, &req,
-> > +                                           gfp);
-> > +     if (!mask)
-> > +             return -ENOMEM;
-> > +
-> > +     /* rfc9001#section-5.4.2: Header Protection Sample:
-> > +      *
-> > +      *   # pn_offset is the start of the Packet Number field.
-> > +      *   sample_offset =3D pn_offset + 4
-> > +      *
-> > +      *   sample =3D packet[sample_offset..sample_offset+sample_length=
-]
-> > +      *
-> > +      * rfc9001#section-5.4.3: AES-Based Header Protection:
-> > +      *
-> > +      *   header_protection(hp_key, sample):
-> > +      *     mask =3D AES-ECB(hp_key, sample)
-> > +      *
-> > +      * rfc9001#section-5.4.4: ChaCha20-Based Header Protection:
-> > +      *
-> > +      *   header_protection(hp_key, sample):
-> > +      *     counter =3D sample[0..3]
-> > +      *     nonce =3D sample[4..15]
-> > +      *     mask =3D ChaCha20(hp_key, counter, nonce, {0,0,0,0,0})
-> > +      */
-> > +     p =3D skb->data + cb->number_offset + QUIC_PN_MAX_LEN;
-> > +     memcpy((chacha ? iv : mask), p, QUIC_SAMPLE_LEN);
-> > +     sg_init_one(&sg, mask, QUIC_SAMPLE_LEN);
-> > +     skcipher_request_set_tfm(req, tfm);
-> > +     skcipher_request_set_crypt(req, &sg, &sg, QUIC_SAMPLE_LEN, iv);
-> > +     err =3D crypto_skcipher_encrypt(req);
-> > +     if (err)
-> > +             goto out;
-> > +
-> > +     /* rfc9001#section-5.4.1:
-> > +      *
-> > +      * mask =3D header_protection(hp_key, sample)
-> > +      *
-> > +      * pn_length =3D (packet[0] & 0x03) + 1
-> > +      * if (packet[0] & 0x80) =3D=3D 0x80:
-> > +      *    # Long header: 4 bits masked
-> > +      *    packet[0] ^=3D mask[0] & 0x0f
-> > +      * else:
-> > +      *    # Short header: 5 bits masked
-> > +      *    packet[0] ^=3D mask[0] & 0x1f
-> > +      *
-> > +      * # pn_offset is the start of the Packet Number field.
-> > +      * packet[pn_offset:pn_offset+pn_length] ^=3D mask[1:1+pn_length]
-> > +      */
-> > +     p =3D skb->data;
-> > +     h_mask =3D ((*p & QUIC_HEADER_FORM_BIT) =3D=3D QUIC_HEADER_FORM_B=
-IT) ?
-> > +              QUIC_LONG_HEADER_MASK : QUIC_SHORT_HEADER_MASK;
-> > +     *p =3D (u8)(*p ^ (mask[0] & h_mask));
-> > +     if (!enc) {
-> > +             if (!quic_hdr(skb)->form)
-> > +                     cb->key_phase =3D quic_hdr(skb)->key;
-> > +             cb->number_len =3D quic_hdr(skb)->pnl + 1;
-> > +     }
-> > +     p +=3D cb->number_offset;
-> > +     for (i =3D 1; i <=3D cb->number_len; i++)
-> > +             *p++ ^=3D mask[i];
-> > +
-> > +     if (!enc)
-> > +             err =3D quic_crypto_get_number(skb);
-> > +out:
-> > +     kfree_sensitive(mask);
-> > +     return err;
-> > +}
-> > +
-> > +static void *quic_crypto_aead_mem_alloc(struct crypto_aead *tfm, u32 c=
-tx_size,
-> > +                                     u8 **iv, struct aead_request **re=
-q,
-> > +                                     struct scatterlist **sg, u32 nsg,
-> > +                                     gfp_t gfp)
-> > +{
-> > +     unsigned int iv_size, req_size;
-> > +     unsigned int len;
-> > +     u8 *mem;
-> > +
-> > +     iv_size =3D crypto_aead_ivsize(tfm);
-> > +     req_size =3D sizeof(**req) + crypto_aead_reqsize(tfm);
-> > +
-> > +     len =3D ctx_size;
-> > +     len +=3D iv_size;
-> > +     len +=3D crypto_aead_alignmask(tfm) & ~(crypto_tfm_ctx_alignment(=
-) - 1);
-> > +     len =3D ALIGN(len, crypto_tfm_ctx_alignment());
-> > +     len +=3D req_size;
-> > +     len =3D ALIGN(len, __alignof__(struct scatterlist));
-> > +     len +=3D nsg * sizeof(**sg);
-> > +
-> > +     mem =3D kzalloc(len, gfp);
-> > +     if (!mem)
-> > +             return NULL;
-> > +
-> > +     *iv =3D (u8 *)PTR_ALIGN(mem + ctx_size, crypto_aead_alignmask(tfm=
-) + 1);
-> > +     *req =3D (struct aead_request *)PTR_ALIGN(*iv + iv_size,
-> > +                                             crypto_tfm_ctx_alignment(=
-));
-> > +     *sg =3D (struct scatterlist *)PTR_ALIGN((u8 *)*req + req_size,
-> > +                                           __alignof__(struct scatterl=
-ist));
-> > +
-> > +     return (void *)mem;
-> > +}
-> > +
-> > +static void quic_crypto_done(void *data, int err)
-> > +{
-> > +     struct sk_buff *skb =3D data;
-> > +     struct quic_crypto *crypto;
-> > +     struct quic_skb_cb *cb;
-> > +
-> > +     if (err =3D=3D -EINPROGRESS)
-> > +             return;
-> > +
-> > +     cb =3D QUIC_SKB_CB(skb);
-> > +     crypto =3D *(struct quic_crypto **)cb->crypto_ctx;
-> > +     atomic_dec(&crypto->async_pending[cb->key_phase]);
-> > +
-> > +     kfree_sensitive(cb->crypto_ctx);
-> > +     cb->crypto_err =3D err;
-> > +     cb->crypto_done(skb);
-> > +}
-> > +
-> > +/* AEAD Usage. */
-> > +static int quic_crypto_payload_protect(struct quic_crypto *crypto,
-> > +                                    struct sk_buff *skb, bool enc, gfp=
-_t gfp)
-> > +{
-> > +     u8 *base_iv, *iv, i, nonce[QUIC_IV_LEN], ccm, phase;
-> > +     struct quic_skb_cb *cb =3D QUIC_SKB_CB(skb);
-> > +     u32 len, hlen, sglen, nsg;
-> > +     struct aead_request *req;
-> > +     struct crypto_aead *tfm;
-> > +     struct sk_buff *trailer;
-> > +     struct scatterlist *sg;
-> > +     void *ctx;
-> > +     __be64 n;
-> > +     int err;
-> > +
-> > +     ccm =3D quic_crypto_is_cipher_ccm(crypto);
-> > +     phase =3D cb->key_phase;
-> > +     hlen =3D cb->number_offset + cb->number_len;
-> > +     if (enc) {
-> > +             tfm =3D crypto->tx_tfm[phase];
-> > +             base_iv =3D crypto->tx_iv[phase];
-> > +             len =3D skb->len;
-> > +             err =3D skb_cow_data(skb, QUIC_TAG_LEN, &trailer);
-> > +             if (err < 0)
-> > +                     return err;
-> > +             pskb_put(skb, trailer, QUIC_TAG_LEN);
-> > +             if (!quic_hdr(skb)->form)
-> > +                     quic_hdr(skb)->key =3D phase;
-> > +             sglen =3D skb->len;
-> > +             nsg =3D (u32)err;
-> > +     } else {
-> > +             tfm =3D crypto->rx_tfm[phase];
-> > +             base_iv =3D crypto->rx_iv[phase];
-> > +             len =3D cb->length + cb->number_offset;
-> > +             if (len - hlen < QUIC_TAG_LEN)
-> > +                     return -EINVAL;
-> > +             sglen =3D len;
-> > +             nsg =3D 1;
-> > +     }
-> > +
-> > +     ctx =3D quic_crypto_aead_mem_alloc(tfm, sizeof(void *), &iv, &req=
-, &sg,
-> > +                                      nsg, gfp);
-> > +     if (!ctx)
-> > +             return -ENOMEM;
-> > +
-> > +     sg_init_table(sg, nsg);
-> > +     err =3D skb_to_sgvec(skb, sg, 0, sglen);
-> > +     if (err < 0)
-> > +             goto out;
-> > +
-> > +     /* rfc9001#section-5.3:
-> > +      *
-> > +      * The associated data, A, for the AEAD is the contents of the QU=
-IC
-> > +      * header, starting from the first byte of either the short or lo=
-ng
-> > +      * header, up to and including the unprotected packet number.
-> > +      *
-> > +      * The nonce, N, is formed by combining the packet protection IV =
-with
-> > +      * the packet number.  The 62 bits of the reconstructed QUIC pack=
-et
-> > +      * number in network byte order are left-padded with zeros to the=
- size
-> > +      * of the IV. The exclusive OR of the padded packet number and th=
-e IV
-> > +      * forms the AEAD nonce.
-> > +      */
-> > +     memcpy(nonce, base_iv, QUIC_IV_LEN);
-> > +     n =3D cpu_to_be64(cb->number);
-> > +     for (i =3D 0; i < sizeof(n); i++)
-> > +             nonce[QUIC_IV_LEN - sizeof(n) + i] ^=3D ((u8 *)&n)[i];
-> > +
-> > +     /* For CCM based ciphers, first byte of IV is a constant. */
-> > +     iv[0] =3D TLS_AES_CCM_IV_B0_BYTE;
-> > +     memcpy(&iv[ccm], nonce, QUIC_IV_LEN);
-> > +     aead_request_set_tfm(req, tfm);
-> > +     aead_request_set_ad(req, hlen);
-> > +     aead_request_set_crypt(req, sg, sg, len - hlen, iv);
-> > +     if (cb->sync) {
-> > +             DECLARE_CRYPTO_WAIT(wait);
-> > +
-> > +             aead_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG=
-,
-> > +                                       crypto_req_done, &wait);
-> > +             err =3D enc ? crypto_aead_encrypt(req) : crypto_aead_decr=
-ypt(req);
-> > +             if (err =3D=3D -EINPROGRESS || err =3D=3D -EBUSY)
-> > +                     err =3D crypto_wait_req(err, &wait);
-> > +             goto out;
-> > +     }
-> > +
-> > +     aead_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-> > +                               quic_crypto_done, skb);
-> > +     *(struct quic_crypto **)ctx =3D crypto;
-> > +     atomic_inc(&crypto->async_pending[phase]);
-> > +     cb->crypto_ctx =3D ctx; /* Async free context for quic_crypto_don=
-e() */
-> > +     err =3D enc ? crypto_aead_encrypt(req) : crypto_aead_decrypt(req)=
-;
-> > +     if (err =3D=3D -EINPROGRESS || err =3D=3D -EBUSY) {
-> > +             memzero_explicit(nonce, sizeof(nonce));
-> > +             return -EINPROGRESS;
-> > +     }
-> > +     atomic_dec(&crypto->async_pending[phase]);
-> > +     cb->crypto_ctx =3D NULL;
-> > +
-> > +out:
-> > +     kfree_sensitive(ctx);
-> > +     memzero_explicit(nonce, sizeof(nonce));
-> > +     return err;
-> > +}
-> > +
-> > +/* Encrypts a QUIC packet before transmission.  This function performs=
- AEAD
-> > + * encryption of the packet payload and applies header protection. It =
-handles
-> > + * key phase tracking and key update timing.
-> > + *
-> > + * Return: 0 on success, -EINPROGRESS for async operation, or negative=
- error.
-> > + */
-> > +int quic_crypto_encrypt(struct quic_crypto *crypto, struct sk_buff *sk=
-b,
-> > +                     gfp_t gfp)
-> > +{
-> > +     struct quic_skb_cb *cb =3D QUIC_SKB_CB(skb);
-> > +     int err;
-> > +
-> > +     /* Packet payload is already encrypted (e.g., resumed from async)=
-,
-> > +      * proceed to header protection only.
-> > +      */
-> > +     if (cb->resume) {
-> > +             err =3D cb->crypto_err;
-> > +             if (err)
-> > +                     return err;
-> > +             goto out;
-> > +     }
-> > +
-> > +     cb->key_phase =3D crypto->key_phase;
-> > +     if (crypto->tx_count[cb->key_phase] >=3D crypto->cipher->txlimit)
-> > +             return -EKEYEXPIRED;
-> > +     crypto->tx_count[cb->key_phase]++;
-> > +     err =3D quic_crypto_payload_protect(crypto, skb, true, gfp);
-> > +     if (err)
-> > +             return err;
-> > +out:
-> > +     err =3D quic_crypto_header_protect(crypto, skb, true, gfp);
-> > +     if (err)
-> > +             return err;
-> > +     /* If a key update is pending and this is the first packet using =
-the
-> > +      * new key, save the current time. Later used to clear old keys a=
-fter
-> > +      * some time has passed (see quic_crypto_decrypt()).
-> > +      */
-> > +     if (crypto->key_pending && !crypto->key_update_send_time &&
-> > +         cb->key_phase =3D=3D crypto->key_phase)
-> > +             crypto->key_update_send_time =3D quic_ktime_get_us();
-> > +     return 0;
-> > +}
-> > +
-> > +/* Decrypts a QUIC packet after reception.  This function removes head=
-er
-> > + * protection, decrypts the payload, and processes any key updates if =
-the key
-> > + * phase bit changes.
-> > + *
-> > + * Return: 0 on success, -EINPROGRESS for async operation, or negative=
- error.
-> > + */
-> > +int quic_crypto_decrypt(struct quic_crypto *crypto, struct sk_buff *sk=
-b,
-> > +                     gfp_t gfp)
-> > +{
-> > +     struct quic_skb_cb *cb =3D QUIC_SKB_CB(skb);
-> > +     int err =3D 0;
-> > +     u64 time;
-> > +     u8 phase;
-> > +
-> > +     /* Payload was decrypted asynchronously.  Proceed with parsing pa=
-cket
-> > +      * number and key phase.
-> > +      */
-> > +     if (cb->resume) {
-> > +             err =3D cb->crypto_err;
-> > +             if (err) {
-> > +                     /* Apply same key_pending cleanup as synchronous =
-path to
-> > +                      * avoid deadlock in key update state machine.
-> > +                      */
-> > +                     if (crypto->key_pending &&
-> > +                         cb->key_phase !=3D crypto->key_phase) {
-> > +                             crypto->key_pending =3D 0;
-> > +                             crypto->key_update_time =3D 0;
-> > +                             crypto->key_update_send_time =3D 0;
-> > +                     }
-> > +                     goto err;
-> > +             }
-> > +             err =3D quic_crypto_get_number(skb);
-> > +             if (err)
-> > +                     return err;
-> > +             goto out;
-> > +     }
-> > +     if (!cb->number_len) { /* Packet header not yet decrypted. */
-> > +             err =3D quic_crypto_header_protect(crypto, skb, false, gf=
-p);
-> > +             if (err) {
-> > +                     pr_debug("%s: hd decrypt err %d\n", __func__, err=
-);
-> > +                     return err;
-> > +             }
-> > +     }
-> > +
-> > +     /* rfc9001#section-6:
-> > +      *
-> > +      * The Key Phase bit allows a recipient to detect a change in key=
-ing
-> > +      * material without needing to receive the first packet that trig=
-gered
-> > +      * the change. An endpoint that notices a changed Key Phase bit u=
-pdates
-> > +      * keys and decrypts the packet that contains the changed value.
-> > +      */
-> > +     phase =3D cb->key_phase;
-> > +     if (phase !=3D crypto->key_phase && !crypto->key_pending) {
-> > +             if (!crypto->send_ready) /* Not ready for key update. */
-> > +                     return -EINVAL;
-> > +             if (!cb->backlog) /* Key update requires process context.=
- */
-> > +                     return -EKEYREVOKED;
-> > +             /* Cannot do key update while async crypto is in progress=
-. */
-> > +             if (unlikely(atomic_read(&crypto->async_pending[phase])))
-> > +                     return -EBUSY;
-> > +             err =3D quic_crypto_key_update(crypto); /* Perform key up=
-date. */
-> > +             if (err) {
-> > +                     cb->errcode =3D QUIC_TRANSPORT_ERROR_KEY_UPDATE;
-> > +                     return err;
-> > +             }
-> > +             cb->sync =3D 1;
-> > +             cb->key_update =3D 1; /* Mark packet as triggering key up=
-date. */
-> > +     }
-> > +
-> > +     err =3D quic_crypto_payload_protect(crypto, skb, false, gfp);
-> > +     if (err) {
-> > +             if (err =3D=3D -EINPROGRESS)
-> > +                     return err;
-> > +             /* When using the old keys can not decrypt the packets, t=
-he
-> > +              * peer might start another key_update. Thus, clear the l=
-ast
-> > +              * key_pending so that next packets will trigger the new
-> > +              * key-update.
-> > +              */
-> > +             if (crypto->key_pending && phase !=3D crypto->key_phase) =
-{
-> > +                     crypto->key_pending =3D 0;
-> > +                     crypto->key_update_time =3D 0;
-> > +                     crypto->key_update_send_time =3D 0;
-> > +             }
-> > +             goto err;
-> > +     }
-> > +
-> > +out:
-> > +     /* rfc9001#section-6.2:
-> > +      *
-> > +      * If a packet is successfully processed using the next key and I=
-V,
-> > +      * then the peer has initiated a key update.
-> > +      */
-> > +     if (cb->key_update) {
-> > +             crypto->key_pending =3D 1;
-> > +             crypto->key_derived =3D 0;
-> > +             crypto->key_phase =3D !crypto->key_phase;
-> > +     }
-> > +     /* rfc9001#section-6.1:
-> > +      *
-> > +      * An endpoint MUST retain old keys until it has successfully
-> > +      * unprotected a packet sent using the new keys. An endpoint SHOU=
-LD
-> > +      * retain old keys for some time after unprotecting a packet sent=
- using
-> > +      * the new keys.
-> > +      */
-> > +     if (crypto->key_pending && cb->key_phase =3D=3D crypto->key_phase=
-) {
-> > +             time =3D crypto->key_update_send_time;
-> > +             if (time &&
-> > +                 quic_ktime_get_us() - time >=3D crypto->key_update_ti=
-me) {
-> > +                     crypto->key_pending =3D 0;
-> > +                     crypto->key_update_time =3D 0;
-> > +                     crypto->key_update_send_time =3D 0;
-> > +             }
-> > +     }
-> > +     return 0;
-> > +err:
-> > +     if (err =3D=3D -EBADMSG && ++crypto->rx_fails >=3D crypto->cipher=
-->rxlimit)
-> > +             err =3D -EKEYEXPIRED;
-> > +     return err;
-> > +}
-> > +
-> >  int quic_crypto_set_cipher(struct quic_crypto *crypto, u32 type)
-> >  {
-> >       const struct quic_cipher *cipher;
+> and incomplete extensions.
 >
-> [Severity: High]
-> What value does cb->number hold when a deferred key-update packet comes
-> back into quic_crypto_decrypt() from process context?
+> The caller, quic_packet_listen_process(), frees the skb on any error:
 >
-> On the first pass in softirq context, cb->number_len is still 0. That
-> means quic_crypto_header_protect() runs: it removes header protection in
-> place, sets cb->key_phase and cb->number_len, and calls
-> quic_crypto_get_number(), which overwrites cb->number with the
-> reconstructed packet number. The flipped key phase then makes the
-> function return -EKEYREVOKED, or -EBUSY while async_pending[phase] is
-> non-zero. The packet is then requeued with cb->backlog set.
+>         err =3D quic_packet_get_alpn(skb, &alpns);
+>         if (err) {
+>                 kfree_skb(skb);
+>                 return err;
+>         }
 >
-> On the second pass cb->resume is 0 and cb->number_len is non-zero. Header
-> protection removal is correctly skipped, but that also skips the only
-> call to quic_crypto_get_number() outside the resume branch.
-> quic_crypto_payload_protect() then builds the AEAD nonce directly from
-> cb->number.
+> With quic_alpn_demux_key enabled, would this drop the client's first
+> Initial packet with no response? No request sock is created and nothing i=
+s
+> sent back. Each retransmit of the same ClientHello would be dropped the
+> same way, so the handshake would time out.
 >
-> For the cb->resume path, the cover letter says callers reset cb->number
-> to the largest previously seen packet number before re-entering, and
-> quic_crypto_get_number() decodes it again. Suppose the backlog re-entry
-> follows the same caller contract. Then cb->number no longer holds this
-> packet's number, the nonce is wrong, and crypto_aead_decrypt() fails
-> with -EBADMSG.
+> This path also does not increment any MIB drop counter. The decrypt
+> failure path above it counts QUIC_MIB_PKT_DECDROP.
+>
+> Would it be more consistent to return 0 here and skip demux, as the
+> function already does for the other cases it cannot demux?
+>
 False.
 
-For the backlog re-entry, cb->number_len is set and cb->resume is 0,
-and neither condition fires, so the already-decoded value is preserved.
+We expect to handle it by either discard it or route it to the socket with
+right ALPN if there's ALPN find, instead of routing it to the incorrect
+socket, besides, ALPN > QUIC_ALPN_MAX_LEN (128) is very uncommon in QUIC.
 
-I will continue to check these Medium findings tomorrow.
-
-Thanks.
-
+> > +                     len =3D length;
+> > +                     found =3D 1;
+> > +                     break;
+> > +             }
 >
-> The result would be that every peer-initiated key update whose first
-> packet lands in softirq context gets dropped. cb->key_update never takes
-> effect, so crypto->key_phase never flips. rx_fails is also incremented
-> for a valid packet. Every later packet from the peer under the new phase
-> goes through the same defer-and-fail cycle, so the connection stalls
-> instead of completing the key update.
->
-> Should quic_crypto_decrypt() call quic_crypto_get_number() when
-> cb->number_len is already set but cb->resume is not? Or must the caller
-> preserve the decoded cb->number across the backlog requeue? If it is the
-> latter, could that be documented next to the cb->number field? The two
-> re-entry paths would then have opposite contracts for the same field.
+> [ ... ]
 >
 > --
 > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
